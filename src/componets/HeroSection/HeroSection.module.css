@@ -1,0 +1,48 @@
+
+.box {
+  position: relative;
+  width: 100%; 
+  height: 300px;
+  margin-left: 0;
+  margin-right: 0;
+  background: url('../../assets/planeBg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.paperPlane {
+  position: absolute;
+  top: 4rem;
+  left: 50%;
+  transform: translateX(0);
+  width: 98px;
+  height: 51px;
+}
+
+@keyframes fly {
+  0% {
+    transform: translateX(0%) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(120%) translateY(-25%) rotate(0deg);
+  }
+  50% {
+    transform: translateX(240%) translateY(-50%) rotate(0deg);
+  }
+  75% {
+    transform: translateX(360%) translateY(-75%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(480%) translateY(-100%) rotate(0deg);
+  }
+}
+
+.animate {
+  animation: fly 0.5s linear forwards;
+}

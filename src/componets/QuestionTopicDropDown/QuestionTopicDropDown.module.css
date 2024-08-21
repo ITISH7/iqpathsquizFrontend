@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700&display=swap');
+
+.tableContainer {
+  margin: 20px auto;
+  padding: 10px ;
+  width: 80%;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3e5f5;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-bottom: 10px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+}
+
+.progress span {
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.toggleButton {
+  background-color: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: separate; 
+  border: 2px solid #ddd;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden; 
+  table-layout: fixed;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  border: 1px solid #ddd;
+}
+
+.table th {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8C8C8C;
+}
+
+.hardBadge {
+  background-color: #FFB09B;
+  color: #C62800;
+  padding: 5px 15px;
+  border-radius: 2rem;
+}
+
+.mediumBadge {
+  background-color: #FEF08A;
+  color: CD910C;
+  padding: 5px 15px;
+  border-radius: 2rem;
+}
+
+.easyBadge {
+  background-color: #A5D4FF;
+  color: #0085FF;
+  padding: 5px 15px;
+  border-radius: 2rem;
+}
+
+.noteButton {
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.icons {
+  padding: auto;
+  margin: auto;
+  text-align: center;
+}
+.problemName{
+  text-align: left;
+}
