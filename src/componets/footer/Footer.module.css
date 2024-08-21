@@ -1,0 +1,89 @@
+.footer {
+    background-color: #4B0082; /* Dark purple background */
+    color: white;
+    padding: 40px 0;
+    padding-top: 120px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    border-radius: 50px 50px 0px 0px;
+  }
+  
+  .footerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .footerLogo img {
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 150px;
+    width: 120px; /* Adjust the logo size as needed */
+  }
+  
+  .footerLogo p {
+    margin-top: 10px;
+    margin-left: 150px;
+    text-align: center;
+    font-size: 14px;
+    margin-right: 210px;
+  }
+  
+  .footerLinks {
+    display: flex;
+    gap: 50px;
+    margin-right: 150px;
+  }
+  
+  .footerLinks h4 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    margin-right: 60px;
+  }
+  
+  .footerLinks ul {
+    list-style: none;
+    padding: 0;
+    font-size: 14px;
+    text-align: left;
+  }
+  
+  .footerLinks li {
+    margin-bottom: 10px;
+  }
+  
+  .footerLinks a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .footerLinks a:hover {
+    text-decoration: underline;
+  }
+  
+  .socialIcons a {
+    color: white;
+    margin-right: 15px;
+    font-size: 20px;
+  }
+  
+  .footerBottom {
+    text-align: center;
+    border-top: 1px solid white;
+    padding-top: 30px;
+    margin-bottom: -30px;
+    padding-bottom: -20px;
+    font-size: 14px;
+  }
+  
+  .socialIcons .img .a{
+    display: flex;
+    justify-content: center;
+    align-items: self-start;
+    flex-direction: row;
+  }

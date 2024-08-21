@@ -1,0 +1,67 @@
+.loginContainer{
+    border: 1px solid grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 20px;
+    position: relative;
+    margin: 0 auto;
+}
+
+  
+  .backgroundShapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    background: url('../../assets/AdblockBg.png');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+  }
+  
+  .backgroundShapes img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .loginDiv {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 100px 0px 100px;
+  }
+  
+  .loginButton {
+    background-color: #6a1b9a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .loginButton:hover {
+    background-color: #7b1fa2;
+  }
+  
+  .loginPara {
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 5px;
+  }
+   
