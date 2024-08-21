@@ -5,7 +5,7 @@ const AddBlock = () => {
     return (
         <div className={styles.loginContainer}>
             <div className={styles.backgroundShapes}>
-                <img src="src\assets\AdblockBg.png" alt="Background Shapes" />
+                
             </div>
             <div className={styles.loginDiv}>
                 <button className={styles.loginButton}>
