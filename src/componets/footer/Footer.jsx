@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
         <div className={styles.footerLogo}>
-          <img src="src\assets\LogoIcon.svg" alt="iQPaths Logo" />
+          <img src="src/assets/LogoIcon.svg" alt="iQPaths Logo" />
           <p>Something here about our motto.</p>
         </div>
 
@@ -32,15 +32,23 @@ const Footer = () => {
           <div>
             <h4>Follow us on</h4>
             <div className={styles.socialIcons}>
-              <img src="src\assets\InstagramIcon.svg" alt="instagram" />
-              <img src="src\assets\YoutubeIcon.svg" alt="youtube" />
-              <img src="src\assets\TwitterIcon.svg" alt="twitter" />
+              <img src="src/assets/InstagramIcon.svg" alt="Instagram" />
+              <img src="src/assets/YoutubeIcon.svg" alt="YouTube" />
+              <img src="src/assets/TwitterIcon.svg" alt="Twitter" />
             </div>
             <h4>Contact Us</h4>
-            <ul>
-              <li> <img className={styles.img} src="src\assets\MailIcon.svg" /> <a className={styles.a} href="mailto:shriyansh@gmail.com">shriyansh@gmail.com</a></li>
-              <li> <img className={styles.img} src="src\assets\FeedbackIcon.svg" /> <a className={styles.a} href="/feedback">Feedback</a></li>
-            </ul>
+            <div className={styles.contactSec}>
+              <ul>
+                <li className={styles.inlineItem}>
+                  <img src="src/assets/MailIcon.svg" alt="Email" />
+                  <a href="mailto:shriyansh@gmail.com">shriyansh@gmail.com</a>
+                </li>
+                <li className={styles.inlineItem}>
+                  <img src="src/assets/FeedbackIcon.svg" alt="Feedback" />
+                  <a href="/feedback">Feedback</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
