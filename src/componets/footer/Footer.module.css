@@ -1,13 +1,14 @@
 .footer {
     background-color: #4B0082; /* Dark purple background */
     color: white;
-    padding: 40px 0;
+    padding: 20px 0;
     padding-top: 120px;
     width: 100%;
     position: relative;
     bottom: 0;
     left: 0;
     border-radius: 50px 50px 0px 0px;
+    height: 550px;
   }
   
   .footerContainer {

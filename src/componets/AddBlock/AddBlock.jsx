@@ -1,15 +1,23 @@
-import React from 'react'
-import utilityStyle from '../../utils/utils.module.css';
+import React from 'react';
+import styles from './AddBlock.module.css';
 
-
-function AddBlock() {
-  return (
-    <div className={`  w-full h-[250px] border-2 border-red-300 mt-10 mb-10 ml-0 mr-0 p-0`}>
-        <div>
-            <h1>Login button</h1>
+const AddBlock = () => {
+    return (
+        <div className={styles.loginContainer}>
+            <div className={styles.backgroundShapes}>
+                <img src="src\assets\AdblockBg.png" alt="Background Shapes" />
+            </div>
+            <div className={styles.loginDiv}>
+                <button className={styles.loginButton}>
+                    <a href="/login"> Login to Join </a>
+                </button>
+                <p className={styles.loginPara}>
+                    Get started now!
+                </p>
+            </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
-export default AddBlock
+export default AddBlock;
+

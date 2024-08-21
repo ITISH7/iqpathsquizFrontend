@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext';
 import AddBlock from './componets/AddBlock/AddBlock';
 import ProgressBar from './componets/ProgressBar/ProgressBar';
 import QuestionTopicDropDown from './componets/QuestionTopicDropDown/QuestionTopicDropDown';
+import Footer from './componets/Footer/Footer';
 
 
 function App() {
@@ -20,6 +21,12 @@ function App() {
       <QuestionTopicDropDown />
       <QuestionTopicDropDown />
       <QuestionTopicDropDown />
+      <QuestionTopicDropDown />
+      <QuestionTopicDropDown />
+      <QuestionTopicDropDown />
+      <QuestionTopicDropDown />
+      <QuestionTopicDropDown />
+      <Footer />
     </AuthProvider>
   )
 }
