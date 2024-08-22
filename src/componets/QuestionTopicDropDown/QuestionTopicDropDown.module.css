@@ -2,13 +2,12 @@
 
 .tableContainer {
   margin: 20px auto;
-  padding: 10px ;
+  padding: 0px;
   width: 80%;
-  border: 2px solid #e0e0e0;
   border-radius: 6px;
   border: 2px solid #E5E7EB;
   background-color: #ffffff;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.3s ease, background-color 0.3s ease;
   overflow: hidden;
   font-family: 'Titillium Web', sans-serif;
 }
@@ -17,29 +16,51 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f3e5f5;
   padding: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   border-radius: 8px;
   cursor: pointer;
-  margin-left: -10px;
-  margin-right: -10px;
-  margin-bottom: 10px;
+  background-color: #ffffff; 
+  transition: background-color 0.3s ease;
+  padding-right: 8px;
+}
+
+.headerOpen {
+  background-color: #e7dcfa;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .header h2 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 16px;
+  font-weight: 1000;
   color: #333;
 }
 
 .progress {
   display: flex;
   align-items: center;
+  gap: 5px;
 }
 
 .progress span {
   font-size: 1rem;
   margin-right: 10px;
+  width: 34.6px;
+  height: 31.6px;
+  top: 0.2px;
+  padding: 4.8px 2px 2px 5px;
+  gap: 0px;
+  border-radius: 8px;
+  border: 1px solid #d4d4d8;
+  background-color: #fafafa;
+  opacity: 0px;
+}
+
+.progressOpen span {
+  background-color: #CA9DD8;
 }
 
 .toggleButton {
@@ -47,6 +68,13 @@
   border: none;
   font-size: 1.25rem;
   cursor: pointer;
+  width: 32px;
+  height: 32px;
+  gap: 0px;
+  border-radius: 8px;
+  border: 1px solid #d4d4d8;
+  background-color: #fafafa;
+  opacity: 0px;
 }
 
 .table {
@@ -110,6 +138,7 @@
   margin: auto;
   text-align: center;
 }
-.problemName{
+
+.problemName {
   text-align: left;
 }
