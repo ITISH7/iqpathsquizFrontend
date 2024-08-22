@@ -13,10 +13,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 120%;
+  border: 2px solid red;
+  width: 80%;
   padding-right: 5rem;
   height: 100%;
-  margin-left: 120px;
+  /* margin-left: 120px; */
 }
 
 .navList {

@@ -7,6 +7,7 @@ import AddBlock from './componets/AddBlock/AddBlock';
 import ProgressBar from './componets/ProgressBar/ProgressBar';
 import QuestionTopicDropDown from './componets/QuestionTopicDropDown/QuestionTopicDropDown';
 import Footer from './componets/Footer/Footer';
+import LeaderBoardHeroSection from './componets/LeaderBoardHeroSection/LeaderBoardHeroSection';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   return (
     <AuthProvider>
       <Header />
+      {/* <LeaderBoardHeroSection /> */}
       <HeroSection />
       <AddBlock />
       <ProgressBar />

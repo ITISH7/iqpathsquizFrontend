@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .filterButton {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    padding: 8px 16px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #1a1a1a;
+  }
+  
+  .paperPlane {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 0;
+    right: 0;
+    background: url('/path-to-your-paper-plane-image.png') no-repeat center center / contain;
+    animation: fly 5s linear infinite;
+  }
+  
+  @keyframes fly {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateX(-150px) translateY(20px) rotate(10deg);
+    }
+    100% {
+      transform: translateX(-300px) translateY(40px) rotate(20deg);
+    }
+  }
+  
+  .climbingTeam {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+  }
+  
+  .person {
+    width: 50px;
+    height: 100px;
+    background-color: #6a0dad;
+    margin: 0 10px;
+    border-radius: 4px;
+  }
+  
