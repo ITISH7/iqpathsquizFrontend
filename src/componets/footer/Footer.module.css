@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 5px;
-  margin-left: 200px;
+  margin-left: 220px;
 }
 
 .footerLogo img {
@@ -29,8 +29,8 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding-right: 190px;
-  gap: 50px;
+  padding-right: 200px;
+  gap: 60px;
 }
 
 .footerLinks h4 {
