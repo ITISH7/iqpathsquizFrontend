@@ -36,7 +36,7 @@ function Header() {
               <img src="src\assets\notification.svg" alt="notification" className={styles.icons} />
             </div>
           ) : (
-            <div>
+            <div className={styles.joiningBut}>
               <button className={styles.loginButton}
                       onClick={() => ToggleLogin(isLoggedIn)}
               >Log in</button>

@@ -5,8 +5,9 @@
   padding: 10px ;
   width: 80%;
   border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 2px solid #E5E7EB;
+  background-color: #ffffff;
   transition: max-height 0.3s ease;
   overflow: hidden;
   font-family: 'Titillium Web', sans-serif;
