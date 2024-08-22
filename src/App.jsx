@@ -16,8 +16,8 @@ function App() {
   return (
     <AuthProvider>
       <Header />
-      {/* <LeaderBoardHeroSection /> */}
-      <HeroSection />
+      <LeaderBoardHeroSection />
+      {/* <HeroSection /> */}
       <AddBlock />
       <ProgressBar />
       <QuestionTopicDropDown />
