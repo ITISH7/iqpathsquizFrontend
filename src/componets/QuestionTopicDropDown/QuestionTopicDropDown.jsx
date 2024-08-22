@@ -11,12 +11,12 @@ function QuestionTopicDropDown() {
   };
 
   const problems = [
-    { name: "Set Matrix Zeros", difficulty: "Hard" },
-    { name: "Pascal's Triangle", difficulty: "Hard" },
-    { name: "Next Permutation", difficulty: "Medium" },
-    { name: "Kadane's Algorithm", difficulty: "Easy" },
-    { name: "Sort an array of 0's, 1's and 2's", difficulty: "Medium" },
-    { name: "Stock Buy and Sell", difficulty: "Easy" },
+    { name: "Rotate Matrix", difficulty: "Medium" },
+    { name: "Merge Overlapping Subintervals", difficulty: "Medium" },
+    { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
+    { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
+    { name: "Repeat and Missing Number", difficulty: "Hard" },
+    { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
   ];
 
   const renderDifficultyBadge = (difficulty) => {
@@ -39,12 +39,12 @@ function QuestionTopicDropDown() {
 
   return (
     <div className={styles.tableContainer}>
-      <div className={styles.header} >
-        <h2 >Day 3: Arrays Part-III</h2>
-        <div className={styles.progress}>
+      <div className={`${styles.header} ${isOpen ? styles.headerOpen : ''}`} onClick={toggleDropdown}>
+        <h2>Day 3: Arrays Part-III</h2>
+        <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
           <span>0/6</span>
-          <button className={styles.toggleButton} onClick={toggleDropdown}>
-            <img src={isOpen ? ArrowUp : ArrowDown } alt="Toggle Arrow" />
+          <button className={styles.toggleButton}>
+            <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
           </button>
         </div>
       </div>
@@ -65,12 +65,12 @@ function QuestionTopicDropDown() {
           <tbody>
             {problems.map((problem, index) => (
               <tr key={index}>
-                <td className={styles.icons} ><input type="checkbox" /></td>
+                <td className={styles.icons}><input type="checkbox" /></td>
                 <td className={styles.problemName}>{problem.name}</td>
                 <td><img src="src\assets\Artical.svg" alt="Article" className={styles.icons} /></td>
                 <td><img src="src\assets\YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                 <td><img src="src\assets\Leetcode.svg" alt="Practice" className={styles.icons} /></td>
-                <td className={styles.icons} ><button className={`${styles.noteButton} `} >+</button></td>
+                <td className={styles.icons}><button className={styles.noteButton}>+</button></td>
                 <td className={styles.icons}>{renderDifficultyBadge(problem.difficulty)}</td>
                 <td><img src="src\assets\Revision.svg" alt="Revision" className={styles.icons} /></td>
               </tr>
