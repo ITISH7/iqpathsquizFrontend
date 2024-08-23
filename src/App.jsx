@@ -8,6 +8,7 @@ import ProgressBar from './componets/ProgressBar/ProgressBar';
 import QuestionTopicDropDown from './componets/QuestionTopicDropDown/QuestionTopicDropDown';
 import Footer from './componets/Footer/Footer';
 import LeaderBoardHeroSection from './componets/LeaderBoardHeroSection/LeaderBoardHeroSection';
+import LeaderboardList from './componets/LeaderboardList/LeaderboardList';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <QuestionTopicDropDown />
       <QuestionTopicDropDown />
       <QuestionTopicDropDown />
+      <LeaderboardList />
       <Footer />
     </AuthProvider>
   )
