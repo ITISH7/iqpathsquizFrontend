@@ -1,0 +1,103 @@
+.container {
+    width: 80%;
+    /* max-width: 1200px; */
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+    font-weight: bold;
+    width: 80%;
+    margin: 0 auto;
+    /* border: 2px solid black; */
+  }
+  
+  .pageButton {
+    background: none;
+    border: none;
+    color: #717171;
+    /* border: 2px solid black; */
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .pageButton:hover {
+    color: #0056b3;
+  }
+
+  .icon{
+    width: 20px;
+    height: 20px;
+    margin: 0 6px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 2fr 2fr 2fr 1fr;
+    /* background-color: #f4f4f4; */
+    color: #64748B;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+    /* font-weight: bold; */
+  }
+  
+  .body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 2fr 2fr 2fr 1fr;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+    align-items: center;
+  }
+  
+  .highlightedRow {
+    background-color: #f0f9ff;
+    font-weight: bold;
+  }
+  
+  .row:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .rank, .username, .institute, .questionsSolved, .questionsPerDay, .joinDate, .profiles {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profiles {
+    justify-content: center;
+  }
+  
+  .profileIcon {
+    width: 20px;
+    height: 20px;
+    background-color: #000; /* Placeholder for profile icons */
+    border-radius: 50%;
+    margin: 0 2px;
+  }
+  
