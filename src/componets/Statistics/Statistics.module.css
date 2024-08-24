@@ -1,11 +1,12 @@
 .statisticsContainer {
     width: 80%;
-    margin: 0 auto;
+    margin: 0px auto 80px auto;
     display: flex;
     flex-direction: column;
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 20px;
+    border: 2px solid red;
 }
 
 .statsHeader {
@@ -86,7 +87,6 @@
     gap: 0px;
     border-radius: 34px 0px 0px 0px;
     opacity: 0px;
-    angle: -0 deg;
 }
 
 .questionsSolved img {
