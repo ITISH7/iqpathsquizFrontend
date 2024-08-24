@@ -3,7 +3,7 @@ import styles from "./LeaderboardList.module.css";
 
 const LeaderboardList = () => {
   const data = [
-    { rank: 9319, username: "antara", institute: "Medcaps University", questionsSolved: 0, questionsPerDay: 0.0, joinDate: "Tue Aug 13 2024", profiles: ["profile1", "profile2"] },
+    { rank: 9319, username: "antara", institute: "Medicaps University", questionsSolved: 0, questionsPerDay: 0.0, joinDate: "Tue Aug 13 2024", profiles: ["profile1", "profile2"] },
     { rank: 1, username: "ALFA_ROCKER", institute: "Pimpri Chinchwad Education Trust", questionsSolved: 285, questionsPerDay: 9.50, joinDate: "Mon Jul 15 2024", profiles: ["profile1", "profile2"] },
     { rank: 2, username: "prakrishna79", institute: "CMR Institute of Technology", questionsSolved: 284, questionsPerDay: 9.48, joinDate: "Sun Jul 14 2024", profiles: ["profile1", "profile2"] },
     { rank: 3, username: "ALFA_ROCKER", institute: "Pimpri Chinchwad Education Trust", questionsSolved: 285, questionsPerDay: 9.50, joinDate: "Mon Jul 15 2024", profiles: ["profile1", "profile2"] },
@@ -78,12 +78,12 @@ const LeaderboardList = () => {
         </div>
       </div>
 
-      <div className={styles.pagination}>
-        <button className={styles.pageButton}>{"<<"}</button>
-        <button className={styles.pageButton}>{"<"}</button>
+      <div className={styles.pageNumber}>
         <span>Page 1 of 467</span>
-        <button className={styles.pageButton}>{">"}</button>
-        <button className={styles.pageButton}>{">>"}</button>
+        <button className={styles.changeButton}>{"<<"}</button>
+        <button className={styles.changeButton}>{"<"}</button>
+        <button className={styles.changeButton}>{">"}</button>
+        <button className={styles.changeButton}>{">>"}</button>
       </div>
     </>
   );
