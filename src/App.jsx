@@ -10,6 +10,7 @@ import Footer from './componets/Footer/Footer';
 import LeaderBoardHeroSection from './componets/LeaderBoardHeroSection/LeaderBoardHeroSection';
 import NoticeSection from './componets/Notice/NoticeSection';
 import LeaderboardList from './componets/LeaderboardList/LeaderboardList';
+import Statistics from './componets/Statistics/Statistics';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <NoticeSection />
       {/* <HeroSection /> */}
       <AddBlock />
+      <Statistics />
       <ProgressBar />
       <QuestionTopicDropDown />
       <QuestionTopicDropDown />
