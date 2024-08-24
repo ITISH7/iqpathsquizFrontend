@@ -1,141 +1,183 @@
 .container {
-  width: 80%;
-  margin: 20px auto;
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
+    width: 80%;
+    /* max-width: 1200px; */
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+    font-weight: 400;
+    width: 80%;
+    margin: 0 auto;
+    /* border: 2px solid black; */
+  }
+  
+  .pageButton {
+    background: none;
+    border: none;
+    color: #717171;
+    /* border: 2px solid black; */
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .pageButton:hover {
+    color: #0056b3;
+  }
 
-.pagination {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-  padding: 10px 0;
-  font-weight: bold;
-  width: 80%;
-  margin: 0 auto;
-}
+  .icon{
+    width: 20px;
+    height: 20px;
+    margin: 0 6px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .header {
+    display: grid;
+    grid-template-columns: 0.8fr 2fr 3fr 1fr 1.5fr 1.5fr 0.8fr;
+    /* background-color: #f4f4f4; */
+    color: #64748B;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+    /* font-weight: bold; */
+  }
+  
+  .header span{
+    display: flex;
+    align-items: center;
+    /* border: 2px solid black; */
+    margin: 0 4px;
+    padding: 0 8px;
+  }
 
-.pageButton {
-  background: none;
-  border: none;
-  color: #717171;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 5px 10px;
-  transition: color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 5px; 
-}
+  .body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .row {
+    display: grid;
+    grid-template-columns: 0.8fr 2fr 3fr 1fr 1.5fr 1.5fr 0.8fr;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+    align-items: center;
 
-.pageButton:hover {
-  color: #0056b3;
-}
+  }
+  
+  .highlightedRow {
+    background-color: #F3F4F6;
+  }
 
-.icon {
-  width: 20px;
-  height: 20px;
-  margin: 0 6px;
-}
+  
+  .row:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .rank, .username, .institute, .questionsSolved, .questionsPerDay, .joinDate, .profiles {
+    display: flex;
+    align-items: center;
+    /* border: 2px solid black; */
+    margin: 0 4px;
+    padding: 0 2px;
+    overflow: hidden;
+    white-space: nowrap;   
+    font-weight: 400 ;
+  }
+  
+  .row.rankone {
+    background-color: #FAF1E0;
+    color: #F59E0B;
+    font-weight: 800 ;
+  }
+  
+  .ranktwo {
+    background-color: #E4E6E9;
+    color: #6B7280;
+    font-weight: 600;
+  }
+  
+  .rankthree {
+    background-color: #F4E2E2;
+    color: #B45309;
+    font-weight: 600;
+  }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
+  .tophy{
+    margin: 0 4px;
+  }
 
-.header {
-  display: grid;
-  grid-template-columns: 1fr 2fr 3fr 2fr 2fr 2fr 1fr;
-  color: #64748B;
-  padding: 10px;
-  border-bottom: 2px solid #ddd;
-  text-align: left;
-}
+  .institute, .joinDate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: inherit;  
+    display: inline-block;
+  }
+  
+  .profiles {
+    justify-content: center;
+  }
 
-.body {
-  display: flex;
-  flex-direction: column;
-}
+  .ProfilePhoto{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 8px 0 0; 
+  }
+  
+  .Leetcodeprofile {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../assets/Leetcode.svg);
+    border-radius: 50%;
+    margin: 0 2px;
+  }
 
-.row {
-  display: grid;
-  grid-template-columns: 1fr 2fr 3fr 2fr 2fr 2fr 1fr;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  transition: background-color 0.3s ease;
-  align-items: center;
-}
-
-.highlightedRow {
-  background-color: #f0f9ff;
-  font-weight: bold;
-}
-
-.row:hover {
-  background-color: #f1f1f1;
-}
-
-.rank, .username, .institute, .questionsSolved, .questionsPerDay, .joinDate, .profiles {
-  display: flex;
-  align-items: center;
-}
-
-.profiles {
-  justify-content: center;
-}
-
-.profileIcon {
-  width: 20px;
-  height: 20px;
-  background-color: #000; /* Placeholder for profile icons */
-  border-radius: 50%;
-  margin: 0 2px;
-}
-
-.pageNumber {
-  display: flex;
-  justify-content: flex-start; 
-  align-items: center;
-  padding: 10px 0;
-  font-weight: 600;
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 50px;
-}
-
-.pageNumber span {
-  /* border: 1px solid black; */
-  padding: 5px 10px;
-  margin-right: 8px; 
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  color: gray;
-}
-
-.changeButton {
-  background: none;
-  border: 1px solid #e2e8f0;
-  color: #717171;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 4px 8px;
-  transition: color 0.3s ease;
-  margin-left: 5px; 
-  margin-right: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border-radius: 5px;
-}
-
-.changeButton:hover {
-  color: gray;
-  border-color: gray;
-}
+  .GithubprofileIcon {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../assets/github.svg);
+    border-radius: 50%;
+    margin: 0 2px;
+  }
+  
+  .paging{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 20px 0;
+    width: 80%;
+    margin: 0 auto;
+  }
+/* 
+  .pageButton{
+   border: 2px solid #E2E8F0;
+   margin: 0 12px;
+   width: 40px;
+   height: 40px;
+   border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+  } */
