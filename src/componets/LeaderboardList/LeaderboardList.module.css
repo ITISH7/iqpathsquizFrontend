@@ -15,7 +15,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 0px;
-    font-weight: bold;
+    font-weight: 400;
     width: 80%;
     margin: 0 auto;
     /* border: 2px solid black; */
@@ -52,7 +52,7 @@
   
   .header {
     display: grid;
-    grid-template-columns: 1fr 2fr 3fr 2fr 2fr 2fr 1fr;
+    grid-template-columns: 0.8fr 2fr 3fr 1fr 1.5fr 1.5fr 0.8fr;
     /* background-color: #f4f4f4; */
     color: #64748B;
     padding: 10px;
@@ -61,6 +61,14 @@
     /* font-weight: bold; */
   }
   
+  .header span{
+    display: flex;
+    align-items: center;
+    /* border: 2px solid black; */
+    margin: 0 4px;
+    padding: 0 8px;
+  }
+
   .body {
     display: flex;
     flex-direction: column;
@@ -68,17 +76,18 @@
   
   .row {
     display: grid;
-    grid-template-columns: 1fr 2fr 3fr 2fr 2fr 2fr 1fr;
-    padding: 10px;
+    grid-template-columns: 0.8fr 2fr 3fr 1fr 1.5fr 1.5fr 0.8fr;
+    padding: 20px;
     border-bottom: 1px solid #ddd;
     transition: background-color 0.3s ease;
     align-items: center;
+
   }
   
   .highlightedRow {
-    background-color: #f0f9ff;
-    font-weight: bold;
+    background-color: #F3F4F6;
   }
+
   
   .row:hover {
     background-color: #f1f1f1;
@@ -87,17 +96,88 @@
   .rank, .username, .institute, .questionsSolved, .questionsPerDay, .joinDate, .profiles {
     display: flex;
     align-items: center;
+    /* border: 2px solid black; */
+    margin: 0 4px;
+    padding: 0 2px;
+    overflow: hidden;
+    white-space: nowrap;   
+    font-weight: 400 ;
+  }
+  
+  .row.rankone {
+    background-color: #FAF1E0;
+    color: #F59E0B;
+    font-weight: 800 ;
+  }
+  
+  .ranktwo {
+    background-color: #E4E6E9;
+    color: #6B7280;
+    font-weight: 600;
+  }
+  
+  .rankthree {
+    background-color: #F4E2E2;
+    color: #B45309;
+    font-weight: 600;
+  }
+
+  .tophy{
+    margin: 0 4px;
+  }
+
+  .institute, .joinDate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: inherit;  
+    display: inline-block;
   }
   
   .profiles {
     justify-content: center;
   }
+
+  .ProfilePhoto{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 8px 0 0; 
+  }
   
-  .profileIcon {
+  .Leetcodeprofile {
     width: 20px;
     height: 20px;
-    background-color: #000; /* Placeholder for profile icons */
+    background-image: url(../../assets/Leetcode.svg);
+    border-radius: 50%;
+    margin: 0 2px;
+  }
+
+  .GithubprofileIcon {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../assets/github.svg);
     border-radius: 50%;
     margin: 0 2px;
   }
   
+  .paging{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 20px 0;
+    width: 80%;
+    margin: 0 auto;
+  }
+/* 
+  .pageButton{
+   border: 2px solid #E2E8F0;
+   margin: 0 12px;
+   width: 40px;
+   height: 40px;
+   border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+  } */
