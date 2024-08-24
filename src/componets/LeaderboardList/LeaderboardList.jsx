@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./LeaderboardList.module.css";
+import { Link } from "react-router-dom";
 
 const LeaderboardList = () => {
   const data = [
@@ -30,10 +31,14 @@ const LeaderboardList = () => {
   return (
     <>
       <div className={styles.pagination}>
-        <button className={styles.pageButton}>
-          <img src="src\assets\ArrowLeft.svg" alt="" className={styles.icon}/>
-          Dashboard
-        </button>
+
+        <Link to="/">
+          <button className={styles.pageButton}>
+            <img src="src\assets\ArrowLeft.svg" alt="" className={styles.icon}/>
+            Dashboard
+          </button>
+        </Link>
+  
         <button className={styles.pageButton}>
           Next Page
           <img src="src\assets\ArrowRight.svg" alt="" className={styles.icon} />
