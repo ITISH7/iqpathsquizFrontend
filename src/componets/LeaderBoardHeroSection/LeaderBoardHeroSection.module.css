@@ -24,7 +24,7 @@
 }
 
 .imageCorner{
-  border: 2px solid red;
+  /* border: 2px solid red; */
   position: relative;
   bottom: 0;
   right: 0;

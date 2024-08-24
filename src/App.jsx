@@ -8,6 +8,7 @@ import ProgressBar from './componets/ProgressBar/ProgressBar';
 import QuestionTopicDropDown from './componets/QuestionTopicDropDown/QuestionTopicDropDown';
 import Footer from './componets/Footer/Footer';
 import LeaderBoardHeroSection from './componets/LeaderBoardHeroSection/LeaderBoardHeroSection';
+import NoticeSection from './componets/Notice/NoticeSection';
 import LeaderboardList from './componets/LeaderboardList/LeaderboardList';
 
 
@@ -18,6 +19,7 @@ function App() {
     <AuthProvider>
       <Header />
       <LeaderBoardHeroSection />
+      <NoticeSection />
       {/* <HeroSection /> */}
       <AddBlock />
       <ProgressBar />
