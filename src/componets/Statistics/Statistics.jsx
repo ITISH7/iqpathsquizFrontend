@@ -1,17 +1,35 @@
 import React from 'react';
 import styles from './statistics.module.css';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const Statistics = () => {
+
+  const [animate, setAnimate] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+      if (isLoggedIn) {
+      setAnimate(true);
+      }
+      else{
+          setAnimate(false);
+      }
+  }, [isLoggedIn]);
+
+
   return (
+    (isLoggedIn) ? 
     <div className={styles.statisticsContainer}>
       <div className={styles.statsHeader}>
         <h1 className={styles.heading}>Hello, Shriyansh</h1>
         <img src="src\assets\StatsHeader.svg" alt="Stats Header" />
       </div>
       <div className={styles.cards}>
-        {/* Example card with image */}
+        
         <img src="src/assets/Courses.svg" alt="Courses" />
-        {/* Add more cards as needed */}
+       
       </div>
 
       <div className={styles.content}>
@@ -29,10 +47,12 @@ const Statistics = () => {
       </div>
 
       <div className={styles.footer}>
-        <div className={styles.leaderboardButton}>
-            <img src="src\assets\LeaderBoardIcon.svg" alt="Leader Board Icon" />
-            <button>Leaderboard</button>
-        </div>
+        <Link to="/leaderboard">
+          <div className={styles.leaderboardButton}>
+              <img src="src\assets\LeaderBoardIcon.svg" alt="Leader Board Icon" />
+              <button>Leaderboard</button>
+          </div>
+        </Link>
         <div  className={styles.shareButton}>
             <img src="src\assets\ShareProgIcon.svg" alt="Share Progress Icon" />
             <button>Share Progress</button>
@@ -40,6 +60,7 @@ const Statistics = () => {
         <button className={styles.updateButton}>Update Socials</button>
       </div>
     </div>
+    : null
   );
 };
 

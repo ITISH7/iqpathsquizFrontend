@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './NoticeSection.module.css';
 
+
 const NoticeSection = () => {
+
     return (
         <div className={styles.notice}> 
             <div className={styles.noticeHeading}>
