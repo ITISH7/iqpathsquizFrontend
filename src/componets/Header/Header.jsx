@@ -24,9 +24,16 @@ function Header() {
         </div>
         <ul className={styles.navList}>
           {navItems.map((item, index) => (
-            <li key={index} className={styles.navItem}>
+            <li
+            key={index}
+            className={`${styles.navItem} ${
+              location.pathname === item.path ? styles.active : ''
+            }`}
+          >
+            <Link to={item.path} className={styles.navLink}>
               {item.name}
-            </li>
+            </Link>
+          </li>
           ))}
         </ul>
         <div className={styles.authButtons}>

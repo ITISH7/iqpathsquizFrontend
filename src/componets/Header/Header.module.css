@@ -30,7 +30,48 @@
 }
 
 .navItem {
-  padding: 0.8rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #f7f7f7;  */
+  padding: 1rem;
+  /* border: 1px solid gray; */
+}
+
+.navItem .navLink {
+  text-decoration: none;
+  color: #555;
+}
+
+.navItem:hover {
+  color: #5a2d82;
+  font-weight: bold;
+}
+
+.navItem:hover::before {
+  content: '•'; 
+  position: absolute;
+  top: 3px; 
+  left: 88%;
+  transform: translateX(-50%);
+  color: #5a2d82; 
+  font-size: 18px; 
+}
+
+.navItem.active {
+  color: #5a2d82;
+  font-weight: bold;
+}
+
+.navItem.active::before {
+  content: '•'; 
+  position: absolute;
+  top: 3px; 
+  left: 88%;
+  transform: translateX(-50%);
+  color: #5a2d82; 
+  font-size: 18px; 
 }
 
 .authButtons {

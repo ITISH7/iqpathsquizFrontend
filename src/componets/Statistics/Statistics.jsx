@@ -89,7 +89,7 @@ const Statistics = () => {
           <div className={styles.footerButtons}>
             <Link to="/leaderboard">
               <div className={styles.leaderboardButton}>
-                <img src="src/assets/LeaderBoardIcon.svg" alt="Leader Board Icon" />
+                <img src="src\assets\fire.gif" alt="Leader Board Icon" />
                 <button>Leaderboard</button>
               </div>
             </Link>
