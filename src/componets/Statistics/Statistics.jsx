@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './statistics.module.css';
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
+import DoughnutChart from '../../modals/doughnutGraph/doughnut';
 
 const Statistics = () => {
   const [animate, setAnimate] = useState(false);
@@ -56,7 +57,7 @@ const Statistics = () => {
             </div>
             <div className={styles.pieCharts}>
               <div className={styles.pieChart}>
-                <img src="src/assets/Pie1.png" alt="Pie Chart 1" />
+                <DoughnutChart />
                 <p>Today</p>
               </div>
               <div className={styles.pieChart}>

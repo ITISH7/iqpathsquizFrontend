@@ -1,0 +1,10 @@
+.container {
+    border: 2px solid red;
+    width: 350px;
+    height: 150px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 0 auto 32px auto; /* Center container with auto margins */
+    padding: 0; /* Ensure no padding */
+}
