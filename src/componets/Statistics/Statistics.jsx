@@ -37,7 +37,6 @@ const Statistics = () => {
           <div className={styles.quoteAndProgress}>
             <div className={styles.quoteSection}>
               <p>14th Aug, 2024</p>
-              {/* <img src="src/assets/Thought.svg" alt="Thought" /> */}
             </div>
             <div className={styles.progressTracking}>
               <h1 className={styles.progHeading}>Progress Tracking</h1>
@@ -55,30 +54,23 @@ const Statistics = () => {
             <div className={styles.ribbon}>
               <img src="src/assets/PieDesign.svg" alt="Pie Graph Design"/>
             </div>
-            <div className={styles.pieCharts}>
-              <div className={styles.pieChart}>
-                <DoughnutChart />
-                <p>Today</p>
-              </div>
-              <div className={styles.pieChart}>
-                <img src="src/assets/Pie2.png" alt="Pie Chart 2" />
-                <p>Course 1</p>
-              </div>
-              <div className={styles.pieChart}>
-                <img src="src/assets/Pie3.png" alt="Pie Chart 3" />
-                <p>Course 2</p>
-              </div>
-              {/* <div className={styles.legend}>
-                <div>
-                  <span className={styles.easy}></span> Easy
-                </div>
-                <div>
-                  <span className={styles.medium}></span> Medium
-                </div>
-                <div>
-                  <span className={styles.hard}></span> Hard
-                </div>
+            <div className={styles.graphBox}>
+              {/* <div className={styles.courseName}>
+                  <p >Today</p>
+                  <p>Course 1</p>
+                  <p>Course 2</p>
               </div> */}
+              <div className={styles.pieCharts}>
+                <div className={styles.pieChart}>
+                  <DoughnutChart />
+                </div>
+                <div className={styles.pieChart}>
+                  <DoughnutChart />
+                </div>
+                <div className={styles.pieChart}>
+                <DoughnutChart />
+                </div>
+              </div>
             </div>
           </div>
         </div>

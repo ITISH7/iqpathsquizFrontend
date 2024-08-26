@@ -33,7 +33,7 @@ const DoughnutChart = () => {
                     },
                     name: {
                         color: '#000',
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: 550,
                         padding: [0, 0, 0, 4],
                     }

@@ -7,10 +7,10 @@ import utilityStyle from '../../utils/utils.module.css';
 
 function Header() {
   const navItems = [
-    { name: 'Home', path: '/' },
+    { name: 'Home', path: '/home' },
     { name: 'Courses', path: '/courses' },
     { name: 'Testimonial', path: '/testimonial' },
-    { name: 'DashBoard', path: '/dashboard' },
+    { name: 'DashBoard', path: '/' },
     { name: 'Test', path: '/test' },
   ];
 
