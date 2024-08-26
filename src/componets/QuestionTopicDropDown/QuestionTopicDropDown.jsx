@@ -11,8 +11,8 @@ function QuestionTopicDropDown() {
   };
 
   const problems = [
-    { name: "Rotate Matrix", difficulty: "Medium" },
-    { name: "Merge Overlapping Subintervals", difficulty: "Medium" },
+    { name: "Rotate Matrix", difficulty: "Easy" },
+    { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
     { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
     { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
     { name: "Repeat and Missing Number", difficulty: "Hard" },

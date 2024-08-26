@@ -11,8 +11,7 @@ function Header() {
     { name: 'Courses', path: '/courses' },
     { name: 'Testimonial', path: '/testimonial' },
     { name: 'DashBoard', path: '/dashboard' },
-    { name: 'About us', path: '/about-us' },
-    { name: 'Contact us', path: '/contact-Us' },
+    { name: 'Test', path: '/test' },
   ];
 
   const { isLoggedIn, ToggleLogin } = useContext(AuthContext);
