@@ -343,6 +343,14 @@
     display: flex;
 }
 
+.leaderboardButton button:hover, .shareButton button:hover, .updateButton button:hover{
+    background-color: #947CCB;
+}
+
+.leaderboardButton:hover, .shareButton:hover, .updateButton:hover {
+    background-color: #33137A;
+}
+
 .leaderboardButton img {
     width: 100px;
     height: 50px;
@@ -361,6 +369,6 @@
     height: 35px;
 }
 
-.leaderboardButton:hover, .shareButton:hover, .updateButton:hover {
+/* .leaderboardButton:hover, .shareButton:hover, .updateButton:hover {
     background-color: rgb(210, 210, 210);
-}
+} */

@@ -39,7 +39,7 @@ function Header() {
         <div className={styles.authButtons}>
           {isLoggedIn ? (
             <div className={styles.iconContainer}>
-              <img src="src\assets\ProfilePicture.svg" alt="ProfilePiture" className={styles.icons}  onClick={() => ToggleLogin(isLoggedIn)}/>
+              <img  src="src\assets\ProfilePicture.svg" alt="ProfilePiture" className={`${styles.icon} ${styles.profile}`} onClick={() => ToggleLogin(isLoggedIn)}/>
               <img src="src\assets\notification.svg" alt="notification" className={styles.icons} />
             </div>
           ) : (
