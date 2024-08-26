@@ -6,7 +6,7 @@
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 20px;
-    border: 2px solid red;
+    /* border: 2px solid red; */
 }
 
 .statsHeader {
@@ -33,9 +33,61 @@
     margin-left: 25px;
 }
 
+.courses {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    margin: 0 auto;
+    /* border: 1px solid green; */
+}
+
+.card {
+    /* border: 1px solid red; */
+    width: 22%; 
+    padding-bottom: 15%; 
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cardPurple {
+    background-color: #B38EF9;
+}
+
+.cardYellow {
+    background-color: #FFC66A;
+}
+
+.cardBlue {
+    background-color: #76B9FA;
+}
+
+.cardGreen {
+    background-color: #6CFAC3;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    width: 80%;
+    height: 5%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
 
 
-.cards {
+
+
+/* .cards {
     display: flex;
     justify-content: space-between;
     gap: 20px;
@@ -47,7 +99,7 @@
     height: auto;
     object-fit: cover;
     border-radius: 10px;
-}
+} */
 
 .content {
     display: flex;
@@ -55,31 +107,122 @@
     margin-bottom: 20px;
 }
 
-/* .quoteSection {
-    width: 48%;
+.quoteAndProgress {
+    margin-left: -20px;
+}
+
+.quoteSection {
+    width: 500px; 
+    height: 300px; 
+    margin-top: 20px;
+    margin-bottom: -10px;
+    margin-left: 35px; 
     padding: 20px;
-    background-color: #fff;
+    /* border: 2px solid red; */
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-} */
+    flex-direction: row;
+    justify-content: left;
+    align-items: baseline; 
+    background: url('../../assets/Thought.png') no-repeat center center / cover; 
+}
 
-.quoteSection img {
-    /* width: 100%;
+.quoteSection p {
+    border: 2px solid black;
+}
+
+/* .quoteSection img {
+    width: 100%;
     height: auto;
-    margin: 0 auto; */
+    margin: 0px; 
     width: 600px;
     height: 300px;
-    margin-top: -10px;
+    margin-top: -100px;
     margin-left: -10px;
     gap: 0px;
     opacity: 0px;
-} 
+    background-color: black; 
+}  */
 
-.progressTracking img {
+.progressTracking {
+    width: 510px;
+    height: 300px;
+    margin-top: 30px;
+    margin-left: 35px;
+    /* border: 2px solid red; */
+    background-color: white;
+    /* padding: 20px; */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.progBar p {
+    /* border: 1px solid red; */
+    width: 150px;
+    margin-bottom: 20px;
+    margin-left: 80px;
+}
+
+.progHeading {
+    /* border: 2px solid black; */
+    width: 30rem;
+    height: 30px;
+    margin-top: -50px;
+    margin-bottom: 9rem;
+    margin-left: 40px;
+    font-weight: bold;
+    gap: 0px;
+    opacity: 0px;
+}
+
+.progBar {
+    /* border: 2px solid black; */
+    width: 50rem;
+    margin-top: -10px;
+    margin-bottom: -90px;
+    margin-right: 60px;
+    margin-left: -90px;
+}
+
+.progPie {
+    width: 300px;
+    height: 300px;
+    margin-right: 30px;
+    margin-bottom: -15rem;
+    /* border: 1px solid black; */
+}
+
+/* .progBar p {
+    border: 2px solid green;
+    width: 140px;
+    height: 40px;
+    top: 897px;
+    left: 118px;
+    gap: 0px;
+    opacity: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} */
+
+/* .progBar img {
+    border: 2px solid yellow;
+    width: 48%;
+    height: 50px;
+    margin-top: 20px;
+    margin-left: 118px;
+    gap: 0px;
+    opacity: 0px;
+} */
+
+/* .progressTracking img {
     width: 600px;
     height: 300px;
     margin-top: 10px;
@@ -87,15 +230,60 @@
     gap: 0px;
     border-radius: 34px 0px 0px 0px;
     opacity: 0px;
+} */
+
+.questionsSolved {
+    width: 40%;
+    height: 585px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 28px;
+    margin-right: 10px;
 }
 
-.questionsSolved img {
-    width: 390px;
-    height: 684.52px;
-    margin-top: -20px;
-    margin-left: 1px;
-    gap: 0px;
-    opacity: 0px;
+.questionsSolvedHeading {
+    font-size: 18px;
+    text-decoration: underline;
+    font-weight: 600;
+    margin-bottom: 110px;
+    margin-top: -22px;
+    /* border: 2px solid black; */
+    display: flex; 
+    justify-content: center;
+}
+
+.ribbon {
+    justify-content: right;
+    display: flex;
+    /* border: 2px solid yellow; */
+    margin-top: -10.5rem;
+    margin-right: -17rem;
+}
+
+.pieCharts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.pieChart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.pieChart img {
+    width: 200px;
+    height: 100px;
 }
 
 /* .statsSection {
@@ -112,15 +300,34 @@
 
 .footer {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 20px;
     margin-top: 20px;
     margin-right: -350px;
 }
 
+.statsFooter {
+    width: 150px;
+    height: 150px;
+    margin-bottom: -35px;
+    margin-left: -18.8rem;
+    /* margin-right: 20px; */
+    display: flex;
+    justify-content: left;
+    align-items: self-end;
+}
+
+.footerButtons {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    margin-right: 110px;
+}
+
 .leaderboardButton, .shareButton, .updateButton {
     width: 180px;
     height: 53px;
+    /* margin-left: 20px; */
     gap: 0px;
     opacity: 0px;
     padding: 10px 20px;

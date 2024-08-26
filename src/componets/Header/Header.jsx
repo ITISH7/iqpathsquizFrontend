@@ -4,6 +4,7 @@ import styles from './Header.module.css';
 import { AuthContext } from '../../context/AuthContext';
 import utilityStyle from '../../utils/utils.module.css';
 
+
 function Header() {
   const navItems = [
     { name: 'Home', path: '/' },

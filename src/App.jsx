@@ -19,21 +19,6 @@ function App() {
   return (
     <>
       <Header />
-      {/* <LeaderBoardHeroSection />
-      <NoticeSection />
-      <HeroSection />
-      <AddBlock />
-      <Statistics />
-      <ProgressBar />
-      <QuestionTopicDropDown />
-      <QuestionTopicDropDown />
-      <QuestionTopicDropDown />
-      <QuestionTopicDropDown />
-      <QuestionTopicDropDown />
-      <QuestionTopicDropDown />
-      <QuestionTopicDropDown />
-      <QuestionTopicDropDown />
-      <LeaderboardList /> */}
       <main>
         <Outlet />
       </main>
