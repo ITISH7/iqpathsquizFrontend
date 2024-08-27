@@ -26,6 +26,12 @@
   padding-right: 8px;
 }
 
+.header:hover {
+  background-color: #6f42c1; 
+  /* color: white;  */
+  -webkit-text-fill-color: white;
+}
+
 .headerOpen {
   background-color: #e7dcfa;
   margin-top: 8px;
@@ -59,6 +65,11 @@
   opacity: 0px;
 }
 
+.header:hover .progress span {
+  background-color: #7c4de1;
+  color: white;
+}
+
 .progressOpen span {
   background-color: #CA9DD8;
 }
@@ -75,6 +86,11 @@
   border: 1px solid #d4d4d8;
   background-color: #fafafa;
   opacity: 0px;
+}
+
+.header:hover .toggleButton {
+  background-color: #7c4de1;
+  color: white;
 }
 
 .table {
@@ -103,17 +119,29 @@
 }
 
 .hardBadge {
-  background-color: #FFB09B;
+  background-color: #fdb8a5;
   color: #C62800;
   padding: 5px 15px;
   border-radius: 2rem;
 }
 
+.hardBadge:hover {
+  background-color: hsl(15, 83%, 88%);
+  border: 1.5px solid #e23e14;
+  -webkit-text-fill-color: #e23e14;
+}
+
 .mediumBadge {
   background-color: #FEF08A;
-  color: CD910C;
+  color: #CD910C;
   padding: 5px 15px;
   border-radius: 2rem;
+}
+
+.mediumBadge:hover {
+  background-color: hsl(53, 97%, 85%);
+  border: 1.5px solid #e7a41f;
+  -webkit-text-fill-color: #e7a41f;
 }
 
 .easyBadge {
@@ -121,6 +149,12 @@
   color: #0085FF;
   padding: 5px 15px;
   border-radius: 2rem;
+}
+
+.easyBadge:hover {
+  background-color: hsl(205, 93%, 89%);
+  border: 1.5px solid #2f9ce9;
+  -webkit-text-fill-color: #2f9ce9;
 }
 
 .noteButton {

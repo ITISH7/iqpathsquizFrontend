@@ -35,12 +35,12 @@ const LeaderboardList = () => {
         <Link to="/">
           <button className={styles.pageButton}>
             <img src="src\assets\ArrowLeft.svg" alt="" className={styles.icon}/>
-            Dashboard
+            <p className={styles.pagePara}> Dashboard </p>
           </button>
         </Link>
   
         <button className={styles.pageButton}>
-          Next Page
+          <p className={styles.pagePara}> Next Page </p>
           <img src="src\assets\ArrowRight.svg" alt="" className={styles.icon} />
           </button>
       </div>
