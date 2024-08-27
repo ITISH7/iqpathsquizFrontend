@@ -3,6 +3,8 @@ import styles from './statistics.module.css';
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 import DoughnutChart from '../../modals/doughnutGraph/doughnut';
+import BarGraph from '../../modals/barGraph/barGraph'
+import {data, categories} from '../../modals/barGraph/dataBar.js'
 
 const Statistics = () => {
   const [animate, setAnimate] = useState(false);
@@ -36,13 +38,16 @@ const Statistics = () => {
         <div className={styles.content}>
           <div className={styles.quoteAndProgress}>
             <div className={styles.quoteSection}>
-              <p>14th Aug, 2024</p>
+              {/* <p>14th Aug, 2024</p> */}
+              <img src="src\assets\Thought.png" alt="" />
             </div>
             <div className={styles.progressTracking}>
-              <h1 className={styles.progHeading}>Progress Tracking</h1>
               <div className={styles.progBar}>
-                <p>Weekly Progress</p>
-                <img src="src/assets/ProgBar.png" alt="Progress Bar Chart" />
+                <h1 className={styles.progHeading}>Progress Tracking</h1>
+                <div className={styles.barGraph}>
+                  <p>Weekly Progress</p>
+                  <BarGraph data={data} categories={categories} />
+                </div>
               </div>
               <div className={styles.progPie}>
                 <img src="src/assets/ProgPie.png" alt="Progress Pie Chart" />
