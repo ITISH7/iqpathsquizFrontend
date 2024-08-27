@@ -81,13 +81,17 @@ const Statistics = () => {
           </div>
           <div className={styles.footerButtons}>
             <Link to="/leaderboard">
-              <div className={styles.leaderboardButton}>
+              <div>
+                <button className={styles.leaderboardButton}>
                 <img src="src\assets\fire.gif" alt="Leader Board Icon" />
-                <button>Leaderboard</button>
+                <p>Leaderboard</p>
+                </button>
               </div>
             </Link>
             <div className={styles.shareButton}>
-              <img src="src/assets/ShareProgIcon.svg" alt="Share Progress Icon" />
+              <div className={styles.shareIcon}>
+                <img src="src/assets/ShareProgIcon.svg" alt="Share Progress Icon" />
+              </div>
               <button>Share Progress</button>
             </div>
             <button className={styles.updateButton}>Update Socials</button>

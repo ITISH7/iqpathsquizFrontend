@@ -337,14 +337,16 @@
 
 .leaderboardButton {
     display: flex;
+    align-items: center;
 }
 
 .leaderboardButton button:hover, .shareButton button:hover, .updateButton button:hover{
-    background-color: #947CCB;
+    color: #947CCB;
 }
 
 .leaderboardButton:hover, .shareButton:hover, .updateButton:hover {
     background-color: #33137A;
+    color: #947CCB;
 }
 
 .leaderboardButton img {
@@ -364,7 +366,3 @@
     width: 20px;
     height: 35px;
 }
-
-/* .leaderboardButton:hover, .shareButton:hover, .updateButton:hover {
-    background-color: rgb(210, 210, 210);
-} */

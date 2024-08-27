@@ -34,10 +34,6 @@
     align-items: center;
     justify-content: space-between;
   }
-  
-  .pageButton:hover {
-    color: #0056b3;
-  }
 
   .icon{
     width: 20px;
