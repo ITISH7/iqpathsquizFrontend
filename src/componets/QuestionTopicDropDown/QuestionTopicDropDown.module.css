@@ -38,6 +38,12 @@
   margin-bottom: 8px;
 }
 
+.headerOpen:hover {
+  background-color: #e7dcfa;
+  -webkit-text-fill-color: black;
+}
+
+
 .header h2 {
   margin: 0;
   font-size: 16px;
@@ -70,6 +76,11 @@
   color: white;
 }
 
+.headerOpen:hover .progress span{
+  background-color: #CA9DD8;
+  color: black;
+}
+
 .progressOpen span {
   background-color: #CA9DD8;
 }
@@ -91,6 +102,11 @@
 .header:hover .toggleButton {
   background-color: #7c4de1;
   color: white;
+}
+
+.headerOpen:hover .toggleButton {
+  background-color: #fafafa;
+  color: black;
 }
 
 .table {
