@@ -35,7 +35,7 @@ const LeaderboardList = () => {
         <Link to="/">
           <button className={styles.pageButton}>
             <img src="src\assets\ArrowLeft.svg" alt="" className={styles.icon}/>
-            <p className={styles.pagePara}> Dashboard </p>
+            Dashboard
           </button>
         </Link>
   
@@ -104,10 +104,10 @@ const LeaderboardList = () => {
 
       <div className={styles.paging}>
         <span>Page 1 of 467</span>
-        <button className={styles.pageButton}><img src="src\assets\beforPrevious.svg" alt="" /></button>
-        <button className={styles.pageButton}><img src="src\assets\previous.svg" alt="" /></button>
-        <button className={styles.pageButton}><img src="src\assets\next.svg" alt="" /></button>
-        <button className={styles.pageButton}><img src="src\assets\afterNext.svg" alt="" /></button>
+        <button className={`${styles.pageArrow} ${styles.bcFull}`}><img src="src\assets\beforPrevious.svg" alt="" /></button>
+        <button className={`${styles.pageArrow} ${styles.bc}`}><img src="src\assets\previous.svg" alt="" /></button>
+        <button className={`${styles.pageArrow} ${styles.fc}`}><img src="src\assets\next.svg" alt="" /></button>
+        <button className={`${styles.pageArrow} ${styles.fcFull}`}><img src="src\assets\afterNext.svg" alt="" /></button>
 
         
       </div>

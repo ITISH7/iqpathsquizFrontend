@@ -42,6 +42,9 @@ function QuestionTopicDropDown() {
       <div className={`${styles.header} ${isOpen ? styles.headerOpen : ''}`} onClick={toggleDropdown}>
         <h2>Day 3: Arrays Part-III</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
+          <button className={styles.playButton}>Play</button>
+          <button className={styles.filterButton}>Filter</button>
+          <button className={styles.filterButton}>Filter</button>
           <span>0/6</span>
           <button className={styles.toggleButton}>
             <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />

@@ -95,9 +95,9 @@ const Statistics = () => {
             </Link>
             <div className={styles.shareButton}>
               <div className={styles.shareIcon}>
-                <img src="src/assets/ShareProgIcon.svg" alt="Share Progress Icon" />
+                <img src="src/assets/ShareProgIcon.svg" alt="Share Progress Icon"  className={styles.shareIconImg}/>
               </div>
-              <button>Share Progress</button>
+              <button className={styles.shareButtonText}>Share Progress</button>
             </div>
             <button className={styles.updateButton}>Update Socials</button>
           </div>

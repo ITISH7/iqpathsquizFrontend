@@ -361,7 +361,11 @@
     gap: 5px;
 }
 
-.shareButton img {
+.shareIconImg {
     width: 20px;
     height: 35px;
+}
+
+.shareButton:hover .shareIconImg {
+    filter: brightness(0) invert(1);
 }
