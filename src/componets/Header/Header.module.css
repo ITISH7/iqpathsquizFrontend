@@ -2,7 +2,7 @@
 
 .header {
   background-color: white;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   height: 80px;
   width: 100%;
   display: flex;
@@ -14,7 +14,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   width: 80%;
   padding-right: 5rem;
   height: 100%;
@@ -23,7 +23,7 @@
 .logo {
   width: 100%;
   min-width: 195px;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   
 }
 

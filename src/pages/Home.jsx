@@ -10,7 +10,7 @@ import ProgrssBar from '../componets/ProgressBar/ProgressBar'
 function Home() {
   return (
     <>
-     {/* <HeroSection />
+     <HeroSection />
      <AddBlock />
      <Statistics />
      <ProgrssBar />
@@ -19,7 +19,7 @@ function Home() {
      <QuestionTopicDropDown />
      <QuestionTopicDropDown />
      <QuestionTopicDropDown />
-     <QuestionTopicDropDown /> */}
+     <QuestionTopicDropDown />
 
     </>
   )
