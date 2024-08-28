@@ -18,6 +18,7 @@
     display: flex;
     justify-content: space-between;
     /* border: 2px solid red; */
+    /* font-size: var(--size-7xl); */
 }
 
 .statsHeader img {

@@ -38,7 +38,7 @@ function QuestionTopicDropDown() {
   };
 
   return (
-    <div className={styles.tableContainer}>
+    <div className={`${styles.tableContainer } ${isOpen ? styles.tableContainerOpen : ''}`}>
       <div className={`${styles.header} ${isOpen ? styles.headerOpen : ''}`} onClick={toggleDropdown}>
         <h2>Day 3: Arrays Part-III</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>

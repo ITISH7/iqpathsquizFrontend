@@ -17,10 +17,10 @@ function Header() {
   const { isLoggedIn, ToggleLogin } = useContext(AuthContext);
 
   return (
-    <header className={`${styles.header}`}>
-      <nav className={styles.nav}>
+    <header className={`${styles.header} `}>
+      <nav className={`${styles.nav} `}>
         <div>
-          <img src="src\assets\logo.svg" alt="Logo" />
+          <img className={styles.logo} src="src\assets\logo.svg" alt="Logo" />
         </div>
         <ul className={styles.navList}>
           {navItems.map((item, index) => (
