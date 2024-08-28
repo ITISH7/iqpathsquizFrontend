@@ -104,6 +104,62 @@
   opacity: 0px;
 }
 
+.filterButton {
+  background-color: transparent;
+  border: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  width: 52px;
+  height: 32px;
+  gap: 0px;
+  margin-right: 12px;
+  border-radius: 8px;
+  border: 1px solid #d4d4d8;
+  background-color: #fafafa;
+  opacity: 0px;
+}
+
+.playButton {
+  background-color: transparent;
+  border: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  width: 44px;
+  height: 32px;
+  gap: 0px;
+  margin-right: 12px;
+  border-radius: 8px;
+  border: 1px solid #d4d4d8;
+  background-color: #fafafa;
+  opacity: 0px;
+}
+
+.header:hover .playButton {
+  background-color: #7c4de1;
+  color: white;
+}
+
+.header:hover .filterButton {
+  background-color: #7c4de1;
+  color: white;
+}
+
+.progressOpen .filterButton {
+  background-color: #CA9DD8;
+}
+
+.progressOpen .playButton {
+  background-color: #CA9DD8;
+}
+
+.headerOpen:hover .filterButton {
+  background-color: #CA9DD8;
+}
+
+.headerOpen:hover .playButton {
+  background-color: #CA9DD8;
+}
+
 .header:hover .toggleButton {
   background-color: #7c4de1;
   color: white;
