@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import styles from './doughnut.module.css';
-import dummyData from './dummyData';
 
-const DoughnutChart = () => {
+const DoughnutChart = ({data}) => {
     const option = {
         tooltip: {
             trigger: 'item',
@@ -13,7 +12,7 @@ const DoughnutChart = () => {
             orient: 'vertical',
             right: 10,
             top: 'center',
-            data: dummyData.filter(item => item.name).map(item => ({
+            data: data.filter(item => item.name).map(item => ({
                 name: item.name,
                 icon: 'none',
             })),
@@ -57,7 +56,7 @@ const DoughnutChart = () => {
                     fontSize: 16,
                     color: '#000',
                 },
-                data: dummyData.map(item => ({
+                data: data.map(item => ({
                     value: item.value,
                     name: item.name,
                     itemStyle: {
@@ -70,8 +69,8 @@ const DoughnutChart = () => {
     };
 
     option.legend.formatter = (name) => {
-        const item = dummyData.find((item) => item.name === name);
-        const percentage = ((item.value / dummyData.reduce((acc, cur) => acc + cur.value, 0)) * 100);
+        const item = data.find((item) => item.name === name);
+        const percentage = ((item.value / data.reduce((acc, cur) => acc + cur.value, 0)) * 100);
 
         return `{rect|${percentage}%} {name| ${name} }`;
     };

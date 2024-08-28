@@ -6,15 +6,18 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
+    padding-bottom: 4rem;
     background-color: #f4f4f4;
     border-radius: 20px;
+    position: relative;
     /* border: 2px solid red; */
+
 }
 
 .statsHeader {
     display: flex;
     justify-content: space-between;
-    border: 2px solid red;
+    /* border: 2px solid red; */
 }
 
 .statsHeader img {
@@ -303,13 +306,15 @@
     /* border: 2px solid red; */
 }
 
+
+
 .statsFooter {
     /* border: 2px solid red; */
-    position: relative;
-    width: 150px;
-    height: 150px;
-    left: 0;
-    bottom: 0;
+    position: absolute;
+    /* width: 150px; */
+    /* height: 150px; */
+    left: -2.4rem;
+    bottom: -1.5rem;
     /* margin-bottom: -35px; */
     /* margin-right: auto; */
     /* right: 82.5%; */

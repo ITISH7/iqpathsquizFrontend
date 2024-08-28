@@ -6,6 +6,8 @@ import DoughnutChart from '../../modals/doughnutGraph/doughnut';
 import BarGraph from '../../modals/barGraph/barGraph'
 import {data, categories} from '../../modals/barGraph/dataBar.js'
 import UtilityStyles from '../../utils/utils.module.css';
+import WeaklyGraph from '../../modals/weeklyGraph/weeklyGraph.jsx';
+import dummyData from '../../modals/doughnutGraph/dummyData.js';
 
 const Statistics = () => {
   const [animate, setAnimate] = useState(false);
@@ -48,40 +50,37 @@ const Statistics = () => {
                 </div>
               </div>
               <div className={styles.progPie}>
-                <img src="src/assets/ProgPie.png" alt="Progress Pie Chart" />
+               <WeaklyGraph  value={8.3} maxValue={10} />
               </div>
             </div>
           </div>
+
           <div className={styles.questionsSolved}>
             <h1 className={styles.questionsSolvedHeading}>Questions Solved</h1>
             <div className={styles.ribbon}>
               <img src="src/assets/PieDesign.svg" alt="Pie Graph Design"/>
             </div>
             <div className={styles.graphBox}>
-              {/* <div className={styles.courseName}>
-                  <p >Today</p>
-                  <p>Course 1</p>
-                  <p>Course 2</p>
-              </div> */}
+    
               <div className={styles.pieCharts}>
                 <div className={styles.pieChart}>
-                  <DoughnutChart />
+                  <DoughnutChart data={dummyData} centerLabel="17/20" />
                 </div>
                 <div className={styles.pieChart}>
-                  <DoughnutChart />
+                  <DoughnutChart data={dummyData} centerLabel="17/20" />
                 </div>
                 <div className={styles.pieChart}>
-                <DoughnutChart />
+                <DoughnutChart data={dummyData} centerLabel="17/20" />
                 </div>
               </div>
             </div>
           </div>
+
+        
         </div>
 
         <div className={styles.footer}>
-          {/* <div className={styles.statsFooter}>
-            <img src="src\assets\StatsFooter.svg" alt="Stats Footer Design" />
-          </div> */}
+          
           <div className={styles.footerButtons}>
             <Link to="/leaderboard">
               <div>
@@ -99,11 +98,15 @@ const Statistics = () => {
             </div>
             <button className={styles.updateButton}>Update Socials</button>
           </div>
+         
+          
         </div>
 
-        {/* <div className={styles.statsFooter}>
+        <div className={styles.statsFooter}>
             <img src="src\assets\StatsFooter.svg" alt="Stats Footer Design" />
-        </div> */}
+        </div>
+
+
       </div>
     ) : null
   );
