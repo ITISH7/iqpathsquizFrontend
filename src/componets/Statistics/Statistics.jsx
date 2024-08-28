@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import DoughnutChart from '../../modals/doughnutGraph/doughnut';
 import BarGraph from '../../modals/barGraph/barGraph'
 import {data, categories} from '../../modals/barGraph/dataBar.js'
+import UtilityStyles from '../../utils/utils.module.css';
 
 const Statistics = () => {
   const [animate, setAnimate] = useState(false);
@@ -31,11 +32,8 @@ const Statistics = () => {
           <div className={`${styles.card} ${styles.cardBlue}`}></div>
           <div className={`${styles.card} ${styles.cardGreen}`}></div>
         </div>
-        <div className={styles.cards}>
-          {/* <img src="src/assets/Courses.svg" alt="Courses" /> */}
-        </div>
 
-        <div className={styles.content}>
+        <div className={`${styles.content} ${UtilityStyles.container}`}>
           <div className={styles.quoteAndProgress}>
             <div className={styles.quoteSection}>
               {/* <p>14th Aug, 2024</p> */}
@@ -81,9 +79,9 @@ const Statistics = () => {
         </div>
 
         <div className={styles.footer}>
-          <div className={styles.statsFooter}>
+          {/* <div className={styles.statsFooter}>
             <img src="src\assets\StatsFooter.svg" alt="Stats Footer Design" />
-          </div>
+          </div> */}
           <div className={styles.footerButtons}>
             <Link to="/leaderboard">
               <div>
@@ -102,6 +100,10 @@ const Statistics = () => {
             <button className={styles.updateButton}>Update Socials</button>
           </div>
         </div>
+
+        {/* <div className={styles.statsFooter}>
+            <img src="src\assets\StatsFooter.svg" alt="Stats Footer Design" />
+        </div> */}
       </div>
     ) : null
   );
