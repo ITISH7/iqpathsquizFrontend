@@ -41,11 +41,7 @@
   }
 
   .pageButton:hover .icon {
-    /* color: #5656ff;
-    text-shadow: -1px 0 #2a2afe, 0 1px #2a2afe, 1px 0 #2a2afe, 0 -1px #2a2afe;
-    filter: brightness(0) invert(1);
-    background-color: blue;
-    filter: sepia(1) saturate(10) hue-rotate(200deg); */
+    filter: sepia(1) saturate(10) hue-rotate(200deg);
   }
 
   .icon{
@@ -191,4 +187,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .bcFull:hover {
+    background-color: #6969fe;
+    border: 1px solid #E2E8F0;
+    border-radius: 20%;
+  }
+
+  .bc:hover {
+    background-color: #6969fe;
+    border: 1px solid #E2E8F0;
+    border-radius: 20%;
+  }
+
+  .fc:hover {
+    background-color: #6969fe;
+    border: 1px solid #E2E8F0;
+    border-radius: 20%;
+  }
+
+  .fcFull:hover {
+    background-color: #6969fe;
+    border: 1px solid #E2E8F0;
+    border-radius: 20%;
   }

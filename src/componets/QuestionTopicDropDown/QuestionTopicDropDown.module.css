@@ -254,3 +254,16 @@
 .problemName {
   text-align: left;
 }
+
+.star {
+  background-image: url('../../assets/Revision.svg'); 
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+  transition: background-image 0.3s ease;
+}
+
+.star:hover {
+  background-image: url('../../assets/RevisionShine.svg'); 
+  /* border: 2px solid green;  */
+}

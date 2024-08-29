@@ -104,12 +104,18 @@ const LeaderboardList = () => {
 
       <div className={styles.paging}>
         <span>Page 1 of 467</span>
-        <button className={`${styles.pageArrow} ${styles.bcFull}`}><img src="src\assets\beforPrevious.svg" alt="" /></button>
-        <button className={`${styles.pageArrow} ${styles.bc}`}><img src="src\assets\previous.svg" alt="" /></button>
-        <button className={`${styles.pageArrow} ${styles.fc}`}><img src="src\assets\next.svg" alt="" /></button>
-        <button className={`${styles.pageArrow} ${styles.fcFull}`}><img src="src\assets\afterNext.svg" alt="" /></button>
-
-        
+        <button className={styles.pageArrow}>
+          <img className={styles.bcFull} src="src\assets\beforPrevious.svg" alt="" />
+        </button>
+        <button className={styles.pageArrow}>
+          <img className={styles.bc} src="src\assets\previous.svg" alt="" />
+        </button>
+        <button className={styles.pageArrow}>
+          <img className={styles.fc} src="src\assets\next.svg" alt="" />
+        </button>
+        <button className={styles.pageArrow}>
+          <img className={styles.fcFull} src="src\assets\afterNext.svg" alt="" />
+        </button>        
       </div>
     </>
   );

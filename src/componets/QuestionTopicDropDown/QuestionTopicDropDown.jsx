@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from './QuestionTopicDropDown.module.css';
 import ArrowUp from '../../assets/ArrowUp.svg';
 import ArrowDown from '../../assets/ArrowDown.svg';
+import Revision from '../../assets/Revision.svg';
+import RevisionShine from '../../assets/RevisionShine.svg';
 
 function QuestionTopicDropDown({name}) {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,7 +77,13 @@ function QuestionTopicDropDown({name}) {
                 <td><img src="src\assets\Leetcode.svg" alt="Practice" className={styles.icons} /></td>
                 <td className={styles.icons}><button className={styles.noteButton}>+</button></td>
                 <td className={styles.icons}>{renderDifficultyBadge(problem.difficulty)}</td>
-                <td><img src="src\assets\Revision.svg" alt="Revision" className={styles.icons} /></td>
+                <td onClick={() => handleRevisionToggle(index)}>
+                  <img
+                    src={Revision ? Revision : RevisionShine}
+                    alt="Revision"
+                    className={`${styles.icons} ${styles.star}`}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
