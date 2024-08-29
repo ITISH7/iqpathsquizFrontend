@@ -12,74 +12,25 @@
 
 .nav {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   /* border: 2px solid red; */
-  width: 80%;
-  padding-right: 5rem;
+  width: 100%;
   height: 100%;
+  margin: 0 0;
 }
 
 .logo {
-  width: 100%;
-  min-width: 195px;
+  /* width: 125px; */
+  min-width: 125px;
   /* border: 2px solid red; */
   
 }
 
 .navList {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 60px;
-  gap: 2px;
-  font-size: 14px;
+  display: none;
 }
 
-.navItem {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background-color: #f7f7f7;  */
-  padding: 1rem;
-  /* border: 1px solid gray; */
-}
-
-.navItem .navLink {
-  text-decoration: none;
-  color: #555;
-}
-
-.navItem:hover {
-  color: #5a2d82;
-  font-weight: bold;
-}
-
-.navItem:hover::before {
-  /* content: '•';  */
-  position: absolute;
-  top: 3px; 
-  left: 88%;
-  transform: translateX(-50%);
-  color: #5a2d82; 
-  font-size: 18px; 
-}
-
-.navItem.active {
-  color: #5a2d82;
-  font-weight: bold;
-}
-
-.navItem.active::before {
-  content: '•'; 
-  position: absolute;
-  top: 3px; 
-  left: 88%;
-  transform: translateX(-50%);
-  color: #5a2d82; 
-  font-size: 18px; 
-}
 
 .authButtons {
   display: flex;
@@ -89,21 +40,21 @@
 
 .joiningBut {
   display: flex;
+  /* border: 2px solid red; */
 }
 
 .loginButton, .joinButton {
   font-family: 'Inika', serif;
-  width: 220.6px;
-  height: 49.6px;
-  gap: 8px;
+  /* width: 220.6px;
+  height: 49.6px; */
 }
 
 .loginButton {
-  padding: 0.5rem;
-  margin: 0.5rem;
+  /* padding: 0.5rem; */
+  margin: 0.5rem 0.1rem;
   border-radius: 1.5rem;
-  width: 95px;
-  height: 45px;
+  min-width: 70px;
+  height: 42px;
   background-color: #8039DF;
   color: white;
 }
@@ -114,11 +65,11 @@
 
 .joinButton {
   padding: 0.5rem;
-  margin: 0.5rem;
+  margin: 0.5rem 0.1rem;
   border: 1px solid #D1D5DB;
   border-radius: 1.5rem;
-  width: 95px;
-  height: 45px;
+  min-width: 85px;
+  height: 42px;
 }
 
 .joinButton:hover {
@@ -148,3 +99,172 @@
 .profile:hover {
   background-color: #678ff5;
 }
+
+
+/* mobile nav css */
+
+.mobileNav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background-color: var(--clr-light);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.open {
+  display: flex;
+}
+
+
+
+
+.closed {
+  display: none;
+}
+
+.closed .headerBars{
+  display: none;
+}
+
+.mobileNavMenu {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobileNavLink{
+  font-size: var(--size-sm);
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--clr-light);
+  letter-spacing: -0.05em;
+  transition: color 0.3s;
+}
+
+.mobileNavLink:hover {
+  color: var(--clr-red);
+}
+
+
+
+.mobileNavBtn {
+  font-size: var(--size-sm);
+}
+
+.headerBars{
+  height: 1.8rem;
+  width: 100%;
+  margin: 0px auto;
+}
+
+.headerBarContainer{
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid red; */
+}
+
+
+/* xs */
+/* @media (min-width: 475px) {} */
+
+/* sm */
+/* @media (min-width: 640px) {} */
+
+/* md */
+@media (min-width: 768px) {
+
+  .nav{
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .loginButton, .joinButton {
+    margin: 0.5rem;
+    height: 45px;
+    width: 90px;
+  }
+ 
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .navList {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 60px;
+    gap: 2px;
+    font-size: 14px;
+  }
+  
+  .navItem {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #f7f7f7;  */
+    padding: 1rem;
+    /* border: 1px solid gray; */
+  }
+  
+  .navItem .navLink {
+    text-decoration: none;
+    color: #555;
+  }
+  
+  .navItem:hover {
+    color: #5a2d82;
+    font-weight: bold;
+  }
+  
+  .navItem:hover::before {
+    /* content: '•';  */
+    position: absolute;
+    top: 3px; 
+    left: 88%;
+    transform: translateX(-50%);
+    color: #5a2d82; 
+    font-size: 18px; 
+  }
+  
+  .navItem.active {
+    color: #5a2d82;
+    font-weight: bold;
+  }
+  
+  .navItem.active::before {
+    content: '•'; 
+    position: absolute;
+    top: 3px; 
+    left: 88%;
+    transform: translateX(-50%);
+    color: #5a2d82; 
+    font-size: 18px; 
+  }
+
+  .headerBars{
+    display: none;
+  }
+  
+  .headerBarContainer{
+    display: none;
+  }
+}
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */

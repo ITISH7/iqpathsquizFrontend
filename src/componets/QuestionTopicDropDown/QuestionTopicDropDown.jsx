@@ -3,7 +3,7 @@ import styles from './QuestionTopicDropDown.module.css';
 import ArrowUp from '../../assets/ArrowUp.svg';
 import ArrowDown from '../../assets/ArrowDown.svg';
 
-function QuestionTopicDropDown() {
+function QuestionTopicDropDown({name}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -40,7 +40,7 @@ function QuestionTopicDropDown() {
   return (
     <div className={`${styles.tableContainer } ${isOpen ? styles.tableContainerOpen : ''}`}>
       <div className={`${styles.header} ${isOpen ? styles.headerOpen : ''}`} onClick={toggleDropdown}>
-        <h2>Day 3: Arrays Part-III</h2>
+        <h2>{`${name}`}</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
           <button className={styles.playButton}>Play</button>
           <button className={styles.filterButton}>Filter</button>

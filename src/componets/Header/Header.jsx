@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import { AuthContext } from '../../context/AuthContext';
@@ -16,9 +16,28 @@ function Header() {
 
   const { isLoggedIn, ToggleLogin } = useContext(AuthContext);
 
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(prevState => !prevState);
+    document.body.style.overflowY = isMobileNavOpen ? 'auto' : 'hidden';
+  };
+
+
+
+  useEffect(() => {
+    const mobileLinks = document.querySelectorAll('.mobileNavLink');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        setIsMobileNavOpen(false);
+        document.body.style.overflowY = 'auto';
+      });
+    });
+  }, []);
+
   return (
     <header className={`${styles.header} `}>
-      <nav className={`${styles.nav} `}>
+      <nav className={`${styles.nav} ${utilityStyle.container}`}>
         <div>
           <img className={styles.logo} src="src\assets\logo.svg" alt="Logo" />
         </div>
@@ -52,6 +71,35 @@ function Header() {
           )}
         </div>
       </nav>
+        <button className={styles.headerBarContainer} onClick={toggleMobileNav}>
+          <img className={styles.headerBars}  src="src\assets\bars.svg" alt="Bars" />
+        </button>
+
+      {/*  Mobile Navigation  */}
+      <div className={`${styles.mobileNav} ${isMobileNavOpen ? styles.open : styles.closed}`}>
+          <button className={styles.headerBarContainer} onClick={toggleMobileNav}>
+            <img className={styles.headerBars}  src="src\assets\bars.svg" alt="Bars" />
+          </button>
+          <nav>
+            <ul class="mobileNavMenu">
+              <li>
+                <a class="mobileNavLink" href="#Home">Home</a>
+              </li>
+              <li>
+                <a class="mobileNavLink" href="#Courses">Courses</a>
+              </li>
+              <li>
+                <a class="mobileNavLink" href="#Testimonials">Testimonials</a>
+              </li>
+              <li>
+                <a class="mobileNavLink" href="#Dashboard">Dashboard</a>
+              </li>
+              <li>
+                <a class="mobileNavBtn btn" href="#">Test</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
     </header>
   );
 }

@@ -14,12 +14,12 @@ function Home() {
      <AddBlock />
      <Statistics />
      <ProgrssBar />
-     <QuestionTopicDropDown />
-     <QuestionTopicDropDown />
-     <QuestionTopicDropDown />
-     <QuestionTopicDropDown />
-     <QuestionTopicDropDown />
-     <QuestionTopicDropDown />
+     <QuestionTopicDropDown name={`Apptitude`} />
+     <QuestionTopicDropDown name={`QUANT`} />
+     <QuestionTopicDropDown name={`Data Structure`}/>
+     <QuestionTopicDropDown name={`AI`} />
+     <QuestionTopicDropDown name={`machine learning`} />
+     <QuestionTopicDropDown name={`Database`} />
 
     </>
   )
