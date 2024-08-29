@@ -41,10 +41,6 @@
   }
 
   .pageButton:hover .icon {
-    /* color: #5656ff; */
-    /* text-shadow: -1px 0 #2a2afe, 0 1px #2a2afe, 1px 0 #2a2afe, 0 -1px #2a2afe; */
-    /* filter: brightness(0) invert(1); */
-    /* background-color: blue; */
     filter: sepia(1) saturate(10) hue-rotate(200deg);
   }
 
