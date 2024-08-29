@@ -12,6 +12,13 @@ function QuestionTopicDropDown() {
     setIsOpen(!isOpen);
   };
 
+  const handleRevisionToggle = (index) => {
+    Revision((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
   const problems = [
     { name: "Rotate Matrix", difficulty: "Easy" },
     { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
