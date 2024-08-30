@@ -5,8 +5,7 @@ import utilityStyle from '../../utils/utils.module.css';
 const AddBlock = () => {
     return (
         <div className={`${styles.loginContainer} ${utilityStyle.container}`}>
-            <div className={styles.backgroundShapes}>
-                
+            <div className={`${styles.backgroundShapes} ${utilityStyle.container}`}>
             </div>
             <div className={styles.loginDiv}>
                 <button className={styles.loginButton}>
