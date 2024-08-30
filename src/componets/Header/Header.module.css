@@ -3,7 +3,7 @@
 .header {
   background-color: white;
   /* border: 2px solid red; */
-  height: 80px;
+  height: 70px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -22,7 +22,7 @@
 
 .logo {
   /* width: 125px; */
-  min-width: 125px;
+  min-width: 120px;
   /* border: 2px solid red; */
 }
 
@@ -53,9 +53,10 @@
   margin: 0.5rem 0.1rem;
   border-radius: 1.5rem;
   min-width: 70px;
-  height: 42px;
+  height: 35px;
   background-color: #8039DF;
   color: white;
+  font-size: var(--size-sm);
 }
 
 .loginButton:hover {
@@ -67,8 +68,9 @@
   margin: 0.5rem 0.1rem;
   border: 1px solid #D1D5DB;
   border-radius: 1.5rem;
-  min-width: 85px;
-  height: 42px;
+  min-width: 80px;
+  height: 35px;
+  font-size: var(--size-sm);
 }
 
 .joinButton:hover {
@@ -172,11 +174,23 @@
   align-items: center;
   justify-content: center;
   /* border: 2px solid red; */
+  margin: 0 auto;
 }
 
 
 /* xs */
-/* @media (min-width: 475px) {} */
+@media (min-width: 475px) {
+  .header{
+    height: 80px
+  }
+
+  .loginButton, .joinButton {
+    margin: 0.5rem;
+    height: 40px;
+    width: 90px;
+    font-size: var(--size-base);
+  }
+}
 
 /* sm */
 /* @media (min-width: 640px) {} */
@@ -190,9 +204,7 @@
   }
 
   .loginButton, .joinButton {
-    margin: 0.5rem;
     height: 45px;
-    width: 90px;
   }
  
 }

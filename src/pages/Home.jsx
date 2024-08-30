@@ -12,14 +12,14 @@ function Home() {
     <>
      <HeroSection />
      <AddBlock />
-     <Statistics />
+     {/* <Statistics /> */}
      <ProgrssBar />
-     <QuestionTopicDropDown name={`Apptitude`} />
+     {/* <QuestionTopicDropDown name={`Apptitude`} />
      <QuestionTopicDropDown name={`QUANT`} />
      <QuestionTopicDropDown name={`Data Structure`}/>
      <QuestionTopicDropDown name={`AI`} />
      <QuestionTopicDropDown name={`machine learning`} />
-     <QuestionTopicDropDown name={`Database`} />
+     <QuestionTopicDropDown name={`Database`} /> */}
 
     </>
   )
