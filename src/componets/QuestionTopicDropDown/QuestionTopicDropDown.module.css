@@ -181,6 +181,11 @@
   table-layout: fixed;
 }
 
+/* .table tr{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+} */
+
 .table th,
 .table td {
   padding: 12px;
@@ -195,11 +200,20 @@
   color: #8C8C8C;
 }
 
+.difficulty{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+}
+
 .hardBadge {
   background-color: #fdb8a5;
   color: #C62800;
   padding: 5px 15px;
   border-radius: 2rem;
+  border: 1.5px solid white;
 }
 
 .hardBadge:hover {
@@ -213,6 +227,7 @@
   color: #CD910C;
   padding: 5px 15px;
   border-radius: 2rem;
+  border: 1.5px solid white;
 }
 
 .mediumBadge:hover {
@@ -226,6 +241,7 @@
   color: #0085FF;
   padding: 5px 15px;
   border-radius: 2rem;
+  border: 1.5px solid white;
 }
 
 .easyBadge:hover {
@@ -253,6 +269,7 @@
 
 .problemName {
   text-align: left;
+  column-span: "4";
 }
 
 .star {

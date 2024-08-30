@@ -5,20 +5,20 @@ import ArrowDown from '../../assets/ArrowDown.svg';
 import Revision from '../../assets/Revision.svg';
 import RevisionShine from '../../assets/RevisionShine.svg';
 
-function QuestionTopicDropDown({name}) {
+function QuestionTopicDropDown({ name }) {
   const [isOpen, setIsOpen] = useState(false);
   const [imageStates, setImageStates] = useState({});
   
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  
+
   const handleRevisionToggle = (index) => {
     setImageStates((prev) => ({
       ...prev,
       [index]: prev[index] === "RevisionShine" ? "Revision" : "RevisionShine",
     }));
-  };  
+  };
 
   const problems = [
     { name: "Rotate Matrix", difficulty: "Easy" },
@@ -48,12 +48,11 @@ function QuestionTopicDropDown({name}) {
   };
 
   return (
-    <div className={`${styles.tableContainer } ${isOpen ? styles.tableContainerOpen : ''}`}>
+    <div className={`${styles.tableContainer} ${isOpen ? styles.tableContainerOpen : ''}`}>
       <div className={`${styles.header} ${isOpen ? styles.headerOpen : ''}`} onClick={toggleDropdown}>
         <h2>{`${name}`}</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
           <button className={styles.playButton}>Play</button>
-          <button className={styles.filterButton}>Filter</button>
           <button className={styles.filterButton}>Filter</button>
           <span>0/6</span>
           <button className={styles.toggleButton}>
@@ -62,36 +61,48 @@ function QuestionTopicDropDown({name}) {
         </div>
       </div>
       {isOpen && (
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Status</th>
-              <th>Problem</th>
-              <th>Article</th>
-              <th>YouTube</th>
-              <th>Practice</th>
-              <th>Note</th>
-              <th>Difficulty</th>
-              <th>Revision</th>
-            </tr>
-          </thead>
-          <tbody>
-            {problems.map((problem, index) => (
-              <tr key={index}>
-                <td className={styles.icons}><input type="checkbox" /></td>
-                <td className={styles.problemName}>{problem.name}</td>
-                <td><img src="src\assets\Artical.svg" alt="Article" className={styles.icons} /></td>
-                <td><img src="src\assets\YouTube.svg" alt="YouTube" className={styles.icons} /></td>
-                <td><img src="src\assets\Leetcode.svg" alt="Practice" className={styles.icons} /></td>
-                <td className={styles.icons}><button className={styles.noteButton}>+</button></td>
-                <td className={styles.icons}>{renderDifficultyBadge(problem.difficulty)}</td>
-                <td>
-                <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons}/>
-                </td>
+        <div className={styles.content}>
+          <table className={styles.table}>
+            <colgroup>
+              <col style={{ width: '8%' }} />
+              <col style={{ width: '37%' }} />
+              <col style={{ width: '8%' }} />
+              <col style={{ width: '8%' }} />
+              <col style={{ width: '8%' }} />
+              <col style={{ width: '8%' }} />
+              <col style={{ width: '12.5%' }} />
+              <col style={{ width: '8%' }} />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Problem</th>
+                <th>Article</th>
+                <th>YouTube</th>
+                <th>Practice</th>
+                <th>Note</th>
+                <th>Difficulty</th>
+                <th>Revision</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {problems.map((problem, index) => (
+                <tr key={index}>
+                  <td className={styles.icons}><input type="checkbox" /></td>
+                  <td className={styles.problemColumn}>{problem.name}</td>
+                  <td><img src="src\assets\Artical.svg" alt="Article" className={styles.icons} /></td>
+                  <td><img src="src\assets\YouTube.svg" alt="YouTube" className={styles.icons} /></td>
+                  <td><img src="src\assets\Leetcode.svg" alt="Practice" className={styles.icons} /></td>
+                  <td className={styles.icons}><button className={styles.noteButton}>+</button></td>
+                  <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
+                  <td>
+                    <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

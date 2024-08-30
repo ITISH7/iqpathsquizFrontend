@@ -4,10 +4,11 @@
   /* border: 2px solid red; */
   margin: 1.5rem 4rem;
   width: 80%;
-  height: 64.1px;
+  height: 110px;
   margin-left: auto;
   margin-right: auto;
   font-family: 'Titillium Web', sans-serif;
+  margin-bottom: 3rem;
 }
 
 .wrapper{
@@ -108,6 +109,12 @@
 
 /* md */
 @media (min-width: 768px) {
+
+  .container{
+    height: 70px;
+    margin-bottom: 4rem;
+  }
+
   .wrapper {
     flex-direction: row;
   }
