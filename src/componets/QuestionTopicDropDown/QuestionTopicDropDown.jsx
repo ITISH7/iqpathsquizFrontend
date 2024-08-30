@@ -7,17 +7,18 @@ import RevisionShine from '../../assets/RevisionShine.svg';
 
 function QuestionTopicDropDown() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [imageStates, setImageStates] = useState({});
+  
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
+  
   const handleRevisionToggle = (index) => {
-    Revision((prev) => ({
+    setImageStates((prev) => ({
       ...prev,
-      [index]: !prev[index],
+      [index]: prev[index] === "RevisionShine" ? "Revision" : "RevisionShine",
     }));
-  };
+  };  
 
   const problems = [
     { name: "Rotate Matrix", difficulty: "Easy" },
@@ -84,12 +85,8 @@ function QuestionTopicDropDown() {
                 <td><img src="src\assets\Leetcode.svg" alt="Practice" className={styles.icons} /></td>
                 <td className={styles.icons}><button className={styles.noteButton}>+</button></td>
                 <td className={styles.icons}>{renderDifficultyBadge(problem.difficulty)}</td>
-                <td onClick={() => handleRevisionToggle(index)}>
-                  <img
-                    src={Revision ? Revision : RevisionShine}
-                    alt="Revision"
-                    className={`${styles.icons} ${styles.star}`}
-                  />
+                <td>
+                <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons}/>
                 </td>
               </tr>
             ))}

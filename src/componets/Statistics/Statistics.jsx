@@ -38,8 +38,11 @@ const Statistics = () => {
         <div className={`${styles.content} ${UtilityStyles.container}`}>
           <div className={styles.quoteAndProgress}>
             <div className={styles.quoteSection}>
-              {/* <p>14th Aug, 2024</p> */}
-              <img src="src\assets\Thought.png" alt="" />
+              <div className={styles.thoughtBackground}>
+                <p className={styles.thoughtPara}>14th Aug, 2024</p>
+                <img src="src/assets/ThoughtPi.svg" alt="Thought Picture" className={styles.thoughtPicture} />
+                <img src="src/assets/ThoughtSc.png" alt="Thought Statement" className={styles.thoughtStatement} />
+              </div>
             </div>
             <div className={styles.progressTracking}>
               <div className={styles.progBar}>
