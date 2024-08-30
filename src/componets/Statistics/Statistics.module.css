@@ -102,20 +102,54 @@
     margin: 0 auto;
 }
 
-
-
-.quoteSection p {
-    /* border: 2px solid black; */
-    position: relative;
+.quoteSection {
+    position: relative; 
+    width: 543px; 
+    height: 260px; 
+    margin: 50px 30px 60px 35px;
+    background-color: white;
+    border-radius: 25%;
 }
 
-.quoteSection img {
-    max-width: 100%;
-    height: auto;
-    /* border: 2px solid black; */
+.thoughtBackground {
     position: relative;
-    max-width: 52rem;
-} 
+    background-image: url('src/assets/ThoughtBg.svg');
+    background-size:contain;
+    width: 543px;
+    height: 258px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    /* border: 2px solid green; */
+  }
+
+  .thoughtPara {
+    padding-top: 10px;
+    margin-left: 60px;
+    /* border: 2px solid green; */
+    width: 120px;
+    color: #525252;
+  }
+  
+  .thoughtPicture,
+  .thoughtStatement {
+    position: absolute; 
+  }
+  
+  .thoughtPicture {
+    top: 20%; 
+    left: 27%; 
+    transform: translateX(-50%); 
+    width: 240px;
+    height: 150px;
+  }
+  
+  .thoughtStatement {
+    bottom: 22%; 
+    left: 74%; 
+    transform: translateX(-50%); 
+    width: 260px;
+    height: 150px;
+  }
 
 .progressTracking{
     display: grid;
