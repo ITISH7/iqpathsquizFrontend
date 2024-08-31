@@ -29,6 +29,7 @@
   background-color: #ffffff; 
   transition: background-color 0.3s ease;
   padding-right: 8px;
+
 }
 
 .header:hover {
@@ -51,7 +52,7 @@
 
 .header h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--size-xs);
   font-weight: 1000;
   color: #333;
 }
@@ -59,14 +60,19 @@
 .progress {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0px;
+  border: 2px solid #d4d4d8;
+}
+
+.progress button{
+  font-size: var(--size-xs);
 }
 
 .progress span {
-  font-size: 1rem;
-  margin-right: 10px;
-  width: 34.6px;
-  height: 31.6px;
+  font-size: var(--size-xs);
+  margin-right: 5px;
+  width: 28px;
+  height: 26px;
   top: 0.2px;
   padding: 4.8px 2px 2px 5px;
   gap: 0px;
@@ -92,16 +98,19 @@
 
 .toggleButton {
   background-color: transparent;
-  border: none;
-  font-size: 1.25rem;
+  font-size: var(--size-sm);
   cursor: pointer;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   gap: 0px;
   border-radius: 8px;
   border: 1px solid #d4d4d8;
-  background-color: #fafafa;
-  opacity: 0px;
+  
+}
+
+.toggleButton img{
+  height: 100%;
+  width: 100%;
 }
 
 .filterButton {
@@ -110,9 +119,9 @@
   font-size: 1.05rem;
   cursor: pointer;
   width: 52px;
-  height: 32px;
+  height: 26px;
   gap: 0px;
-  margin-right: 12px;
+  margin-right: 5px;
   border-radius: 8px;
   border: 1px solid #d4d4d8;
   background-color: #fafafa;
@@ -125,9 +134,9 @@
   font-size: 1.05rem;
   cursor: pointer;
   width: 44px;
-  height: 32px;
+  height: 26px;
   gap: 0px;
-  margin-right: 12px;
+  margin-right: 5px;
   border-radius: 8px;
   border: 1px solid #d4d4d8;
   background-color: #fafafa;
@@ -284,3 +293,106 @@
   background-image: url('../../assets/RevisionShine.svg'); 
   /* border: 2px solid green;  */
 }
+
+
+/* xs */
+@media (min-width: 475px) {
+  .header h2 {
+    font-size: var(--size-sm);
+  }
+
+  .progress button{
+    font-size: var(--size-sm);
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .header h2 {
+    font-size: var(--size-base);
+  }
+
+  .progress button{
+    font-size: var(--size-base);
+  }
+  
+  .progress span{
+    font-size: var(--size-base);
+    height: 30px;
+    width: 35px;
+  }
+
+  .playButton{
+    height: 30px;
+    width: 50px;
+  }
+
+  .filterButton{
+    height: 30px;
+    width: 50px;
+  }
+
+  .toggleButton{
+    height: 30px;
+    width: 30px;
+    font-size: var(--size-xl);
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .progress{
+    gap: 0.5rem
+  }
+
+  .progress span{
+    margin-right: 12px;
+  }
+
+  .playButton{
+    margin-right: 12px;
+  }
+
+  .filterButton{
+    margin-right: 12px;
+  }
+
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .header h2 {
+    font-size: var(--size-xl);
+  }
+
+  .progress button{
+    font-size: var(--size-xl);
+  }
+
+  .progress span{
+    font-size: var(--size-xl);
+    height: 40px;
+    width: 40px;
+  }
+
+  .playButton{
+    height: 40px;
+    width: 60px;
+  }
+
+  .filterButton{
+    height: 40px;
+    width: 60px;
+  }
+
+  .toggleButton{
+    height: 40px;
+    width: 40px;
+  }
+}
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */

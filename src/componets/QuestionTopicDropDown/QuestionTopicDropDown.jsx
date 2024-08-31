@@ -4,6 +4,7 @@ import ArrowUp from '../../assets/ArrowUp.svg';
 import ArrowDown from '../../assets/ArrowDown.svg';
 import Revision from '../../assets/Revision.svg';
 import RevisionShine from '../../assets/RevisionShine.svg';
+import utilityStyle from '../../utils/utils.module.css';
 
 function QuestionTopicDropDown({ name }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,10 +50,11 @@ function QuestionTopicDropDown({ name }) {
 
   return (
     <div className={`${styles.tableContainer} ${isOpen ? styles.tableContainerOpen : ''}`}>
-      <div className={`${styles.header} ${isOpen ? styles.headerOpen : ''}`} onClick={toggleDropdown}>
+      <div className={`${styles.header} ${utilityStyle.container} ${isOpen ? styles.headerOpen : ''}`} onClick={toggleDropdown}>
         <h2>{`${name}`}</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
           <button className={styles.playButton}>Play</button>
+          <button className={styles.filterButton}>Filter</button>
           <button className={styles.filterButton}>Filter</button>
           <span>0/6</span>
           <button className={styles.toggleButton}>
