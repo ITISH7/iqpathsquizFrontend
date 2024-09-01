@@ -48,6 +48,7 @@
     width: 95%;
     margin: 0 auto;
     /* border: 1px solid green; */
+    /* overflow-x: scroll; */
 }
 
 .card {
@@ -115,11 +116,11 @@
     position: relative;
     background-image: url('src/assets/ThoughtBg.svg');
     background-size:contain;
-    width: 543px;
+    /* max-width: px; */
     height: 258px;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    /* border: 2px solid green; */
+    border: 2px solid green;
   }
 
   .thoughtPara {
@@ -342,3 +343,22 @@
 .shareButton:hover .shareIconImg {
     filter: brightness(0) invert(1);
 }
+
+
+/* xs */
+/* @media (min-width: 475px) {} */
+
+/* sm */
+/* @media (min-width: 640px) {} */
+
+/* md */
+/* @media (min-width: 768px) {} */
+
+/* lg */
+/* @media (min-width: 1024px) {} */
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */

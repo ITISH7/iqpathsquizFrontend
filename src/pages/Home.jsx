@@ -12,7 +12,7 @@ function Home() {
     <>
      <HeroSection />
      <AddBlock />
-     {/* <Statistics /> */}
+     <Statistics />
      <ProgrssBar />
      <QuestionTopicDropDown name={`Apptitude`} />
      <QuestionTopicDropDown name={`QUANT`} />
