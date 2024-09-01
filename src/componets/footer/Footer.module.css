@@ -7,37 +7,46 @@
 }
 
 .footerContainer {
+  /* border: 2px solid green; */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
-  padding-top: 90px;
+  padding-top: 30px;
+  flex-direction: row;
 }
 
 .footerLogo {
   display: block;
   align-items: center;
   justify-content: center;
-  margin-top: 5px;
-  margin-left: 220px;
+  margin-bottom: 50px;
+  margin-left: 90px;
 }
 
 .footerLogo img {
-  width: 100px;
+  width: 60px;
+}
+
+.footerLogo p {
+  font-size: var(--size-sm);
 }
 
 .footerLinks {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 60px;
+  gap: 20px;
+  /* border: 2px solid red; */
+  font-size: 20px;
 }
 
 .footerLinks h4 {
   margin-bottom: 15px;
   font-style: bold;
   font-weight: 500px;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .footerLinks ul {
@@ -61,6 +70,7 @@
   margin-right: 10px;
   display: inline;
   padding-bottom: 20px;
+  width: 30px;
 }
 
 .contactSec ul {
@@ -84,17 +94,49 @@
   margin-top: 20px;
   border-top: 1px solid white;
   padding-top: 10px;
-  font-size: 14px;
+  font-size: var(--size-sm);
   display: flex;
   justify-content: center;
   padding-top: 30px;
 }
 
 /* xs */
-/* @media (min-width: 475px) {} */
+@media (min-width: 425px) {
+  .footerLinks {
+    /* border: 2px solid blue; */
+    display: flex;
+    justify-content: space-evenly;
+    gap: 32px;
+    margin-left: 5px;
+  }
+}
 
 /* sm */
-/* @media (min-width: 640px) {} */
+@media (min-width: 640px) {
+  .footerContainer {
+    /* border: 2px solid green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footerLogo {
+    /* border: 2px solid yellow; */
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50px;
+    font-size: var(--size-sm);
+    /* margin-bottom: 50px; */
+  }
+
+  .footerLinks {
+    /* border: 2px solid pink; */
+    gap: 80px;
+    font-size: var(--size-sm);
+    /* margin-left: 215px; */
+  }
+}
 
 /* md */
 @media (min-width: 768px) {
@@ -133,7 +175,7 @@
     display:flex;
     justify-content: space-around;
     align-items: center;
-    height: 350px;
+    height: 300px;
   }
 
   .footerLogo {
@@ -156,9 +198,10 @@
   .footerLinks {
     height: 200px;
     display: flex;
-    margin-top: -50px;
+    margin-top: 0px;
     margin-right: 0px;
     font-size: var(--size-2xl);
+    gap: 80px;
   }
 
   .footerBottom {
