@@ -42,3 +42,41 @@
     font-size: 14px;
     font-weight: 600;
 }
+
+/* xs */
+@media (min-width: 475px) {
+    .noticeHeading .noticePara {
+        font-size: var(--size-xs);
+    }
+}
+
+/* sm */
+/* @media (min-width: 640px) {} */
+
+/* md */
+@media (min-width: 768px) {
+    .noticePara {
+        font-size: var(--size-md);
+    }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+    .noticeHeading .noticePara {
+        font-size: var(--size-lg);
+    }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+    .noticeHeading .noticePara {
+        font-size: var(--size-xl);
+    }
+}
+
+/* 2xl */
+@media (min-width: 1536px) {
+    .noticeHeading .noticePara {
+        font-size: var(--size-2xl);
+    }
+}
