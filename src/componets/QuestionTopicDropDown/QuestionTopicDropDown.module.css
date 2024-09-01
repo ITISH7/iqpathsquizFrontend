@@ -362,15 +362,15 @@
 /* lg */
 @media (min-width: 1024px) {
   .header h2 {
-    font-size: var(--size-xl);
+    font-size: var(--size-lg);
   }
 
   .progress button{
-    font-size: var(--size-xl);
+    font-size: var(--size-lg);
   }
 
   .progress span{
-    font-size: var(--size-xl);
+    font-size: var(--size-lg);
     height: 40px;
     width: 40px;
   }
