@@ -150,12 +150,10 @@
     text-overflow: ellipsis;
     white-space: normal; /* Allows text to wrap */
     max-width: inherit;
-}
-  .profiles {
-    /* justify-content: center;  */
+  }
 
-    /* display: none; */
-    /* gap: -3px; */
+  .profilesP{
+    justify-self: start;
   }
 
   
