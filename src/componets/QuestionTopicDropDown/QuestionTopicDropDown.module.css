@@ -61,7 +61,7 @@
   display: flex;
   align-items: center;
   gap: 0px;
-  border: 2px solid #d4d4d8;
+  /* border: 2px solid #d4d4d8; */
 }
 
 .progress button{
