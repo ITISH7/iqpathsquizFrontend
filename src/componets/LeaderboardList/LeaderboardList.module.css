@@ -1,8 +1,8 @@
 .container {
-    width: 80%;
+    width: 90%;
     /* max-width: 1200px; */
-    margin: 20px auto;
-    padding: 30px;
+    margin: 10px auto;
+    padding: 15px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -16,7 +16,7 @@
     align-items: center;
     padding: 10px 0px;
     font-weight: 400;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     /* border: 2px solid black; */
   }
@@ -57,10 +57,10 @@
   
   .header {
     display: grid;
-    grid-template-columns: 0.8fr 2fr 3fr 1fr 1.5fr 1.5fr 0.8fr;
+    grid-template-columns: 0.8fr 2fr 3fr 1fr ;
     /* background-color: #f4f4f4; */
     color: #64748B;
-    padding: 10px;
+    padding: 0px;
     border-bottom: 2px solid #ddd;
     text-align: left;
     /* font-weight: bold; */
@@ -70,18 +70,28 @@
     display: flex;
     align-items: center;
     /* border: 2px solid black; */
-    margin: 0 4px;
-    padding: 0 8px;
+    /* margin: 0 4px; */
+    padding: 0 4px;
+    font-size: var(--size-sm);
+  }
+
+  .header .remove{
+    display: none;
   }
 
   .body {
     display: flex;
     flex-direction: column;
+    font-size: var(--size-sm);
+  }
+  
+  .body .remove{
+    display: none;
   }
   
   .row {
     display: grid;
-    grid-template-columns: 0.8fr 2fr 3fr 1fr 1.5fr 1.5fr 0.8fr;
+    grid-template-columns: 0.8fr 2fr 3fr 1fr ;
     padding: 20px;
     border-bottom: 1px solid #ddd;
     transition: background-color 0.3s ease;
@@ -101,7 +111,7 @@
   .rank, .username, .institute, .questionsSolved, .questionsPerDay, .joinDate, .profiles {
     display: flex;
     align-items: center;
-    /* border: 2px solid black; */
+    border: 2px solid black;
     margin: 0 4px;
     padding: 0 2px;
     overflow: hidden;
@@ -132,17 +142,19 @@
   }
 
   .institute, .joinDate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: inherit;  
-    display: inline-block;
-  }
-  
+    white-space: normal; /* Allows text to wrap */
+    max-width: inherit;
+}
   .profiles {
-    justify-content: center;
+    justify-content: center; 
   }
 
+  
   .ProfilePhoto{
     width: 30px;
     height: 30px;
@@ -213,3 +225,41 @@
     border-radius: 20%;
     /* filter: brightness(0) invert(1); */
   }
+
+
+  /* xs */
+@media (min-width: 475px) {
+  /* grid-template-columns: 0.8fr 2fr 3fr 1fr 1.5fr 1.5fr 0.8fr; */
+ .container{
+  width: 80%;
+ }
+
+ .pagination{
+  width: 80%;
+ }
+
+ .header{
+  padding: 10px;
+ }
+
+ .header span{
+  margin: 0 4px;
+  padding: 0 4px;
+ }
+  
+}
+
+/* sm */
+/* @media (min-width: 640px) {} */
+
+/* md */
+/* @media (min-width: 768px) {} */
+
+/* lg */
+/* @media (min-width: 1024px) {} */
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */

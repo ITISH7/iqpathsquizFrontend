@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./LeaderboardList.module.css";
 import { Link } from "react-router-dom";
+import utilityStyle from '../../utils/utils.module.css';
+
 
 const LeaderboardList = () => {
   const data = [
@@ -46,15 +48,15 @@ const LeaderboardList = () => {
       </div>
 
       <div className={styles.container}>
-        <div className={styles.table}>
+        <div className={`${styles.table}`}>
           <div className={styles.header}>
             <span>Rank</span>
             <span>Username</span>
             <span>Institute</span>
             <span>Questions Solved</span>
-            <span>Questions/Day</span>
-            <span>Join Date</span>
-            <span>Profiles</span>
+            <span className={styles.remove}>Questions/Day</span>
+            <span className={styles.remove}>Join Date</span>
+            <span className={styles.remove}>Profiles</span>
           </div>
           <div className={styles.body}>
             {data.map((user, index) => (
@@ -87,11 +89,11 @@ const LeaderboardList = () => {
                 <span className={styles.questionsSolved}>
                   {user.questionsSolved}
                 </span>
-                <span className={styles.questionsPerDay}>
+                <span className={`${styles.questionsPerDay}  ${styles.remove}`}>
                   {user.questionsPerDay.toFixed(2)}
                 </span>
-                <span className={styles.joinDate}>{user.joinDate}</span>
-                <span className={styles.profiles}>
+                <span className={`${styles.joinDate}  ${styles.remove}`}>{user.joinDate}</span>
+                <span className={`${styles.profiles}  ${styles.remove}`}>
                   <span className={styles.GithubprofileIcon}></span>
                   <span className={styles.Leetcodeprofile}></span>
                   

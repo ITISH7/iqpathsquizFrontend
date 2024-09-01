@@ -4,7 +4,7 @@
   justify-content: space-between; 
   position: relative;
   height: 249px;
-  width: 80%;
+  width: 90%;
   margin: 20px auto;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -17,26 +17,27 @@
 
 .image {
   /* border: 2px solid red; */
-  position: relative;
-  left: 20%;
-  top: 0px;
+  position: absolute;
+  left: 22%;
+  top: 70px;
   z-index: 1;
+  width: 225px;
 }
 
 .imageCorner{
   /* border: 2px solid red; */
-  position: relative;
-  bottom: -28px;
-  right: -22px;
+  position: absolute;
+  bottom: -10px;
+  right: -12px;
   z-index: 1;
-  ;
+  height: 8rem;
 }
 
 .filterButton {
   display: flex;
   position: absolute;
-  left: 40px;
-  bottom: 20px;
+  left: 20px;
+  bottom: 15px;
   padding: 6px 12px;
   gap: 10px;
   background-color: #f2f2f2;
@@ -46,13 +47,121 @@
   font-weight: 500;
 }
 
+.filterButton button{
+  display: none;
+}
+
 .title {
-  flex-grow: 1;
-  text-align: center;
-  font-size: 28px;
+  position: absolute;
+  font-size: var(--size-xl);
   font-weight: bold;
   color: #1a1a1a;
-  position: absolute;
-  top: 60px;
-  left:12%;
+  width: 120px;
+  top: 40px;
+  left:8%;
+  /* border: 2px solid red; */
 }
+
+/* xs */
+@media (min-width: 475px) {
+
+  .container{
+    width: 80%;
+  }
+
+  .title{
+    font-size: var(--size-xl);
+  }
+  .image{
+    width: 300px;
+    left: 20%;
+    top: 60px;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  
+  .title{
+    font-size: var(--size-3xl);
+    width: 200px;
+  }
+  .image{
+    width: 420px;
+    left: 20%;
+    top: 60px;
+  }
+
+  .imageCorner{
+    height: 10rem;
+    bottom: -13px;
+    right: -15px;
+  }
+
+  .filterButton{
+    left: 30px;
+    bottom: 20px;
+  }
+
+  .filterButton button{
+    display: block;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  
+  .title{
+    font-size: var(--size-3xl);
+    width: 200px;
+  }
+  .image{
+    width: 420px;
+    left: 20%;
+    top: 60px;
+  }
+
+  .imageCorner{
+    height: 10rem;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+   
+  .title{
+    font-size: var(--size-4xl);
+    width: 200px;
+  }
+  .image{
+    width: 500px;
+    left: 20%;
+    top: 60px;
+  }
+
+  .imageCorner{
+    height: 11rem;
+    right: -18px;
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .title{
+    font-size: var(--size-5xl);
+    width: 300px;
+  }
+  .image{
+    width: 500px;
+    left: 20%;
+    top: 50px;
+  }
+
+  .imageCorner{
+    height: 11rem;
+    right: -18px;
+  }
+}
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */

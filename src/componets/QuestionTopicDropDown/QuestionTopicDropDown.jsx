@@ -63,41 +63,43 @@ function QuestionTopicDropDown({ name }) {
         </div>
       </div>
       {isOpen && (
-        <div className={styles.content}>
+        <div className={`${styles.content} `}>
           <table className={styles.table}>
-            <colgroup>
-              <col style={{ width: '8%' }} />
-              <col style={{ width: '37%' }} />
-              <col style={{ width: '8%' }} />
-              <col style={{ width: '8%' }} />
-              <col style={{ width: '8%' }} />
-              <col style={{ width: '8%' }} />
-              <col style={{ width: '12.5%' }} />
-              <col style={{ width: '8%' }} />
+             <colgroup>
+              <col className={styles.colStatus} />
+              <col className={styles.colProblem} />
+              <col className={styles.colArticle} />
+              <col className={styles.colYouTube} />
+              <col className={styles.colPractice} />
+              <col className={styles.colNote} />
+              <col className={styles.colDifficulty} />
+              <col className={styles.colRevision} />
             </colgroup>
+
+
             <thead>
               <tr>
                 <th>Status</th>
                 <th>Problem</th>
-                <th>Article</th>
-                <th>YouTube</th>
-                <th>Practice</th>
-                <th>Note</th>
+                <th className={styles.remove}>Article</th>
+                <th className={styles.remove}>YouTube</th>
+                <th className={styles.remove}>Practice</th>
+                <th className={styles.remove}>Note</th>
                 <th>Difficulty</th>
-                <th>Revision</th>
+                <th className={styles.remove}>Revision</th>
               </tr>
             </thead>
             <tbody>
               {problems.map((problem, index) => (
                 <tr key={index}>
-                  <td className={styles.icons}><input type="checkbox" /></td>
-                  <td className={styles.problemColumn}>{problem.name}</td>
-                  <td><img src="src\assets\Artical.svg" alt="Article" className={styles.icons} /></td>
-                  <td><img src="src\assets\YouTube.svg" alt="YouTube" className={styles.icons} /></td>
-                  <td><img src="src\assets\Leetcode.svg" alt="Practice" className={styles.icons} /></td>
-                  <td className={styles.icons}><button className={styles.noteButton}>+</button></td>
-                  <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
-                  <td>
+                  <td className={`${styles.icons}`}><input type="checkbox" /></td>
+                  <td className={`${styles.problemColumn}`}>{problem.name}</td>
+                  <td className={styles.remove}><img src="src\assets\Artical.svg" alt="Article" className={styles.icons} /></td>
+                  <td className={styles.remove}><img src="src\assets\YouTube.svg" alt="YouTube" className={styles.icons} /></td>
+                  <td className={styles.remove}><img src="src\assets\Leetcode.svg" alt="Practice" className={styles.icons} /></td>
+                  <td className={`${styles.icons} ${styles.remove} `}><button className={styles.noteButton}>+</button></td>
+                  <td className={styles.difficulty} >{renderDifficultyBadge(problem.difficulty)}</td>
+                  <td className={styles.remove}>
                     <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons} />
                   </td>
                 </tr>

@@ -153,6 +153,8 @@
   color: white;
 }
 
+/* drop down css */
+
 .progressOpen .filterButton {
   background-color: #CA9DD8;
 }
@@ -188,12 +190,29 @@
   border-radius: 15px;
   overflow: hidden; 
   table-layout: fixed;
+  font-size: var(--size-base);
+}
+/* .remove{
+  display: none;
+} */
+
+.colStatus,
+.colArticle,
+.colYouTube,
+.colPractice,
+.colNote,
+.colRevision {
+  width: 8%;
 }
 
-/* .table tr{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-} */
+.colDifficulty{
+  width: 12.5%;
+}
+
+.colProblem {
+  width: 37%;
+}
+
 
 .table th,
 .table td {
@@ -202,6 +221,7 @@
   border: 1px solid #ddd;
   
 }
+
 
 .table th {
   font-size: 12px;
@@ -214,7 +234,6 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-
 }
 
 .hardBadge {
@@ -223,6 +242,8 @@
   padding: 5px 15px;
   border-radius: 2rem;
   border: 1.5px solid white;
+  
+  
 }
 
 .hardBadge:hover {
@@ -357,6 +378,22 @@
     margin-right: 12px;
   }
 
+  .colStatus,
+  .colArticle,
+  .colYouTube,
+  .colPractice,
+  .colNote,
+  .colRevision {
+    width: 8%;
+  }
+
+  .colDifficulty{
+    width: 12.5%;
+  }
+
+  .colProblem {
+    width: 37%;
+  }
 }
 
 /* lg */
@@ -396,3 +433,10 @@
 
 /* 2xl */
 /* @media (min-width: 1536px) {} */
+
+
+@media (min-width: 1925px) {
+  .tableContainer{
+    max-width: 1540px;
+  }
+}
