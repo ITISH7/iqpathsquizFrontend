@@ -8,10 +8,38 @@ import utilityStyle from '../../utils/utils.module.css';
 
 function QuestionTopicDropDown({ name }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFilterOpen1, setIsFilterOpen1] = useState(false);
+  const [isFilterOpen2, setIsFilterOpen2] = useState(false);
   const [imageStates, setImageStates] = useState({});
-  
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+    if (!isOpen) {
+      setIsFilterOpen1(false);
+      setIsFilterOpen2(false);
+    }
+  };
+
+  const toggleFilterDropdown1 = (event) => {
+    event.stopPropagation(); 
+    if (isOpen) { 
+      setIsFilterOpen1(!isFilterOpen1);
+      setIsFilterOpen2(false); 
+    }
+  };
+
+  const toggleFilterDropdown2 = (event) => {
+    event.stopPropagation();
+    if (isOpen) { 
+      setIsFilterOpen2(!isFilterOpen2);
+      setIsFilterOpen1(false); 
+    }
+  };
+
+  const handleFilterSelect = (topic) => {
+    console.log(`Selected: ${topic}`);
+    setIsFilterOpen1(false); 
+    setIsFilterOpen2(false);
   };
 
   const handleRevisionToggle = (index) => {
@@ -50,12 +78,38 @@ function QuestionTopicDropDown({ name }) {
 
   return (
     <div className={`${styles.tableContainer} ${isOpen ? styles.tableContainerOpen : ''}`}>
-      <div className={`${styles.header} ${utilityStyle.container} ${isOpen ? styles.headerOpen : ''}`} onClick={toggleDropdown}>
+      <div
+        className={`${styles.header} ${utilityStyle.container} ${isOpen ? styles.headerOpen : ''}`}
+        onClick={toggleDropdown}
+      >
         <h2>{`${name}`}</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
           <button className={styles.playButton}>Play</button>
-          <button className={styles.filterButton}>Filter</button>
-          <button className={styles.filterButton}>Filter</button>
+          <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.filterButton} onClick={toggleFilterDropdown1}>
+              Filter
+            </button>
+            {isFilterOpen1 && (
+              <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
+                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 1')}>Topic 1</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 2')}>Topic 2</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 3')}>Topic 3</div>
+              </div>
+            )}
+          </div>
+          <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.filterButton} onClick={toggleFilterDropdown2}>
+              Filter
+            </button>
+            {isFilterOpen2 && (
+              <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
+                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Easy')}>Easy</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Medium')}>Medium</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Hard')}>Hard</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('All')}>All</div>
+              </div>
+            )}
+          </div>
           <span>0/6</span>
           <button className={styles.toggleButton}>
             <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
@@ -63,9 +117,9 @@ function QuestionTopicDropDown({ name }) {
         </div>
       </div>
       {isOpen && (
-        <div className={`${styles.content} `}>
+        <div className={`${styles.content}`}>
           <table className={styles.table}>
-             <colgroup>
+            <colgroup>
               <col className={styles.colStatus} />
               <col className={styles.colProblem} />
               <col className={styles.colArticle} />
@@ -75,7 +129,6 @@ function QuestionTopicDropDown({ name }) {
               <col className={styles.colDifficulty} />
               <col className={styles.colRevision} />
             </colgroup>
-
 
             <thead>
               <tr>
@@ -94,11 +147,11 @@ function QuestionTopicDropDown({ name }) {
                 <tr key={index}>
                   <td className={`${styles.icons}`}><input type="checkbox" /></td>
                   <td className={`${styles.problemColumn}`}>{problem.name}</td>
-                  <td className={styles.remove}><img src="src\assets\Artical.svg" alt="Article" className={styles.icons} /></td>
-                  <td className={styles.remove}><img src="src\assets\YouTube.svg" alt="YouTube" className={styles.icons} /></td>
-                  <td className={styles.remove}><img src="src\assets\Leetcode.svg" alt="Practice" className={styles.icons} /></td>
-                  <td className={`${styles.icons} ${styles.remove} `}><button className={styles.noteButton}>+</button></td>
-                  <td className={styles.difficulty} >{renderDifficultyBadge(problem.difficulty)}</td>
+                  <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
+                  <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
+                  <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
+                  <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td>
+                  <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
                   <td className={styles.remove}>
                     <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons} />
                   </td>
