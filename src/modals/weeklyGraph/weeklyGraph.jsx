@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import ReactEcharts from 'echarts-for-react';
 import Styles from './WeeklyGraph.module.css';
 
 const WeeklyGraph = ({ value, maxValue }) => {
     const percentage = (value / maxValue) * 100;
+    const chartRef = useRef(null);
 
     const option = {
         series: [

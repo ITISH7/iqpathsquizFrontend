@@ -1,7 +1,7 @@
 import React from 'react'
-import LeaderBoardHeroSection from '../componets/LeaderBoardHeroSection/LeaderBoardHeroSection'
-import NoticeSection from '../componets/Notice/NoticeSection'
-import LeaderboardList from '../componets/LeaderboardList/LeaderboardList'
+import LeaderBoardHeroSection from '../components/LeaderBoardHeroSection/LeaderBoardHeroSection'
+import NoticeSection from '../components/Notice/NoticeSection'
+import LeaderboardList from '../components/LeaderboardList/LeaderboardList'
 
 function Leaderboard() {
   return (
