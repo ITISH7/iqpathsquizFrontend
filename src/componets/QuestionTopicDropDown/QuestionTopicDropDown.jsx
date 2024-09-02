@@ -94,6 +94,7 @@ function QuestionTopicDropDown({ name }) {
                 <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 1')}>Topic 1</div>
                 <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 2')}>Topic 2</div>
                 <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 3')}>Topic 3</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 4')}>Topic 4</div>
               </div>
             )}
           </div>
