@@ -94,8 +94,8 @@ const LeaderboardList = () => {
                 </span>
                 <span className={`${styles.joinDate}  ${styles.remove}`}>{user.joinDate}</span>
                 <span className={`${styles.profiles}  ${styles.remove}`}>
-                  <span className={styles.GithubprofileIcon}></span>
-                  <span className={styles.Leetcodeprofile}></span>
+                  <span className={`${styles.GithubprofileIcon}  ${styles.remove}`}></span>
+                  <span className={`${styles.Leetcodeprofile}  ${styles.remove}`}></span>
                   
                 </span>
               </div>
