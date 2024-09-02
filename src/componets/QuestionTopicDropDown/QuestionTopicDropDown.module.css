@@ -79,13 +79,13 @@
   margin-top: 5px;
   width: 100px;
   z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .dropdownItem {
   padding: 10px;
   cursor: pointer;
-  border-bottom: 2px solid #eee; /* Add a division line between items */
+  border-bottom: 2px solid #eee; 
 }
 
 .dropdownItem:hover {
@@ -93,7 +93,7 @@
 }
 
 .dropdownItem:last-child {
-  border-bottom: none; /* Remove the division line from the last item */
+  border-bottom: none; 
 }
 
 .progress span {
