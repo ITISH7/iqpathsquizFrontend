@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactEcharts from 'echarts-for-react';
 import Styles from './WeeklyGraph.module.css';
 
@@ -41,6 +41,21 @@ const WeeklyGraph = ({ value, maxValue }) => {
             },
         ],
     };
+
+    useEffect(() => {
+        const resizeChart = () => {
+            if (chartRef.current) {
+                chartRef.current.getEchartsInstance().resize();
+            }
+        };
+
+        window.addEventListener('resize', resizeChart);
+
+        return () => {
+            window.removeEventListener('resize', resizeChart);
+        };
+    }, []);
+    
 
     return (
         <div className={Styles.container}>

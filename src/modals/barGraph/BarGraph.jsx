@@ -27,7 +27,14 @@ const BarGraph = ({ data, categories }) => {
 
     myChart.setOption(option);
 
+    const resizeChart = () => {
+      myChart.resize();
+    };
+
+    window.addEventListener('resize', resizeChart);
+
     return () => {
+      window.removeEventListener('resize', resizeChart);
       myChart.dispose();
     };
   }, [data, categories]);

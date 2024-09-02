@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import ReactEcharts from 'echarts-for-react';
 import styles from './doughnut.module.css';
 
 const DoughnutChart = ({data}) => {
+
+    const chartRef = useRef(null);
+
+
     const option = {
         tooltip: {
             trigger: 'item',
@@ -38,15 +42,15 @@ const DoughnutChart = ({data}) => {
                     }
                 }
             },
-            left: '60%', // Position the legend on the right
+            left: '55%', // Position the legend on the right
         },
         series: [
             {
-                name: 'Difficulty',
+                name: 'difficulty',
                 type: 'pie',
                 radius: ['70%', '90%'],
                 center: ['30%', '50%'], // Position the pie chart on the left
-                avoidLabelOverlap: false,
+                avoidLabelOverlap: true,
                 startAngle: 90,
                 clockwise: false,
                 label: {
@@ -75,9 +79,27 @@ const DoughnutChart = ({data}) => {
         return `{rect|${percentage}%} {name| ${name} }`;
     };
 
+    useEffect(() => {
+        const resizeChart = () => {
+            if (chartRef.current) {
+                chartRef.current.getEchartsInstance().resize();
+            }
+        };
+
+        window.addEventListener('resize', resizeChart);
+
+        return () => {
+            window.removeEventListener('resize', resizeChart);
+        };
+    }, []);
+
     return (
         <div className={styles.container}>
-            <ReactEcharts option={option} style={{ height: '100%', width: '100%' }} />
+             <ReactEcharts
+                ref={chartRef}
+                option={option}
+                style={{ height: '100%', width: '100%' }}
+            />
         </div>
     );
 };

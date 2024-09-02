@@ -1,11 +1,45 @@
 .container {
     /* border: 2px solid red; */
-    width: 20rem;
-    height: 7.5rem;
+    width: 17rem;
+    height: 7rem;
     border-radius: 2px;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    margin: 1rem auto 0px auto; /* Center container with auto margins */
-    padding: 0; /* Ensure no padding */
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto 0px auto;
+    padding: 0;
 }
+
+
+/* xs */
+@media (min-width: 475px) {
+    .container {
+        width: 20rem;
+        height: 8rem;
+    }
+}
+
+/* sm */
+/* @media (min-width: 640px) {} */
+
+/* md */
+@media (min-width: 768px) {
+    .container {
+        width: 15rem;
+        height: 7rem;
+    }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+    .container {
+        width: 20rem;
+        height: 8rem;
+    }
+}
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */

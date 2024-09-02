@@ -22,14 +22,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  border: 2px solid red;
   border-radius: 8px;
   cursor: pointer;
   background-color: #ffffff; 
   transition: background-color 0.3s ease;
-  padding-right: 8px;
-
 }
 
 .header:hover {
@@ -39,8 +36,11 @@
 }
 
 .headerOpen {
+  position: relative;
+  width: 100%;
   background-color: #e7dcfa;
-  margin: 0 -10px 10px -10px;
+  margin: 0 auto 10px auto;
+  right: 0;
   
 }
 
@@ -312,7 +312,7 @@
 
 .star:hover {
   background-image: url('../../assets/RevisionShine.svg'); 
-  /* border: 2px solid green;  */
+
 }
 
 
@@ -435,8 +435,8 @@
 /* @media (min-width: 1536px) {} */
 
 
-@media (min-width: 1925px) {
+/* @media (min-width: 1925px) {
   .tableContainer{
     max-width: 1540px;
   }
-}
+} */

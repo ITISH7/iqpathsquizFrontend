@@ -8,6 +8,7 @@ import {data, categories} from '../../modals/barGraph/dataBar.js'
 import UtilityStyles from '../../utils/utils.module.css';
 import WeaklyGraph from '../../modals/weeklyGraph/weeklyGraph.jsx';
 import dummyData from '../../modals/doughnutGraph/dummyData.js';
+import { formatDate } from '../../utils/date.js';
 
 const Statistics = () => {
   const [animate, setAnimate] = useState(false);
@@ -20,6 +21,8 @@ const Statistics = () => {
       setAnimate(false);
     }
   }, [isLoggedIn]);
+
+  let today = new Date();
 
   return (
     isLoggedIn ? (
@@ -39,9 +42,11 @@ const Statistics = () => {
           <div className={styles.quoteAndProgress}>
             <div className={styles.quoteSection}>
               <div className={styles.thoughtBackground}>
-                <p className={styles.thoughtPara}>14th Aug, 2024</p>
-                <img src="src/assets/ThoughtPi.svg" alt="Thought Picture" className={styles.thoughtPicture} />
-                <img src="src/assets/ThoughtSc.png" alt="Thought Statement" className={styles.thoughtStatement} />
+                <p className={styles.thoughtPara}>{formatDate(today)}</p>
+                <div className={styles.thoughtContainer}>
+                  <img src="src/assets/ThoughtPi.svg" alt="Thought Picture" className={styles.thoughtPicture} />
+                  <img src="src/assets/ThoughtSc.png" alt="Thought Statement" className={styles.thoughtStatement} />
+                </div>
               </div>
             </div>
             <div className={styles.progressTracking}>
@@ -66,7 +71,7 @@ const Statistics = () => {
             <div className={styles.graphBox}>
     
               <div className={styles.pieCharts}>
-                <div className={styles.pieChart}>
+                <div className={`${styles.pieChart} ${styles.scrollContainer}`}>
                   <DoughnutChart data={dummyData} centerLabel="17/20" />
                 </div>
                 <div className={styles.pieChart}>
@@ -78,6 +83,7 @@ const Statistics = () => {
               </div>
             </div>
           </div>
+
 
         
         </div>

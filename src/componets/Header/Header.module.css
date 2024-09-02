@@ -12,9 +12,8 @@
 
 .nav {
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
-  /* border: 2px solid red; */
+  border: 2px solid red;
   width: 100%;
   height: 100%;
   margin: 0 0;
@@ -23,7 +22,7 @@
 .logo {
   /* width: 125px; */
   min-width: 120px;
-  /* border: 2px solid red; */
+  border: 2px solid red;
 }
 
 .navList {
@@ -33,8 +32,10 @@
 
 .authButtons {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-left: auto;
+  border: 2px solid red;
 }
 
 .joiningBut {
@@ -56,7 +57,7 @@
   height: 35px;
   background-color: #8039DF;
   color: white;
-  font-size: var(--size-sm);
+  font-size: var(--size-xs);
 }
 
 .loginButton:hover {
@@ -70,7 +71,7 @@
   border-radius: 1.5rem;
   min-width: 80px;
   height: 35px;
-  font-size: var(--size-sm);
+  font-size: var(--size-xs);
 }
 
 .joinButton:hover {
@@ -81,9 +82,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 112px;
-  margin-right: 60px;
-  /* border: 2px solid yellow; */
+  /* width: px; */
+  /* margin-right: 60px; */
+  border: 2px solid yellow;
+}
+
+.iconContainer img{
+  width: 30px;
+  height: 30px;
 }
 
 .profile {
@@ -189,6 +195,11 @@
     height: 40px;
     width: 90px;
     font-size: var(--size-base);
+  }
+
+  .iconContainer img{
+    width: 40px;
+    height: 40px;
   }
 }
 
