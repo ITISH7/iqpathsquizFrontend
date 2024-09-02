@@ -1,9 +1,9 @@
 import React from 'react'
-import HeroSection from '../componets/HeroSection/HeroSection'
-import AddBlock from '../componets/AddBlock/AddBlock'
-import QuestionTopicDropDown from '../componets/QuestionTopicDropDown/QuestionTopicDropDown'
-import Statistics from '../componets/Statistics/Statistics'
-import ProgrssBar from '../componets/ProgressBar/ProgressBar'
+import HeroSection from '../components/HeroSection/HeroSection'
+import AddBlock from '../components/AddBlock/AddBlock'
+import QuestionTopicDropDown from '../components/QuestionTopicDropDown/QuestionTopicDropDown'
+import Statistics from '../components/Statistics/Statistics'
+import ProgrssBar from '../components/ProgressBar/ProgressBar'
 
 
 
