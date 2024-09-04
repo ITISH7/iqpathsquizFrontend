@@ -1,7 +1,5 @@
-import React from "react";
 import styles from "./LeaderboardList.module.css";
 import { Link } from "react-router-dom";
-import utilityStyle from '../../utils/utils.module.css';
 
 
 const LeaderboardList = () => {

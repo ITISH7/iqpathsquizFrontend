@@ -3,12 +3,13 @@ import styles from './statistics.module.css';
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 import DoughnutChart from '../../modals/doughnutGraph/doughnut';
-import BarGraph from '../../modals/barGraph/barGraph'
+// import BarGraph from '../../modals/barGraph/barGraph'
 import {data, categories} from '../../modals/barGraph/dataBar.js'
 import UtilityStyles from '../../utils/utils.module.css';
 import WeaklyGraph from '../../modals/weeklyGraph/weeklyGraph.jsx';
 import dummyData from '../../modals/doughnutGraph/dummyData.js';
 import { formatDate } from '../../utils/date.js';
+import BarGraph from '../../modals/barGraph/BarGraph';
 
 const Statistics = () => {
   const [animate, setAnimate] = useState(false);
@@ -54,7 +55,7 @@ const Statistics = () => {
                 <h1 className={styles.progHeading}>Progress Tracking</h1>
                 <div className={styles.barGraph}>
                   <p>Weekly Progress</p>
-                  <BarGraph data={data} categories={categories} />
+                  { <BarGraph data={data} categories={categories} /> }
                 </div>
               </div>
               <div className={styles.progPie}>

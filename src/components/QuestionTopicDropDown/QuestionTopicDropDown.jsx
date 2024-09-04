@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import styles from './QuestionTopicDropDown.module.css';
 import ArrowUp from '../../assets/ArrowUp.svg';
 import ArrowDown from '../../assets/ArrowDown.svg';
 import Revision from '../../assets/Revision.svg';
 import RevisionShine from '../../assets/RevisionShine.svg';
 import utilityStyle from '../../utils/utils.module.css';
+import { Link } from 'react-router-dom';
+
 
 function QuestionTopicDropDown({ name }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +86,9 @@ function QuestionTopicDropDown({ name }) {
       >
         <h2>{`${name}`}</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
-          <button className={styles.playButton}>Play</button>
+          <Link to="/quiz" >
+            <button className={styles.playButton}>Play</button>
+          </Link>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={styles.filterButton} onClick={toggleFilterDropdown1}>
               Filter
