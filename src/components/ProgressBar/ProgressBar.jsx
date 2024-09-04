@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import  { useContext } from 'react';
 import styles from './ProgressBar.module.css';
 import utilityStyle from '../../utils/utils.module.css';
 import { AuthContext } from '../../context/AuthContext';
