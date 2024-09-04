@@ -1,0 +1,360 @@
+.outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 85%;
+  height: 1400px;
+  margin-top: 100px;
+  border-radius: 23px;
+  background-color: #f5f5f5;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 2);   
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 60%;
+  padding: 10px; 
+  margin-right: 5px;
+  margin-left: 0px;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 15px; 
+  padding: 5px; 
+  margin-top: 20px;
+  width: 100%; 
+}
+
+.searchInput {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 15px;
+  background-color: white;
+  outline: none;
+  box-shadow: inset 4px 4px 2px rgb(193, 189, 189); 
+  font-size: 16px;
+  margin-right: 10px; 
+  text-align: center;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #e0e0e0; 
+  border: 1px solid rgb(211, 209, 209);
+  border-radius: 12px; 
+  font-weight: 500;
+  width: 100px;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+  transition: all 0.3s ease; 
+}
+
+.filterButton img {
+ height: 20px;
+}
+
+.filterButton:hover {
+  background-color: #d4d4d4; 
+}
+
+.sheets {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  height: 1,295px;
+  margin-top: 70px;
+  gap: 50px;
+  overflow-y: scroll;
+  }
+  
+  .card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  width: 100%;
+  height: 200px;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.square {
+  background-color: #B46FE1;
+  margin-right: 20px;
+  width: 150px;
+  height: 150px;
+  margin-left: 30px;
+  border-radius: 8px;
+}
+
+.progress {
+  width: 300px;
+  height: 53px;
+  margin-top: 10px;
+  gap: 20px;
+}
+
+.title {
+  color: #333;
+  width: 300px;
+  height: 36px;
+  margin-left: 20px;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 35.62px;
+}
+
+.progressBarContainer {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  height: 10px;
+  margin-left: 20px;
+  border-radius: 20px;
+}
+    
+.progressBar {
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+  
+.arrowContainer {
+  position: relative;
+  margin-bottom: -120px; 
+  margin-right: 0px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow {
+  font-size: 20px;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  transition: background-color 0.3s ease;
+}
+
+.arrow:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+  
+.addCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  border-radius: 20px;
+  background-color: #EFEFF7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  height: 219px;
+  border: 1px solid #C9CDD9;
+}
+  
+.addCard:hover {
+  background-color: #dfdede;
+}
+  
+.addIcon {
+  font-size: 48px;
+  color: #888;
+}
+
+.leftContainer {
+  width: 35%;
+  height: 500px;
+  margin-top: 35px;
+  margin-right: 15px;
+  margin-left: 10px;
+}
+  
+.calendar {
+  width: 100%;
+  height: 470px;
+}
+
+.calendarSection {
+  border: 2px solid black;  
+  background-color: white;
+  height: 430px;
+  border-radius: 12px;
+  display: flex;
+}
+
+.spiral {
+  width: 349.5px;
+  height: 96.34px;
+  margin-top: -46px;
+  margin-left: 15px;
+}
+
+.progHeading {
+  width: 140px;
+  height: 36px;
+  margin-top: -10px;
+  margin-left: 20px;
+  font-family: Barlow;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 35.62px;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #9437D0;
+}
+
+.calendarBottom {
+  border: 2px solid yellow;
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  gap: 5px;
+}
+
+.calendarBottom p {
+  /* border: 2px solid green; */
+  width: 50px;
+height: 30px;
+font-family: Inika;
+font-size: 20px;
+font-weight: 400;
+line-height: 35.62px;
+text-align: left;
+}
+
+.accuracySection {
+  width: 100%;
+  height: 270px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid black;
+}
+
+.accuracyTitle {
+  margin-left: 5px;
+  width: 90px;
+  height: 25px;
+  font-family: Barlow;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 16.6px;
+  letter-spacing: -2px;
+  text-align: left;
+  color: #9437D0;
+}
+
+.accuracyContent {
+  background-color: #f5f5f5;
+}
+
+.sheetsSection {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+
+.batchCard {
+  width: 48%;
+  height: 200px;
+  margin-top: 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.ribbon {
+  position: absolute;
+  display: flex;
+  margin-top: -40px;
+  margin-right: -135px;
+  font-size: 24px;
+  color: #ffcd00; 
+}
+
+.wellDone {
+  width: 208px;
+  height: 208px;
+  margin-top: 20px;
+  margin-left: 70px;
+}
+
+
+.sheetTitle {
+  width: 144px;
+  height: 5.25px;
+  color: #333;
+  margin-left: 5px;
+  margin-top: 10px;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 13.95px;
+  text-align: left;
+}
+
+.progress {
+  width: 80%;
+}
+
+.progressContainer {
+  background-color: white;
+  border-radius: 10px;
+  height: 10px;
+  overflow: hidden;
+  margin-top: 5px;
+  width: 137.15px;
+  height: 9px;
+}
+
+.Bar {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 10px;
+} 
