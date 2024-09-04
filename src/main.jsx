@@ -23,9 +23,15 @@ const router = createBrowserRouter([
         element: <Leaderboard />,
       },
       {
+<<<<<<< HEAD
         path: '/quiz',
         element: <Quiz />,
       },
+=======
+        path: '/result',
+        element: <Result />,
+      }
+>>>>>>> e65a6bb7f564c7fec90092f83d5e6ad29443c8db
     ],
   }
 ])
