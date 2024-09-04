@@ -54,18 +54,17 @@ const Dashboard = () => {
               <div className={styles.calendarSection}>
                 <div className={styles.spiral}>
                   <img src="src\assets\spiral.svg" alt="Spiral" />
-                  <div className={styles.calendarPart}>
-                    <h4 className={styles.progHeading}>
-                      My Progress
-                    </h4>
-                    <div className={styles.calendarBottom}>
-                      <p>5 days</p>
-                      <img src="src\assets\fire.svg" alt="Fire emoji" />
-                    </div>
-                  </div>
                 </div>
+                {/* <h4 className={styles.progHeading}>
+                  My Progress
+                </h4> */}
+                <div className={styles.calendarPart}>
+                </div>
+                {/* <div className={styles.calendarBottom}>
+                  <p>5 days</p>
+                  <img src="src\assets\fire.svg" alt="Fire emoji" />
+                </div> */}
               </div>
-              {/* <img src="src\assets\Calendar.svg" alt="Calendar" /> */}
             </div>
             <div className={styles.accuracySection}>
               <div className={styles.accuracyTitle}>

@@ -1,6 +1,6 @@
 import React from "react";
-import ResultHeroSection from '../componets/ResultHeroSection/ResultHeroSection'
-import ResultDashboard from '../componets/ResultDashboard/ResultDashboard'
+import ResultHeroSection from '../components/ResultHeroSection/ResultHeroSection'
+import ResultDashboard from '../components/ResultDashboard/ResultDashboard'
 
 function Result() {
     return (
