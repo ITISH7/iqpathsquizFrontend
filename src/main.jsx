@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Leaderboard from './pages/Leaderboard.jsx'
 import Quiz from './pages/Quiz.tsx'
+import Result from './pages/Result.jsx'
 import { AuthProvider } from './context/AuthContext';
 
 
@@ -23,15 +24,13 @@ const router = createBrowserRouter([
         element: <Leaderboard />,
       },
       {
-<<<<<<< HEAD
         path: '/quiz',
         element: <Quiz />,
       },
-=======
+      {
         path: '/result',
-        element: <Result />,
+        element: <Result />
       }
->>>>>>> e65a6bb7f564c7fec90092f83d5e6ad29443c8db
     ],
   }
 ])
