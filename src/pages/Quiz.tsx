@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components'
 
 import Main from '../components/Main'
 import ToggleTheme from '../components/ui/ToggleTheme'
-import QuizProvider from '../context/QuizProvider'
+import {QuizProvider} from '../context/QuizProvider'
 import { GlobalStyles } from '../styles/Global'
 import { themes } from '../styles/Theme'
 
@@ -24,7 +24,7 @@ function Quiz() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <QuizProvider>
+        {/* <QuizProvider> */}
         <ToggleTheme
           onChange={toggleTheme}
           currentTheme={currentTheme}
@@ -33,7 +33,8 @@ function Quiz() {
           value="theme"
         />
         <Main />
-      </QuizProvider>
+
+        {/* </QuizProvider> */}
     </ThemeProvider>
   )
 }

@@ -7,7 +7,7 @@ type QuizProviderProps = {
   children: ReactNode
 }
 
-const QuizProvider = ({ children }: QuizProviderProps) => {
+export function QuizProvider({ children }: QuizProviderProps) {
   const [timer, setTimer] = useState<number>(initialState.timer)
   const [endTime, setEndTime] = useState<number>(initialState.endTime)
   const [quizTopic, setQuizTopic] = useState<string>(initialState.quizTopic)
@@ -60,4 +60,3 @@ const QuizProvider = ({ children }: QuizProviderProps) => {
   return <QuizContext.Provider value={quizContextValue}>{children}</QuizContext.Provider>
 }
 
-export default QuizProvider

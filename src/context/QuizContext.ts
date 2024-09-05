@@ -27,3 +27,4 @@ export const QuizContext = createContext<QuizContextTypes>(initialState)
 export function useQuiz() {
   return useContext(QuizContext)
 }
+
