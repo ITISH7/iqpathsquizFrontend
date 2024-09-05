@@ -1,7 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import styles from './ResultDashboard.module.css';
 
 const Dashboard = () => {
+  const [date, setDate] = useState(new Date());
+  const [streak, setStreak] = useState(5);
+
+  // Sample data for the calendar (replace with your actual data)
+  const progressData = {
+    '2024-09-01': 1,
+    '2024-09-02': 2,
+    '2024-09-03': 3,
+    '2024-09-04': 4,
+    '2024-09-05': 5,
+    '2024-09-06': 3,
+    '2024-09-07': 4,
+    // Add more dates and their respective progress levels (1 to 5)
+  };
+
+  const getTileClass = ({ date }) => {
+    const dateString = date.toISOString().split('T')[0];
+    const level = progressData[dateString] || 0;
+
+    if (level === 5) return styles.progressLevel5;
+    if (level === 4) return styles.progressLevel4;
+    if (level === 3) return styles.progressLevel3;
+    if (level === 2) return styles.progressLevel2;
+    if (level === 1) return styles.progressLevel1;
+    return styles.progressLevel0;
+  };
+  
   const cardsData = [
     { cardColor: '#D3ADF7', squareColor: '#B46FE1', progress: 60 }, // Purple Card
     { cardColor: '#91D5FF', squareColor: '#61B1F8', progress: 50 }, // Blue Card
@@ -12,7 +41,7 @@ const Dashboard = () => {
   const user = {
     courses: ['DSA', 'APTITUDE', 'QUANT', 'REASONING']
   };
-  
+
   return (
     <>
       <div className={styles.outer}>
@@ -50,20 +79,24 @@ const Dashboard = () => {
             </div>
           </div>
           <div className={styles.leftContainer}>
-            <div className={styles.calendar}>
-              <div className={styles.calendarSection}>
-                <div className={styles.spiral}>
-                  <img src="src\assets\spiral.svg" alt="Spiral" />
-                </div>
-                {/* <h4 className={styles.progHeading}>
-                  My Progress
-                </h4> */}
-                <div className={styles.calendarPart}>
-                </div>
-                {/* <div className={styles.calendarBottom}>
-                  <p>5 days</p>
-                  <img src="src\assets\fire.svg" alt="Fire emoji" />
-                </div> */}
+            <div className={styles.calendarSection}>
+              <div className={styles.spiral}>
+                <img src="src\assets\spiral.svg" alt="Spiral" />
+              </div>
+              <h3 className={styles.calendarTitle}>My Progress</h3>
+              <Calendar
+                onChange={setDate}
+                value={date}
+                tileClassName={getTileClass}
+                className={styles.customCalendar}
+                showNeighboringMonth={false}
+                next2Label="»"
+                prev2Label="«"
+                nextLabel="›"
+                prevLabel="‹"
+              />
+              <div className={styles.streak}>
+                {streak} days <span role="img" aria-label="fire">🔥</span>
               </div>
             </div>
             <div className={styles.accuracySection}>

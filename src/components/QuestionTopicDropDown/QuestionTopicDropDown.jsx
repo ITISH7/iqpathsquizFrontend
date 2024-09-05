@@ -1,18 +1,20 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import styles from './QuestionTopicDropDown.module.css';
+import modalStyles from './NoteModal.module.css';
 import ArrowUp from '../../assets/ArrowUp.svg';
 import ArrowDown from '../../assets/ArrowDown.svg';
 import Revision from '../../assets/Revision.svg';
 import RevisionShine from '../../assets/RevisionShine.svg';
 import utilityStyle from '../../utils/utils.module.css';
 import { Link } from 'react-router-dom';
-
+import NoteModal from './NoteModal';  // Import the NoteModal component
 
 function QuestionTopicDropDown({ name }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
   const [imageStates, setImageStates] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -49,6 +51,17 @@ function QuestionTopicDropDown({ name }) {
       ...prev,
       [index]: prev[index] === "RevisionShine" ? "Revision" : "RevisionShine",
     }));
+  };
+
+  const openModal = (event) => {
+    event.preventDefault();  // Prevent default behavior
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = "auto";
   };
 
   const problems = [
@@ -155,7 +168,7 @@ function QuestionTopicDropDown({ name }) {
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
-                  <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td>
+                  <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton} onClick={openModal}>+</button></td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
                   <td className={styles.remove}>
                     <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons} />
@@ -166,6 +179,7 @@ function QuestionTopicDropDown({ name }) {
           </table>
         </div>
       )}
+      {isModalOpen && <NoteModal onClose={closeModal} />}
     </div>
   );
 }
