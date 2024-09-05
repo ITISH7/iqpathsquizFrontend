@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-import { useState } from 'react';
-=======
+
 import  { useEffect, useState } from 'react';
->>>>>>> 3037871e3443442f718114b06ea8b2a8245e1591
 import styles from './QuestionTopicDropDown.module.css';
 import modalStyles from './NoteModal.module.css';
 import ArrowUp from '../../assets/ArrowUp.svg';
@@ -11,13 +8,10 @@ import Revision from '../../assets/Revision.svg';
 import RevisionShine from '../../assets/RevisionShine.svg';
 import utilityStyle from '../../utils/utils.module.css';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
 import NoteModal from './NoteModal';  // Import the NoteModal component
-=======
 import axios from 'axios';
 import { useQuiz } from '../../context/QuizContext';
 
->>>>>>> 3037871e3443442f718114b06ea8b2a8245e1591
 
 
 function QuestionTopicDropDown({ name, title = 'Python' }) {
@@ -25,14 +19,11 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
   const [imageStates, setImageStates] = useState({});
-<<<<<<< HEAD
   const [isModalOpen, setIsModalOpen] = useState(false);
-=======
   const [question, setQuestion] = useState([]);
 
   const {selectQuizTopic} = useQuiz();
 
->>>>>>> 3037871e3443442f718114b06ea8b2a8245e1591
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
