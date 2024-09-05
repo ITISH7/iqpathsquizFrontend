@@ -8,7 +8,9 @@ import Leaderboard from './pages/Leaderboard.jsx'
 import Quiz from './pages/Quiz.tsx'
 import Result from './pages/Result.jsx'
 import { AuthProvider } from './context/AuthContext';
-
+import { QuizProvider } from './context/QuizProvider';
+import Login from './pages/Login.jsx'
+import Signup from './pages/Signup.jsx'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: '/result',
         element: <Result />
+      },
+      {
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/signup',
+        element: <Signup />
       }
     ],
   }
@@ -39,7 +49,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode >
       <AuthProvider>
-        <RouterProvider router={router} />
+        <QuizProvider>
+          <RouterProvider router={router} />
+        </QuizProvider>
       </AuthProvider>
   </StrictMode>,
 )

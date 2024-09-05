@@ -4,7 +4,6 @@ import styles from './Header.module.css';
 import { AuthContext } from '../../context/AuthContext';
 import utilityStyle from '../../utils/utils.module.css';
 
-
 function Header() {
   const navItems = [
     { name: 'Home', path: '/home' },
@@ -25,15 +24,15 @@ function Header() {
 
 
 
-  useEffect(() => {
-    const mobileLinks = document.querySelectorAll('.mobileNavLink');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        setIsMobileNavOpen(false);
-        document.body.style.overflowY = 'auto';
-      });
-    });
-  }, []);
+  // useEffect(() => {
+  //   const mobileLinks = document.querySelectorAll('.mobileNavLink');
+  //   mobileLinks.forEach(link => {
+  //     link.addEventListener('click', () => {
+  //       setIsMobileNavOpen(false);
+  //       document.body.style.overflowY = 'auto';
+  //     });
+  //   });
+  // }, []);
 
   return (
     <header className={`${styles.header} `}>
@@ -63,9 +62,16 @@ function Header() {
             </div>
           ) : (
             <div className={styles.joiningBut}>
+
+              <Link to="/login" >
               <button className={styles.loginButton}
-                      onClick={() => ToggleLogin(isLoggedIn)}
+                      // onClick={
+                      //   () => ToggleLogin(isLoggedIn)
+
+                      // }
               >Log in</button>
+
+              </Link>
               <button className={styles.joinButton}>Join Free</button>
             </div>
           )}

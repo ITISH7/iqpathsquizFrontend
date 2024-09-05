@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.0.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.5.2",
+    "axios": "^1.7.7",
     "echarts": "^5.5.1",
     "echarts-for-react": "^3.0.2",
     "prismjs": "^1.29.0",
