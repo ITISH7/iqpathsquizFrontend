@@ -62,7 +62,7 @@ const Signup = ({ onSwitchToLogin }) => {
         Signup
       </Button>
       <Typography variant="body2" textAlign="center">
-        Already have an account? <Link href="#" onClick={onSwitchToLogin}>Login here</Link>
+        Already have an account? <Link href="/login" onClick={onSwitchToLogin}>Login here</Link>
       </Typography>
     </Box>
   );

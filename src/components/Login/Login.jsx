@@ -52,7 +52,7 @@ const Login = ({ onSwitchToSignup }) => {
         Login
       </Button>
       <Typography variant="body2" textAlign="center">
-        Don't have an account? <Link href="#" onClick={onSwitchToSignup}>Sign up here</Link>
+        Don't have an account? <Link href="/signup" onClick={onSwitchToSignup}>Sign up here</Link>
       </Typography>
     </Box>
   );
