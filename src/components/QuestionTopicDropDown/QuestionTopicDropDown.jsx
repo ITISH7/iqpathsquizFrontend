@@ -10,16 +10,17 @@ import { Link } from 'react-router-dom';
 import NoteModal from './NoteModal';  // Import the NoteModal component
 import axios from 'axios';
 import { useQuiz } from '../../context/QuizContext';
+import Popup from '../../modals/QuestionPopUp/QuestionPopUp';
 
 
 
 const problems = [
-  { name: "Rotate Matrix", topic: "Array", difficulty: "Easy" },
-  { name: "Merge Overlapping Subintervals",  topic: "String", difficulty: "Easy" },
-  { name: "Merge two sorted arrays without extra space", topic: "Array", difficulty: "Medium" },
-  { name: "Find the duplicate in an array of N+1 integers",  topic: "Array", difficulty: "Medium" },
-  { name: "Repeat and Missing Number",  topic: "String", difficulty: "Hard" },
-  { name: "Inversion of Array (Pre-req: Merge Sort)", topic: "Array", difficulty: "Hard" },
+  { id: 1, name: "Rotate Matrix",    options: ['Library', 'Framework', 'Language'], question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space', topic: "Array", difficulty: "Easy" },
+  { id: 2, name: "Merge Overlapping intervals",  options: ['Library', 'Framework', 'Language'],  question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space',  topic: "String", difficulty: "Easy" },
+  { id: 3, name: "Merge two sorted arrays without extra space",  options: ['Library', 'Framework', 'Language'],  question: 'We are given two sorted arrays. We need to merge these two arrays such that the initial numbers (after complete sorting) are in the first array and the remaining numbers are in the second array', topic: "Array", difficulty: "Medium" },
+  { id: 4, name: "Find the duplicate in an array of N+1 integers",  options: ['Library', 'Framework', 'Language'],  question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.',  topic: "Array", difficulty: "Medium" },
+  { id: 5, name: "Repeat and Missing Number",  topic: "String",   options: ['Library', 'Framework', 'Language'], question: 'Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n} is missing and one number occurs twice in the array. Find these two numbers.', difficulty: "Hard" },
+  { id: 6, name: "Inversion of Array (Pre-req: Merge Sort)",   options: ['Library', 'Framework', 'Language'], question: 'Given an integer array arr[] of size n, the task is to find the count inversions of the given array. Two array elements arr[i] and arr[j] form an inversion if arr[i] > arr[j] and i < j.', topic: "Array", difficulty: "Hard" },
 ];
 
 
@@ -34,6 +35,8 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [solved, setSolved] = useState(0);
   const [difficultyFilter, setDifficultyFilter] = useState('All');
   const [topicFilter, setTopicFilter] = useState("All"); // State for topic filter
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(null);
 
   
 
@@ -107,6 +110,16 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     } else {
       setSolved(solved - 1);
     }
+  };
+
+  const handleQuestionClick = (question) => {
+    setCurrentQuestion(question);
+    setIsPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
+    setCurrentQuestion(null);
   };
 
 
@@ -219,24 +232,27 @@ console.log(question);
               </tr>
             </thead>
             <tbody>
-              {filteredProblems.map((problem, index) => (
-                <tr key={index}>
+              {filteredProblems.map((problem) => (
+                <tr key={problem.id}>
                   <td className={`${styles.icons}`}><input type="checkbox"onChange={isSolved} /></td>
-                  <td className={`${styles.problemColumn}`}>{problem.name}</td>
+                  <td className={`${styles.problemColumn}`} key={problem.id} onClick={() => handleQuestionClick(problem)}>{problem.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
                   <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton} onClick={openModal}>+</button></td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
                   <td className={styles.remove}>
-                    <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons} />
+                    <img src={imageStates[problem.id] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(problem.id)} className={styles.icons} />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <Popup isVisible={isPopupVisible} questionData={currentQuestion} onClose={handleClosePopup} />
         </div>
+        
       )}
+      
       {isModalOpen && <NoteModal isOpen={isModalOpen} closeModal={closeModal} />}
     </div>
   );
