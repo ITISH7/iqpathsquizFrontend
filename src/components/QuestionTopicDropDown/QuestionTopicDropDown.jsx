@@ -1,4 +1,3 @@
-
 import  { useEffect, useState } from 'react';
 import styles from './QuestionTopicDropDown.module.css';
 import modalStyles from './NoteModal.module.css';
@@ -200,7 +199,7 @@ console.log(question);
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
                   <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton} onClick={openModal}>+</button></td>
-                  <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
+                  <td className={styles.difficulty}>{renderDifficultyBadge(problems.difficulty)}</td>
                   <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(question.difficulty)}</td>
                   <td className={styles.remove}>
