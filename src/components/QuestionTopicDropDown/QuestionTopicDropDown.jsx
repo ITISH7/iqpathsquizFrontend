@@ -1,4 +1,4 @@
-import {useEffect, useState } from 'react';
+import {useEffect, useState, useCallback } from 'react';
 import styles from './QuestionTopicDropDown.module.css';
 import modalStyles from './NoteModal.module.css';
 import ArrowUp from '../../assets/ArrowUp.svg';
@@ -19,6 +19,8 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
   const [imageStates, setImageStates] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProblem, setSelectedProblem] = useState(null);
+  const [notes, setNotes] = useState({});
   const [question, setQuestion] = useState([]);
   const [solved, setSolved] = useState(0);
   // const [filter1, setFilter1] = useState('All');
@@ -27,13 +29,9 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const {selectQuizTopic} = useQuiz();
   
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-    if (!isOpen) {
-      setIsFilterOpen1(false);
-      setIsFilterOpen2(false);
-    }
-  };
+  const toggleDropdown = useCallback(() => {
+    setIsOpen((prevState) => !prevState);
+  }, []); // Memoized to avoid re-rendering issues
 
   
   // const handleFilterDifficult = (difficulty) => {
@@ -70,7 +68,8 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     }));
   };
 
-  const openModal = () => {
+  const openModal = (problemName) => {
+    setSelectedProblem(problemName);
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
   };
@@ -80,13 +79,26 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     document.body.style.overflow = "auto";
   };
 
-  
   const isSolved = (e) => { 
     if (e.target.checked) {
       setSolved(solved + 1);
     } else {
       setSolved(solved - 1);
     }
+  };
+
+  const saveNote = (problemName, noteContent) => {
+    const updatedNotes = { ...notes };
+
+    if (noteContent.trim() === "") {
+      delete updatedNotes[problemName];
+    }
+    else {
+      updatedNotes[problemName] = noteContent;
+    }
+
+    setNotes(updatedNotes);
+    localStorage.setItem("userNotes", JSON.stringify(updatedNotes));
   };
 
   const problems = [
@@ -120,8 +132,9 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     return <span className={badgeClass}>{difficulty}</span>;
   };
 
-  
   useEffect(() => {
+    const savedNotes = JSON.parse(localStorage.getItem("userNotes")) || {};
+    setNotes(savedNotes);
     getdata();
   }, []);
 
@@ -219,7 +232,13 @@ console.log(question);
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
-                  <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton} onClick={openModal}>+</button></td>
+                  <td className={`${styles.icons} ${styles.remove}`}>
+                    <button 
+                      onClick={() => openModal(problem.questionContent)} className={styles.noteButton}>
+                      +
+                    </button>
+                    {/* <p>{notes[problem.questionContent] || ""}</p> */}
+                  </td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
                   <td className={styles.remove}>
                     <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons} />
@@ -230,7 +249,14 @@ console.log(question);
           </table>
         </div>
       )}
-      {isModalOpen && <NoteModal isOpen={isModalOpen} closeModal={closeModal} />}
+      {isModalOpen && (
+        <NoteModal 
+          isOpen={isModalOpen}
+          closeModal={closeModal}
+          onSave={(note) => saveNote(selectedProblem, note)}
+          initialNote={notes[selectedProblem] || ""}  
+        />
+      )}
     </div>
   );
 }

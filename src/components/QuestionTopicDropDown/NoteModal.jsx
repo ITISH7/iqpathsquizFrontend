@@ -1,13 +1,28 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./NoteModal.module.css";
 
-const NoteModal = ({ isOpen, closeModal }) => {
-  if (!isOpen) return null;
-
+const NoteModal = ({ isOpen, closeModal, onSave, initialNote }) => {
+  const [note, setNote] = useState(initialNote || "");
 
   useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(todos))
-  }, [todos])
+    setNote(initialNote || "");
+  }, [initialNote]);
+
+  const handleNoteChange = (event) => {
+    setNote(event.target.value);
+  };
+
+  const handleSave = () => {
+    if (note.trim() !== "") {
+      onSave(note);
+    }
+    else {
+      onSave("");
+    }
+    closeModal();
+  };
+
+  if (!isOpen) return null;
 
 
   return (
@@ -20,12 +35,14 @@ const NoteModal = ({ isOpen, closeModal }) => {
         <textarea
           className={styles.noteInput}
           placeholder="Write your note here..."
+          value={note}
+          onChange={handleNoteChange}
         ></textarea>
         <div className={styles.buttonContainer}>
           <button className={styles.cancelButton} onClick={closeModal}>
             Cancel
           </button>
-          <button className={styles.saveButton}>Save</button>
+          <button className={styles.saveButton} onClick={handleSave}>Save</button>
         </div>
       </div>
     </div>
