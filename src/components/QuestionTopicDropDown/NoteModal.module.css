@@ -5,65 +5,79 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7); /* Dark background with opacity */
+  background: rgba(0, 0, 0, 0.6); /* Slightly darker background with opacity */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure modal is on top */
-  backdrop-filter: blur(8px); /* Blur background */
+  z-index: 1000;
 }
 
 /* Modal Box */
 .modalContent {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 400px;
+  background-color: #f7f7f8;
+  padding: 20px 30px;
+  border-radius: 12px;
+  width: 900px;
+  height: 550px;
   max-width: 90%;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
   position: relative;
-  animation: fadeIn 0.3s ease-in-out; /* Smooth appearance */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* Fade-in animation for modal */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Close Button */
+/* Close Button (Top Right Corner) */
 .closeButton {
   position: absolute;
-  top: 10px;
+  top: 12px;
   right: 15px;
-  font-size: 1.5rem;
-  background: none;
-  border: none;
   cursor: pointer;
-  color: #333;
-  transition: color 0.3s ease;
+  margin-right: 15px;
+  margin-top: 10px;
+  background-color: #7c4de1;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .closeButton:hover {
-  color: #7c4de1; /* Change color on hover */
+  background-color: #653bbf;
+}
+
+/* Header Title */
+.noteHeading {
+  width: 200px;
+  height: 40px;
+  font-size: 1.6rem;
+  color: #333;
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 /* Note Text Area */
 .noteInput {
+  /* border: 2px solid red; */
   width: 100%;
-  height: 150px;
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  height: 400px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   font-size: 1rem;
-  resize: none; /* Prevent resizing */
+  background-color: #fff;
+  color: #333;
+  resize: none;
+  transition: border-color 0.2s ease;
+}
+
+.noteInput:focus {
+  border-color: #7c4de1;
+  outline: none;
 }
 
 /* Save Button */
@@ -71,14 +85,36 @@
   background-color: #7c4de1;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 10px 25px;
+  border-radius: 8px;
   cursor: pointer;
-  width: 100%;
   font-size: 1rem;
   transition: background-color 0.3s ease;
 }
 
 .saveButton:hover {
-  background-color: #6a3cc9; /* Darker shade on hover */
+  background-color: #653bbf;
+}
+
+/* Cancel Button */
+.cancelButton {
+  background-color: transparent;
+  color: #7c4de1;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.cancelButton:hover {
+  color: #653bbf;
+}
+
+/* Button Container */
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }

@@ -1,41 +1,32 @@
-import React, { useRef, useEffect } from "react";
-import styles from "./NoteModal.module.css"; // Importing CSS module
+import React from "react";
+import styles from "./NoteModal.module.css";
 
 const NoteModal = ({ isOpen, closeModal }) => {
-  const textareaRef = useRef(null);
+  if (!isOpen) return null;
 
-  // Focus on the textarea when modal opens
+
   useEffect(() => {
-    if (isOpen && textareaRef.current) {
-      textareaRef.current.focus();
-    }
-  }, [isOpen]);
+    localStorage.setItem("notes", JSON.stringify(todos))
+  }, [todos])
 
-  if (!isOpen) return null; // Don't render anything if modal is closed
-
-  const handleSave = () => {
-    // Add logic to save the note here
-    closeModal(); // Close the modal after saving
-  };
 
   return (
-    <div className={styles.modalOverlay} onClick={closeModal}>
-      <div
-        className={styles.modalContent}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
-      >
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
         <button className={styles.closeButton} onClick={closeModal}>
-          &times;
+          Close 
         </button>
-        <h2>Note</h2>
+        <p className={styles.noteHeading}>Save Notes</p>
         <textarea
-          ref={textareaRef} // Use ref for focusing
           className={styles.noteInput}
           placeholder="Write your note here..."
         ></textarea>
-        <button className={styles.saveButton} onClick={handleSave}>
-          Save
-        </button>
+        <div className={styles.buttonContainer}>
+          <button className={styles.cancelButton} onClick={closeModal}>
+            Cancel
+          </button>
+          <button className={styles.saveButton}>Save</button>
+        </div>
       </div>
     </div>
   );

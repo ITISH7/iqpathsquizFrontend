@@ -191,6 +191,8 @@
 
 .progressOpen .playButton {
   background-color: #CA9DD8;
+  /* text-decoration: white; */
+  color: black;
 }
 
 .headerOpen:hover .filterButton {
@@ -199,6 +201,7 @@
 
 .headerOpen:hover .playButton {
   background-color: #CA9DD8;
+  color: black;
 }
 
 .header:hover .toggleButton {
@@ -256,10 +259,12 @@
   color: #8C8C8C;
 }
 
-.difficulty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.difficulty span{
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  margin-left: auto;
+  margin-right: auto;
   gap: 5px;
 }
 
@@ -275,6 +280,7 @@
   background-color: hsl(15, 83%, 88%);
   border: 1.5px solid #e23e14;
   -webkit-text-fill-color: #e23e14;
+  margin: auto;
 }
 
 .mediumBadge {
