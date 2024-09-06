@@ -1,4 +1,3 @@
-
 import  { useEffect, useState } from 'react';
 import styles from './QuestionTopicDropDown.module.css';
 import modalStyles from './NoteModal.module.css';
@@ -218,6 +217,8 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
                   <td className={styles.difficulty}>{renderDifficultyBadge(problems.difficulty)}</td>
                   {/* <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td> */}
                   {/* <td className={styles.difficulty}>{renderDifficultyBadge(question.difficulty)}</td> */}
+                  <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td>
+                  <td className={styles.difficulty}>{renderDifficultyBadge(question.difficulty)}</td>
                   <td className={styles.remove}>
                     <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons} />
                   </td>
