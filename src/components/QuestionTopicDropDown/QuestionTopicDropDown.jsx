@@ -16,10 +16,12 @@ import { useQuiz } from '../../context/QuizContext';
 function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
+  const [filter1, setFilter1] = useState('All');
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
   const [imageStates, setImageStates] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [question, setQuestion] = useState([]);
+  const [solved, setSolved] = useState(0);
 
   const {selectQuizTopic} = useQuiz();
 
@@ -38,6 +40,11 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
       setIsFilterOpen1(!isFilterOpen1);
       setIsFilterOpen2(false); 
     }
+  };
+
+  const handleFilterDifficult = (difficulty) => {
+    setFilter1(difficulty);
+    setIsFilterOpen1(false);
   };
 
   const toggleFilterDropdown2 = (event) => {
@@ -70,6 +77,14 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const closeModal = () => {
     setIsModalOpen(false);
     document.body.style.overflow = "auto";
+  };
+
+  const isSolved = (e) => { 
+    if (e.target.checked) {
+      setSolved(solved + 1);
+    } else {
+      setSolved(solved - 1);
+    }
   };
 
   const problems = [
@@ -114,7 +129,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     }
   }
 
-console.log(question);
+// console.log(question);
 
 
   return (
@@ -158,7 +173,7 @@ console.log(question);
               </div>
             )}
           </div>
-          <span>0/6</span>
+          <span>{solved}/{question.length}</span>
           <button className={styles.toggleButton}>
             <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
           </button>
@@ -191,15 +206,17 @@ console.log(question);
               </tr>
             </thead>
             <tbody>
-              {question.map((question, index) => (
+              {problems.map((problems, index) => (
                 <tr key={index}>
-                  <td className={`${styles.icons}`}><input type="checkbox" /></td>
-                  <td className={`${styles.problemColumn}`}>{question.questionContent}</td>
+                  <td className={`${styles.icons}`}><input type="checkbox" onChange={isSolved} /></td>
+                  <td className={`${styles.problemColumn}`}>{problems.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
                   <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton} onClick={openModal}>+</button></td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(problems.difficulty)}</td>
+                  {/* <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td> */}
+                  {/* <td className={styles.difficulty}>{renderDifficultyBadge(question.difficulty)}</td> */}
                   <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(question.difficulty)}</td>
                   <td className={styles.remove}>
