@@ -72,9 +72,9 @@ function QuestionTopicDropDown({ name }) {
     { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
   ];
 
-  const filteredProblems = problems.filter(problem =>
-    filter1 === "all" ? true : problem.difficulty === filter1
-  );
+  // const filteredProblems = problems.filter(problem =>
+  //   filter1 === "all" ? true : problem.difficulty === filter1
+  // );
 
   const renderDifficultyBadge = (difficulty) => {
     let badgeClass = "";
