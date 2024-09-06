@@ -10,6 +10,18 @@ import { Link } from 'react-router-dom';
 import NoteModal from './NoteModal';  // Import the NoteModal component
 import axios from 'axios';
 import { useQuiz } from '../../context/QuizContext';
+import Popup from '../../modals/QuestionPopUp/QuestionPopUp';
+
+
+
+const problems = [
+  { id: 1, name: "Rotate Matrix",    options: ['Library', 'Framework', 'Language'], question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space', topic: "Array", difficulty: "Easy" },
+  { id: 2, name: "Merge Overlapping intervals",  options: ['Library', 'Framework', 'Language'],  question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space',  topic: "String", difficulty: "Easy" },
+  { id: 3, name: "Merge two sorted arrays without extra space",  options: ['Library', 'Framework', 'Language'],  question: 'We are given two sorted arrays. We need to merge these two arrays such that the initial numbers (after complete sorting) are in the first array and the remaining numbers are in the second array', topic: "Array", difficulty: "Medium" },
+  { id: 4, name: "Find the duplicate in an array of N+1 integers",  options: ['Library', 'Framework', 'Language'],  question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.',  topic: "Array", difficulty: "Medium" },
+  { id: 5, name: "Repeat and Missing Number",  topic: "String",   options: ['Library', 'Framework', 'Language'], question: 'Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n} is missing and one number occurs twice in the array. Find these two numbers.', difficulty: "Hard" },
+  { id: 6, name: "Inversion of Array (Pre-req: Merge Sort)",   options: ['Library', 'Framework', 'Language'], question: 'Given an integer array arr[] of size n, the task is to find the count inversions of the given array. Two array elements arr[i] and arr[j] form an inversion if arr[i] > arr[j] and i < j.', topic: "Array", difficulty: "Hard" },
+];
 
 
 
@@ -23,7 +35,12 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [notes, setNotes] = useState({});
   const [question, setQuestion] = useState([]);
   const [solved, setSolved] = useState(0);
-  // const [filter1, setFilter1] = useState('All');
+  const [difficultyFilter, setDifficultyFilter] = useState('All');
+  const [topicFilter, setTopicFilter] = useState("All"); // State for topic filter
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+
+  
 
 
   const {selectQuizTopic} = useQuiz();
@@ -34,11 +51,23 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   }, []); // Memoized to avoid re-rendering issues
 
   
-  // const handleFilterDifficult = (difficulty) => {
-  //   setFilter1(difficulty);
-  //   setIsFilterOpen1(false);
-  // };
+  const handleDifficultyFilter = (difficulty) => {
+    setDifficultyFilter(difficulty);
+    setIsFilterOpen2(false);
+  };
+  
+  const handleTopicFilter = (topic) => {
+    setTopicFilter(topic);
+    setIsFilterOpen1(false);
+  };
 
+  const filteredProblems = problems.filter(problem => {
+    const difficultyMatch = difficultyFilter === "All" || problem.difficulty === difficultyFilter;
+    const topicMatch = topicFilter === "All" || problem.topic === topicFilter;
+    return difficultyMatch && topicMatch;
+  });
+  
+  
   const toggleFilterDropdown1 = (event) => {
     event.stopPropagation(); 
     if (isOpen) { 
@@ -53,12 +82,6 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
       setIsFilterOpen2(!isFilterOpen2);
       setIsFilterOpen1(false); 
     }
-  };
-
-  const handleFilterSelect = (topic) => {
-    console.log(`Selected: ${topic}`);
-    setIsFilterOpen1(false); 
-    setIsFilterOpen2(false);
   };
 
   const handleRevisionToggle = (index) => {
@@ -109,14 +132,20 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     { name: "Repeat and Missing Number", difficulty: "Hard" },
     { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
   ];
+  const handleQuestionClick = (question) => {
+    setCurrentQuestion(question);
+    setIsPopupVisible(true);
+  };
 
-  // const filteredProblems = problems.filter(problem =>
-  //   filter1 === "all" ? true : problem.difficulty === filter1
-  // );
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
+    setCurrentQuestion(null);
+  };
 
-  const renderDifficultyBadge = (difficulty) => {
+
+  const renderDifficultyBadge = (diffi) => {
     let badgeClass = "";
-    switch (difficulty) {
+    switch (diffi) {
       case "Hard":
         badgeClass = styles.hardBadge;
         break;
@@ -129,7 +158,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
       default:
         badgeClass = "";
     }
-    return <span className={badgeClass}>{difficulty}</span>;
+    return <div className={badgeClass}>{diffi}</div>;
   };
 
   useEffect(() => {
@@ -168,31 +197,30 @@ console.log(question);
           </Link>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={styles.filterButton} onClick={toggleFilterDropdown1}>
-              Filter
+              Topic
             </button>
             {isFilterOpen1 && (
               <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 1')}>Topic 1</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 2')}>Topic 2</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 3')}>Topic 3</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 4')}>Topic 4</div>
+                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('All')}>Random</div>
+                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('Array')}>Array</div>
+                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('String')}>String</div>
               </div>
             )}
           </div>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={styles.filterButton} onClick={toggleFilterDropdown2}>
-              Filter
+              Difficulty
             </button>
             {isFilterOpen2 && (
               <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Easy')}>Easy</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Medium')}>Medium</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Hard')}>Hard</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('All')}>All</div>
+                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('All')}>Random</div>
+                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Easy')}>Easy</div>
+                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Medium')}>Medium</div>
+                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Hard')}>Hard</div>
               </div>
             )}
           </div>
-          <span>{solved}/{question.length}</span>
+          <span>{solved}/{filteredProblems.length}</span>
           <button className={styles.toggleButton}>
             <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
           </button>
@@ -225,10 +253,10 @@ console.log(question);
               </tr>
             </thead>
             <tbody>
-              {question.map((problem, index) => (
-                <tr key={index}>
+              {filteredProblems.map((problem) => (
+                <tr key={problem.id}>
                   <td className={`${styles.icons}`}><input type="checkbox"onChange={isSolved} /></td>
-                  <td className={`${styles.problemColumn}`}>{problem.questionContent}</td>
+                  <td className={`${styles.problemColumn}`} key={problem.id} onClick={() => handleQuestionClick(problem)}>{problem.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
@@ -241,13 +269,15 @@ console.log(question);
                   </td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
                   <td className={styles.remove}>
-                    <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons} />
+                    <img src={imageStates[problem.id] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(problem.id)} className={styles.icons} />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <Popup isVisible={isPopupVisible} questionData={currentQuestion} onClose={handleClosePopup} />
         </div>
+        
       )}
       {isModalOpen && (
         <NoteModal 
@@ -257,6 +287,8 @@ console.log(question);
           initialNote={notes[selectedProblem] || ""}  
         />
       )}
+      
+      {isModalOpen && <NoteModal isOpen={isModalOpen} closeModal={closeModal} />}
     </div>
   );
 }

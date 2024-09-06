@@ -23,6 +23,9 @@ const NoteModal = ({ isOpen, closeModal, onSave, initialNote }) => {
   };
 
   if (!isOpen) return null;
+  // useEffect(() => {
+  //   localStorage.setItem("notes", JSON.stringify(todos))
+  // }, [todos])
 
 
   return (
