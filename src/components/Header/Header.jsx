@@ -63,15 +63,15 @@ function Header() {
           ) : (
             <div className={styles.joiningBut}>
 
-              <Link to="/login" >
+              {/* <Link to="/login" > */}
               <button className={styles.loginButton}
-                      // onClick={
-                      //   () => ToggleLogin(isLoggedIn)
+                      onClick={
+                        () => ToggleLogin(isLoggedIn)
 
-                      // }
+                      }
               >Log in</button>
 
-              </Link>
+              {/* </Link> */}
               <button className={styles.joinButton}>Join Free</button>
             </div>
           )}
