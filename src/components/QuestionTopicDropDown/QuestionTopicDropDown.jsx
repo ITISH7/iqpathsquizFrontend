@@ -72,6 +72,10 @@ function QuestionTopicDropDown({ name }) {
     { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
   ];
 
+  const filteredProblems = problems.filter(problem =>
+    filter1 === "all" ? true : problem.difficulty === filter1
+  );
+
   const renderDifficultyBadge = (difficulty) => {
     let badgeClass = "";
     switch (difficulty) {
@@ -120,10 +124,10 @@ function QuestionTopicDropDown({ name }) {
             </button>
             {isFilterOpen2 && (
               <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Easy')}>Easy</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Medium')}>Medium</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Hard')}>Hard</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('All')}>All</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Easy')}>Easy</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Medium')}>Medium</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Hard')}>Hard</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('All')}>All</div>
               </div>
             )}
           </div>
