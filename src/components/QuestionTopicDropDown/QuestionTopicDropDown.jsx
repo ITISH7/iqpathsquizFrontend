@@ -178,7 +178,7 @@ function QuestionTopicDropDown({ name }) {
           </table>
         </div>
       )}
-      {isModalOpen && <NoteModal onClose={closeModal} />}
+      {isModalOpen && <NoteModal isOpen={isModalOpen} closeModal={closeModal} />}
     </div>
   );
 }
