@@ -110,14 +110,14 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     }
   };
 
-  const saveNote = (problemName, noteContent) => {
+  const saveNote = (problemId, noteContent) => {
     const updatedNotes = { ...notes };
 
     if (noteContent.trim() === "") {
-      delete updatedNotes[problemName];
+      delete updatedNotes[problemId];
     }
     else {
-      updatedNotes[problemName] = noteContent;
+      updatedNotes[problemId] = noteContent;
     }
 
     setNotes(updatedNotes);
@@ -283,12 +283,10 @@ console.log(question);
         <NoteModal 
           isOpen={isModalOpen}
           closeModal={closeModal}
-          onSave={(note) => saveNote(selectedProblem, note)}
-          initialNote={notes[selectedProblem] || ""}  
+          onSave={(note) => saveNote(selectedProblem.id, note)}
+          initialNote={notes[selectedProblem.id] || ""}  
         />
       )}
-      
-      {isModalOpen && <NoteModal isOpen={isModalOpen} closeModal={closeModal} />}
     </div>
   );
 }
