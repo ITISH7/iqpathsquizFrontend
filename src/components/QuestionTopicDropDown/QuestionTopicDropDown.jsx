@@ -124,14 +124,14 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     localStorage.setItem("userNotes", JSON.stringify(updatedNotes));
   };
 
-  const problems = [
-    { name: "Rotate Matrix", difficulty: "Easy" },
-    { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
-    { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
-    { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
-    { name: "Repeat and Missing Number", difficulty: "Hard" },
-    { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
-  ];
+  // const problems = [
+  //   { name: "Rotate Matrix", difficulty: "Easy" },
+  //   { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
+  //   { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
+  //   { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
+  //   { name: "Repeat and Missing Number", difficulty: "Hard" },
+  //   { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
+  // ];
   const handleQuestionClick = (question) => {
     setCurrentQuestion(question);
     setIsPopupVisible(true);
@@ -262,7 +262,7 @@ console.log(question);
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
                   <td className={`${styles.icons} ${styles.remove}`}>
                     <button 
-                      onClick={() => openModal(problem.questionContent)} className={styles.noteButton}>
+                      onClick={() => openModal(problem.name)} className={styles.noteButton}>
                       +
                     </button>
                     {/* <p>{notes[problem.questionContent] || ""}</p> */}
