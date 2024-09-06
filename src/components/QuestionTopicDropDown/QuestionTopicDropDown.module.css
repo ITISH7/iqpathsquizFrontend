@@ -259,21 +259,15 @@
   color: #8C8C8C;
 }
 
-.difficulty span{
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  margin-left: auto;
-  margin-right: auto;
-  gap: 5px;
-}
-
 .hardBadge {
   background-color: #fdb8a5;
   color: #C62800;
   padding: 5px 15px;
   border-radius: 2rem;
   border: 1.5px solid white;
+  width: 65px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .hardBadge:hover {
@@ -289,6 +283,9 @@
   padding: 5px 15px;
   border-radius: 2rem;
   border: 1.5px solid white;
+  width: 85px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .mediumBadge:hover {
@@ -303,6 +300,9 @@
   padding: 5px 15px;
   border-radius: 2rem;
   border: 1.5px solid white;
+  width: 65px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .easyBadge:hover {

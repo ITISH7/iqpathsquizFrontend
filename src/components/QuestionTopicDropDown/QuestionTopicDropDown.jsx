@@ -13,6 +13,17 @@ import { useQuiz } from '../../context/QuizContext';
 
 
 
+const problems = [
+  { name: "Rotate Matrix", difficulty: "Easy" },
+  { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
+  { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
+  { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
+  { name: "Repeat and Missing Number", difficulty: "Hard" },
+  { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
+];
+
+
+
 function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
@@ -21,7 +32,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [question, setQuestion] = useState([]);
   const [solved, setSolved] = useState(0);
-  // const [filter1, setFilter1] = useState('All');
+  const [difficulty, setDifficulty] = useState('All');
 
 
   const {selectQuizTopic} = useQuiz();
@@ -36,10 +47,15 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   };
 
   
-  // const handleFilterDifficult = (difficulty) => {
-  //   setFilter1(difficulty);
-  //   setIsFilterOpen1(false);
-  // };
+  const handleFilterDifficult = (difficulty) => {
+    setDifficulty(difficulty);
+    setIsFilterOpen2(false);
+  };
+
+  const filteredProblems = problems.filter(problem => 
+    difficulty === 'All' ? true : problem.difficulty === difficulty
+  );
+
 
   const toggleFilterDropdown1 = (event) => {
     event.stopPropagation(); 
@@ -89,22 +105,10 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     }
   };
 
-  const problems = [
-    { name: "Rotate Matrix", difficulty: "Easy" },
-    { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
-    { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
-    { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
-    { name: "Repeat and Missing Number", difficulty: "Hard" },
-    { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
-  ];
 
-  // const filteredProblems = problems.filter(problem =>
-  //   filter1 === "all" ? true : problem.difficulty === filter1
-  // );
-
-  const renderDifficultyBadge = (difficulty) => {
+  const renderDifficultyBadge = (diffi) => {
     let badgeClass = "";
-    switch (difficulty) {
+    switch (diffi) {
       case "Hard":
         badgeClass = styles.hardBadge;
         break;
@@ -117,7 +121,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
       default:
         badgeClass = "";
     }
-    return <span className={badgeClass}>{difficulty}</span>;
+    return <div className={badgeClass}>{diffi}</div>;
   };
 
   
@@ -172,10 +176,10 @@ console.log(question);
             </button>
             {isFilterOpen2 && (
               <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Easy')}>Easy</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Medium')}>Medium</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Hard')}>Hard</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('All')}>All</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Easy')}>Easy</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Medium')}>Medium</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Hard')}>Hard</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('All')}>All</div>
               </div>
             )}
           </div>
@@ -212,10 +216,10 @@ console.log(question);
               </tr>
             </thead>
             <tbody>
-              {question.map((problem, index) => (
+              {filteredProblems.map((problem, index) => (
                 <tr key={index}>
                   <td className={`${styles.icons}`}><input type="checkbox"onChange={isSolved} /></td>
-                  <td className={`${styles.problemColumn}`}>{problem.questionContent}</td>
+                  <td className={`${styles.problemColumn}`}>{problem.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
