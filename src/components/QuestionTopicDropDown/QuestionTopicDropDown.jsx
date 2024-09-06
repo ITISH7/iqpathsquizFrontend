@@ -96,6 +96,10 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
   ];
 
+  const filteredProblems = problems.filter(problem =>
+    filter1 === "all" ? true : problem.difficulty === filter1
+  );
+
   const renderDifficultyBadge = (difficulty) => {
     let badgeClass = "";
     switch (difficulty) {
@@ -166,10 +170,10 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
             </button>
             {isFilterOpen2 && (
               <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Easy')}>Easy</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Medium')}>Medium</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Hard')}>Hard</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('All')}>All</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Easy')}>Easy</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Medium')}>Medium</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Hard')}>Hard</div>
+                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('All')}>All</div>
               </div>
             )}
           </div>
@@ -206,7 +210,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
               </tr>
             </thead>
             <tbody>
-              {problems.map((problems, index) => (
+              {filteredProblems.map((problems, index) => (
                 <tr key={index}>
                   <td className={`${styles.icons}`}><input type="checkbox" onChange={isSolved} /></td>
                   <td className={`${styles.problemColumn}`}>{problems.name}</td>
@@ -216,9 +220,9 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
                   <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton} onClick={openModal}>+</button></td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(problems.difficulty)}</td>
                   {/* <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td> */}
-                  {/* <td className={styles.difficulty}>{renderDifficultyBadge(question.difficulty)}</td> */}
-                  <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(question.difficulty)}</td>
+                  {/* <td className={`${styles.icons} ${styles.remove}`}><button className={styles.noteButton}>+</button></td> */}
+                  {/* <td className={styles.difficulty}>{renderDifficultyBadge(question.difficulty)}</td> */}
                   <td className={styles.remove}>
                     <img src={imageStates[index] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(index)} className={styles.icons} />
                   </td>
