@@ -5,9 +5,9 @@ const NoteModal = ({ isOpen, closeModal }) => {
   if (!isOpen) return null;
 
 
-  useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(todos))
-  }, [todos])
+  // useEffect(() => {
+  //   localStorage.setItem("notes", JSON.stringify(todos))
+  // }, [todos])
 
 
   return (

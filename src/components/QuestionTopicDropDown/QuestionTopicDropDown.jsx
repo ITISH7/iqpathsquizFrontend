@@ -14,12 +14,12 @@ import { useQuiz } from '../../context/QuizContext';
 
 
 const problems = [
-  { name: "Rotate Matrix", difficulty: "Easy" },
-  { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
-  { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
-  { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
-  { name: "Repeat and Missing Number", difficulty: "Hard" },
-  { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
+  { name: "Rotate Matrix", topic: "Array", difficulty: "Easy" },
+  { name: "Merge Overlapping Subintervals",  topic: "String", difficulty: "Easy" },
+  { name: "Merge two sorted arrays without extra space", topic: "Array", difficulty: "Medium" },
+  { name: "Find the duplicate in an array of N+1 integers",  topic: "Array", difficulty: "Medium" },
+  { name: "Repeat and Missing Number",  topic: "String", difficulty: "Hard" },
+  { name: "Inversion of Array (Pre-req: Merge Sort)", topic: "Array", difficulty: "Hard" },
 ];
 
 
@@ -32,7 +32,10 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [question, setQuestion] = useState([]);
   const [solved, setSolved] = useState(0);
-  const [difficulty, setDifficulty] = useState('All');
+  const [difficultyFilter, setDifficultyFilter] = useState('All');
+  const [topicFilter, setTopicFilter] = useState("All"); // State for topic filter
+
+  
 
 
   const {selectQuizTopic} = useQuiz();
@@ -47,16 +50,23 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   };
 
   
-  const handleFilterDifficult = (difficulty) => {
-    setDifficulty(difficulty);
+  const handleDifficultyFilter = (difficulty) => {
+    setDifficultyFilter(difficulty);
     setIsFilterOpen2(false);
   };
+  
+  const handleTopicFilter = (topic) => {
+    setTopicFilter(topic);
+    setIsFilterOpen1(false);
+  };
 
-  const filteredProblems = problems.filter(problem => 
-    difficulty === 'All' ? true : problem.difficulty === difficulty
-  );
-
-
+  const filteredProblems = problems.filter(problem => {
+    const difficultyMatch = difficultyFilter === "All" || problem.difficulty === difficultyFilter;
+    const topicMatch = topicFilter === "All" || problem.topic === topicFilter;
+    return difficultyMatch && topicMatch;
+  });
+  
+  
   const toggleFilterDropdown1 = (event) => {
     event.stopPropagation(); 
     if (isOpen) { 
@@ -71,12 +81,6 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
       setIsFilterOpen2(!isFilterOpen2);
       setIsFilterOpen1(false); 
     }
-  };
-
-  const handleFilterSelect = (topic) => {
-    console.log(`Selected: ${topic}`);
-    setIsFilterOpen1(false); 
-    setIsFilterOpen2(false);
   };
 
   const handleRevisionToggle = (index) => {
@@ -159,31 +163,30 @@ console.log(question);
           </Link>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={styles.filterButton} onClick={toggleFilterDropdown1}>
-              Filter
+              Topic
             </button>
             {isFilterOpen1 && (
               <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 1')}>Topic 1</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 2')}>Topic 2</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 3')}>Topic 3</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterSelect('Topic 4')}>Topic 4</div>
+                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('All')}>Random</div>
+                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('Array')}>Array</div>
+                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('String')}>String</div>
               </div>
             )}
           </div>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={styles.filterButton} onClick={toggleFilterDropdown2}>
-              Filter
+              Difficulty
             </button>
             {isFilterOpen2 && (
               <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Easy')}>Easy</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Medium')}>Medium</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('Hard')}>Hard</div>
-                <div className={styles.dropdownItem} onClick={() => handleFilterDifficult('All')}>All</div>
+                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('All')}>Random</div>
+                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Easy')}>Easy</div>
+                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Medium')}>Medium</div>
+                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Hard')}>Hard</div>
               </div>
             )}
           </div>
-          <span>{solved}/{question.length}</span>
+          <span>{solved}/{filteredProblems.length}</span>
           <button className={styles.toggleButton}>
             <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
           </button>
