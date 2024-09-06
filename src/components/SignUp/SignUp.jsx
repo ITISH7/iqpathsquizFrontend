@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography, Link } from '@mui/material';
 
-const Signup = ({ onSwitchToLogin }) => {
+const Sign = ({ onSwitchToLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -68,4 +68,4 @@ const Signup = ({ onSwitchToLogin }) => {
   );
 };
 
-export default Signup;
+export default Sign;
