@@ -217,6 +217,7 @@
   position: relative;
   font-family: 'Arial, sans-serif';
   margin-bottom: 60px;
+  height: 400px;
 }
 
 .spiral {
@@ -453,3 +454,21 @@
   transition: width 0.3s ease;
   border-radius: 10px;
 } 
+
+/* xs */
+/* @media (min-width: 475px) {} */
+
+/* sm */
+/* @media (min-width: 640px) {} */
+
+/* md */
+/* @media (min-width: 768px) {} */
+
+/* lg */
+/* @media (min-width: 1024px) {} */
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */

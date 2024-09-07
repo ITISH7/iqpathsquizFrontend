@@ -84,7 +84,7 @@ const Dashboard = () => {
                 <img src="src\assets\spiral.svg" alt="Spiral" />
               </div>
               <h3 className={styles.calendarTitle}>My Progress</h3>
-              <Calendar
+              {/* <Calendar
                 onChange={setDate}
                 value={date}
                 tileClassName={getTileClass}
@@ -94,7 +94,7 @@ const Dashboard = () => {
                 prev2Label="«"
                 nextLabel="›"
                 prevLabel="‹"
-              />
+              /> */}
               <div className={styles.streak}>
                 {streak} days <span role="img" aria-label="fire">🔥</span>
               </div>

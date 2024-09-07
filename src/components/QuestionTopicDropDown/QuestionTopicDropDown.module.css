@@ -164,8 +164,6 @@
 }
 
 .filter2 {
-  /* border: 2px solid green; */
-  max-width: 130px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -472,6 +470,10 @@
   .filterButton {
     height: 40px;
     width: 90px;
+  }
+
+  .filter2 {
+    width: 120px;
   }
 
   .toggleButton {
