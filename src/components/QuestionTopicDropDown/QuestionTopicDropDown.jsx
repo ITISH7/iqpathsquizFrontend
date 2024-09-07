@@ -1,4 +1,4 @@
-import {useEffect, useState, useCallback } from 'react';
+import React, {useEffect, useState, useCallback } from 'react';
 import styles from './QuestionTopicDropDown.module.css';
 import modalStyles from './NoteModal.module.css';
 import ArrowUp from '../../assets/ArrowUp.svg';
@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 import NoteModal from './NoteModal';  // Import the NoteModal component
 import axios from 'axios';
 import { useQuiz } from '../../context/QuizContext';
-import Popup from '../../modals/QuestionPopUp/QuestionPopUp';
+import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
+// import Popup from '../../modals/QuestionPopUp/QuestionPopUp';
 
 
 
@@ -130,6 +131,8 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [problem, setProblem] = useState([]);
+  // const [isPopupVisible, setIsPopupVisible] = useState(false);
+  // const [currentQuestion, setCurrentQuestion] = useState(null);
 
   const { selectQuizTopic, setQuestions, setTimer, setResult } = useQuiz();
   
@@ -214,20 +217,30 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   };
   
   // const problems = [
-    //   { name: "Rotate Matrix", difficulty: "Easy" },
-    //   { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
-    //   { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
-    //   { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
-    //   { name: "Repeat and Missing Number", difficulty: "Hard" },
-    //   { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
-    // ];
+  //   { name: "Rotate Matrix", difficulty: "Easy" },
+  //   { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
+  //   { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
+  //   { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
+  //   { name: "Repeat and Missing Number", difficulty: "Hard" },
+  //   { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
+  // ];
   
-  const handleQuestionClick = (question) => {
-    setCurrentQuestion(question);
+  // const handleQuestionClick = (problem) => {
+  //   setCurrentQuestion(problem);
+  //   setIsPopupVisible(true);
+  // };
+
+  // const handleClosePopup = () => {
+  //   setIsPopupVisible(false);
+  //   setCurrentQuestion(null);
+  // };
+
+  const handleQuestionClick = (problem) => {
+    setCurrentQuestion(problem);
     setIsPopupVisible(true);
   };
-  
-  const handleClosePopup = () => {
+
+  const closePopup = () => {
     setIsPopupVisible(false);
     setCurrentQuestion(null);
   };
@@ -306,6 +319,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
           </Link>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={styles.filterButton} onClick={toggleFilterDropdown1}>
+              <img src="src\assets\FilterIcon.svg" alt="Filter" />
               Topic
             </button>
             {isFilterOpen1 && (
@@ -317,7 +331,8 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
             )}
           </div>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.filterButton} onClick={toggleFilterDropdown2}>
+            <button className={`${styles.filterButton} ${styles.filter2}`} onClick={toggleFilterDropdown2}>
+              <img src="src\assets\FilterIcon.svg" alt="Filter" />
               Difficulty
             </button>
             {isFilterOpen2 && (
@@ -363,15 +378,28 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
             </thead>
             <tbody>
               {filteredProblems.map((problem) => (
-                <tr key={problem.id}>
-                  <td className={`${styles.icons}`}><input type="checkbox"onChange={isSolved} key={problem.id}/></td>
-                  <td className={`${styles.problemColumn}`} key={problem.id} onClick={() => handleQuestionClick(problem)}>{problem.name}</td>
+                <tr key={problem.id} onClick={(e) => e.stopPropagation()}>
+                  <td className={`${styles.icons}`}><input type="checkbox"onChange={isSolved} /></td>
+                  <td
+                    className={`${styles.problemColumn}`}
+                    key={problem.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleQuestionClick(problem);
+                    }}
+                  >
+                    {problem.name}
+                  </td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
                   <td className={`${styles.icons} ${styles.remove}`}>
                     <button 
-                      onClick={() => openModal(problem.name)} className={styles.noteButton}>
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openModal(problem);
+                      }}
+                      className={styles.noteButton}>
                       +
                     </button>
                     {/* <p>{notes[problem.questionContent] || ""}</p> */}
@@ -384,10 +412,25 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
               ))}
             </tbody>
           </table>
-          <Popup isVisible={isPopupVisible} questionData={currentQuestion} onClose={handleClosePopup} />
         </div>
-        
       )}
+
+      {/* {isPopupVisible && currentQuestion && (
+        <Popup 
+          isVisible={isPopupVisible}
+          questionData={currentQuestion}
+          onClose={handleClosePopup}
+        />
+      )} */}
+
+      {isPopupVisible && currentQuestion && (
+        <QuestionPopUp 
+          isVisible={isPopupVisible}
+          questionData={currentQuestion}
+          onClose={closePopup}
+        />
+      )}
+
       {isModalOpen && (
         <NoteModal 
           isOpen={isModalOpen}
