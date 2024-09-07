@@ -153,6 +153,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
 
   const closePopup = () => {
     setIsPopupVisible(false);
+    setCurrentQuestion(null);
   };
 
 
@@ -267,15 +268,28 @@ console.log(question);
             </thead>
             <tbody>
               {filteredProblems.map((problem) => (
-                <tr key={problem.id} onClick={() => handleQuestionClick(problem)}>
-                  <td className={`${styles.icons}`}><input type="checkbox"onChange={() => {}} /></td>
-                  <td className={`${styles.problemColumn}`} key={problem.id} onClick={() => handleQuestionClick(problem)}>{problem.name}</td>
+                <tr key={problem.id} onClick={(e) => e.stopPropagation()}>
+                  <td className={`${styles.icons}`}><input type="checkbox"onChange={isSolved} /></td>
+                  <td
+                    className={`${styles.problemColumn}`}
+                    key={problem.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleQuestionClick(problem);
+                    }}
+                  >
+                    {problem.name}
+                  </td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
                   <td className={`${styles.icons} ${styles.remove}`}>
                     <button 
-                      onClick={() => openModal(problem.name)} className={styles.noteButton}>
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openModal(problem);
+                      }}
+                      className={styles.noteButton}>
                       +
                     </button>
                     {/* <p>{notes[problem.questionContent] || ""}</p> */}
