@@ -24,6 +24,97 @@ const problems = [
 ];
 
 
+const quizData = {
+  topic: 'Javascript',
+  level: 'Beginner',
+  totalQuestions: 14,
+  totalScore: 125,
+  totalTime: 240,
+  questions: [
+    {
+      question:
+        'Which of the following are JavaScript data types? (Select all that apply)',
+      choices: ['String', 'Number', 'Function', 'Array'],
+      type: 'MAQs',
+      correctAnswers: ['String', 'Number', 'Array'],
+      score: 10,
+    },
+    {
+      question: 'The "this" keyword in JavaScript refers to the current function.',
+      choices: ['True', 'False'],
+      type: 'boolean',
+      correctAnswers: ['False'],
+      score: 5,
+    },
+    {
+      question: 'Which operator is used for strict equality comparison in JavaScript?',
+      choices: ['==', '===', '=', '!='],
+      type: 'MCQs',
+      correctAnswers: ['==='],
+      score: 10,
+    },
+    {
+      question:
+        'Which of the following methods is used to add an element to the end of an array in JavaScript?',
+      choices: ['push()', 'pop()', 'shift()', 'unshift()'],
+      type: 'MCQs',
+      correctAnswers: ['push()'],
+      score: 10,
+    },
+    {
+      question: 'What is the value of x after executing the following code snippet?',
+      code: `let x = 5;
+              x += 2;
+              x *= 3;`,
+      choices: ['21', '25', '33', '35'],
+      type: 'MCQs',
+      correctAnswers: ['25'],
+      score: 10,
+    },
+    {
+      question: 'What is the output of the following code snippet?',
+      code: `console.log(typeof null);`,
+      choices: ['Object', 'Null', 'Undefined', 'NullObject'],
+      type: 'MCQs',
+      correctAnswers: ['Object'],
+      score: 10,
+    },
+    {
+      question: 'Which of the following is NOT a valid JavaScript variable name?',
+      choices: ['myVariable', '_variable', '123variable', '$variable'],
+      type: 'MCQs',
+      correctAnswers: ['123variable'],
+      score: 10,
+    },
+    {
+      question:
+        'Which of the following methods is used to remove the last element from an array in JavaScript?',
+      choices: ['push()', 'pop()', 'shift()', 'unshift()'],
+      type: 'MCQs',
+      correctAnswers: ['pop()'],
+      score: 10,
+    },
+    {
+      question: 'JavaScript is a case-sensitive language.',
+      choices: ['True', 'False'],
+      type: 'boolean',
+      correctAnswers: ['True'],
+      score: 5,
+    },
+    {
+      question: 'What is the output of the following code snippet?',
+      code: `console.log(2 + '2');`,
+      choices: ['4', '22', '24', "'22'"],
+      type: 'MCQs',
+      correctAnswers: ['22'],
+      score: 10,
+    }
+  ],
+}
+
+
+
+
 
 function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,22 +124,26 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProblem, setSelectedProblem] = useState(null);
   const [notes, setNotes] = useState({});
-  const [question, setQuestion] = useState([]);
   const [solved, setSolved] = useState(0);
   const [difficultyFilter, setDifficultyFilter] = useState('All');
-  const [topicFilter, setTopicFilter] = useState("All"); // State for topic filter
+  const [topicFilter, setTopicFilter] = useState("All");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [problem, setProblem] = useState([]);
 
+  const { selectQuizTopic, setQuestions, setTimer, setResult } = useQuiz();
   
 
-
-  const {selectQuizTopic} = useQuiz();
-  
+  const handleQuizStart = () => { 
+    selectQuizTopic(quizData.topic)
+    setQuestions(quizData.questions)
+    setTimer(quizData.totalTime)
+    // setResult([]) 
+  };
 
   const toggleDropdown = useCallback(() => {
     setIsOpen((prevState) => !prevState);
-  }, []); // Memoized to avoid re-rendering issues
+  }, []);
 
   
   const handleDifficultyFilter = (difficulty) => {
@@ -60,12 +155,6 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     setTopicFilter(topic);
     setIsFilterOpen1(false);
   };
-
-  const filteredProblems = problems.filter(problem => {
-    const difficultyMatch = difficultyFilter === "All" || problem.difficulty === difficultyFilter;
-    const topicMatch = topicFilter === "All" || problem.topic === topicFilter;
-    return difficultyMatch && topicMatch;
-  });
   
   
   const toggleFilterDropdown1 = (event) => {
@@ -75,7 +164,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
       setIsFilterOpen2(false); 
     }
   };
-
+  
   const toggleFilterDropdown2 = (event) => {
     event.stopPropagation();
     if (isOpen) { 
@@ -83,25 +172,25 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
       setIsFilterOpen1(false); 
     }
   };
-
+  
   const handleRevisionToggle = (index) => {
     setImageStates((prev) => ({
       ...prev,
       [index]: prev[index] === "RevisionShine" ? "Revision" : "RevisionShine",
     }));
   };
-
+  
   const openModal = (problemName) => {
     setSelectedProblem(problemName);
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
   };
-
+  
   const closeModal = () => {
     setIsModalOpen(false);
     document.body.style.overflow = "auto";
   };
-
+  
   const isSolved = (e) => { 
     if (e.target.checked) {
       setSolved(solved + 1);
@@ -109,40 +198,41 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
       setSolved(solved - 1);
     }
   };
-
+  
   const saveNote = (problemId, noteContent) => {
     const updatedNotes = { ...notes };
-
+    
     if (noteContent.trim() === "") {
       delete updatedNotes[problemId];
     }
     else {
       updatedNotes[problemId] = noteContent;
     }
-
+    
     setNotes(updatedNotes);
     localStorage.setItem("userNotes", JSON.stringify(updatedNotes));
   };
-
+  
   // const problems = [
-  //   { name: "Rotate Matrix", difficulty: "Easy" },
-  //   { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
-  //   { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
-  //   { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
-  //   { name: "Repeat and Missing Number", difficulty: "Hard" },
-  //   { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
-  // ];
+    //   { name: "Rotate Matrix", difficulty: "Easy" },
+    //   { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
+    //   { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
+    //   { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
+    //   { name: "Repeat and Missing Number", difficulty: "Hard" },
+    //   { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
+    // ];
+  
   const handleQuestionClick = (question) => {
     setCurrentQuestion(question);
     setIsPopupVisible(true);
   };
-
+  
   const handleClosePopup = () => {
     setIsPopupVisible(false);
     setCurrentQuestion(null);
   };
-
-
+  
+  
   const renderDifficultyBadge = (diffi) => {
     let badgeClass = "";
     switch (diffi) {
@@ -157,29 +247,48 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
         break;
       default:
         badgeClass = "";
+      }
+      return <div className={badgeClass}>{diffi}</div>;
+    };
+            
+    useEffect(() => {
+      const savedNotes = JSON.parse(localStorage.getItem("userNotes")) || {};
+      setNotes(savedNotes);
+      getdata();
+    }, []);
+            
+    async function getdata(){
+      try {
+        const response = await axios.get('/user/sampleQuestions');
+        setProblem(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
-    return <div className={badgeClass}>{diffi}</div>;
-  };
-
-  useEffect(() => {
-    const savedNotes = JSON.parse(localStorage.getItem("userNotes")) || {};
-    setNotes(savedNotes);
-    getdata();
-  }, []);
-
-  async function getdata(){
-    try {
-      const response = await axios.get('/user/sampleQuestions');
-      setQuestion(response.data.data);
-      // console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-console.log(question);
-
-
+            
+    // const fetchQuizData = async (topic) => {
+    //   try {
+    //     const response = await axios.post('/user/quiz', { topic })
+  
+    //     if (response.status === 200) {
+    //       const { questions, totalTime, totalScore } = response.data
+    //       selectQuizTopic(topic)
+    //       setQuestions(questions)
+    //       setTimer(totalTime)
+    //       setResult([])  // Reset the result
+    //       console.log('Quiz data fetched:', response.data)
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching quiz data:', error)
+    //   }
+    // }
+  
+    const filteredProblems = problems.filter(problem => {
+      const difficultyMatch = difficultyFilter === "All" || problem.difficulty === difficultyFilter;
+      const topicMatch = topicFilter === "All" || problem.topic === topicFilter;
+      return difficultyMatch && topicMatch;
+    });
+            
   return (
     <div className={`${styles.tableContainer} ${isOpen ? styles.tableContainerOpen : ''}`}>
       <div
@@ -189,9 +298,9 @@ console.log(question);
         <h2>{`${name}`}</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
           <Link to="/quiz" >
-          <button 
+            <button 
               className={styles.playButton}
-              onClick={() => selectQuizTopic(title)}
+              onClick={handleQuizStart}
               >Test
             </button>
           </Link>
@@ -255,7 +364,7 @@ console.log(question);
             <tbody>
               {filteredProblems.map((problem) => (
                 <tr key={problem.id}>
-                  <td className={`${styles.icons}`}><input type="checkbox"onChange={isSolved} /></td>
+                  <td className={`${styles.icons}`}><input type="checkbox"onChange={isSolved} key={problem.id}/></td>
                   <td className={`${styles.problemColumn}`} key={problem.id} onClick={() => handleQuestionClick(problem)}>{problem.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>

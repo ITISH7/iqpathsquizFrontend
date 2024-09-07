@@ -1,0 +1,48 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .header button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 8px;
+  }
+  
+  .header span {
+    font-size: 18px;
+    color: rgba(173, 115, 210, 1);
+    font-weight: 500;
+  }
+  
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns for days of the week */
+    grid-gap: 0px; /* Space between cells */
+  }
+  
+  .dayName {
+    /* font-weight: ; */
+    text-align: center;
+    /* background-color: #E0E0E0; */
+    padding: 8px 0;
+  }
+  
+  .cell {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px; /* Slight rounding for aesthetics */
+    background-color: #F5F5F5; /* Default light color for empty days */
+    transition: background-color 0.3s ease; /* Smooth color transition */
+    margin: 8px auto; ;
+  }
+  

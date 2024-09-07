@@ -2,23 +2,46 @@ import React, { useState } from 'react';
 // import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import styles from './ResultDashboard.module.css';
+import StreakHeatMap from '../../modals/StreakHeatMap/StreakHeatMap';
 
 const Dashboard = () => {
   const [date, setDate] = useState(new Date());
   const [streak, setStreak] = useState(5);
 
-  // Sample data for the calendar (replace with your actual data)
-  const progressData = {
-    '2024-09-01': 1,
-    '2024-09-02': 2,
-    '2024-09-03': 3,
-    '2024-09-04': 4,
-    '2024-09-05': 5,
-    '2024-09-06': 3,
-    '2024-09-07': 4,
-    // Add more dates and their respective progress levels (1 to 5)
-  };
-
+  const streakData = [
+    { "date": "2024-09-01", "streak": 3 },
+    { "date": "2024-09-02", "streak": 8 },
+    { "date": "2024-09-03", "streak": 2 },
+    { "date": "2024-09-04", "streak": 9 },
+    { "date": "2024-09-05", "streak": 0 },
+    { "date": "2024-09-06", "streak": 4 },
+    { "date": "2024-09-07", "streak": 5 },
+    { "date": "2024-09-08", "streak": 0 },
+    { "date": "2024-09-09", "streak": 1 },
+    { "date": "2024-09-10", "streak": 7 },
+    { "date": "2024-09-11", "streak": 2 },
+    { "date": "2024-09-12", "streak": 0 },
+    { "date": "2024-09-13", "streak": 2 },
+    { "date": "2024-09-14", "streak": 3 },
+    { "date": "2024-09-15", "streak": 6 },
+    { "date": "2024-09-16", "streak": 4 },
+    { "date": "2024-09-17", "streak": 5 },
+    { "date": "2024-09-18", "streak": 1 },
+    { "date": "2024-09-19", "streak": 8 },
+    { "date": "2024-09-20", "streak": 2 },
+    { "date": "2024-09-21", "streak": 7 },
+    { "date": "2024-09-22", "streak": 0 },
+    { "date": "2024-09-23", "streak": 0 },
+    { "date": "2024-09-24", "streak": 0 },
+    { "date": "2024-09-25", "streak": 6 },
+    { "date": "2024-09-26", "streak": 2 },
+    { "date": "2024-09-27", "streak": 0 },
+    { "date": "2024-09-28", "streak": 3 },
+    { "date": "2024-09-29", "streak": 7 },
+    { "date": "2024-09-30", "streak": 2 },
+    { "date": "2024-10-01", "streak": 6 }
+  ]
+  
   const getTileClass = ({ date }) => {
     const dateString = date.toISOString().split('T')[0];
     const level = progressData[dateString] || 0;
@@ -84,7 +107,7 @@ const Dashboard = () => {
                 <img src="src\assets\spiral.svg" alt="Spiral" />
               </div>
               <h3 className={styles.calendarTitle}>My Progress</h3>
-              <Calendar
+              {/* <Calendar
                 onChange={setDate}
                 value={date}
                 tileClassName={getTileClass}
@@ -94,7 +117,8 @@ const Dashboard = () => {
                 prev2Label="«"
                 nextLabel="›"
                 prevLabel="‹"
-              />
+              /> */}
+              <StreakHeatMap streakData={streakData} />
               <div className={styles.streak}>
                 {streak} days <span role="img" aria-label="fire">🔥</span>
               </div>

@@ -15,29 +15,28 @@ export function QuizProvider({ children }: QuizProviderProps) {
   const [currentScreen, setCurrentScreen] = useState<ScreenTypes>(
     initialState.currentScreen
   )
+  const [questions, setQuestions] =  useState<any[]>([])
 
-  const [questions, setQuestions] = useState(quiz[initialState.quizTopic].questions)
-
-  const {
-    questions: quizQuestions,
-    totalQuestions,
-    totalTime,
-    totalScore,
-  } = quiz[quizTopic]
+  // const {
+  //   // questions: quizQuestions,
+  //   totalQuestions,
+  //   totalTime,
+  //   totalScore,
+  // } = quiz[quizTopic]
 
   const selectQuizTopic = (topic: string) => {
     setQuizTopic(topic)
   }
 
   useEffect(() => {
-    setTimer(totalTime)
-    setQuestions(quizQuestions)
+    // setTimer(totalTime)
+    // setQuestions(quizQuestions)
   }, [quizTopic])
 
   const quizDetails = {
-    totalQuestions,
-    totalScore,
-    totalTime,
+    totalQuestions: questions.length,
+    totalScore: 100,  // Assuming a fixed total score for dummy data
+    totalTime: timer,
     selectedQuizTopic: quizTopic,
   }
 
