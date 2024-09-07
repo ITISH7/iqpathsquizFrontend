@@ -9,6 +9,7 @@
   
   .header {
     display: flex;
+    flex-wrap: row;
     justify-content: center;
     align-items: center;
     background-color: #8039DF;
@@ -17,7 +18,7 @@
     color: white;
     width: 83%;
     height: 150px;
-    Gap: 15px;
+    gap: 15px;
     margin-top: 120px;
   }
   
@@ -27,7 +28,7 @@
   
   .headerContent h1 {
     width: 390px;
-    height: 40px;
+    height: auto;
     font-family: Barlow;
     font-size: 33px;
     font-style: italic;
@@ -40,7 +41,7 @@
   
   .headerContent p {
     width: 450px;
-    height: 30px;
+    height: auto;
     font-family: Barlow;
     font-size: 20px;
     font-style: italic;
@@ -58,3 +59,149 @@
     margin-top: -70px;
     margin-right: 20px;
   }
+
+/* xs */
+@media (max-width: 475px) {
+  .header {
+    flex-direction: column; /* Stack content vertically */
+    height: auto;
+    width: 100%; /* Full width */
+    margin-top: 60px;
+    text-align: center;
+  }
+
+  .headerContent h1 {
+    font-size: 24px;
+    text-align: center;
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .headerContent p {
+    font-size: 16px;
+    text-align: center;
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .headerImage {
+    width: 240px;
+    height: 260px;
+    margin-top: 20px;
+  }
+}
+
+/* sm */
+/* @media (min-width: 476px) and (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+  }
+
+  .headerContent h1 {
+    font-size: 28px;
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .headerContent p {
+    font-size: 18px;
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .headerImage {
+    width: 280px;
+    height: 300px;
+    margin-top: 20px;
+    border: 2px solid green;
+  }
+} */
+
+/* md */
+@media (min-width: 476px) and (max-width: 768px) {
+  .header {
+    width: 90%; /* Adjust the width for tablet sizes */
+  }
+
+  .headerContent h1 {
+    font-size: 28px;
+  }
+
+  .headerContent p {
+    font-size: 18px;
+  }
+
+  .headerImage {
+    /* border: 2px solid yellow; */
+    width: 280px; /* Adjusted width */
+    height: 140px; /* Adjusted height */
+    margin-top: 30px; /* Adjusted margin */
+  }
+}
+
+/* lg */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header {
+    width: 85%; /* Adjust width for larger tablets and small laptops */
+  }
+
+  .headerContent h1 {
+    font-size: 32px;
+  }
+
+  .headerContent p {
+    font-size: 19px;
+  }
+
+  .headerImage {
+    width: 320px;
+    height: 340px;
+    margin-top: -40px;
+    /* border: 2px solid yellow; */
+  }
+}
+
+/* xl */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .header {
+    width: 80%;
+    height: 180px; /* Adjust height for larger screens */
+  }
+
+  .headerContent h1 {
+    font-size: 33px;
+  }
+
+  .headerContent p {
+    font-size: 20px;
+  }
+
+  .headerImage {
+    width: 340px;
+    height: 360px;
+  }
+}
+
+/* 2xl */
+@media (min-width: 1281px) {
+  .header {
+    width: 75%;
+  }
+
+  .headerContent h1 {
+    font-size: 36px;
+  }
+
+  .headerContent p {
+    font-size: 22px;
+  }
+
+  .headerImage {
+    width: 360px;
+    height: 380px;
+    margin-top: -90px;
+    /* border: 2px solid yellow; */
+  }
+}
