@@ -211,6 +211,7 @@ console.log(question);
           </Link>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={styles.filterButton} onClick={toggleFilterDropdown1}>
+              <img src="src\assets\FilterIcon.svg" alt="Filter" />
               Topic
             </button>
             {isFilterOpen1 && (
@@ -222,7 +223,8 @@ console.log(question);
             )}
           </div>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.filterButton} onClick={toggleFilterDropdown2}>
+            <button className={`${styles.filterButton} ${styles.filter2}`} onClick={toggleFilterDropdown2}>
+              <img src="src\assets\FilterIcon.svg" alt="Filter" />
               Difficulty
             </button>
             {isFilterOpen2 && (
