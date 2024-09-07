@@ -5,7 +5,7 @@ import ResultDashboard from '../components/ResultDashboard/ResultDashboard'
 function Result() {
     return (
       <>
-      {/* <ResultHeroSection /> */}
+      <ResultHeroSection />
       <ResultDashboard />
       </>
     )
