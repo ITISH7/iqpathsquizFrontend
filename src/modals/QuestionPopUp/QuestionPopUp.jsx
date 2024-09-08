@@ -17,6 +17,13 @@ const QuestionPopUp = ({ isVisible, questionData, onClose }) => {
     };
   }, [isVisible]);
 
+  // useEffect(() => {
+  //   selectedOptions(null);
+  //   setShowCorrectAnswer(false);
+  // }, [questionData]);
+
+  // const correctAnswerIndex = questionData.correctAnswerIndex;
+
   const handleOptionClick = (option, index) => {
     const isCorrect = index === 0;
     // const isCorrect = questionData.correctAnswers.includes(option);
