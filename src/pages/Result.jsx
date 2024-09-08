@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect }  from "react";
 import ResultHeroSection from '../components/ResultHeroSection/ResultHeroSection'
 import ResultDashboard from '../components/ResultDashboard/ResultDashboard'
 
