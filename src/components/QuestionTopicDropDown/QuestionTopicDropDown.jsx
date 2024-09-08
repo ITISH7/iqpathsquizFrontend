@@ -16,7 +16,7 @@ import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
 
 
 const problems = [
-  { id: 1, name: "Rotate Matrix",    options: ['Library', 'Framework', 'Language'], question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space', topic: "Array", difficulty: "Easy" },
+  { id: 1, name: "Stock Buy and Sell",    options: ['Library', 'Framework', 'Language'], question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space', topic: "Array", difficulty: "Easy" },
   { id: 2, name: "Merge Overlapping intervals",  options: ['Library', 'Framework', 'Language'],  question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space',  topic: "String", difficulty: "Easy" },
   { id: 3, name: "Merge two sorted arrays without extra space",  options: ['Library', 'Framework', 'Language'],  question: 'We are given two sorted arrays. We need to merge these two arrays such that the initial numbers (after complete sorting) are in the first array and the remaining numbers are in the second array', topic: "Array", difficulty: "Medium" },
   { id: 4, name: "Find the duplicate in an array of N+1 integers",  options: ['Library', 'Framework', 'Language'],  question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.',  topic: "Array", difficulty: "Medium" },
@@ -312,13 +312,13 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
           <Link to="/quiz" >
             <button 
-              className={styles.playButton}
+              className={`${styles.playButton} ${styles.buttonEffect}`}
               onClick={handleQuizStart}
               >Test
             </button>
           </Link>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.filterButton} onClick={toggleFilterDropdown1}>
+            <button className={`${styles.filterButton} ${styles.buttonEffect}`} onClick={toggleFilterDropdown1}>
               <img src="src\assets\FilterIcon.svg" alt="Filter" />
               Topic
             </button>
@@ -331,7 +331,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
             )}
           </div>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
-            <button className={`${styles.filterButton} ${styles.filter2}`} onClick={toggleFilterDropdown2}>
+            <button className={`${styles.filterButton} ${styles.filter2} ${styles.buttonEffect}`} onClick={toggleFilterDropdown2}>
               <img src="src\assets\FilterIcon.svg" alt="Filter" />
               Difficulty
             </button>
@@ -345,8 +345,8 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
             )}
           </div>
           <span>{solved}/{filteredProblems.length}</span>
-          <button className={styles.toggleButton}>
-            <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
+          <button className={`${styles.toggleButton} `}>
+            <img  src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
           </button>
         </div>
       </div>

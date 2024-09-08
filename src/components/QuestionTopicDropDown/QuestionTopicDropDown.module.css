@@ -9,7 +9,7 @@
   background-color: #ffffff;
   transition: max-height 0.3s ease, background-color 0.3s ease;
   overflow: hidden;
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'Titillium Web';
 }
 
 .tableContainerOpen {
@@ -183,6 +183,19 @@
   border: 1px solid #d4d4d8;
   background-color: #fafafa;
   opacity: 0px;
+}
+
+/* LikeButton.css */
+
+.buttonEffect:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.buttonEffect:active {
+  transform: scale(0.9);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .header:hover .playButton {
