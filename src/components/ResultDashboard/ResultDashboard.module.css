@@ -435,6 +435,10 @@
     margin-top: 40px;
   }
 
+  .calendarTitle {
+    font-size: 20px;
+  }
+
   .accuracySection {
     padding: 15px; 
     height: 150px; 
@@ -626,6 +630,10 @@
     height: 12px; 
     border-radius: 8px; 
     width: 100%; 
+  }
+
+  .calendarTitle {
+    margin-left: 0px;
   }
 }
 

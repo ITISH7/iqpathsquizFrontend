@@ -22,6 +22,15 @@ function ProgressBar() {
           </div>
         </div>
 
+        {/* <div className={styles.buttonContainer}>
+          <div className={styles.icon}>
+            <img src="src/assets/Button.svg" alt="Button Icon" />
+          </div>
+          <div className={styles.buttonWrapper}>
+            <button className={styles.button}>Show Revision</button>
+          </div>
+        </div> */}
+
       </div>
     </div>
   );
