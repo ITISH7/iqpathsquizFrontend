@@ -50,13 +50,12 @@
   transition: width 0.5s ease; 
 }
 
-.buttonContainer {
+/* .buttonContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-left: auto;
   margin-right: 0;
-  /* border: 2px solid yellow;  */
 }
 
 .icon {
@@ -81,7 +80,7 @@
   color: white;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   font-size: var(--size-xs);
-}
+} */
 
 
 /* xs */

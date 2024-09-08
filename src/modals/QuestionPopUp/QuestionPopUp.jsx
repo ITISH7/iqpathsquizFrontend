@@ -1,36 +1,79 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './QuestionPopUp.module.css';
 
 const QuestionPopUp = ({ isVisible, questionData, onClose }) => {
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false); // To track when to display correct answer
+
   useEffect(() => {
     if (isVisible) {
-      // Disable background scroll
       document.body.style.overflow = 'hidden';
     } else {
-      // Re-enable background scroll
       document.body.style.overflow = 'auto';
     }
 
-    // Cleanup on component unmount or visibility change
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, [isVisible]);
 
+  const handleOptionClick = (option, index) => {
+    const isCorrect = index === 0;
+    // const isCorrect = questionData.correctAnswers.includes(option);
+
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [index]: isCorrect ? 'correct' : 'incorrect'
+    }));
+
+    setShowCorrectAnswer(true); // Show the correct answer and explanation once any option is clicked
+  };
+
   if (!isVisible) return null;
+
+  const optionLetters = ['A', 'B', 'C', 'D'];
 
   return (
     <div className={styles.popupOverlay}>
       <div className={styles.popupContent}>
         <button className={styles.popupClose} onClick={onClose}>Close</button>
         <h2 className={styles.popupHeading}>{questionData.name}</h2>
-        <p className={styles.popupQuestion}><strong>Question:</strong> {questionData.question}</p>
-        <p className={styles.popupOptions}><strong>Options:</strong> {questionData.options.join(', ')}</p>
-        <p className={styles.popupExplain}><strong>Explanation:</strong> {"No explanation yet"}</p>
         <div className={styles.popFilters}>
           <p><strong>Topic:</strong> {questionData.topic}</p>
           <p><strong>Difficulty:</strong> {questionData.difficulty}</p>
         </div>
+        <p className={styles.popupQuestion}><strong>Question:</strong> {questionData.question}</p>
+        <div className={styles.popupOptions}>
+          {questionData.options.map((option, index) => (
+            <div
+              key={index}
+              className={`${styles.option} ${
+                selectedOptions[index] === 'correct'
+                  ? styles.correct
+                  : selectedOptions[index] === 'incorrect'
+                  ? styles.incorrect
+                  : ''
+              }`}
+              onClick={() => handleOptionClick(option, index)}
+            >
+              <span><strong>{optionLetters[index]}:</strong> {option}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Render the line and correct answer if any option is clicked */}
+        {showCorrectAnswer && (
+          <>
+            <hr className={styles.divider} /> {/* Line after the options */}
+            <div className={styles.correctAnswerSection}>
+              <p><strong>Correct Answer(s):</strong>
+              {/* {optionLetters[correctAnswerIndex]}: {questionData.options[correctAnswerIndex]} */}
+              A
+              </p>
+              <p><strong>Explanation:</strong> {questionData.explanation || 'No explanation available'}</p>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

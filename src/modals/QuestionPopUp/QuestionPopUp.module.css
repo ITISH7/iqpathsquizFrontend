@@ -66,8 +66,36 @@
   .popupOptions {
     /* border: 2px solid blue; */
     margin-top: 10px;
+    /* margin-bottom: 10px;
+    font-size: 18px; */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    padding: 10px;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .correct {
+    background-color: #e6ffe6;
+    border-color: green;
+  }
+
+  .incorrect {
+    background-color: #ffe6e6;
+    border-color: red;
   }
 
   .popupExplain {
@@ -77,8 +105,32 @@
     font-size: 18px;
   }
 
+  .popFilters {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 100px;
+    }
+
   .popFilters p {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
     font-size: 18px;
+    margin-left: 0px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 2px solid #ccc;
+    margin: 20px 0;
+  }
+
+  .correctAnswerSection {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+
+  .correctAnswerSection p {
+    margin: 10px 0;
+    font-size: 16px;
   }
