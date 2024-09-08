@@ -152,12 +152,15 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
         setIsFilterOpen1(false);
         setIsFilterOpen2(false);
       }
-  
-    });
-   
 
-    
+      return newState;
+
+    });
   }, []);
+
+  // const toggleDropdown = useCallback(() => {
+  //   setIsOpen((prevState) => !prevState);
+  // }, []);
 
   
   const toggleFilterDropdown1 = (event) => {
