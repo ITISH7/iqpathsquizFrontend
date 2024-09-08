@@ -7,6 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/user': 'https://iqpath2yuvi.onrender.com'
+    },
+    watch:{
+      usePolling: true,
     }
   },
   plugins: [

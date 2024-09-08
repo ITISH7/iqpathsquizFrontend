@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import Main from '../components/Main'
@@ -8,6 +8,12 @@ import { GlobalStyles } from '../styles/Global'
 import { themes } from '../styles/Theme'
 
 function Quiz() {
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+
   const [currentTheme, setCurrentTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme')
     return savedTheme || 'light'
