@@ -14,7 +14,7 @@ function Home() {
      <AddBlock />
      <Statistics />
      <ProgrssBar />
-     <QuestionTopicDropDown name={`bhalu`} />
+     <QuestionTopicDropDown name={`Apptitude`} />
      <QuestionTopicDropDown name={`QUANT`} />
      <QuestionTopicDropDown name={`Data Structure`}/>
      <QuestionTopicDropDown name={`AI`} />
