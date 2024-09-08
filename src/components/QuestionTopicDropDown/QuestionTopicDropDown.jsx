@@ -177,11 +177,22 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   };
   
   const handleRevisionToggle = (index) => {
-    setImageStates((prev) => ({
-      ...prev,
-      [index]: prev[index] === "RevisionShine" ? "Revision" : "RevisionShine",
-    }));
+    setImageStates((prev) => {
+      const updatedState = {
+        ...prev, 
+        [index]: prev[index] === "RevisionShine" ? "Revision" : "RevisionShine"
+      };
+
+      localStorage.setItem('imageStates', JSON.stringify(updatedState));
+
+      return updatedState;
+    });
   };
+
+  useEffect(() => {
+    const savedImageStates = JSON.parse(localStorage.getItem('imageStates')) || {};
+    setImageStates(savedImageStates);
+  }, [])
   
   const openModal = (problemName) => {
     setSelectedProblem(problemName);
