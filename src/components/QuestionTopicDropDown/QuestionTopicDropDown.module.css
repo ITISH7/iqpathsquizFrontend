@@ -355,6 +355,11 @@
   text-align: center;
 }
 
+.noteButton img {
+  /* border: 2px solid yellowgreen; */
+  margin-left: 7px;
+}
+
 .icons {
   padding: auto;
   margin: auto;

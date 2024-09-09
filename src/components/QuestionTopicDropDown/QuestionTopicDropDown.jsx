@@ -11,6 +11,8 @@ import NoteModal from './NoteModal';  // Import the NoteModal component
 import axios from 'axios';
 import { useQuiz } from '../../context/QuizContext';
 import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
+import NoteIcon from '../../assets/NoteIcon.svg';
+import NoteFilledIcon from '../../assets/NoteFilledIcon.svg'
 // import Popup from '../../modals/QuestionPopUp/QuestionPopUp';
 
 
@@ -183,7 +185,9 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
         [index]: prev[index] === "RevisionShine" ? "Revision" : "RevisionShine"
       };
 
-      localStorage.setItem('imageStates', JSON.stringify(updatedState));
+      setTimeout(() => {
+        localStorage.setItem('imageStates', JSON.stringify(updatedState));
+      }, 0);
 
       return updatedState;
     });
@@ -204,6 +208,10 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     setIsModalOpen(false);
     document.body.style.overflow = "auto";
   };
+
+  const getNoteIcon = (problemId) => {
+    return notes[problemId] ? NoteFilledIcon : NoteIcon;
+  }
   
   const isSolved = (e) => { 
     if (e.target.checked) {
@@ -216,7 +224,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const saveNote = (problemId, noteContent) => {
     const updatedNotes = { ...notes };
     
-    if (noteContent.trim() === "") {
+    if (noteContent.trim() === '') {
       delete updatedNotes[problemId];
     }
     else {
@@ -224,7 +232,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     }
     
     setNotes(updatedNotes);
-    localStorage.setItem("userNotes", JSON.stringify(updatedNotes));
+    localStorage.setItem('userNotes', JSON.stringify(updatedNotes));
   };
   
   // const problems = [
@@ -276,19 +284,19 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     };
             
     useEffect(() => {
-      const savedNotes = JSON.parse(localStorage.getItem("userNotes")) || {};
+      const savedNotes = JSON.parse(localStorage.getItem('userNotes')) || {};
       setNotes(savedNotes);
-      getdata();
+      // getdata();
     }, []);
             
-    async function getdata(){
-      try {
-        const response = await axios.get('/user/sampleQuestions');
-        setProblem(response.data.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    // async function getdata(){
+    //   try {
+    //     const response = await axios.get('/user/sampleQuestions');
+    //     setProblem(response.data.data);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
             
     // const fetchQuizData = async (topic) => {
     //   try {
@@ -411,7 +419,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
                         openModal(problem);
                       }}
                       className={styles.noteButton}>
-                      +
+                      <img src={getNoteIcon(problem.id)} alt="Note Icon" />
                     </button>
                     {/* <p>{notes[problem.questionContent] || ""}</p> */}
                   </td>
@@ -447,7 +455,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
           isOpen={isModalOpen}
           closeModal={closeModal}
           onSave={(note) => saveNote(selectedProblem.id, note)}
-          initialNote={notes[selectedProblem.id] || ""}  
+          initialNote={notes[selectedProblem.id] || ''}  
         />
       )}
     </div>
