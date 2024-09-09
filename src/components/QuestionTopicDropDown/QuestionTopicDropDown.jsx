@@ -7,14 +7,12 @@ import Revision from '../../assets/Revision.svg';
 import RevisionShine from '../../assets/RevisionShine.svg';
 import utilityStyle from '../../utils/utils.module.css';
 import { Link } from 'react-router-dom';
-import NoteModal from './NoteModal';  // Import the NoteModal component
+import NoteModal from './NoteModal';  
 import axios from 'axios';
 import { useQuiz } from '../../context/QuizContext';
 import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
 import NoteIcon from '../../assets/NoteIcon.svg';
 import NoteFilledIcon from '../../assets/NoteFilledIcon.svg'
-import noteFilled from '../../assets/NoteFilledIcon.svg';
-// import Popup from '../../modals/QuestionPopUp/QuestionPopUp';
 
 
 
@@ -128,23 +126,29 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProblem, setSelectedProblem] = useState(null);
   const [notes, setNotes] = useState({});
-  const [solved, setSolved] = useState(0);
+  const [solvedProblems, setSolvedProblems] = useState({});
   const [difficultyFilter, setDifficultyFilter] = useState('All');
   const [topicFilter, setTopicFilter] = useState("All");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(null);
-  const [problem, setProblem] = useState([]);
-  // const [isPopupVisible, setIsPopupVisible] = useState(false);
-  // const [currentQuestion, setCurrentQuestion] = useState(null);
 
   const { selectQuizTopic, setQuestions, setTimer, setResult } = useQuiz();
-  
+
+  const getFilteredProblems = () => {
+    return problems.filter(problem => {
+      const difficultyMatch = difficultyFilter === "All" || problem.difficulty === difficultyFilter;
+      const topicMatch = topicFilter === "All" || problem.topic === topicFilter;
+      return difficultyMatch && topicMatch;
+    });
+  };
+
+  const filteredProblems = getFilteredProblems();
 
   const handleQuizStart = () => { 
-    selectQuizTopic(quizData.topic)
-    setQuestions(quizData.questions)
-    setTimer(quizData.totalTime)
-    // setResult([]) 
+    selectQuizTopic('quizData.topic')
+    setQuestions('quizData.questions')
+    setTimer('quizData.totalTime')
+    setResult([]);
   };
 
   const toggleDropdown = useCallback(() => {
@@ -160,11 +164,6 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
 
     });
   }, []);
-
-  // const toggleDropdown = useCallback(() => {
-  //   setIsOpen((prevState) => !prevState);
-  // }, []);
-
   
   const toggleFilterDropdown1 = (event) => {
     event.stopPropagation(); 
@@ -212,6 +211,17 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     const savedImageStates = JSON.parse(localStorage.getItem('imageStates')) || {};
     setImageStates(savedImageStates);
   }, [])
+
+  const handleCheckboxChange = (problemId) => {
+    setSolvedProblems((prevSolved) => ({
+      ...prevSolved,
+      [problemId] : !prevSolved[problemId],
+    }));
+  };
+
+  const getSolvedCount = () => {
+    return filteredProblems.filter((problem) => solvedProblems[problem.id]).length;
+  };
   
   const openModal = (problemName) => {
     setSelectedProblem(problemName);
@@ -227,14 +237,6 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const getNoteIcon = (problemId) => {
     return notes[problemId] ? NoteFilledIcon : NoteIcon;
   }
-  
-  const isSolved = (e) => { 
-    if (e.target.checked) {
-      setSolved(solved + 1);
-    } else {
-      setSolved(solved - 1);
-    }
-  };
   
   const saveNote = (problemId, noteContent) => {
     const updatedNotes = { ...notes };
@@ -258,16 +260,6 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   //   { name: "Repeat and Missing Number", difficulty: "Hard" },
   //   { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
   // ];
-  
-  // const handleQuestionClick = (problem) => {
-  //   setCurrentQuestion(problem);
-  //   setIsPopupVisible(true);
-  // };
-
-  // const handleClosePopup = () => {
-  //   setIsPopupVisible(false);
-  //   setCurrentQuestion(null);
-  // };
 
   const handleQuestionClick = (problem) => {
     setCurrentQuestion(problem);
@@ -329,12 +321,6 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
     //     console.error('Error fetching quiz data:', error)
     //   }
     // }
-  
-    const filteredProblems = problems.filter(problem => {
-      const difficultyMatch = difficultyFilter === "All" || problem.difficulty === difficultyFilter;
-      const topicMatch = topicFilter === "All" || problem.topic === topicFilter;
-      return difficultyMatch && topicMatch;
-    });
             
   return (
     <div className={`${styles.tableContainer} ${isOpen ? styles.tableContainerOpen : ''}`}>
@@ -378,7 +364,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
               </div>
             )}
           </div>
-          <span>{solved}/{filteredProblems.length}</span>
+          <span>{getSolvedCount()}/{filteredProblems.length}</span>
           <button className={`${styles.toggleButton} `}>
             <img  src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
           </button>
@@ -413,17 +399,13 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
             <tbody>
               {filteredProblems.map((problem) => (
                 <tr key={problem.id} onClick={(e) => e.stopPropagation()}>
-                  <td className={`${styles.icons}`}><input type="checkbox"onChange={isSolved} /></td>
-                  <td
-                    className={`${styles.problemColumn}`}
-                    key={problem.id}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleQuestionClick(problem);
-                    }}
-                  >
-                    {problem.name}
+                  <td className={`${styles.icons}`}>
+                    <input type="checkbox" 
+                    checked={solvedProblems[problem.id] || false}
+                    onChange={() => handleCheckboxChange(problem.id)}
+                    />
                   </td>
+                  <td>{problem.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
@@ -436,7 +418,6 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
                       className={styles.noteButton}>
                       <img src={getNoteIcon(problem.id)} alt="Note Icon" />
                     </button>
-                    {/* <p>{notes[problem.questionContent] || ""}</p> */}
                   </td>
                   <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
                   <td className={styles.remove}>
@@ -448,14 +429,6 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
           </table>
         </div>
       )}
-
-      {/* {isPopupVisible && currentQuestion && (
-        <Popup 
-          isVisible={isPopupVisible}
-          questionData={currentQuestion}
-          onClose={handleClosePopup}
-        />
-      )} */}
 
       {isPopupVisible && currentQuestion && (
         <QuestionPopUp 
