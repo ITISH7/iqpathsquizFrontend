@@ -13,6 +13,7 @@ import { useQuiz } from '../../context/QuizContext';
 import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
 import NoteIcon from '../../assets/NoteIcon.svg';
 import NoteFilledIcon from '../../assets/NoteFilledIcon.svg'
+import noteFilled from '../../assets/NoteFilledIcon.svg';
 // import Popup from '../../modals/QuestionPopUp/QuestionPopUp';
 
 

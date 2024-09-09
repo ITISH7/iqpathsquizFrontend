@@ -40,8 +40,8 @@
 /* Add this to handle the green dot */
 .notificationDot {
   position: absolute;
-  top: 25px;
-  right: 48px;
+  top: 8px;
+  right: 18px;
   width: 10px;
   height: 10px;
   background-color: green;
@@ -110,6 +110,7 @@
   justify-content: space-between;
   gap: 10px;
   margin-right: 10px;
+  position: relative;
   /* border: 2px solid yellow; */
 }
 
