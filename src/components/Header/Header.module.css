@@ -37,6 +37,36 @@
   /* border: 2px solid red; */
 }
 
+/* Add this to handle the green dot */
+.notificationDot {
+  position: absolute;
+  top: 25px;
+  right: 48px;
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: none;
+}
+
+/* Bell animation keyframes for rotating both sides */
+@keyframes ringOnce {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(-15deg); }
+  75% { transform: rotate(15deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Applying the ring animation twice */
+.ring {
+  animation: ringOnce 1s ease-in-out 1;
+}
+
+.ringCompleted .notificationDot {
+  display: block;
+}
+
 .joiningBut {
   display: flex;
   /* border: 2px solid red; */
