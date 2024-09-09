@@ -147,20 +147,23 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   };
 
   const toggleDropdown = useCallback(() => {
-    setIsOpen((prevState) => !prevState);
+    setIsOpen((prevState) => {
+      const newState = !prevState;
+  
+      if (!newState) {
+        setIsFilterOpen1(false);
+        setIsFilterOpen2(false);
+      }
+
+      return newState;
+
+    });
   }, []);
 
-  
-  const handleDifficultyFilter = (difficulty) => {
-    setDifficultyFilter(difficulty);
-    setIsFilterOpen2(false);
-  };
-  
-  const handleTopicFilter = (topic) => {
-    setTopicFilter(topic);
-    setIsFilterOpen1(false);
-  };
-  
+  // const toggleDropdown = useCallback(() => {
+  //   setIsOpen((prevState) => !prevState);
+  // }, []);
+
   
   const toggleFilterDropdown1 = (event) => {
     event.stopPropagation(); 
@@ -177,6 +180,17 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
       setIsFilterOpen1(false); 
     }
   };
+  
+  const handleDifficultyFilter = (difficulty) => {
+    setDifficultyFilter(difficulty);
+    setIsFilterOpen2(false);
+  };
+  
+  const handleTopicFilter = (topic) => {
+    setTopicFilter(topic);
+    setIsFilterOpen1(false);
+  };
+  
   
   const handleRevisionToggle = (index) => {
     setImageStates((prev) => {
