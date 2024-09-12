@@ -13,6 +13,8 @@ import { useQuiz } from '../../context/QuizContext';
 import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
 import NoteIcon from '../../assets/NoteIcon.svg';
 import NoteFilledIcon from '../../assets/NoteFilledIcon.svg'
+import { Service } from '../../axios/config';
+
 
 
 
@@ -118,7 +120,7 @@ const quizData = {
 
 
 
-function QuestionTopicDropDown({ name, title = 'Python' }) {
+function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
@@ -132,7 +134,29 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(null);
 
+
   const { selectQuizTopic, setQuestions, setTimer, setResult } = useQuiz();
+
+  const service = new Service();
+  const getquizQuestion = async () => {
+    try {
+      const response = await service.GenerateTestQuestions({subjectName});
+        if (response.status === 200) {
+          const { data, totalTime, totalScore } = response.data
+          
+          selectQuizTopic(subjectName)
+          setQuestions(data)
+          setTimer(1200)
+          setResult([])  // Reset the result
+          console.log('Quiz data fetched:', response.data)
+        }
+      } catch (error) {
+        console.error('Error fetching quiz data:', error)
+      }
+  }
+
+
+
 
   const getFilteredProblems = () => {
     return problems.filter(problem => {
@@ -145,9 +169,9 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
   const filteredProblems = getFilteredProblems();
 
   const handleQuizStart = () => { 
-    selectQuizTopic('quizData.topic')
-    setQuestions('quizData.questions')
-    setTimer('quizData.totalTime')
+    selectQuizTopic(quizData.topic)
+    setQuestions(quizData.questions)
+    setTimer(quizData.totalTime)
     setResult([]);
   };
 
@@ -337,7 +361,7 @@ function QuestionTopicDropDown({ name, title = 'Python' }) {
         className={`${styles.header} ${utilityStyle.container} ${isOpen ? styles.headerOpen : ''}`}
         onClick={toggleDropdown}
       >
-        <h2>{`${name}`}</h2>
+        <h2>{`${subjectName}`}</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
           <Link to="/quiz" >
             <button 

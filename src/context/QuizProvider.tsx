@@ -31,6 +31,7 @@ export function QuizProvider({ children }: QuizProviderProps) {
   useEffect(() => {
     // setTimer(totalTime)
     // setQuestions(quizQuestions)
+    console.log(questions)
   }, [quizTopic])
 
   const quizDetails = {
