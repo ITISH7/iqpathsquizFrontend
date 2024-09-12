@@ -13,7 +13,7 @@ function Header() {
     { name: 'Test', path: '/test' },
   ];
 
-  const { isLoggedIn, ToggleLogin } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isBellRung, setIsBellRung] = useState(false);
@@ -62,7 +62,7 @@ function Header() {
                 src="src/assets/ProfilePicture.svg"
                 alt="Profile"
                 className={`${styles.icon} ${styles.profile}`}
-                onClick={() => ToggleLogin(isLoggedIn)}
+                onClick={() => setIsLoggedIn(false)}
               />
               <div
                 className={`${styles.iconContainer} ${isBellRung ? styles.ringCompleted : ''}`}
@@ -79,9 +79,13 @@ function Header() {
             </div>
           ) : (
             <div className={styles.joiningBut}>
-              <button className={styles.loginButton} onClick={() => ToggleLogin(isLoggedIn)}>
-                Log in
-              </button>
+              <Link to="/login">
+                <button className={styles.loginButton} 
+                // onClick={() => ToggleLogin(isLoggedIn)}
+                >
+                  Log in
+                </button>
+              </Link>
               <button className={styles.joinButton}>Join Free</button>
             </div>
           )}

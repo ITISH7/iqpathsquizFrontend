@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { TextField, Button, Box, Typography, Link } from '@mui/material';
 import { AuthService } from '../../axios/Auth';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import { useContext } from 'react';
 
 const Login = ({ onSwitchToSignup }) => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -12,6 +14,7 @@ const Login = ({ onSwitchToSignup }) => {
 
   const navigate = useNavigate();
   const authService = new AuthService(); 
+  const { setIsLoggedIn } = useContext(AuthContext);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,9 +31,11 @@ const Login = ({ onSwitchToSignup }) => {
       console.log("session", session)
       if(session){
           console.log("User logged in successfully")
+          setIsLoggedIn(true);
           navigate('/')
       }
     } catch (error) {
+        setIsLoggedIn(false);
         setErrorMessage('Failed to login. Please try again.');
         throw error;
     }

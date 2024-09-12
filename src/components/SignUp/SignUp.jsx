@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { TextField, Button, Box, Typography, Link } from '@mui/material';
 import { AuthService } from '../../axios/Auth';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import { useContext } from 'react';
 import axios from 'axios';
 
 const Sign = ({ onSwitchToLogin }) => {
+
+  const { setIsLoggedIn } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,9 +36,11 @@ const Sign = ({ onSwitchToLogin }) => {
         const userData = await authService.createAccount(formData);
         if(userData){
             console.log("User account created successfully")
+            setIsLoggedIn(true);
             navigate('/')
         }
     } catch (error) {
+        setIsLoggedIn(false);
         setErrorMessage('Failed to create account. Please try again.');
         throw error;
     }

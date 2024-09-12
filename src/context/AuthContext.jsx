@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, ToggleLogin, progress }}>
+    <AuthContext.Provider value={{ isLoggedIn,setIsLoggedIn, ToggleLogin, progress }}>
       {children}
     </AuthContext.Provider>
   );
