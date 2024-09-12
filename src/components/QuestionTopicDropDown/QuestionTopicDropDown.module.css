@@ -105,7 +105,8 @@
   width: 28px;
   height: 26px;
   top: 0.2px;
-  padding: 4.8px 2px 2px 5px;
+  padding: 4.8px 3px 2px 12px;
+  /* padding: auto; */
   gap: 0px;
   border-radius: 8px;
   border: 1px solid #d4d4d8;

@@ -237,11 +237,20 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   }, [])
 
   const handleCheckboxChange = (problemId) => {
-    setSolvedProblems((prevSolved) => ({
-      ...prevSolved,
-      [problemId] : !prevSolved[problemId],
-    }));
+    setSolvedProblems((prevSolved) => {
+      const updatedSolved = {
+        ...prevSolved,
+        [problemId] : !prevSolved[problemId],
+      };
+      localStorage.setItem('solvedProblems', JSON.stringify(updatedSolved));
+      return updatedSolved;
+    });
   };
+
+  useEffect(() => {
+    const savedSolvedProblems = JSON.parse(localStorage.getItem('solvedProblems')) || {};
+    setSolvedProblems(savedSolvedProblems);
+  }, []);
 
   const getSolvedCount = () => {
     return filteredProblems.filter((problem) => solvedProblems[problem.id]).length;
@@ -427,6 +436,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                     <input type="checkbox" 
                     checked={solvedProblems[problem.id] || false}
                     onChange={() => handleCheckboxChange(problem.id)}
+                    className={styles.checkbox}
                     />
                   </td>
                   <td>{problem.name}</td>
