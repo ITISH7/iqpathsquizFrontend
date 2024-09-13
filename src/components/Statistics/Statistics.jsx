@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './statistics.module.css';
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 import DoughnutChart from '../../modals/doughnutGraph/doughnut';
-// import BarGraph from '../../modals/barGraph/barGraph'
-import {data, categories} from '../../modals/barGraph/dataBar.js'
 import UtilityStyles from '../../utils/utils.module.css';
-import WeaklyGraph from '../../modals/weeklyGraph/weeklyGraph.jsx';
 import dummyData from '../../modals/doughnutGraph/dummyData.js';
 import { formatDate } from '../../utils/date.js';
 import BarGraph from '../../modals/barGraph/BarGraph';
+import {data, categories} from '../../modals/barGraph/dataBar.js'
 
 const Statistics = () => {
   const [animate, setAnimate] = useState(false);
