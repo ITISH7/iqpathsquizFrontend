@@ -13,7 +13,7 @@ function Header() {
     { name: 'Test', path: '/test' },
   ];
 
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn,ToggleLogin } = useContext(AuthContext);
 
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isBellRung, setIsBellRung] = useState(false);
@@ -79,13 +79,13 @@ function Header() {
             </div>
           ) : (
             <div className={styles.joiningBut}>
-              <Link to="/login">
+              {/* <Link to="/login"> */}
                 <button className={styles.loginButton} 
-                // onClick={() => ToggleLogin(isLoggedIn)}
+                onClick={() => ToggleLogin(isLoggedIn)}
                 >
                   Log in
                 </button>
-              </Link>
+              {/* </Link> */}
               <button className={styles.joinButton}>Join Free</button>
             </div>
           )}

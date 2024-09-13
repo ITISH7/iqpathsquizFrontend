@@ -117,9 +117,6 @@ const quizData = {
 }
 
 
-
-
-
 function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
@@ -142,6 +139,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const { selectQuizTopic, setQuestions, setTimer, setResult } = useQuiz();
 
   const service = new Service();
+
+
   const getquizQuestion = async () => {
     try {
       const response = await service.GenerateTestQuestions({subjectName});
@@ -523,7 +522,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                 <Link to="/quiz">
                 <div
                 className={styles.setDropdownItem}
-                onClick={handleQuizStart}>
+                onClick={getquizQuestion}>
                   Set 1
                 </div>
                 </Link>

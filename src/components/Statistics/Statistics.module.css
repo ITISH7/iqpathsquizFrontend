@@ -202,9 +202,9 @@
 .progBar{
     /* border: 2px solid black; */
     display: flex;
-    width: 70%;
+    width: 100%;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
 
 }
 
@@ -218,11 +218,12 @@
 
 .barGraph{
     /* border: 2px solid green; */
-    height: 90%;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 440px;
+    /* width: 440px; */
 }
 
 .barGraph p{
