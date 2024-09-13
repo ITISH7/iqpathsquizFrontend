@@ -124,6 +124,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
+  const [isSetDropdownOpen, setIsSetDropdownOpen] = useState(false);
+  const [selectedSet, setSelectedSet] = useState('Set 1');
   const [imageStates, setImageStates] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProblem, setSelectedProblem] = useState(null);
@@ -168,7 +170,18 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
 
   const filteredProblems = getFilteredProblems();
 
-  const handleQuizStart = () => { 
+  const toggleSetDropdown = (event) => {
+    event.stopPropagation();
+    setIsSetDropdownOpen(!isSetDropdownOpen);
+  };
+
+  const handleSetSelection = (setName) => {
+    setSelectedSet(setName);
+    setIsSetDropdownOpen(false);
+  }
+
+  const handleQuizStart = () => {
+    console.log(`Starting quiz with ${selectedSet}`); 
     selectQuizTopic(quizData.topic)
     setQuestions(quizData.questions)
     setTimer(quizData.totalTime)
@@ -363,21 +376,23 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       >
         <h2>{`${subjectName}`}</h2>
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
-          <Link to="/quiz" >
-            <button 
-              className={`${styles.playButton} ${styles.buttonEffect}`}
-              onClick={handleQuizStart}
-              >Test
-            </button>
-          </Link>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={`${styles.filterButton} ${styles.buttonEffect}`} onClick={toggleFilterDropdown1}>
-              <img src="src\assets\FilterIcon.svg" alt="Filter" />
-              Topic
+              {/* <img src="src\assets\FilterIcon.svg" alt="Filter" /> */}
+              {/* Topic */}
+              {topicFilter === "All" ? (
+                <>
+                  <img src="src\assets\FilterIcon.svg" alt="Filter" />
+                  Topic (All)
+                </>
+              ) : (
+                // If a specific topic is selected, just show the topic name 
+                <>{topicFilter}</>
+              )}
             </button>
             {isFilterOpen1 && (
               <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('All')}>Random</div>
+                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('All')}>All</div>
                 <div className={styles.dropdownItem} onClick={() => handleTopicFilter('Array')}>Array</div>
                 <div className={styles.dropdownItem} onClick={() => handleTopicFilter('String')}>String</div>
               </div>
@@ -385,12 +400,20 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           </div>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={`${styles.filterButton} ${styles.filter2} ${styles.buttonEffect}`} onClick={toggleFilterDropdown2}>
-              <img src="src\assets\FilterIcon.svg" alt="Filter" />
-              Difficulty
+              {difficultyFilter === "All" ? (
+                <>
+                  <img src="src\assets\FilterIcon.svg" alt="Filter" />
+                  Difficulty (All)
+                </>
+              ) : (
+                <>{difficultyFilter}</>
+              )}
+              {/* <img src="src\assets\FilterIcon.svg" alt="Filter" /> */}
+              {/* Difficulty */}
             </button>
             {isFilterOpen2 && (
               <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('All')}>Random</div>
+                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('All')}>All</div>
                 <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Easy')}>Easy</div>
                 <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Medium')}>Medium</div>
                 <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Hard')}>Hard</div>
@@ -439,7 +462,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                     className={styles.checkbox}
                     />
                   </td>
-                  <td>{problem.name}</td>
+                  <td onClick={() => handleQuestionClick(problem)}>{problem.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
@@ -461,6 +484,43 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
               ))}
             </tbody>
           </table>
+
+          {/* <Link to="/quiz" ></Link>
+          <button 
+            className={`${styles.playButton} ${styles.buttonEffect}`}
+            onClick={handleQuizStart}
+            > Complete Test
+          </button> */}
+
+          <div className={styles.dropdownWrapper}>
+            <button className={`${styles.playButton} ${styles.buttonEffect}`}
+            onClick={toggleSetDropdown}>
+              Complete Test
+            </button>
+            {isSetDropdownOpen && (
+              <div className={setDropdownItem}
+              onClick={() => handleSetSelection('Set 1')}>
+                Set 1
+              </div>
+              
+              // <div className={styles.setDropdownItem}
+              // onClick={() => handleSetSelection('Set 2')}>
+              //   Set 2
+              // </div>
+
+              // <div className=(styles.setDropdownItem) 
+              // onClick={() => handleSetSelection('Set 3')}>
+              //   Set 3
+              // </div>
+            )}
+          </div>
+
+          {/* <button 
+              className={`${styles.playButton} ${styles.buttonEffect} ${styles.topic}`}
+              onClick={handleQuizStart}
+              > Topic-Wise Test
+            </button> */}
+
         </div>
       )}
 

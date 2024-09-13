@@ -33,10 +33,18 @@ const Statistics = () => {
           <img src="src/assets/StatsHeader.svg" alt="Stats Header" />
         </div>
         <div className={styles.courses}>
-          <div className={`${styles.card} ${styles.cardPurple}`}></div>
-          <div className={`${styles.card} ${styles.cardYellow}`}></div>
-          <div className={`${styles.card} ${styles.cardBlue}`}></div>
-          <div className={`${styles.card} ${styles.cardGreen}`}></div>
+          <div className={`${styles.card} ${styles.cardPurple}`}>
+            <div className={styles.comingSoon}>Coming Soon...</div>
+          </div>
+          <div className={`${styles.card} ${styles.cardYellow}`}>
+            <div className={styles.comingSoon}>Coming Soon...</div>
+          </div>
+          <div className={`${styles.card} ${styles.cardBlue}`}>
+            <div className={styles.comingSoon}>Coming Soon...</div>
+          </div>
+          <div className={`${styles.card} ${styles.cardGreen}`}>
+            <div className={styles.comingSoon}>Coming Soon...</div>
+          </div>
         </div>
 
         <div className={`${styles.content} ${UtilityStyles.container}`}>
@@ -58,9 +66,9 @@ const Statistics = () => {
                   { <BarGraph data={data} categories={categories} /> }
                 </div>
               </div>
-              <div className={styles.progPie}>
+              {/* <div className={styles.progPie}>
                <WeaklyGraph  value={8.3} maxValue={10} />
-              </div>
+              </div> */}
             </div>
           </div>
 

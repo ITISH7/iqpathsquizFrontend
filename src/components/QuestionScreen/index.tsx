@@ -65,6 +65,13 @@ const ButtonWrapper = styled.div`
 `
 
 const QuestionScreen: FC = () => {
+
+  
+  useEffect(() => {
+    window.scrollTo(0, 50)
+  }, [])
+
+
   const [activeQuestion, setActiveQuestion] = useState<number>(0)
   const [selectedAnswer, setSelectedAnswer] = useState<string[]>([])
   const [showTimerModal, setShowTimerModal] = useState<boolean>(false)

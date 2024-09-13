@@ -180,10 +180,13 @@
   height: 26px;
   gap: 0px;
   margin-right: 5px;
+  margin-top: 10px;
+  margin-left: 40px;
   border-radius: 8px;
-  border: 1px solid #d4d4d8;
-  background-color: #fafafa;
+  /* border: 1px solid #9266f3; */
+  background-color: #CA9DD8;
   opacity: 0px;
+  /* border: 2px solid red; */
 }
 
 /* LikeButton.css */
@@ -487,16 +490,20 @@
 
   .playButton {
     height: 40px;
-    width: 60px;
+    width: 130px;
+  }
+
+  .topic {
+    width: 140px;
   }
 
   .filterButton {
     height: 40px;
-    width: 90px;
+    width: 100px;
   }
 
   .filter2 {
-    width: 120px;
+    width: 145px;
   }
 
   .toggleButton {
