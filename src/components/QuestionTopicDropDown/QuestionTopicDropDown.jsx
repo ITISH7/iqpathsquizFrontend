@@ -250,8 +250,10 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setIsTopicDropdownOpen(!isTopicDropdownOpen);
   };
 
-  const handleTopicDropdown = (event) => {
-    
+  const handleTopicSelection = (topic) => {
+    setSelectedTopic(topic);
+    setIsTopicDropdownOpen(false);
+    setTopicFilter(topic);
   }
   
   const handleRevisionToggle = (index) => {
@@ -509,7 +511,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
               ))}
             </tbody>
           </table>
-
+          
+          <div className={styles.wrapper}>
           <div className={styles.dropdownWrapper}>
             <button className={`${styles.playButton} ${styles.buttonEffect}`} onClick={toggleSetDropdown}>
               Complete Test 
@@ -541,17 +544,26 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
             )}
           </div>
 
-          {/* <button
-          className={`${styles.playbutton} ${styles.buttonEffect}`}
-          onClick={handleQuizStart}>
-            Start quiz with {selectedSet}
-          </button> */}
-
-          {/* <button 
-              className={`${styles.playButton} ${styles.buttonEffect} ${styles.topic}`}
-              onClick={handleQuizStart}
-              > Topic-Wise Test
-            </button> */}
+          <div className={styles.dropdownWrapper}>
+            <button className={`${styles.playButton} ${styles.buttonEffect}`}
+            onClick={toggleTopicDropdown}>
+              Topic-Wise Test 
+            </button>
+            {isTopicDropdownOpen && (
+              <div className={styles.setDropdownMenu}>
+                <div className={styles.setDropdownItem} onClick={() => handleTopicSelection('All')}>
+                  All Topics 
+                </div>
+                <div className={styles.setDropdownItem} onClick={() => handleTopicSelection('Array')}>
+                  Array  
+                </div>
+                <div className={styles.setDropdownItem} onClick={() => handleTopicSelection('String')}>
+                  String  
+                </div>
+              </div> 
+            )}
+          </div>
+          </div>
 
         </div>
       )}
