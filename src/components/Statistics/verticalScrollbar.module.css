@@ -1,0 +1,82 @@
+.scrollContainer {
+    position: relative;
+    width: 90%;
+    height: 500px;
+    display: flex;
+    overflow-y: scroll;
+    margin: 30px auto;
+    justify-content: space-around;
+}
+
+.scrollContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: fit-content;
+    border: 2px solid black;
+}
+
+.item {
+    height: 200px;
+    background-color: rgb(215, 124, 155);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+}
+
+.customScrollbar {
+    position: relative;
+    left: 30px;
+    width: 2.5px;
+    background-color: grey;
+    height: fit-content;
+    border-radius: 5px;
+    /* padding: 20px 0px; */
+    margin-top: 0px;
+}
+
+.thumbs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    width: fit-content;
+    height: 200px;
+    left: -55px;
+    margin-bottom: 10px;
+}
+
+.thumb {
+    width: 100px;
+    height: 5px;
+    background-color: #3229B3;
+    cursor: pointer;
+    transform: rotate(-90deg);
+    border-radius: 5px;
+    margin: 0px 0px 0px -50px;
+}
+
+.label {
+    color: #3229B3;
+    transform: rotate(-90deg);
+    width: 80px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px -26px 0px 0px;
+}

@@ -519,7 +519,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                 <Link to="/quiz">
                 <div
                 className={styles.setDropdownItem}
-                onClick={getquizQuestion}>
+                onClick={handleQuizStart}>
                   Set 1
                 </div>
                 </Link>
