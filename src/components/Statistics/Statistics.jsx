@@ -40,9 +40,9 @@ const Statistics = () => {
 
     // Clean up the event listener on component unmount
     return () => window.removeEventListener('resize', updateScrollbarHeight);
-  }, []);
+  }, [isLoggedIn]);
  
-useLayoutEffect(() => {
+useEffect(() => {
     // Wait for the items to render before proceeding
     const itemsContainer = itemsContainerRef.current;
 
@@ -102,7 +102,7 @@ useLayoutEffect(() => {
     return () => {
         itemsContainer.removeEventListener('scroll', handleScroll);
     };
-}, [itemsContainerRef, isLoggedIn]); // Add dependencies
+}, [itemsContainerRef,styles.item, styles.customScrollbar, styles.wrapper, styles.label, styles.thumb, isLoggedIn]); // Add dependencies
 
 
 
