@@ -86,7 +86,6 @@ const ResultNextDashboard = () => {
               </div>
             </div>
             <div className={styles.modalBody}>
-              {/* First question with difficulty and background styling */}
               <div className={styles.modalQuestion}>
                 <div className={styles.questionTop}>
                   <span className={styles.questionNumber}>Question 1.</span>
@@ -101,7 +100,6 @@ const ResultNextDashboard = () => {
                 </ul>
               </div>
 
-              {/* Second question */}
               <div className={styles.modalQuestion}>
                 <div className={styles.questionTop}>
                   <span className={styles.questionNumber}>Question 2.</span>

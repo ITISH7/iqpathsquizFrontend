@@ -265,7 +265,6 @@
   margin-left: 670px;
 }
 
-/* Modal overlay */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -277,7 +276,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  overflow: hidden; /* Disable scroll behind modal */
+  overflow: hidden; 
   box-shadow: #e0e0e0;
 }
 
@@ -285,10 +284,10 @@
   background: white;
   padding: 40px;
   border-radius: 12px;
-  width: 800px; /* Increased width */
+  width: 800px; 
   max-height: 90%;
   overflow-y: auto;
-  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3); 
 }
 
 .modalHeader {
@@ -331,21 +330,19 @@ h2 {
   margin-top: 15px;
 }
 
-/* Question section */
 .modalQuestion {
   margin-bottom: 25px;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 10px;
-  border: none; /* Remove border */
+  border: none; 
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Question header section */
 .questionTop {
   display: flex;
   justify-content: space-between;
-  background-color: #ebe5fc; /* Purple background shade */
+  background-color: #ebe5fc; 
   padding: 10px 15px;
   border-radius: 8px;
 }
@@ -353,11 +350,11 @@ h2 {
 .questionNumber {
   font-size: 18px;
   font-weight: 450;
-  color: black; /* Darker purple for question number */
+  color: black; 
 }
 
 .difficulty {
-  background-color: #ffffff; /* Purple button-like style */
+  background-color: #ffffff; 
   color: rgb(182, 7, 246);
   padding: 5px 10px;
   font-size: 12px;
@@ -365,7 +362,6 @@ h2 {
   font-weight: 500;
 }
 
-/* Option list */
 .optionList {
   list-style-type: none;
   padding-left: 0;
@@ -377,17 +373,16 @@ h2 {
   padding: 10px;
   background-color: white;
   border-radius: 6px;
-  border: none; /* Remove border */
-  position: relative; /* For positioning icons */
+  border: none; 
+  position: relative; 
 }
 
-/* Correct and wrong answers */
 .correctAnswer {
-  background-color: #e0ffe0 !important; /* Increased contrast */
+  background-color: #e0ffe0 !important; 
 }
 
 .wrongAnswer {
-  background-color: #ffe0e0 !important; /* Increased contrast */
+  background-color: #ffe0e0 !important;
 }
 
 .modalOverlay .modalContent .modalQuestion .optionList li.correctAnswer::before {
@@ -404,7 +399,7 @@ h2 {
 
 .wrongAnswer::before {
   content: "✘";
-  color: red !important; /* Ensure red color */
+  color: red !important; 
   position: absolute;
   right: 10px;
   top: 50%;

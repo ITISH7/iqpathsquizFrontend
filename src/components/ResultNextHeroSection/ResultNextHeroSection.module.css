@@ -2,14 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #8039df; /* Purple background color */
+    background-color: #8039df; 
     padding: 20px 40px;
     border-radius: 20px; 
     width: 85%;
     max-width: 1200px;
     margin: 0px auto; 
     margin-top: 180px;
-    /* border: 2px solid red; */
     height: 175px;
   }
   
@@ -50,6 +49,5 @@
     width: 370px;
     height: 370px;
     margin-top: -128px;
-    /* border: 2px solid green; */
   }
   
