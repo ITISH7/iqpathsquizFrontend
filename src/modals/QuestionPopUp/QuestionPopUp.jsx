@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './QuestionPopUp.module.css';
 
-const QuestionPopUp = ({ isVisible, questionData, onClose }) => {
+const QuestionPopUp = ({ isVisible, questionData, uniqueId,onClose }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false); // To track when to display correct answer
 
@@ -42,7 +42,7 @@ const QuestionPopUp = ({ isVisible, questionData, onClose }) => {
 
   return (
     <div className={styles.popupOverlay}>
-      <div className={styles.popupContent}>
+      <div className={styles.popupContent} id={`popup-${uniqueId}`}>
         <button className={styles.popupClose} onClick={onClose}>Close</button>
         <h2 className={styles.popupHeading}>{questionData.name}</h2>
         <div className={styles.popFilters}>

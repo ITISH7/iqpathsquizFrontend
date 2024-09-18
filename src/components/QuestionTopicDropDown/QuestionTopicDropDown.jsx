@@ -17,14 +17,13 @@ import { Service } from '../../axios/config';
 
 
 
-
 const problems = [
-  { id: 1, name: "Stock Buy and Sell",    options: ['Library', 'Framework', 'Language'], question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space', topic: "Array", difficulty: "Easy" },
-  { id: 2, name: "Merge Overlapping intervals",  options: ['Library', 'Framework', 'Language'],  question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space',  topic: "String", difficulty: "Easy" },
-  { id: 3, name: "Merge two sorted arrays without extra space",  options: ['Library', 'Framework', 'Language'],  question: 'We are given two sorted arrays. We need to merge these two arrays such that the initial numbers (after complete sorting) are in the first array and the remaining numbers are in the second array', topic: "Array", difficulty: "Medium" },
-  { id: 4, name: "Find the duplicate in an array of N+1 integers",  options: ['Library', 'Framework', 'Language'],  question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.',  topic: "Array", difficulty: "Medium" },
-  { id: 5, name: "Repeat and Missing Number",  topic: "String",   options: ['Library', 'Framework', 'Language'], question: 'Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n} is missing and one number occurs twice in the array. Find these two numbers.', difficulty: "Hard" },
-  { id: 6, name: "Inversion of Array (Pre-req: Merge Sort)",   options: ['Library', 'Framework', 'Language'], question: 'Given an integer array arr[] of size n, the task is to find the count inversions of the given array. Two array elements arr[i] and arr[j] form an inversion if arr[i] > arr[j] and i < j.', topic: "Array", difficulty: "Hard" },
+  { id: 'problem-1', name: "Stock Buy and Sell",    options: ['Library', 'Framework', 'Language'], question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space', topic: "Array", difficulty: "Easy" },
+  { id: 'problem-2', name: "Merge Overlapping intervals",  options: ['Library', 'Framework', 'Language'],  question: 'Given a square matrix, turn it by 90 degrees in an anti-clockwise direction without using any extra space',  topic: "String", difficulty: "Easy" },
+  { id: 'problem-3', name: "Merge two sorted arrays without extra space",  options: ['Library', 'Framework', 'Language'],  question: 'We are given two sorted arrays. We need to merge these two arrays such that the initial numbers (after complete sorting) are in the first array and the remaining numbers are in the second array', topic: "Array", difficulty: "Medium" },
+  { id: 'problem-4', name: "Find the duplicate in an array of N+1 integers",  options: ['Library', 'Framework', 'Language'],  question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.',  topic: "Array", difficulty: "Medium" },
+  { id: 'problem-5', name: "Repeat and Missing Number",  topic: "String",   options: ['Library', 'Framework', 'Language'], question: 'Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n} is missing and one number occurs twice in the array. Find these two numbers.', difficulty: "Hard" },
+  { id: 'problem-6', name: "Inversion of Array (Pre-req: Merge Sort)",   options: ['Library', 'Framework', 'Language'], question: 'Given an integer array arr[] of size n, the task is to find the count inversions of the given array. Two array elements arr[i] and arr[j] form an inversion if arr[i] > arr[j] and i < j.', topic: "Array", difficulty: "Hard" },
 ];
 
 
@@ -335,7 +334,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   // ];
 
   const handleQuestionClick = (problem) => {
-    setCurrentQuestion(problem);
+    const uniqueId = `${problem.id}`;
+    setCurrentQuestion({ ...problem, uniqueId});
     setIsPopupVisible(true);
   };
 
@@ -480,8 +480,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
               </tr>
             </thead>
             <tbody>
-              {filteredProblems.map((problem) => (
-                <tr key={problem.id} onClick={(e) => e.stopPropagation()}>
+              {filteredProblems.map((problem, index) => (
+                <tr key={`${problem.id}-${index}`} onClick={(e) => e.stopPropagation()}>
                   <td className={`${styles.icons}`}>
                     <input type="checkbox" 
                     checked={solvedProblems[problem.id] || false}
@@ -489,7 +489,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                     className={styles.checkbox}
                     />
                   </td>
-                  <td onClick={() => handleQuestionClick(problem)}>{problem.name}</td>
+                  <td onClick={() => handleQuestionClick(problem, index)}>{problem.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
                   <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
@@ -572,6 +572,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
         <QuestionPopUp 
           isVisible={isPopupVisible}
           questionData={currentQuestion}
+          uniqueId={currentQuestion.uniqueId}
           onClose={closePopup}
         />
       )}
