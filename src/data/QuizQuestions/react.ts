@@ -63,26 +63,26 @@ export const react: Topic = {
       question: 'What will be the output of the following React code?',
       code: `import React, { useState } from 'react';
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
+      const Counter = () => {
+        const [count, setCount] = useState(0);
 
-  const increment = () => {
-    setCount(count + 1);
-  };
+        const increment = () => {
+          setCount(count + 1);
+        };
 
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={increment}>Increment</button>
-    </div>
-  );
-};
+        return (
+          <div>
+            <p>Count: {count}</p>
+            <button onClick={increment}>Increment</button>
+          </div>
+        );
+      };
 
-const App = () => {
-  return <Counter />;
-};
+      const App = () => {
+        return <Counter />;
+      };
 
-export default App;`,
+      export default App;`,
       choices: ['Count: 0', 'Count: 1', 'Count: undefined', 'An error will occur'],
       type: 'MCQs',
       correctAnswers: ['Count: 0'],

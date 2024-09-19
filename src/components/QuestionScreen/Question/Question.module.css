@@ -1,0 +1,30 @@
+/* Question.module.css */
+
+.questionContainer {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  max-width: 88%;
+}
+
+.answersContainer {
+  max-width: 78%;
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 640px) {
+  .questionContainer {
+    max-width: 100%;
+  }
+  
+  .answersContainer {
+    max-width: 100%;
+  }
+}
+
+.questionStyle {
+  font-size: clamp(18px, 4vw, 28px);
+  font-weight: 500;
+  margin-bottom: 25px;
+  color: black; /* Replace this with your CSS variable for primary text */
+  line-height: 1.3;
+}

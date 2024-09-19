@@ -1,0 +1,47 @@
+.pageCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.quizContainer {
+  width: 900px;
+  min-height: 500px;
+  background: var(--quiz-background);
+  border-radius: 4px;
+  padding: 30px 60px 80px 60px;
+  margin-bottom: 70px;
+  position: relative;
+}
+
+.quizContainer.selected button span svg path {
+  fill: var(--buttonText);
+}
+
+.quizContainer button span svg path {
+  fill: var(--darkGray);
+}
+
+@media (max-width: 768px) {
+  .quizContainer {
+    width: 100%;
+    padding: 15px 15px 80px 15px;
+  }
+}
+
+.buttonWrapper {
+  position: absolute;
+  right: 60px;
+  bottom: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 576px) {
+  .buttonWrapper {
+    justify-content: flex-end;
+    width: 90%;
+    right: 15px;
+  }
+}

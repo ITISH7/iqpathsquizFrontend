@@ -1,0 +1,8 @@
+.imageStyle {
+    border-radius: 10px;
+    height: 400px;
+    max-width: 100%;
+    box-shadow: 6px 6px 2px var(--theme-color); /* Use CSS variables or specific color values */
+    margin-bottom: 20px;
+  }
+  

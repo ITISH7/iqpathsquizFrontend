@@ -1,0 +1,58 @@
+.buttonStyle {
+  width: 195px;
+  min-height: 50px;
+  color:#ffffff; 
+  background: var(--buttonBackgroundColor);
+  font-size: clamp(16px, 5vw, 24px);
+  /* border: 1px solid transparent; */
+  font-weight: 700;
+  border-radius: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+}
+
+.outline {
+  color: var(--outlineButtonTextColor);
+  background: var(--cardBackgroundColor);
+  border-color: var(--themeColor);
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.big {
+  width: 180px;
+}
+
+.iconLeft {
+  margin-right: 10px;
+  display: flex;
+}
+
+.iconRight {
+  margin-left: 20px;
+  display: flex;
+}
+
+.buttonStyle:active {
+  transform: scale(0.98);
+  box-shadow: var(--activeButtonShadow);
+}
+
+.buttonStyle:disabled {
+  background: var(--disabled-button);
+  color: var(--darkGrayColor);
+  cursor: not-allowed;
+  transform: unset;
+  box-shadow: unset;
+}
+
+@media (max-width: 768px) {
+  .buttonStyle {
+    width: 150px;
+    min-height: 40px;
+  }
+}

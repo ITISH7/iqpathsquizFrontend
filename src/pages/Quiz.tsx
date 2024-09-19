@@ -1,48 +1,48 @@
-import { useState, useEffect } from 'react'
-import { ThemeProvider } from 'styled-components'
+// import { useState, useEffect } from 'react'
+// import { ThemeProvider } from 'styled-components'
 
-import Main from '../components/Main'
-import ToggleTheme from '../components/ui/ToggleTheme'
-import {QuizProvider} from '../context/QuizProvider'
-import { GlobalStyles } from '../styles/Global'
-import { themes } from '../styles/Theme'
+// import Main from '../components/Main'
+// import ToggleTheme from '../components/ui/ToggleTheme'
+// import {QuizProvider} from '../context/QuizProvider'
+// import { GlobalStyles } from '../styles/Global'
+// import { themes } from '../styles/Theme'
 
-function Quiz() {
+// function Quiz() {
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+//   useEffect(() => {
+//     window.scrollTo(0, 0)
+//   }, [])
 
 
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('theme')
-    return savedTheme || 'light'
-  })
+//   const [currentTheme, setCurrentTheme] = useState(() => {
+//     const savedTheme = localStorage.getItem('theme')
+//     return savedTheme || 'light'
+//   })
 
-  const toggleTheme = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = e.target
-    setCurrentTheme(checked ? 'dark' : 'light')
-    localStorage.setItem('theme', checked ? 'dark' : 'light')
-  }
+//   const toggleTheme = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const { checked } = e.target
+//     setCurrentTheme(checked ? 'dark' : 'light')
+//     localStorage.setItem('theme', checked ? 'dark' : 'light')
+//   }
 
-  const theme = currentTheme === 'light' ? themes.light : themes.dark
+//   const theme = currentTheme === 'light' ? themes.light : themes.dark
 
-  return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-        {/* <QuizProvider> */}
-        <ToggleTheme
-          onChange={toggleTheme}
-          currentTheme={currentTheme}
-          checked={currentTheme === 'dark'}
-          id="toggleTheme"
-          value="theme"
-        />
-        <Main />
+//   return (
+//     <ThemeProvider theme={theme}>
+//       <GlobalStyles />
+//         {/* <QuizProvider> */}
+//         <ToggleTheme
+//           onChange={toggleTheme}
+//           currentTheme={currentTheme}
+//           checked={currentTheme === 'dark'}
+//           id="toggleTheme"
+//           value="theme"
+//         />
+//         <Main />
 
-        {/* </QuizProvider> */}
-    </ThemeProvider>
-  )
-}
+//         {/* </QuizProvider> */}
+//     </ThemeProvider>
+//   )
+// }
 
-export default Quiz
+// export default Quiz

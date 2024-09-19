@@ -1,0 +1,254 @@
+/* :root {
+  --background-color-light: var(--light-background); 
+  --text-color-light: black;
+  --highlight-color-light: var(--highlight-color);
+  --button-bg-light: #4CAF50; 
+  --button-text-light: white;
+  --button-bg-hover-light: #258ee3; 
+  --buttonBackgroundColor-light: radial-gradient(circle at 10% 20%, rgb(75, 108, 183) 0%, rgb(55, 82, 141) 90%);
+  
+  --background-color-dark: #2b2b2b; 
+  --text-color-dark: white;
+  --highlight-color-dark: #ffc107;
+  --button-bg-dark: #007bff; 
+  --button-text-dark: white;
+  --button-bg-hover-dark: #0056b3;
+  --buttonBackgroundColor-dark: linear-gradient(90.04deg, #800080 0.03%, #FFC0CB 99.96%)
+}
+
+[data-theme="light"] {
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --highlight-color: var(--highlight-color-light);
+  --button-bg: var(--button-bg-light);
+  --button-text: var(--button-text-light);
+  --button-bg-hover: var(--button-bg-hover-light);
+  --buttonBackgroundColor: var(--buttonBackgroundColor-light);
+}
+
+[data-theme="dark"] {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --highlight-color: var(--highlight-color-dark);
+  --button-bg: var(--button-bg-dark);
+  --button-text: var(--button-text-dark);
+  --button-bg-hover: var(--button-bg-hover-dark);
+  --buttonBackgroundColor: var(--buttonBackgroundColor-dark);
+} */
+
+
+:root {
+    /* Light Theme Variables */
+    --main-background-color-light: radial-gradient(circle at 10% 20%, rgb(75, 108, 183) 0%, rgb(55, 82, 141) 90%);
+    --background-color-light: #fbf9f9; /* Background */
+    --text-color-light: #11052C; /* Primary text */
+    --highlight-color-light: #001380; /* Theme color */
+    --button-bg-light: #4CAF50;
+    --button-text-light: white;
+    --button-bg-hover-light: #258ee3;
+    --buttonBackgroundColor-light: radial-gradient(circle at 10% 20%, rgb(75, 108, 183) 0%, rgb(55, 82, 141) 90%);
+    --card-background-light: #FFFFFF;
+    --quiz-background-light: #ffffff;
+    --select-topic-bg-light: #FFFFFF;
+    --app-logo-light: #000000;
+    --outline-button-text-light: #800080;
+    --selected-answer-light: #d6e2ff;
+    --info-text-light: #FF783F;
+    --info-background-light: #ffb23f26;
+    --border-light: #EAEAEA;
+    --answer-bg-light: #ffffff;
+    --disabled-card-light: #fbf4ecbc;
+    --disabled-button-light: #e7e8e9;
+    --success-light: #12B40E;
+    --success-light-bg: #DDFFDC;
+    --danger-light: #FF143E;
+    --danger-light-bg: #FFD7DE;
+    --dark: #282526;
+    --white: #FFFFFF;
+    --black: #000000;
+  }
+  
+  [data-theme="light"] {
+    --main-background-color: var(--main-background-color-light);
+    --background-color: var(--background-color-light);
+    --background: var(--background);
+    --text-color: var(--text-color-light);
+    --highlight-color: var(--highlight-color-light);
+    --button-bg: var(--button-bg-light);
+    --button-text: var(--button-text-light);
+    --button-bg-hover: var(--button-bg-hover-light);
+    --buttonBackgroundColor: var(--buttonBackgroundColor-light);
+    --card-background: var(--card-background-light);
+    --quiz-background: var(--quiz-background-light);
+    --select-topic-bg: var(--select-topic-bg-light);
+    --app-logo: var(--app-logo-light);
+    --outline-button-text: var(--outline-button-text-light);
+    --selected-answer: var(--selected-answer-light);
+    --info-text: var(--info-text-light);
+    --info-background: var(--info-background-light);
+    --border: var(--border-light);
+    --answer-bg: var(--answer-bg-light);
+    --disabled-card: var(--disabled-card-light);
+    --disabled-button: var(--disabled-button-light);
+    --success: var(--success-light);
+    --success-light: var(--success-light-bg);
+    --danger: var(--danger-light);
+    --danger-light: var(--danger-light-bg);
+    --dark: var(--dark);
+    --white: var(--white);
+    --black: var(--black);
+  }
+  
+  :root {
+    /* Dark Theme Variables */
+    --main-background-color-dark: linear-gradient(90deg, #0e050e 0%, #281e20 100%);
+    --background-color-dark: #2b2b2b;
+    --text-color-dark: white;
+    --highlight-color-dark: #C000C0; /* Theme color */
+    --button-bg-dark: #007bff;
+    --button-text-dark: #000000;
+    --button-bg-hover-dark: #0056b3;
+    --buttonBackgroundColor-dark: linear-gradient(90.04deg, #800080 0.03%, #FFC0CB 99.96%);
+    --card-background-dark: #241a1a;
+    --quiz-background-dark: #c9c9c9;
+    --select-topic-bg-dark: #21191C;
+    --app-logo-dark: #FFFFFF;
+    --outline-button-text-dark: #FFFFFF;
+    --selected-answer-dark: #151113;
+    --info-text-dark: #FF783F;
+    --info-background-dark: #ffb23f26;
+    --border-dark: transparent;
+    --answer-bg-dark: #151113;
+    --disabled-card-dark: #00000080;
+    --disabled-button-dark: #181214;
+    --success-dark: #12B40E;
+    --success-dark-bg: #151113;
+    --danger-dark: #FF143E;
+    --danger-dark-bg: #151113;
+    --dark: #282526;
+    --white: #FFFFFF;
+    --black: #000000;
+  }
+  
+  [data-theme="dark"] {
+    --main-background-color: var(--main-background-color-dark);
+    --background-color: var(--background-color-dark);
+    --text-color: var(--text-color-dark);
+    --highlight-color: var(--highlight-color-dark);
+    --button-bg: var(--button-bg-dark);
+    --button-text: var(--button-text-dark);
+    --button-bg-hover: var(--button-bg-hover-dark);
+    --buttonBackgroundColor: var(--buttonBackgroundColor-dark);
+    --card-background: var(--card-background-dark);
+    --quiz-background: var(--quiz-background-dark);
+    --select-topic-bg: var(--select-topic-bg-dark);
+    --app-logo: var(--app-logo-dark);
+    --outline-button-text: var(--outline-button-text-dark);
+    --selected-answer: var(--selected-answer-dark);
+    --info-text: var(--info-text-dark);
+    --info-background: var(--info-background-dark);
+    --border: var(--border-dark);
+    --answer-bg: var(--answer-bg-dark);
+    --disabled-card: var(--disabled-card-dark);
+    --disabled-button: var(--disabled-button-dark);
+    --success: var(--success-dark);
+    --success-light: var(--success-dark-bg);
+    --danger: var(--danger-dark);
+    --danger-light: var(--danger-dark-bg);
+    --dark: var(--dark);
+    --white: var(--white);
+    --black: var(--black);
+  }
+  
+  
+  
+  .toggleLabel {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 12px;
+      right: 25px;
+    }
+  
+    @keyframes Slideon {
+      0% {
+        transform: translateX(0) scale(1);
+      }
+      50% {
+        transform: translateX(15px) scale(1.1);
+      }
+      100% {
+        transform: translateX(23px) scale(1);
+      }
+    }
+  
+    @keyframes Slideoff {
+      0% {
+        transform: translateX(23px) scale(1);
+      }
+      50% {
+        transform: translateX(15px) scale(1.1);
+      }
+      100% {
+        transform: translateX(0px) scale(1);
+      }
+    }
+    
+    .toggleInput {
+      visibility: hidden;
+      border: 1px solid red; /* Optional: You might want to remove or replace this */
+      margin-top: 180px;
+    }
+    
+    .toggleInput:checked + .ball {
+      /* background-color: var(--dark);  */
+      background-color: #282526; 
+      svg {
+        animation: SlideOn 0.2s linear forwards;
+      }
+    }
+    
+    .toggleInput:checked + .ball::after {
+      /* background-color: var(--white); */
+      background-color: #FFFFFF; 
+      animation: SlideOn 0.2s linear forwards;
+    }
+    
+    .ball {
+      width: 52px;
+      height: 26px;
+      /* background-color: var(--white);  */
+      background-color: #FFFFFF;
+      display: inline-block;
+      cursor: pointer;
+      border-radius: 50px;
+      position: relative;
+    }
+  
+    .ball svg {
+      position: absolute;
+      top: 5px;
+      left: 7px;
+      z-index: 1;
+      animation: SlideOff 0.2s linear forwards;
+    }
+    
+    .ball::after {
+      content: '';
+      width: 21px;
+      height: 21px;
+      /* background-color: var(--dark); */
+      background-color: #282526; 
+      border-radius: 50%;
+      display: inline-block;
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      align-items: center;
+      justify-content: center;
+      animation: SlideOff 0.2s linear forwards;
+    }
+    

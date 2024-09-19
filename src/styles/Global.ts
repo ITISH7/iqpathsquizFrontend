@@ -1,9 +1,9 @@
 import styled, { createGlobalStyle, css } from 'styled-components'
 import { device } from './BreakPoints'
-import fontsCss from './fonts.module.css'
+// import fontsCss from './fonts.module.css'
 
 export const GlobalStyles = createGlobalStyle`
- ${fontsCss} // this works as a normal styled css
+//  // this works as a normal styled css
  
 /* Box sizing rules */
 *,
