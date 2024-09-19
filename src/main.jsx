@@ -7,6 +7,7 @@ import Home from './pages/Home.jsx'
 import Leaderboard from './pages/Leaderboard.jsx'
 import Quiz from './pages/Quiz.jsx'
 import Result from './pages/Result.jsx'
+import ResultNext from './pages/ResultNext.jsx'
 import { AuthProvider } from './context/AuthContext';
 import { QuizProvider } from './context/QuizProvider';
 import Login from './pages/Login.jsx'
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/result',
         element: <Result />
+      },
+      {
+        path: '/result-next',
+        element: <ResultNext />
       },
       {
         path: '/login',
