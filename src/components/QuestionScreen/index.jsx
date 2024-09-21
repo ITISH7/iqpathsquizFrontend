@@ -11,6 +11,7 @@ import styles from './QuestionScreen.module.css';
 
 const QuestionScreen = () => {
   const quizContext = useQuiz();
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const {
     questions = [],
@@ -74,6 +75,38 @@ const QuestionScreen = () => {
     document.body.style.overflow = 'auto';
   };
 
+  const enterFullScreen = () => {
+    const element = document.documentElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  };
+
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      setIsFullScreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullScreenChange);
+
+    // Enter fullscreen on component mount
+    enterFullScreen();
+    const header = document.querySelector('header');
+    const footer = document.querySelector('footer');
+    if (header) header.style.display = 'none';
+    if (footer) footer.style.display = 'none';
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullScreenChange);
+      if (header) header.style.display = '';
+      if (footer) footer.style.display = '';
+    };
+  }, []);
+
   useEffect(() => {
     if (showTimerModal || showResultModal) {
       document.body.style.overflow = 'hidden';
@@ -103,7 +136,7 @@ const QuestionScreen = () => {
           <Button
             text={activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
             onClick={onClickNext}
-            icon={<img src="src/assets/icons/next.svg" alt="Check Icon" style={{ width: '24px', height: '24px' }} />}
+            icon={<img src="src/assets/icons/next.svg" alt="Next Icon" style={{ width: '24px', height: '24px' }} />}
             iconPosition="right"
             disabled={selectedAnswer.length === 0}
           />

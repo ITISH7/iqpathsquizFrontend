@@ -1,16 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuiz } from '../../context/QuizContext';
 import Button from '../ui/Button';
 import CodeSnippet from '../ui/CodeSnippet';
 import QuizImage from '../ui/QuizImage/index';
 import ResultOverview from './ResultOverview';
-// import { Refresh } from '../../config/icons';
-import { refreshPage } from '../../utils/helpers'
-// import { ScreenTypes } from '../../types/types'; 
-import styles from './ResultScreen.module.css'; // Importing CSS module
+import { refreshPage } from '../../utils/helpers';
+import styles from './ResultScreen.module.css';
 
 const ResultScreen = () => {
-  const { result } = useQuiz(); // Get necessary functions from context
+  const { result } = useQuiz();
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const enterFullScreen = () => {
+    const element = document.documentElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  };
+
+  const exitFullScreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  };
+
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      setIsFullScreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullScreenChange);
+
+    // Enter fullscreen on component mount
+    enterFullScreen();
+    const header = document.querySelector('header');
+    const footer = document.querySelector('footer');
+    if (header) header.style.display = 'none';
+    if (footer) footer.style.display = 'none';
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullScreenChange);
+      if (header) header.style.display = '';
+      if (footer) footer.style.display = '';
+    };
+  }, []);
+
+  // Re-enter fullscreen whenever the component mounts
+  useEffect(() => {
+    enterFullScreen();
+  }, []);
 
   // Function to handle retry action without reloading
   const onClickRetry = () => {
@@ -18,19 +60,16 @@ const ResultScreen = () => {
   };
 
   const redirectHome = () => {
-    window.location.href = '/'
-  }
+    window.location.href = '/';
+  };
 
-  // Function to render answers
   const renderAnswers = (choices, selectedAnswer, correctAnswers) => {
     return choices.map((ans, i) => {
       const label = String.fromCharCode(65 + i);
-      const isCorrect = correctAnswers.includes(ans);  // Check if the answer is correct
-      const isSelected = selectedAnswer.includes(ans); // Check if the answer was selected by the user
-
-      // Display a correct answer with a tick, whether or not it was selected
-      const correct = isSelected && isCorrect; // Selected and correct
-      const wrong = isSelected && !isCorrect;  // Selected but wrong
+      const isCorrect = correctAnswers.includes(ans);
+      const isSelected = selectedAnswer.includes(ans);
+      const correct = isSelected && isCorrect;
+      const wrong = isSelected && !isCorrect;
 
       return (
         <li
@@ -38,18 +77,13 @@ const ResultScreen = () => {
           className={`${styles.answer} ${isCorrect ? styles.correctWithTick : ''} ${wrong ? styles.clickedWrong : ''}`}
         >
           <span>{label}.</span> {ans}
-
-          {/* Display a tick if the answer is correct, whether selected or not */}
           {isCorrect && <div className={styles.tick}>✔</div>}
-
-          {/* Display a cross if the selected answer was wrong */}
           {wrong && <div className={styles.cross}>✗</div>}
         </li>
       );
     });
   };
 
-  // Function to render correct answers (always show after user answers)
   const renderCorrectAnswers = (correctAnswers, choices) => {
     return (
       <div className={styles.correctAnswersContainer}>
@@ -69,7 +103,6 @@ const ResultScreen = () => {
     );
   };
 
-  // Make sure each question is unique in the result
   const uniqueResults = result.reduce((acc, item) => {
     if (!acc.some(el => el.question === item.question)) {
       acc.push(item);
@@ -108,7 +141,6 @@ const ResultScreen = () => {
                     <ul>
                       {renderAnswers(choices, selectedAnswer, correctAnswers)}
                     </ul>
-                    {/* Always show the correct answers after user answers */}
                     {renderCorrectAnswers(correctAnswers, choices)}
                   </div>
                 </div>
@@ -130,7 +162,6 @@ const ResultScreen = () => {
           <Button
             text="DONE"
             onClick={redirectHome}
-            // icon={<img src="src\assets\icons\refresh.svg" alt="Check Icon" style={{ width: '24px', height: '24px' }} />}
             iconPosition="left"
             bold
           />

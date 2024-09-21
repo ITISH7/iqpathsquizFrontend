@@ -1,5 +1,4 @@
-import React from 'react';
-// import { AppLogo, StartIcon } from '../../config/icons';
+import React, { useEffect } from 'react';
 import { useQuiz } from '../../context/QuizContext';
 import { convertSeconds } from '../../utils/helpers';
 import Button from '../ui/Button/index';
@@ -8,12 +7,48 @@ import { ScreenTypes } from '../../types/types';
 
 const QuizDetailsScreen = () => {
   const { setCurrentScreen, quizDetails } = useQuiz();
-
   const { selectedQuizTopic, totalQuestions, totalScore, totalTime } = quizDetails;
 
   const goToQuestionScreen = () => {
     setCurrentScreen(ScreenTypes.QuestionScreen);
+    enterFullScreen(); // Call to enter fullscreen after changing the screen
   };
+
+  const enterFullScreen = () => {
+    const element = document.documentElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  };
+
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      if (!document.fullscreenElement) {
+        enterFullScreen(); // Re-enter fullscreen if exiting
+      }
+    };
+
+    // Add event listeners
+    document.addEventListener('fullscreenchange', handleFullScreenChange);
+
+    // Enter fullscreen when the component mounts
+    enterFullScreen();
+
+    const header = document.querySelector('header');
+    const footer = document.querySelector('footer');
+    if (header) header.style.display = 'none';
+    if (footer) footer.style.display = 'none';
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullScreenChange);
+      if (header) header.style.display = '';
+      if (footer) footer.style.display = '';
+    };
+  }, []);
 
   return (
     <div className={styles.pageCenter}>
@@ -49,13 +84,12 @@ const QuizDetailsScreen = () => {
         </div>
         <Button
           text="Start"
-          icon={<img src="src\assets\icons\start.svg" alt="start Icon" style={{ width: '24px', height: '24px' }} />}
+          icon={<img src="src/assets/icons/start.svg" alt="start Icon" style={{ width: '24px', height: '24px' }} />}
           iconPosition="left"
           onClick={goToQuestionScreen}
           bold
           className={styles.startButton}
-        >
-        </Button>
+        />
       </div>
     </div>
   );
