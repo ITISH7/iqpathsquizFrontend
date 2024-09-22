@@ -19,11 +19,11 @@ import { Service } from '../../axios/config';
 
 const problems = [
   { id: 'problem-1', name: "Stock Buy and Sell", options: ['Library', 'Framework', 'Language'], question: 'You are given the prices of a stock for N days, find the maximum profit you can make by buying and selling on those days.', topic: "Array", difficulty: "Easy" },
-  { id: 'problem-2', name: "Merge Overlapping intervals", options: ['Library', 'Framework', 'Language'], question: 'Given a collection of intervals, merge all overlapping intervals.', topic: "Array", difficulty: "Easy" },
-  { id: 'problem-3', name: "Merge two sorted arrays without extra space", options: ['Library', 'Framework', 'Language'], question: 'We are given two sorted arrays. We need to merge these two arrays such that the initial numbers (after complete sorting) are in the first array and the remaining numbers are in the second array', topic: "Array", difficulty: "Medium" },
-  { id: 'problem-4', name: "Find the duplicate in an array of N+1 integers", options: ['Library', 'Framework', 'Language'], question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.', topic: "Array", difficulty: "Medium" },
+  { id: 'problem-2', name: "Merge Overlapping Intervals", options: ['Library', 'Framework', 'Language'], question: 'Given a collection of intervals, merge all overlapping intervals.', topic: "Array", difficulty: "Easy" },
+  { id: 'problem-3', name: "Find the Duplicate in an Array of N+1 Integers", options: ['Library', 'Framework', 'Language'], question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.', topic: "Array", difficulty: "Medium" },
+  { id: 'problem-4', name: "Longest Substring Without Repeating Characters", options: ['Library', 'Framework', 'Language'], question: 'Given a string, find the length of the longest substring without repeating characters.', topic: "String", difficulty: "Medium" },
   { id: 'problem-5', name: "Repeat and Missing Number", topic: "Array", options: ['Library', 'Framework', 'Language'], question: 'Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n} is missing and one number occurs twice in the array. Find these two numbers.', difficulty: "Hard" },
-  { id: 'problem-6', name: "Inversion of Array (Pre-req: Merge Sort)", options: ['Library', 'Framework', 'Language'], question: 'Given an integer array arr[] of size n, the task is to find the count of inversions of the given array. Two array elements arr[i] and arr[j] form an inversion if arr[i] > arr[j] and i < j.', topic: "Array", difficulty: "Hard" }
+  { id: 'problem-6', name: "Minimum Window Substring", options: ['Library', 'Framework', 'Language'], question: 'Given two strings s and t, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string.', topic: "String", difficulty: "Hard" },
 ];
 
 
@@ -394,6 +394,19 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     //     console.error('Error fetching quiz data:', error)
     //   }
     // }
+
+    const updatedSolvedProblems = (problemId, isCorrect) => {
+      if (isCorrect) {
+        setSolvedProblems((prevSolved) => ({
+          ...prevSolved,
+          [problemId]: true,
+        }));
+        localStorage.setItem('solvedProblems', JSOn.stringify({
+          ...solvedProblems,
+          [problemId]: true, 
+        }));
+      }
+    };
             
   return (
     <div className={`${styles.tableContainer} ${isOpen ? styles.tableContainerOpen : ''}`}>
@@ -486,8 +499,9 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                     <input type="checkbox" 
                     checked={solvedProblems[problem.id] || false}
                     onChange={() => handleCheckboxChange(problem.id)}
-                    className={styles.checkbox}
+                    className={`${styles.customCheckbox} ${solvedProblems[problem.id] ? styles.checked : ''}`}
                     />
+                    <div className={styles.customCheckbox}></div>
                   </td>
                   <td onClick={() => handleQuestionClick(problem, index)}>{problem.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>

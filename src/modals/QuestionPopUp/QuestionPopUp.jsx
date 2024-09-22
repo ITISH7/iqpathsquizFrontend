@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './QuestionPopUp.module.css';
 
-const QuestionPopUp = ({ isVisible, questionData, uniqueId,onClose }) => {
+const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
-  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false); // To track when to display correct answer
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
   useEffect(() => {
     if (isVisible) {
@@ -17,23 +17,40 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId,onClose }) => {
     };
   }, [isVisible]);
 
-  // useEffect(() => {
-  //   selectedOptions(null);
-  //   setShowCorrectAnswer(false);
-  // }, [questionData]);
-
-  // const correctAnswerIndex = questionData.correctAnswerIndex;
-
   const handleOptionClick = (option, index) => {
     const isCorrect = index === 0;
-    // const isCorrect = questionData.correctAnswers.includes(option);
 
     setSelectedOptions((prev) => ({
       ...prev,
-      [index]: isCorrect ? 'correct' : 'incorrect'
+      [index]: isCorrect ? 'correct' : 'incorrect',
     }));
 
-    setShowCorrectAnswer(true); // Show the correct answer and explanation once any option is clicked
+    setShowCorrectAnswer(true);
+  };
+
+  // Function to save the question in localStorage
+  const saveQuestionToLocalStorage = (type) => {
+    const storedData = JSON.parse(localStorage.getItem(type)) || [];
+    const questionExists = storedData.some(item => item.id === uniqueId);
+
+    if (!questionExists) {
+      const questionToSave = {
+        id: uniqueId,
+        questionData,
+        savedAt: new Date().toISOString(),
+      };
+      localStorage.setItem(type, JSON.stringify([...storedData, questionToSave]));
+    }
+  };
+
+  const handleSaveAndClose = () => {
+    saveQuestionToLocalStorage('savedQuestions'); // Save question as "saved"
+    onClose(); // Close the popup
+  };
+
+  const handleReviewAndClose = () => {
+    saveQuestionToLocalStorage('reviewedQuestions'); // Save question as "reviewed"
+    onClose(); // Close the popup
   };
 
   if (!isVisible) return null;
@@ -43,7 +60,14 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId,onClose }) => {
   return (
     <div className={styles.popupOverlay}>
       <div className={styles.popupContent} id={`popup-${uniqueId}`}>
-        <button className={styles.popupClose} onClick={onClose}>Close</button>
+        <div className={styles.buttonContainer}>
+          <button className={`${styles.reviewbut} ${styles.popupClose}`} onClick={handleReviewAndClose}>
+            Review
+          </button>
+          <button className={`${styles.savebut} ${styles.popupClose}`} onClick={handleSaveAndClose}>
+            Save & Close
+          </button>
+        </div>
         <h2 className={styles.popupHeading}>{questionData.name}</h2>
         <div className={styles.popFilters}>
           <p><strong>Topic:</strong> {questionData.topic}</p>
@@ -68,15 +92,11 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId,onClose }) => {
           ))}
         </div>
 
-        {/* Render the line and correct answer if any option is clicked */}
         {showCorrectAnswer && (
           <>
-            <hr className={styles.divider} /> {/* Line after the options */}
+            <hr className={styles.divider} />
             <div className={styles.correctAnswerSection}>
-              <p><strong>Correct Answer(s):</strong>
-              {/* {optionLetters[correctAnswerIndex]}: {questionData.options[correctAnswerIndex]} */}
-              A
-              </p>
+              <p><strong>Correct Answer(s):</strong> A</p>
               <p><strong>Explanation:</strong> {questionData.explanation || 'No explanation available'}</p>
             </div>
           </>
