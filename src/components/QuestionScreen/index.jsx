@@ -30,7 +30,9 @@ const QuestionScreen = () => {
   const [showResultModal, setShowResultModal] = useState(false);
 
   const currentQuestion = questions[activeQuestion];
-  const { question, type, choices, code, image, correctAnswers } = currentQuestion || {};
+  const { questionContent, type, options, code, image, correctAnswers } = currentQuestion || {};
+  // console.log('question:', question);
+  // console.log('options', options);
 
   const onClickNext = () => {
     const isMatch =
@@ -52,7 +54,7 @@ const QuestionScreen = () => {
   const handleAnswerSelection = (e) => {
     const { name, checked } = e.target;
 
-    if (type === 'MAQs') {
+    // if (type === 'MAQs') {
       if (selectedAnswer.includes(name)) {
         setSelectedAnswer((prevSelectedAnswer) =>
           prevSelectedAnswer.filter((element) => element !== name)
@@ -60,12 +62,12 @@ const QuestionScreen = () => {
       } else {
         setSelectedAnswer((prevSelectedAnswer) => [...prevSelectedAnswer, name]);
       }
-    }
+    // }
 
-    if (type === 'MCQs' || type === 'boolean') {
+    // if (type === 'MCQs' || type === 'boolean') {
       if (checked) {
         setSelectedAnswer([name]);
-      }
+      // }
     }
   };
 
@@ -124,10 +126,10 @@ const QuestionScreen = () => {
           timer={timer}
         />
         <Question
-          question={question}
+          question={questionContent}
           code={code}
           image={image}
-          choices={choices}
+          options={options}
           type={type}
           handleAnswerSelection={handleAnswerSelection}
           selectedAnswer={selectedAnswer}

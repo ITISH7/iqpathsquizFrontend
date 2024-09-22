@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { device } from '../../../styles/BreakPoints'
 import CodeSnippet from '../../ui/CodeSnippet/index'
-import Answer from '../Answer'
+import Answer from '../Answer/index'
 import QuizImage from '../../ui/QuizImage/index'
 
 const QuestionContainer = styled.div`
@@ -35,10 +35,12 @@ const Question = ({
   code,
   image,
   type,
-  choices,
+  options,
   selectedAnswer,
   handleAnswerSelection,
 }) => {
+  // console.log('question:', question)
+  // console.log('options', options)
   return (
     <QuestionContainer>
       <QuestionStyle>{question}</QuestionStyle>
@@ -47,9 +49,9 @@ const Question = ({
       {/* if question contains an image */}
       {image && <QuizImage image={image} />}
       <AnswersContainer>
-        {choices.map((choice, index) => (
+        {options.map((option, index) => (
           <Answer
-            choice={choice}
+            option={option}
             index={index}
             key={index}
             onChange={(e) => handleAnswerSelection(e, index)}

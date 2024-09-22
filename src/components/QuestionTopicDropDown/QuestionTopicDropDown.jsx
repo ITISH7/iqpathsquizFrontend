@@ -6,7 +6,7 @@ import ArrowDown from '../../assets/ArrowDown.svg';
 import Revision from '../../assets/Revision.svg';
 import RevisionShine from '../../assets/RevisionShine.svg';
 import utilityStyle from '../../utils/utils.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NoteModal from './NoteModal';  
 import axios from 'axios';
 import { useQuiz } from '../../context/QuizContext';
@@ -14,6 +14,7 @@ import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
 import NoteIcon from '../../assets/NoteIcon.svg';
 import NoteFilledIcon from '../../assets/NoteFilledIcon.svg'
 import { Service } from '../../axios/config';
+import { use } from 'echarts';
 
 
 
@@ -133,30 +134,58 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [isTopicDropdownOpen, setIsTopicDropdownOpen] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState('All');
+  // const [problems, setProblem] = useState([]);
+  const [values, setValues] = useState()
+
+  const navigate = useNavigate();
 
 
-  const { selectQuizTopic, setQuestions, setTimer, setResult } = useQuiz();
+  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult } = useQuiz();
 
   const service = new Service();
 
 
   const getquizQuestion = async () => {
+      // const response = await service.GenerateTestQuestions({subjectName});
+      // console.log('response jo aya method me:', response.data)
+      // selectQuizTopic(subjectName)
+      // console.log('quiz topic: in dropdown', quizTopic)
+      // console.log('quiz topic hona chaiye tha:', subjectName)
+      
     try {
       const response = await service.GenerateTestQuestions({subjectName});
+      console.log('response:', response)  
+        
         if (response.status === 200) {
           const { data, totalTime, totalScore } = response.data
+          console.log('question jo method me hai', data.questions)
           
           selectQuizTopic(subjectName)
-          setQuestions(data)
-          setTimer(1200)
+          setQuestions(data.questions)
+          setTimer(totalTime || 1600);
           setResult([])  // Reset the result
           console.log('Quiz data fetched:', response.data)
+          console.log('Questions are:', questions  )
+          console.log('quiz topic:', quizTopic)
         }
       } catch (error) {
         console.error('Error fetching quiz data:', error)
       }
   }
 
+  // useEffect(() => {
+  //   getSampleQuestion();
+  // }, []);
+
+  // const getSampleQuestion = async () => {
+  //   try {
+  //     const response = await service.GenerateSampleQuestions({subjectName});
+  //     // setQuestions(response.data.data);
+  //     setProblem(response.data.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
 
 
@@ -171,7 +200,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const filteredProblems = getFilteredProblems();
 
   const toggleSetDropdown = (event) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     setIsSetDropdownOpen(!isSetDropdownOpen);
   };
 
@@ -182,10 +211,10 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
 
   const handleQuizStart = () => {
     console.log(`Starting quiz with ${selectedSet}`); 
-    selectQuizTopic(quizData.topic)
-    setQuestions(quizData.questions)
-    setTimer(quizData.totalTime)
-    setResult([]);
+    // selectQuizTopic(quizData.topic)
+    // setQuestions(quizData.questions)
+    // setTimer(quizData.totalTime)
+    // setResult([]);
   };
 
   const toggleDropdown = useCallback(() => {
@@ -528,15 +557,23 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           
           <div className={styles.wrapper}>
           <div className={styles.dropdownWrapper}>
-            <button className={`${styles.playButton} ${styles.buttonEffect}`} onClick={toggleSetDropdown}>
+            <button className={`${styles.playButton} ${styles.buttonEffect}`}  onClick={() => {
+              toggleSetDropdown();
+              // fetchQuizData('Apptitude');
+              getquizQuestion();
+              // setValues()
+              // navigate(`/quiz/${subjectName}`)
+              console.log('quiz topic:', quizTopic)
+            }}>
               Complete Test 
             </button>
             {isSetDropdownOpen && (
               <div className={styles.setDropdownMenu}>
-                <Link to="/quiz">
+                <Link to={`/quiz`}>
                 <div
                 className={styles.setDropdownItem}
-                onClick={handleQuizStart}>
+                // onClick={handleQuizStart}
+                >
                   Set 1
                 </div>
                 </Link>

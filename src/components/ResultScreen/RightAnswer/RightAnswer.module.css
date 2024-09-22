@@ -1,0 +1,15 @@
+/* Container for right answer */
+.rightAnswerContainer {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--darker-gray); /* Use your specific color variable */
+    margin-top: 15px;
+    line-height: 1.2;
+  }
+  
+  /* Highlighted text style */
+  .highlightedText {
+    font-weight: bold;
+    color: var(--highlight-color); /* Use your specific highlighted text color */
+  }
+  

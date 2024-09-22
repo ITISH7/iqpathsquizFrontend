@@ -5,8 +5,21 @@ import ToggleTheme from '../components/ui/ToggleTheme/index.jsx'; // Ensure corr
 import QuizProvider from '../context/QuizProvider.jsx'; // Ensure correct path
 import { GlobalStyles } from '../styles/Global'; // Ensure correct path
 import { themes } from '../styles/Theme'; // Ensure correct path
-
+import { useParams } from 'react-router-dom';
+import { useQuiz } from '../context/QuizContext.js';
 function Quiz() {
+  // const {values} = useParams()
+  // console.log('values:', values)
+
+  // const {selectQuizTopic, setQuizTopic} = useQuiz()
+  useEffect(() => {
+    window.scrollTo(0, 80)
+    // setQuizTopic(values); 
+
+  }, [])
+
+
+
   // Get the current theme from localStorage (default to 'light' if not set)
   const [currentTheme, setCurrentTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -33,7 +46,7 @@ function Quiz() {
     <ThemeProvider theme={theme}>
       {/* Global styles should update based on the selected theme */}
       <GlobalStyles />
-      <QuizProvider>
+      {/* <QuizProvider> */}
         {/* Toggle theme component to switch between light and dark */}
         <ToggleTheme
           onChange={toggleTheme}
@@ -42,8 +55,8 @@ function Quiz() {
           id="toggleTheme"
           value="theme"
         />
-        <Main />
-      </QuizProvider>
+        <Main subjectName={null}/>
+      {/* </QuizProvider> */}
     </ThemeProvider>
   );
 }

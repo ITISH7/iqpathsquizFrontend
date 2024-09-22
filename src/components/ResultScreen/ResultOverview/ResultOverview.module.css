@@ -1,0 +1,25 @@
+/* Overview container style */
+.resultOverview {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  
+  @media (max-width: 768px) {
+    .resultOverview {
+      margin-bottom: 30px;
+    }
+  }
+  
+  /* Paragraph styles */
+  .resultOverview p {
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  /* Highlighted text style */
+  .highlightedText {
+    color: var(--highlight-color); /* Use your specific highlighted text color */
+    font-weight: bold;
+  }
+  
