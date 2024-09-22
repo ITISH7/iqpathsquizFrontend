@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuiz } from '../../context/QuizContext';
 import Button from '../ui/Button';
 import CodeSnippet from '../ui/CodeSnippet';
@@ -22,7 +22,6 @@ const ResultScreen = () => {
     window.location.href = '/';
   };
 
-  // Function to render answers
   const renderAnswers = (choices, selectedAnswer, correctAnswers) => {
     return choices.map((ans, i) => {
       const label = String.fromCharCode(65 + i);
