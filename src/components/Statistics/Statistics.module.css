@@ -414,6 +414,7 @@
     display: flex;
     overflow-y: scroll;
     justify-content: space-around;
+    overflow-x: none;
 }
 
 /* .scrollContainer::-webkit-scrollbar {
