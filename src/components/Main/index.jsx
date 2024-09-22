@@ -10,7 +10,8 @@ import ResultScreen from '../ResultScreen/index';
 
 import styles from './Main.module.css'; 
 
-function Main() {
+function Main({subjectName}) {
+  // console.log('subjectName:', subjectName)
   const { currentScreen, setCurrentScreen } = useQuiz();
 
   useEffect(() => {
@@ -24,12 +25,12 @@ function Main() {
   const screenComponents = {
     // [ScreenTypes.SplashScreen]: <SplashScreen />,
     // [ScreenTypes.QuizTopicsScreen]: <QuizTopicsScreen />,
-    [ScreenTypes.QuizDetailsScreen]: <QuizDetailsScreen />,
+    [ScreenTypes.QuizDetailsScreen]: <QuizDetailsScreen subjectName = {subjectName} />,
     [ScreenTypes.QuestionScreen]: <QuestionScreen />,
     [ScreenTypes.ResultScreen]: <ResultScreen />,
   };
 
-  const ComponentToRender = screenComponents[currentScreen] || <QuizDetailsScreen />;
+  const ComponentToRender = screenComponents[currentScreen] || <QuizDetailsScreen subjectName = {subjectName} />;
 
   return <div className={styles.mainContainer}>{ComponentToRender}</div>;
 }

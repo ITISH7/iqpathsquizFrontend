@@ -2,35 +2,35 @@ import React from 'react';
 import { useQuiz } from '../../context/QuizContext';
 import Button from '../ui/Button';
 import CodeSnippet from '../ui/CodeSnippet';
-import QuizImage from '../ui/QuizImage/index';
-import ResultOverview from './ResultOverview';
+import QuizImage from '../ui/QuizImage';
+import ResultOverview from './ResultOverview/index';
 // import { Refresh } from '../../config/icons';
-import { refreshPage } from '../../utils/helpers'
-// import { ScreenTypes } from '../../types/types'; 
+import { refreshPage } from '../../utils/helpers';
+// import { ScreenTypes } from '../../types/types';
 import styles from './ResultScreen.module.css'; // Importing CSS module
 
 const ResultScreen = () => {
-  const { result } = useQuiz(); // Get necessary functions from context
+  const { result } = useQuiz(); // Get necessary data from context
+  console.log('result jo result page me aya', result);
 
-  // Function to handle retry action without reloading
+  // Function to handle retry action
   const onClickRetry = () => {
     refreshPage();
   };
 
   const redirectHome = () => {
-    window.location.href = '/'
-  }
+    window.location.href = '/';
+  };
 
   // Function to render answers
   const renderAnswers = (choices, selectedAnswer, correctAnswers) => {
     return choices.map((ans, i) => {
       const label = String.fromCharCode(65 + i);
-      const isCorrect = correctAnswers.includes(ans);  // Check if the answer is correct
+      const isCorrect = correctAnswers.includes(ans); // Check if the answer is correct
       const isSelected = selectedAnswer.includes(ans); // Check if the answer was selected by the user
 
-      // Display a correct answer with a tick, whether or not it was selected
       const correct = isSelected && isCorrect; // Selected and correct
-      const wrong = isSelected && !isCorrect;  // Selected but wrong
+      const wrong = isSelected && !isCorrect; // Selected but wrong
 
       return (
         <li
@@ -39,17 +39,17 @@ const ResultScreen = () => {
         >
           <span>{label}.</span> {ans}
 
-          {/* Display a tick if the answer is correct, whether selected or not */}
+          {/* Display tick if the answer is correct */}
           {isCorrect && <div className={styles.tick}>✔</div>}
 
-          {/* Display a cross if the selected answer was wrong */}
+          {/* Display cross if the selected answer was wrong */}
           {wrong && <div className={styles.cross}>✗</div>}
         </li>
       );
     });
   };
 
-  // Function to render correct answers (always show after user answers)
+  // Function to render correct answers
   const renderCorrectAnswers = (correctAnswers, choices) => {
     return (
       <div className={styles.correctAnswersContainer}>
@@ -69,9 +69,9 @@ const ResultScreen = () => {
     );
   };
 
-  // Make sure each question is unique in the result
+  // Ensure each question is unique in the result
   const uniqueResults = result.reduce((acc, item) => {
-    if (!acc.some(el => el.question === item.question)) {
+    if (!acc.some((el) => el.questionContent === item.questionContent)) {
       acc.push(item);
     }
     return acc;
@@ -83,33 +83,19 @@ const ResultScreen = () => {
         <div className={styles.innerContainer}>
           <ResultOverview result={result} />
           {uniqueResults.map(
-            (
-              {
-                question,
-                choices,
-                code,
-                image,
-                correctAnswers,
-                selectedAnswer,
-                score,
-                isMatch,
-              },
-              index
-            ) => (
-              <div className={styles.questionContainer} key={`${index}-${question}`}>
+            ({ questionContent, options, code, image, correctAnswers, selectedAnswer, score, isMatch }, index) => (
+              <div className={styles.questionContainer} key={`${index}-${questionContent}`}>
                 <div className={styles.resizableBox}>
                   <div className={styles.flex}>
                     <h6 className={styles.questionNumber}>{`${index + 1}. `}</h6>
-                    <span className={styles.questionStyle}>{question}</span>
+                    <span className={styles.questionStyle}>{questionContent}</span>
                   </div>
                   <div>
                     {code && <CodeSnippet code={code} language="javascript" />}
                     {image && <QuizImage image={image} />}
-                    <ul>
-                      {renderAnswers(choices, selectedAnswer, correctAnswers)}
-                    </ul>
-                    {/* Always show the correct answers after user answers */}
-                    {renderCorrectAnswers(correctAnswers, choices)}
+                    <ul>{renderAnswers(options, selectedAnswer, correctAnswers)}</ul>
+                    {/* Always show correct answers after user answers */}
+                    {renderCorrectAnswers(correctAnswers, options)}
                   </div>
                 </div>
                 <span className={`${styles.score} ${isMatch ? styles.right : styles.wrong}`}>
@@ -123,14 +109,13 @@ const ResultScreen = () => {
           <Button
             text="RETRY"
             onClick={onClickRetry}
-            icon={<img src="src/assets/icons/refresh.svg" alt="Refresh Icon" style={{ width: '24px', height: '24px' }} />}
+            icon={<img src="/assets/icons/refresh.svg" alt="Refresh Icon" style={{ width: '24px', height: '24px' }} />}
             iconPosition="left"
             bold
           />
           <Button
             text="DONE"
             onClick={redirectHome}
-            // icon={<img src="src\assets\icons\refresh.svg" alt="Check Icon" style={{ width: '24px', height: '24px' }} />}
             iconPosition="left"
             bold
           />

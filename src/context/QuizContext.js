@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 export const initialState = {
-  currentScreen: 'SplashScreen', // ScreenTypes.SplashScreen converted to string
+  currentScreen: 'SplashScreen', 
   setCurrentScreen: () => {},
   quizTopic: 'React',
   selectQuizTopic: () => {},
@@ -9,7 +9,7 @@ export const initialState = {
   setQuestions: () => {},
   result: [],
   setResult: () => {},
-  timer: 15,
+  timer: 1500,
   setTimer: () => {},
   endTime: 0,
   setEndTime: () => {},

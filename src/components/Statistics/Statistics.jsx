@@ -162,7 +162,7 @@ useEffect(() => {
             </div>
 
 
-            <div className={`${styles.graphBox} ${styles.scrollContainer}`}>
+            <div className={`${styles.graphBox} ${styles.scrollContainer} ${styles.custom}`}>
 
               <div className={styles.customScrollbar} style={{ height: `${scrollbarHeight}px` }}>
                   <div className={styles.thumbs}></div>

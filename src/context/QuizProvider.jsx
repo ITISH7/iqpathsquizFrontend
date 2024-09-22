@@ -11,32 +11,49 @@ const QuizProvider = ({ children }) => {
   const [questions, setQuestions] = useState(initialState.questions);
 
   // Destructure quiz data based on the selected quiz topic
-  const selectedQuizData = quiz[quizTopic] || {}; // Safe check if quizTopic does not exist
-  const { totalQuestions = 0, totalTime = 0, totalScore = 0, questions: quizQuestions = [] } = selectedQuizData;
+  // const selectedQuizData = quiz[quizTopic] || {}; 
+  // const { totalQuestions = 0, totalTime = 0, totalScore = 0, questions: quizQuestions = [] } = selectedQuizData;
 
   const selectQuizTopic = (topic) => {
-    if (quiz[topic]) {
-      setQuizTopic(topic); // Only set topic if it exists in the quiz object
-    } else {
-      console.error(`Quiz topic ${topic} not found.`);
-    }
+      setQuizTopic(topic); 
   };
 
   // Update timer and questions when quizTopic changes
   useEffect(() => {
-    if (quiz[quizTopic]) {
-      setTimer(quiz[quizTopic].totalTime || 0);
-      setQuestions(quiz[quizTopic].questions || []);
-    }
+    // if (quiz[quizTopic]) {
+    //   setTimer(quiz[quizTopic].totalTime || 0);
+    //   setQuestions(quiz[quizTopic].questions || []);
+    // }
+
+    console.log('quizTopic: provider me ye hia bhai', quizTopic);
+    console.log('questions: provider me ye aye', questions);
   }, [quizTopic]);
 
   // Prepare quiz details object to pass in context
   const quizDetails = {
-    totalQuestions,
-    totalScore,
-    totalTime,
+    totalQuestions: questions.length,
+    totalScore: 100,
+    totalTime: timer,
     selectedQuizTopic: quizTopic,
   };
+  // const [quizDetails, setQuizDetails] = useState({
+  //   totalQuestions: 0,
+  //   totalScore: 100,
+  //   totalTime: 0,
+  //   selectedQuizTopic: ''
+  // });
+  
+  // useEffect(() => {
+  //   console.log('quiztopic provide me jo useeffect hai:', quizTopic);
+  //   const newQuizDetails = {
+  //     totalQuestions: questions.length,
+  //     totalScore: 100, // assuming fixed total score
+  //     totalTime: timer,
+  //     selectedQuizTopic: quizTopic,
+  //   };
+  //   setQuizDetails(newQuizDetails); // Store in state
+  // }, [ quizTopic]); // Ensure all dependencies are included
+  
 
   const quizContextValue = {
     currentScreen,

@@ -4,12 +4,22 @@ export class Service{
 
     async GenerateTestQuestions({subjectName, topicName}) {
        try {
-        return await axios.post("/user/test", {subjectName, topicName});
+        return await axios.post("/user/testFullSubject", {subjectName, topicName});
        } catch (error) {
             console.log("Service :: GenerateTestQuestions :: error", error);
             throw error;
         }
     }
+
+    // async GenerateSampleQuestions({subjectName}) {
+    //     try {
+    //         return await axios.post("/user/sampleQuestions");
+    //     } catch (error) {
+    //         console.log("Service :: GenerateSampleQuestions :: error", error);
+    //         throw error;
+    //     }
+    // }
+
     
     
     async SubmitTest({token, subjectName, topicName, questionsId, answerByUser, answerOfQuestion, markAlloted}) {

@@ -7,7 +7,7 @@ import styles from './QuizHeader.module.css';
 
 const QuizHeader = ({activeQuestion, totalQuestions, timer}) => {
   return (
-    <Flex className={styles.spaceBetween} gap="6px">
+    <Flex className={styles.spaceBetween} >
       <div>
         <span className={styles.activeQuestionNo}>
           {addLeadingZero(activeQuestion + 1)}

@@ -26,7 +26,7 @@ const BarGraph = ({ data, categories }) => {
           let content = `<b>Total Questions: ${params.data.value}</b><br/>`;
 
           subjects.forEach((subject) => {
-            console.log(subject);
+            // console.log(subject);
             content += `<b>${subject.subject}</b>:<br/>`;
             subject.topics.forEach((topic) => {
               content += `${topic.name}: ${topic.questions} questions<br/>`;
