@@ -14,9 +14,9 @@ const ResultScreen = () => {
   console.log('result jo result page me aya', result);
 
   // Function to handle retry action
-  const onClickRetry = () => {
-    refreshPage();
-  };
+  // const onClickRetry = () => {
+  //   refreshPage();
+  // };
 
   const redirectHome = () => {
     window.location.href = '/';
@@ -105,13 +105,13 @@ const ResultScreen = () => {
           )}
         </div>
         <div className={styles.ButtonContainer}>
-          <Button
+          {/* <Button
             text="RETRY"
             onClick={onClickRetry}
             icon={<img src="/assets/icons/refresh.svg" alt="Refresh Icon" style={{ width: '24px', height: '24px' }} />}
             iconPosition="left"
             bold
-          />
+          /> */}
           <Button
             text="DONE"
             onClick={redirectHome}

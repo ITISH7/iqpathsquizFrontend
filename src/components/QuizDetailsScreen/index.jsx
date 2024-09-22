@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState ,useEffect } from 'react';
 import { useQuiz } from '../../context/QuizContext';
 import { convertSeconds } from '../../utils/helpers';
 import Button from '../ui/Button/index';

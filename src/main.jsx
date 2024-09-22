@@ -10,7 +10,6 @@ import Result from './pages/Result.jsx'
 import ResultNext from './pages/ResultNext.jsx'
 import { AuthProvider } from './context/AuthContext';
 import QuizProvider from './context/QuizProvider';
-import  QuizProvider  from './context/QuizProvider';
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 
