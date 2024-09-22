@@ -195,6 +195,42 @@
   display: flex;
 }
 
+/* Custom checkbox styling */
+.customCheckbox {
+  display: inline-block;
+  width: 20px; /* Customize size */
+  height: 20px; /* Customize size */
+  border: 2px solid #ccc; /* Default border color */
+  border-radius: 4px; /* Rounded corners */
+  position: relative;
+  cursor: pointer;
+}
+
+/* Change background color when checked */
+input[type="checkbox"]:checked + .customCheckbox {
+  background-color: green; /* Change to your desired color */
+  border-color: green; /* Change border color if needed */
+}
+
+/* Add a checkmark */
+.customCheckbox::after {
+  content: '';
+  position: absolute;
+  top: 2px; /* Adjust for positioning */
+  left: 6px; /* Adjust for positioning */
+  width: 6px; /* Size of checkmark */
+  height: 12px; /* Size of checkmark */
+  border: solid white; /* Checkmark color */
+  border-width: 0 2px 2px 0; /* Adjust thickness */
+  transform: rotate(45deg);
+  opacity: 0; /* Initially hidden */
+}
+
+/* Show checkmark when checked */
+input[type="checkbox"]:checked + .customCheckbox::after {
+  opacity: 1;
+}
+
 .setDropdownMenu {
   position: absolute;
   background-color: white;

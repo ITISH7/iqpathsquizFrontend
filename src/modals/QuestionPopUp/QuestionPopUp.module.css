@@ -46,6 +46,29 @@
     background-color: #653bbf;
   }
 
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between; /* Distribute buttons to the edges */
+    align-items: center;
+    margin-bottom: 20px; /* Adjust the margin as needed */
+  }
+  
+  .reviewbut {
+    position: relative;
+    margin-left: 46rem; /* Align to the left */
+    margin-top: -20px;
+  }
+  
+  .savebut {
+    margin-right: 0; /* Align to the right */
+  }  
+
+  /* .reviewbut {
+    position: relative;
+    margin-left: 500px; 
+    margin-top: -60px;
+  } */
+
   .popupHeading {
     /* border: 2px solid green; */
     font-size: 20px;
@@ -53,6 +76,7 @@
     height: 40px;
     padding: 2px;
     font-weight: 600;
+    margin-top: -50px;
     color: #653bbf;
   }
 
