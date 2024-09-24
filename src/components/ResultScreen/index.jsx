@@ -76,6 +76,42 @@ const ResultScreen = () => {
     return acc;
   }, []);
 
+  const enterFullScreen = () => {
+    const element = document.documentElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    }
+    else if (element.webkitRequestFullScreen) {
+      element.webkitRequestFullScreen();
+    }
+    else if (element.msRequestFullScreen) {
+      element.msRequestFullScreen();
+    }
+  };
+
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      if (!document.fullscreenElement) {
+        enterFullScreen();
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullScreenChange);
+
+    enterFullScreen();
+
+    const header = document.querySelector('header');
+    const footer = document.querySelector('footer');
+    if (header) header.style.display = 'none';
+    if (footer) footer.style.display = 'none';
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullScreenChange);
+      if (header) header.style.display = '';
+      if (footer) footer.style.display = '';
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.resultScreenContainer}>

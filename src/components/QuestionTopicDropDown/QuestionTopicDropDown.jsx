@@ -134,6 +134,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [isTopicDropdownOpen, setIsTopicDropdownOpen] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState('All');
+  const [filterProblems, setFilterProblems] = useState([]);
+  const [checkboxColors, setCheckboxColors] = useState({});
   // const [problems, setProblem] = useState([]);
   const [values, setValues] = useState()
 
@@ -281,8 +283,11 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const handleTopicSelection = (topic) => {
     setSelectedTopic(topic);
     setIsTopicDropdownOpen(false);
-    setTopicFilter(topic);
-  }
+    // setTopicFilter(topic);
+    const newFilterProblems = problems.filter((problem) => topic === 'All' || problem.topic === topic
+    );
+    setFilterProblems(newFilterProblems);
+  };
   
   const handleRevisionToggle = (index) => {
     setImageStates((prev) => {
@@ -304,7 +309,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setImageStates(savedImageStates);
   }, [])
 
-  const handleCheckboxChange = (problemId) => {
+  const handleCheckboxChange = (problemId, color) => {
     setSolvedProblems((prevSolved) => {
       const updatedSolved = {
         ...prevSolved,
@@ -313,11 +318,17 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       localStorage.setItem('solvedProblems', JSON.stringify(updatedSolved));
       return updatedSolved;
     });
+    setCheckboxColors((prevColors) => ({
+      ...prevColors,
+      [problemId]: color,
+     }));
   };
 
   useEffect(() => {
     const savedSolvedProblems = JSON.parse(localStorage.getItem('solvedProblems')) || {};
+    const savedCheckboxColors = JSON.parse(localStorage.getItem('checkboxColors')) || {};
     setSolvedProblems(savedSolvedProblems);
+    setCheckboxColors(savedCheckboxColors);
   }, []);
 
   const getSolvedCount = () => {
@@ -373,6 +384,15 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setCurrentQuestion(null);
   };
   
+  const saveAndClose = (problemId) => {
+    handleCheckboxChange(problemId, 'green');
+    closePopup();
+  };
+
+  const reviewAndClose = (problemId) => {
+    handleCheckboxChange(problemId, 'orange');
+    closePopup();
+  };
   
   const renderDifficultyBadge = (diffi) => {
     let badgeClass = "";
@@ -436,6 +456,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
         }));
       }
     };
+
+    const isChecked = JSON.parse(localStorage.getItem(`solvedProblem-${problems.id}`)) || false;
             
   return (
     <div className={`${styles.tableContainer} ${isOpen ? styles.tableContainerOpen : ''}`}>
@@ -444,6 +466,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
         onClick={toggleDropdown}
       >
         <h2>{`${subjectName}`}</h2>
+        {/* <button className={styles.register}>Register</button> */}
         <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
           <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={`${styles.filterButton} ${styles.buttonEffect}`} onClick={toggleFilterDropdown1}>
@@ -523,14 +546,16 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
             </thead>
             <tbody>
               {filteredProblems.map((problem, index) => (
+
                 <tr key={`${problem.id}-${index}`} onClick={(e) => e.stopPropagation()}>
                   <td className={`${styles.icons}`}>
-                    <input type="checkbox" 
+                    <input type="checkbox"
                     checked={solvedProblems[problem.id] || false}
-                    onChange={() => handleCheckboxChange(problem.id)}
+                    style={{ backgroundColor: checkboxColors[problem.id] || 'white'}}
+                    onChange={() => handleCheckboxChange(problem.id, 'green')}
                     className={`${styles.customCheckbox} ${solvedProblems[problem.id] ? styles.checked : ''}`}
                     />
-                    <div className={styles.customCheckbox}></div>
+                    {/* {isChecked && <img src='src\assets\savecheck.svg' alt='Saved Checkbox' className={styles.checkboxImage} />} */}
                   </td>
                   <td onClick={() => handleQuestionClick(problem, index)}>{problem.name}</td>
                   <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
@@ -602,8 +627,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
             </button>
             {isTopicDropdownOpen && (
               <div className={styles.setDropdownMenu}>
-                <div className={styles.setDropdownItem} onClick={() => handleTopicSelection('All')}>
-                  All Topics 
+                <div className={styles.setDropdownItem} onClick={() => handleTopicSelection('Linked List')}>
+                  Linked List 
                 </div>
                 <div className={styles.setDropdownItem} onClick={() => handleTopicSelection('Array')}>
                   Array  

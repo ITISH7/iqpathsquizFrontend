@@ -72,8 +72,10 @@ html, body {
   font-size: 19px;
   color: var(--text-color); 
   margin-left: 20px; 
+  margin-right: -20px;
   align-self: flex-start; 
-  width: 80px;
+  width: 200px;
+  /* border: 2px solid red; */
 }
 
 .score.right {

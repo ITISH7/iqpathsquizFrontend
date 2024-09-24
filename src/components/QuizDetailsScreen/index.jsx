@@ -5,11 +5,12 @@ import Button from '../ui/Button/index';
 import styles from './QuizDetailsScreen.module.css';
 import { ScreenTypes } from '../../types/types';
 import {Service} from '../../axios/config';
+// hi
 
 const QuizDetailsScreen = ({subjectName}) => {
   // console.log('subjectName:', subjectName)
 
-  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult, setCurrentScreen, quizDetails } = useQuiz();
+  const { selectQuizTopic, setQuestions, questions, quizTopic, setTimer, setResult, setCurrentScreen, quizDetails } = useQuiz();
 
   const { selectedQuizTopic, totalQuestions, totalScore, totalTime } = quizDetails;
   // console.log("selectedQuizTopic kya set hua quiz page me vo ye hai ", quizTopic);

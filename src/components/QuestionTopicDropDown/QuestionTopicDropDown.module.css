@@ -171,6 +171,19 @@
   padding: 0 10px;
 }
 
+.register {
+  border: 1px solid rgb(147, 147, 147);
+  padding: 5px 20px;
+  font-size: 20px;
+  background-color: rgb(246, 244, 244);
+  border-radius: 20px;
+  margin-left: -300px;
+}
+
+.register:hover {
+  color: black;
+}
+
 .playButton {
   background-color: transparent;
   border: none;
