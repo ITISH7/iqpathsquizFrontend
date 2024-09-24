@@ -8,10 +8,57 @@ import Question from './Question/index';
 import QuizHeader from './QuizHeader/index';
 import { ScreenTypes } from '../../types/types'; 
 import styles from './QuestionScreen.module.css';
+import { Service } from '../../axios/config'; // Ensure correct path
+import { AuthContext } from '../../context/AuthContext'; // Ensure correct path
+import { useContext } from 'react';
+
+
+const service = new Service(); 
+// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmYxMDYzZDI4NTFjYzM2ZmYwZjdmNmEiLCJpYXQiOjE3MjcwNzE5MzgsImV4cCI6MTcyNzE1ODMzOH0.6FS7cQNVLJGBDByWx0kyydYkOluSzWhjIJgB63Q9saY";
+
+
+// const saveTest = async ( userId, quizTopic, result, totalScore, score ) => { 
+//     console.log('userId:', userId);
+//     console.log('quizTopic:', quizTopic);
+//     console.log('result:', result);
+//     console.log('totalScore:', totalScore);
+//     console.log('score:', score);
+//     const response = await service.SubmitTest("66f1063d2851cc36ff0f7f6a", quizTopic , result, totalScore, score);
+//     console.log('response:', response);
+//     return response;
+//   };
+
+const saveTest = async (userId, quizTopic, result, totalScore, score) => {
+  console.log('userId:', userId);
+  console.log('quizTopic:', quizTopic);
+  console.log('result:', result);
+  console.log('totalScore:', totalScore);
+  console.log('score:', score);
+  
+  // Prepare the payload according to the API structure
+  const payload = {
+    id: userId, // Assuming this is the ID to send
+    subjectName: quizTopic, // Assuming quizTopic corresponds to subjectName
+    questions: result, // Assuming result is the list of questions
+    totalMarks: totalScore, // Assuming totalScore represents totalMarks
+    totalScore: score // score represents the final score
+  };
+
+  try {
+    const response = await service.SubmitTest(payload);
+    console.log('response:', response);
+    return response;
+  } catch (error) {
+    console.error('Error while submitting test:', error);
+  }
+};
+
 
 const QuestionScreen = () => {
   const quizContext = useQuiz();
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const { userId} = useContext(AuthContext)
+  // console.log('userId:', userId);
 
   const {
     questions = [],
@@ -22,7 +69,13 @@ const QuestionScreen = () => {
     timer,
     setTimer,
     setEndTime,
+    setFinalTime,
+    score,
+    quizTopic,
   } = quizContext;
+  // console.log('result jo hai abhi :', result);
+
+  const {totalScore} = quizDetails;
 
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState([]);
@@ -75,6 +128,8 @@ const QuestionScreen = () => {
     // Use ScreenTypes.ResultScreen for correct navigation
     setCurrentScreen(ScreenTypes.ResultScreen);
     document.body.style.overflow = 'auto';
+    setFinalTime(Date.now());
+    // saveTest(userId, quizTopic, result, totalScore, score);
   };
 
   const enterFullScreen = () => {

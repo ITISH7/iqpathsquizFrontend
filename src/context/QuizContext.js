@@ -9,16 +9,26 @@ export const initialState = {
   setQuestions: () => {},
   result: [],
   setResult: () => {},
-  timer: 1500,
+  score: 0,
+  setScore: () => {},
+  timer: 0,
   setTimer: () => {},
   endTime: 0,
   setEndTime: () => {},
+  initialTime: Date.now(),
+  finalTime: Date.now(),
+  setFinalTime: () => {},
   quizDetails: {
     totalQuestions: 0,
     totalScore: 0,
     totalTime: 0,
     selectedQuizTopic: 'React',
   },
+  totalMarks: 0,
+
+  
+
+  setTotalMarks: () => {},
 };
 
 export const QuizContext = createContext(initialState);

@@ -18,14 +18,14 @@ import { use } from 'echarts';
 
 
 
-const problems = [
-  { id: 'problem-1', name: "Stock Buy and Sell", options: ['Library', 'Framework', 'Language'], question: 'You are given the prices of a stock for N days, find the maximum profit you can make by buying and selling on those days.', topic: "Array", difficulty: "Easy" },
-  { id: 'problem-2', name: "Merge Overlapping Intervals", options: ['Library', 'Framework', 'Language'], question: 'Given a collection of intervals, merge all overlapping intervals.', topic: "Array", difficulty: "Easy" },
-  { id: 'problem-3', name: "Find the Duplicate in an Array of N+1 Integers", options: ['Library', 'Framework', 'Language'], question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.', topic: "Array", difficulty: "Medium" },
-  { id: 'problem-4', name: "Longest Substring Without Repeating Characters", options: ['Library', 'Framework', 'Language'], question: 'Given a string, find the length of the longest substring without repeating characters.', topic: "String", difficulty: "Medium" },
-  { id: 'problem-5', name: "Repeat and Missing Number", topic: "Array", options: ['Library', 'Framework', 'Language'], question: 'Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n} is missing and one number occurs twice in the array. Find these two numbers.', difficulty: "Hard" },
-  { id: 'problem-6', name: "Minimum Window Substring", options: ['Library', 'Framework', 'Language'], question: 'Given two strings s and t, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string.', topic: "String", difficulty: "Hard" },
-];
+// const problems = [
+//   { id: 'problem-1', name: "Stock Buy and Sell", options: ['Library', 'Framework', 'Language'], question: 'You are given the prices of a stock for N days, find the maximum profit you can make by buying and selling on those days.', topic: "Array", difficulty: "Easy" },
+//   { id: 'problem-2', name: "Merge Overlapping Intervals", options: ['Library', 'Framework', 'Language'], question: 'Given a collection of intervals, merge all overlapping intervals.', topic: "Array", difficulty: "Easy" },
+//   { id: 'problem-3', name: "Find the Duplicate in an Array of N+1 Integers", options: ['Library', 'Framework', 'Language'], question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.', topic: "Array", difficulty: "Medium" },
+//   { id: 'problem-4', name: "Longest Substring Without Repeating Characters", options: ['Library', 'Framework', 'Language'], question: 'Given a string, find the length of the longest substring without repeating characters.', topic: "String", difficulty: "Medium" },
+//   { id: 'problem-5', name: "Repeat and Missing Number", topic: "Array", options: ['Library', 'Framework', 'Language'], question: 'Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n} is missing and one number occurs twice in the array. Find these two numbers.', difficulty: "Hard" },
+//   { id: 'problem-6', name: "Minimum Window Substring", options: ['Library', 'Framework', 'Language'], question: 'Given two strings s and t, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string.', topic: "String", difficulty: "Hard" },
+// ];
 
 
 const quizData = {
@@ -134,13 +134,15 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [isTopicDropdownOpen, setIsTopicDropdownOpen] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState('All');
-  // const [problems, setProblem] = useState([]);
+  const [problems, setProblem] = useState([]);
+  const [currentSubjectName, setCurrentSubjectName] = useState('Aptitude');
   const [values, setValues] = useState()
+  const [topics, setTopics] = useState([]);
 
   const navigate = useNavigate();
 
 
-  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult } = useQuiz();
+  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult, setTotalMarks } = useQuiz();
 
   const service = new Service();
 
@@ -157,13 +159,15 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       console.log('response:', response)  
         
         if (response.status === 200) {
-          const { data, totalTime, totalScore } = response.data
-          console.log('question jo method me hai', data.questions)
+          const { questions, totalMarks, totalTime} = response.data.data
+          console.log('question jo method me hai', questions)
           
           selectQuizTopic(subjectName)
-          setQuestions(data.questions)
-          setTimer(totalTime || 1600);
+          setQuestions(questions)
+          setTotalMarks(totalMarks)
+          setTimer(totalTime*60 );
           setResult([])  // Reset the result
+          
           console.log('Quiz data fetched:', response.data)
           console.log('Questions are:', questions  )
           console.log('quiz topic:', quizTopic)
@@ -174,18 +178,39 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   }
 
   // useEffect(() => {
-  //   getSampleQuestion();
+  //   getSampleQuestion(currentSubjectName);
+  // }, [currentSubjectName]);
+
+  // useEffect(() => {
+  //   getTopics();  
   // }, []);
 
-  // const getSampleQuestion = async () => {
-  //   try {
-  //     const response = await service.GenerateSampleQuestions({subjectName});
-  //     // setQuestions(response.data.data);
-  //     setProblem(response.data.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  const getSampleQuestion = async (subjectName) => {
+    try {
+      const response = await service.GenerateSampleQuestions(subjectName);
+      // setQuestions(response.data.data);
+      // setProblem(response.data.data);
+      const questions = response.data.data;
+      const updatedQuestions = questions.slice(0, 10)
+      setProblem(updatedQuestions); 
+      console.log('response:', response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+  const getTopics = async (subjectName) => {
+    try {
+      const response = await service.GetTopics(subjectName);  // Assuming `GetTopics` is your API call
+      const fetchedTopics = response.data.data;    // Adjust this to match your API structure
+      console.log('fetched topics:', fetchedTopics);
+      const updatedTopics = [{ topicName: 'All' }, ...fetchedTopics];;  // Add 'All' as the first topic
+      setTopics(updatedTopics);  // Set the topics in state
+    } catch (error) {
+      console.error('Error fetching topics:', error);
+    }
+  };
 
 
 
@@ -271,6 +296,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const handleTopicFilter = (topic) => {
     setTopicFilter(topic);
     setIsFilterOpen1(false);
+    console.log('topic:', topicFilter)
+
   };
 
   const toggleTopicDropdown = (event) => {
@@ -278,6 +305,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setIsTopicDropdownOpen(!isTopicDropdownOpen);
   };
 
+
+  
   const handleTopicSelection = (topic) => {
     setSelectedTopic(topic);
     setIsTopicDropdownOpen(false);
@@ -436,19 +465,31 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
         }));
       }
     };
+      
             
   return (
-    <div className={`${styles.tableContainer} ${isOpen ? styles.tableContainerOpen : ''}`}>
+    <div
+      className={`${styles.tableContainer} ${
+        isOpen ? styles.tableContainerOpen : ""
+      }`}
+    >
       <div
-        className={`${styles.header} ${utilityStyle.container} ${isOpen ? styles.headerOpen : ''}`}
-        onClick={toggleDropdown}
+        className={`${styles.header} ${utilityStyle.container} ${
+          isOpen ? styles.headerOpen : ""
+        }`}
+        onClick={() => {
+          toggleDropdown();
+          getSampleQuestion(subjectName);
+          getTopics(subjectName);
+        }}
       >
         <h2>{`${subjectName}`}</h2>
-        <div className={`${styles.progress} ${isOpen ? styles.progressOpen : ''}`}>
-          <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
+        <div
+          className={`${styles.progress} ${isOpen ? styles.progressOpen : ""}`}
+        >
+          {/* <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
             <button className={`${styles.filterButton} ${styles.buttonEffect}`} onClick={toggleFilterDropdown1}>
-              {/* <img src="src\assets\FilterIcon.svg" alt="Filter" /> */}
-              {/* Topic */}
+            
               {topicFilter === "All" ? (
                 <>
                   <img src="src\assets\FilterIcon.svg" alt="Filter" />
@@ -466,9 +507,57 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                 <div className={styles.dropdownItem} onClick={() => handleTopicFilter('String')}>String</div>
               </div>
             )}
+                  
+          </div> */}
+
+          <div
+            className={styles.filterButtonWrapper}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className={`${styles.filterButton} ${styles.buttonEffect}`}
+              onClick={toggleFilterDropdown1}
+            >
+              {topicFilter === "All" ? (
+                <>
+                  <img src="src/assets/FilterIcon.svg" alt="Filter" />
+                  Topic
+                </>
+              ) : (
+                <>{topicFilter}</>
+              )}
+            </button>
+
+            {isFilterOpen1 && (
+              <div
+                className={styles.dropdownMenu}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {topics.length > 0 ? (
+                  topics.map((topic, index) => (
+                    <div
+                      key={index}
+                      className={styles.dropdownItem}
+                      onClick={() => handleTopicFilter(topic.topicName)} // Assuming `subjectName` is the topic name
+                    >
+                      {topic.topicName}
+                    </div>
+                  ))
+                ) : (
+                  <div className={styles.dropdownItem}>Loading...</div> // Fallback while loading
+                )}
+              </div>
+            )}
           </div>
-          <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
-            <button className={`${styles.filterButton} ${styles.filter2} ${styles.buttonEffect}`} onClick={toggleFilterDropdown2}>
+
+          <div
+            className={styles.filterButtonWrapper}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className={`${styles.filterButton} ${styles.filter2} ${styles.buttonEffect}`}
+              onClick={toggleFilterDropdown2}
+            >
               {difficultyFilter === "All" ? (
                 <>
                   <img src="src\assets\FilterIcon.svg" alt="Filter" />
@@ -481,17 +570,42 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
               {/* Difficulty */}
             </button>
             {isFilterOpen2 && (
-              <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('All')}>All</div>
-                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Easy')}>Easy</div>
-                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Medium')}>Medium</div>
-                <div className={styles.dropdownItem} onClick={() => handleDifficultyFilter ('Hard')}>Hard</div>
+              <div
+                className={styles.dropdownMenu}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div
+                  className={styles.dropdownItem}
+                  onClick={() => handleDifficultyFilter("All")}
+                >
+                  All
+                </div>
+                <div
+                  className={styles.dropdownItem}
+                  onClick={() => handleDifficultyFilter("Easy")}
+                >
+                  Easy
+                </div>
+                <div
+                  className={styles.dropdownItem}
+                  onClick={() => handleDifficultyFilter("Medium")}
+                >
+                  Medium
+                </div>
+                <div
+                  className={styles.dropdownItem}
+                  onClick={() => handleDifficultyFilter("Hard")}
+                >
+                  Hard
+                </div>
               </div>
             )}
           </div>
-          <span>{getSolvedCount()}/{filteredProblems.length}</span>
+          <span>
+            {getSolvedCount()}/{filteredProblems.length}
+          </span>
           <button className={`${styles.toggleButton} `}>
-            <img  src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
+            <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
           </button>
         </div>
       </div>
@@ -523,104 +637,156 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
             </thead>
             <tbody>
               {filteredProblems.map((problem, index) => (
-                <tr key={`${problem.id}-${index}`} onClick={(e) => e.stopPropagation()}>
+                <tr
+                  key={`${problem.id}-${index}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <td className={`${styles.icons}`}>
-                    <input type="checkbox" 
-                    checked={solvedProblems[problem.id] || false}
-                    onChange={() => handleCheckboxChange(problem.id)}
-                    className={`${styles.customCheckbox} ${solvedProblems[problem.id] ? styles.checked : ''}`}
+                    <input
+                      type="checkbox"
+                      checked={solvedProblems[problem.id] || false}
+                      onChange={() => handleCheckboxChange(problem.id)}
+                      className={`${styles.customCheckbox} ${
+                        solvedProblems[problem.id] ? styles.checked : ""
+                      }`}
                     />
-                    <div className={styles.customCheckbox}></div>
                   </td>
-                  <td onClick={() => handleQuestionClick(problem, index)}>{problem.name}</td>
-                  <td className={styles.remove}><img src="src/assets/Artical.svg" alt="Article" className={styles.icons} /></td>
-                  <td className={styles.remove}><img src="src/assets/YouTube.svg" alt="YouTube" className={styles.icons} /></td>
-                  <td className={styles.remove}><img src="src/assets/Leetcode.svg" alt="Practice" className={styles.icons} /></td>
+                  <td onClick={() => handleQuestionClick(problem, index)}>
+                    {problem.questionContent}
+                  </td>
+                  <td className={styles.remove}>
+                    <img
+                      src="src/assets/Artical.svg"
+                      alt="Article"
+                      className={styles.icons}
+                    />
+                  </td>
+                  <td className={styles.remove}>
+                    <img
+                      src="src/assets/YouTube.svg"
+                      alt="YouTube"
+                      className={styles.icons}
+                    />
+                  </td>
+                  <td className={styles.remove}>
+                    <img
+                      src="src/assets/Leetcode.svg"
+                      alt="Practice"
+                      className={styles.icons}
+                    />
+                  </td>
                   <td className={`${styles.icons} ${styles.remove}`}>
-                    <button 
+                    <button
                       onClick={(e) => {
                         e.stopPropagation();
                         openModal(problem);
                       }}
-                      className={styles.noteButton}>
+                      className={styles.noteButton}
+                    >
                       <img src={getNoteIcon(problem.id)} alt="Note Icon" />
                     </button>
                   </td>
-                  <td className={styles.difficulty}>{renderDifficultyBadge(problem.difficulty)}</td>
+                  <td className={styles.difficulty}>
+                    {renderDifficultyBadge(problem.difficulty)}
+                  </td>
                   <td className={styles.remove}>
-                    <img src={imageStates[problem.id] === 'RevisionShine' ? RevisionShine : Revision} alt="Revision Toggle" onClick={() => handleRevisionToggle(problem.id)} className={styles.icons} />
+                    <img
+                      src={
+                        imageStates[problem.id] === "RevisionShine"
+                          ? RevisionShine
+                          : Revision
+                      }
+                      alt="Revision Toggle"
+                      onClick={() => handleRevisionToggle(problem.id)}
+                      className={styles.icons}
+                    />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          
+
           <div className={styles.wrapper}>
-          <div className={styles.dropdownWrapper}>
-            <button className={`${styles.playButton} ${styles.buttonEffect}`}  onClick={() => {
-              toggleSetDropdown();
-              // fetchQuizData('Apptitude');
-              getquizQuestion();
-              // setValues()
-              // navigate(`/quiz/${subjectName}`)
-              console.log('quiz topic:', quizTopic)
-            }}>
-              Complete Test 
-            </button>
-            {isSetDropdownOpen && (
-              <div className={styles.setDropdownMenu}>
-                <Link to={`/quiz`}>
-                <div
-                className={styles.setDropdownItem}
-                // onClick={handleQuizStart}
-                >
-                  Set 1
+            <div className={styles.dropdownWrapper}>
+              <button
+                className={`${styles.playButton} ${styles.buttonEffect}`}
+                onClick={() => {
+                  toggleSetDropdown();
+                  // fetchQuizData('Apptitude');
+                  getquizQuestion();
+                  // setValues()
+                  // navigate(`/quiz/${subjectName}`)
+                  console.log("quiz topic:", quizTopic);
+                }}
+              >
+                Complete Test
+              </button>
+              {isSetDropdownOpen && (
+                <div className={styles.setDropdownMenu}>
+                  <Link to={`/quiz`}>
+                    <div
+                      className={styles.setDropdownItem}
+                      // onClick={handleQuizStart}
+                    >
+                      Set 1
+                    </div>
+                  </Link>
+                  <Link to="/quiz">
+                    <div
+                      className={styles.setDropdownItem}
+                      onClick={() => handleSetSelection("Set 2")}
+                    >
+                      Set 2
+                    </div>
+                  </Link>
+                  <Link to="/quiz">
+                    <div
+                      className={styles.setDropdownItem}
+                      onClick={() => handleSetSelection("Set 3")}
+                    >
+                      Set 3
+                    </div>
+                  </Link>
                 </div>
-                </Link>
-                <Link to="/quiz">
-                <div
-                className={styles.setDropdownItem}
-                onClick={() => handleSetSelection('Set 2')}>
-                  Set 2
-                </div>
-                </Link>
-                <Link to="/quiz">
-                <div
-                className={styles.setDropdownItem}
-                onClick={() => handleSetSelection('Set 3')}>
-                  Set 3
-                </div>
-                </Link>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
-          <div className={styles.dropdownWrapper}>
-            <button className={`${styles.playButton} ${styles.buttonEffect}`}
-            onClick={toggleTopicDropdown}>
-              Topic-Wise Test 
-            </button>
-            {isTopicDropdownOpen && (
-              <div className={styles.setDropdownMenu}>
-                <div className={styles.setDropdownItem} onClick={() => handleTopicSelection('All')}>
-                  All Topics 
+            <div className={styles.dropdownWrapper}>
+              <button
+                className={`${styles.playButton} ${styles.buttonEffect}`}
+                onClick={toggleTopicDropdown}
+              >
+                Topic-Wise Test
+              </button>
+              {isTopicDropdownOpen && (
+                <div className={styles.setDropdownMenu}>
+                  <div
+                    className={styles.setDropdownItem}
+                    onClick={() => handleTopicSelection("All")}
+                  >
+                    All Topics
+                  </div>
+                  <div
+                    className={styles.setDropdownItem}
+                    onClick={() => handleTopicSelection("Array")}
+                  >
+                    Array
+                  </div>
+                  <div
+                    className={styles.setDropdownItem}
+                    onClick={() => handleTopicSelection("String")}
+                  >
+                    String
+                  </div>
                 </div>
-                <div className={styles.setDropdownItem} onClick={() => handleTopicSelection('Array')}>
-                  Array  
-                </div>
-                <div className={styles.setDropdownItem} onClick={() => handleTopicSelection('String')}>
-                  String  
-                </div>
-              </div> 
-            )}
+              )}
+            </div>
           </div>
-          </div>
-
         </div>
       )}
 
       {isPopupVisible && currentQuestion && (
-        <QuestionPopUp 
+        <QuestionPopUp
           isVisible={isPopupVisible}
           questionData={currentQuestion}
           uniqueId={currentQuestion.uniqueId}
@@ -629,11 +795,11 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       )}
 
       {isModalOpen && (
-        <NoteModal 
+        <NoteModal
           isOpen={isModalOpen}
           closeModal={closeModal}
           onSave={(note) => saveNote(selectedProblem.id, note)}
-          initialNote={notes[selectedProblem.id] || ''}  
+          initialNote={notes[selectedProblem.id] || ""}
         />
       )}
     </div>

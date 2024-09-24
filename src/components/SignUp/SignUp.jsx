@@ -34,6 +34,7 @@ const Sign = ({ onSwitchToLogin }) => {
     e.preventDefault();
     try {
         const userData = await authService.createAccount(formData);
+        console.log(userData);
         if(userData){
             console.log("User account created successfully")
             setIsLoggedIn(true);

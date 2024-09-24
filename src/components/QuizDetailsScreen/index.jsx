@@ -16,50 +16,6 @@ const QuizDetailsScreen = ({subjectName}) => {
 
 
   const [getData, setData] = useState([]);
-  // const [quizTopic, setQuizTopic] = useState('');
-  // const [questions, setQuestions] = useState([]);
-  // const [timer, setTimer] = useState(0);
-  // const [result, setResult] = useState([]);
-
-
-  // useEffect(() => {
-  //   getquizQuestion(subjectName);
-  //   console.log('subjectName:', subjectName)
-  // }, []);
-
-  // const service = new Service();
-
-
-//   const getquizQuestion = async (subjectName) => {
-//     const response = await service.GenerateTestQuestions({subjectName});
-//     // console.log('response:', response)
-//     setData(response.data.data);
-//     console.log('data:', response.data.data)
-//     setQuestions(response.data.data);
-//     // // selectQuizTopic(subjectName)
-//     // console.log('quiz topic: in dropdown', quizTopic)
-//     // console.log('quiz topic hona chaiye tha:', subjectName)
-
-    
-//   // try {
-//   //   const response = await service.GenerateTestQuestions({subjectName});
-//   //   console.log('response:', response)  
-      
-//   //     if (response.status === 200) {
-//   //       const { data, totalTime, totalScore } = response.data
-        
-//   //       selectQuizTopic(subjectName)
-//   //       setQuestions(data)
-//   //       setTimer(totalTime || 1600);
-//   //       setResult([])  // Reset the result
-//   //       console.log('Quiz data fetched:', response.data)
-//   //       console.log('Questions are:', questions  )
-//   //       console.log('quiz topic:', quizTopic)
-//   //     }
-//   //   } catch (error) {
-//   //     console.error('Error fetching quiz data:', error)
-//   //   }
-// }
 
   const goToQuestionScreen = () => {
     setCurrentScreen(ScreenTypes.QuestionScreen);
@@ -114,10 +70,10 @@ const QuizDetailsScreen = ({subjectName}) => {
             Total questions to attempt: <span className={styles.highlightedText}>{totalQuestions}</span>
           </p>
           <p className={styles.detailText}>
-            Score in total: <span className={styles.highlightedText}>{10}</span>
+            Score in total: <span className={styles.highlightedText}>{totalScore}</span>
           </p>
           <p className={styles.detailText}>
-            Total time: <span className={styles.highlightedText}>{convertSeconds(10)}</span>
+            Total time: <span className={styles.highlightedText}>{convertSeconds(totalTime)}</span>
           </p>
           <p className={styles.detailText}>
             Hey Buddy, These are just Mock interview questions prepared for your benefit, so
