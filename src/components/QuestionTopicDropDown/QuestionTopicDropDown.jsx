@@ -355,7 +355,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     const savedSolvedProblems = JSON.parse(localStorage.getItem('solvedProblems')) || {};
     const savedCheckboxColors = JSON.parse(localStorage.getItem('checkboxColors')) || {};
     setSolvedProblems(savedSolvedProblems);
-    setCheckboxColors(savedCheckboxColors);
+    // setCheckboxColors(savedCheckboxColors);
   }, []);
 
   const getSolvedCount = () => {
