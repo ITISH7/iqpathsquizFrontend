@@ -14,7 +14,7 @@ const Login = ({ onSwitchToSignup }) => {
 
   const navigate = useNavigate();
   const authService = new AuthService(); 
-  const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn, setUserId } = useContext(AuthContext);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +28,9 @@ const Login = ({ onSwitchToSignup }) => {
     e.preventDefault();
     try {
       const session = await authService.login(formData)
+      const ID = session.data.data._id;
+      console.log("ID", ID)
+      setUserId(ID);
       console.log("session", session)
       if(session){
           console.log("User logged in successfully")

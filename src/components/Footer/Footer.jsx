@@ -36,12 +36,12 @@ const Footer = () => {
               <img src="src/assets/YoutubeIcon.svg" alt="YouTube" />
               <img src="src/assets/TwitterIcon.svg" alt="Twitter" />
             </div>
-            <h4>Contact Us</h4>
+            <h4>Contact Us: </h4>
             <div className={styles.contactSec}>
               <ul>
                 <li className={styles.inlineItem}>
                   <img src="src/assets/MailIcon.svg" alt="Email" />
-                  <a href="mailto:shriyansh@gmail.com">shriyansh@gmail.com</a>
+                  <a href="mailto:shriyansh@gmail.com">info@iqpaths.com</a>
                 </li>
                 <li className={styles.inlineItem}>
                   <img src="src/assets/FeedbackIcon.svg" alt="Feedback" />

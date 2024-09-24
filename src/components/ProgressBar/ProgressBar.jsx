@@ -11,7 +11,7 @@ function ProgressBar() {
       <div className={`${styles.wrapper} ${utilityStyle.container}`}>
         <div className={styles.progressContainer}>
           <div className={styles.progressText}>
-            <p>Your Progress: {progress}/191</p>
+            <p>Your Progress: {progress}/100</p>
             <p>{progress}% Completed</p>
           </div>
           <div className={styles.progressBar}>

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 import { AuthContext } from '../../context/AuthContext';
 import utilityStyle from '../../utils/utils.module.css';
@@ -11,6 +11,7 @@ function Header() {
     { name: 'Testimonial', path: '/testimonial' },
     { name: 'DashBoard', path: '/' },
     { name: 'Test', path: '/test' },
+    { name: 'Result', path: '/result' },
   ];
 
   const { isLoggedIn, setIsLoggedIn,ToggleLogin } = useContext(AuthContext);
@@ -43,16 +44,17 @@ function Header() {
         </div>
         <ul className={styles.navList}>
           {navItems.map((item, index) => (
-            <li
-              key={index}
-              className={`${styles.navItem} ${
-                location.pathname === item.path ? styles.active : ''
-              }`}
+            <li key={index} className={`${styles.navItem} `}>
+            <NavLink
+              to={item.path}
+              className={({ isActive }) =>
+                `${styles.navLink} ${isActive ? styles.active : ''}`
+              }
             >
-              <Link to={item.path} className={styles.navLink}>
-                {item.name}
-              </Link>
-            </li>
+              {item.name}
+            </NavLink>
+          </li>
+          
           ))}
         </ul>
         <div className={styles.authButtons}>

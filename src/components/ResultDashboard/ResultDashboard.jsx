@@ -1,12 +1,49 @@
-import React, { useState } from 'react';
+import React, { useContext,useState, useEffect } from 'react';
 // import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import styles from './ResultDashboard.module.css';
 import StreakHeatMap from '../../modals/StreakHeatMap/StreakHeatMap';
+import { Link } from 'react-router-dom';
+import NightingaleChart from '../../modals/NightingaleChart/NightingaleChart';
+import { Service } from '../../axios/config';
+import { AuthContext } from '../../context/AuthContext';
+
+
+const service = new Service();
+
+  const getResults = async (id) => {
+    try {
+      const response = await service.GetAllSubjectResult(id);
+      console.log('response:', response);
+      return response.data;
+    } catch (error) {
+      console.log('error:', error);
+    }
+  };
+
+  const getSingleTestResults = async (id, subjectName) => {
+    try {
+      const response = await service.GetSubjectResult(id, subjectName);
+      console.log('response:', response);
+      return response.data;
+    } catch (error) {
+      console.log('error:', error);
+    }
+  };
+
 
 const Dashboard = () => {
   const [date, setDate] = useState(new Date());
   const [streak, setStreak] = useState(5);
+
+  const {userId } = useContext(AuthContext);
+  
+  useEffect(() => {
+    const id = userId;
+    console.log('id:', id);
+    getResults(id);
+  }, []);
+
 
   const streakData = [
     { "date": "2024-09-01", "streak": 3 },
@@ -90,9 +127,11 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                    <div className={styles.arrowContainer}>
-                      <div className={styles.arrow} style={{ backgroundColor: card.squareColor }}>&gt;</div>
-                    </div>
+                    <Link to="/result-next" onClick={()=> {getSingleTestResults(userId, 'Aptitude')}}>
+                      <div className={styles.arrowContainer}>
+                        <div className={styles.arrow} style={{ backgroundColor: card.squareColor }}>&gt;</div>
+                      </div>
+                    </Link>
                 </div>
               ))}
               {/* Add New Sheet Button */}
@@ -128,7 +167,7 @@ const Dashboard = () => {
                 Accuracy
               </div>
               <div className={styles.accuracyContent}>
-                {/* Content for Accuracy (e.g., a graph or text can go here) */}
+                <NightingaleChart />
               </div>
             </div>
             <div className={styles.sheetsSection}>

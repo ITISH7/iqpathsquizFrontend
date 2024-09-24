@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useQuiz } from '../../context/QuizContext';
 import Button from '../ui/Button';
 import CodeSnippet from '../ui/CodeSnippet';
@@ -9,10 +9,24 @@ import { refreshPage } from '../../utils/helpers';
 // import { ScreenTypes } from '../../types/types';
 import styles from './ResultScreen.module.css'; // Importing CSS module
 
-const ResultScreen = () => {
-  const { result } = useQuiz(); // Get necessary data from context
+// import { use } from 'echarts/types/src/extension.js';
+
+
+
+  
+  
+  const ResultScreen = () => {
+  const { result, quizTopic, score, initialTime, finalTime, setEndTime } = useQuiz(); // Get necessary data from context
+ 
   console.log('result jo result page me aya', result);
 
+
+
+
+  const TotalTimeTaken = finalTime - initialTime;
+  
+  setEndTime(TotalTimeTaken/60);
+  console.log('TotalTimeTaken:', TotalTimeTaken);
   // Function to handle retry action
   // const onClickRetry = () => {
   //   refreshPage();
@@ -150,7 +164,10 @@ const ResultScreen = () => {
           /> */}
           <Button
             text="DONE"
-            onClick={redirectHome}
+            onClick={() => {
+             
+              redirectHome();
+            }}
             iconPosition="left"
             bold
           />
