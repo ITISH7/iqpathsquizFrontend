@@ -32,11 +32,17 @@ const Footer = () => {
           <div>
             <h4>Follow us on</h4>
             <div className={styles.socialIcons}>
-              <img src="src/assets/InstagramIcon.svg" alt="Instagram" />
-              <img src="src/assets/YoutubeIcon.svg" alt="YouTube" />
-              <img src="src/assets/TwitterIcon.svg" alt="Twitter" />
+              <a href="https://www.instagram.com/iqpaths/">
+                <img src="src/assets/InstagramIcon.svg" alt="Instagram" />
+              </a>
+              <a href="">
+                <img src="src/assets/YoutubeIcon.svg" alt="YouTube" />
+              </a>
+              <a href="https://www.linkedin.com/company/iqpaths">
+                <img src="src/assets/TwitterIcon.svg" alt="Twitter" />
+              </a>
             </div>
-            <h4>Contact Us: </h4>
+            <h4>Contact Us: +91 8120390205 </h4>
             <div className={styles.contactSec}>
               <ul>
                 <li className={styles.inlineItem}>

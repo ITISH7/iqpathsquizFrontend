@@ -131,7 +131,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const navigate = useNavigate();
 
 
-  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult, setTotalMarks } = useQuiz();
+  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult, setTotalMarks, setInitialTime } = useQuiz();
 
   const service = new Service();
 
@@ -149,6 +149,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           setQuestions(questions)
           setTotalMarks(totalMarks)
           setTimer(totalTime*60 );
+          setInitialTime(totalTime*60)
           setResult([])  // Reset the result
           
           console.log('Quiz data fetched:', response.data)
@@ -192,7 +193,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const getFilteredProblems = () => {
     return problems.filter(problem => {
       const difficultyMatch = difficultyFilter === "All" || problem.difficulty === difficultyFilter;
-      const topicMatch = topicFilter === "All" || problem.topic === topicFilter;
+      const topicMatch = topicFilter === "All" || problem.topicName === topicFilter;
       return difficultyMatch && topicMatch;
     });
   };
@@ -407,6 +408,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       setNotes(savedNotes);
       // getdata();
     }, []);
+          
 
     const updatedSolvedProblems = (problemId, isCorrect) => {
       if (isCorrect) {
@@ -414,7 +416,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           ...prevSolved,
           [problemId]: true,
         }));
-        localStorage.setItem('solvedProblems', JSOn.stringify({
+        localStorage.setItem('solvedProblems', JSON.stringify({
           ...solvedProblems,
           [problemId]: true, 
         }));
@@ -558,9 +560,9 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
               </div>
             )}
           </div>
-          <span>
+          <div className={`${styles.questionsSolved}`}>
             {getSolvedCount()}/{filteredProblems.length}
-          </span>
+          </div>
           <button className={`${styles.toggleButton} `}>
             <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
           </button>

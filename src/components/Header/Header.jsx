@@ -6,8 +6,8 @@ import utilityStyle from '../../utils/utils.module.css';
 
 function Header() {
   const navItems = [
-    { name: 'Home', path: '/home' },
-    { name: 'Courses', path: '/courses' },
+    { name: 'Home', path: 'https://iqpaths.com/' },
+    { name: 'Courses', path: 'https://iqpaths.com/course' },
     { name: 'Testimonial', path: '/testimonial' },
     { name: 'DashBoard', path: '/' },
     { name: 'Test', path: '/test' },

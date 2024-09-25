@@ -120,14 +120,14 @@
   border-bottom: none; 
 }
 
-.progress span {
+.questionsSolved{
   font-size: var(--size-xs);
   margin-right: 5px;
-  width: 28px;
+  width: auto;
   height: 26px;
   top: 0.2px;
-  padding: 4.8px 3px 2px 12px;
-  /* padding: auto; */
+  /* padding: 4.8px 3px 2px 12px; */
+  padding: auto 8px;
   gap: 0px;
   border-radius: 8px;
   border: 1px solid #d4d4d8;
@@ -135,17 +135,17 @@
   opacity: 0px;
 }
 
-.header:hover .progress span {
+.header:hover .questionsSolved {
   background-color: #7c4de1;
   color: white;
 }
 
-.headerOpen:hover .progress span {
+.headerOpen:hover .questionsSolved {
   background-color: #CA9DD8;
   color: black;
 }
 
-.progressOpen span {
+.progressOpen .questionsSolved {
   background-color: #CA9DD8;
 }
 
@@ -164,25 +164,7 @@
   height: 100%;
   width: 100%;
 }
-/* 
-.filterButton {
-  background-color: transparent;
-  border: none;
-  font-size: 1.05rem;
-  cursor: pointer;
-  width: 60px;
-  height: 26px;
-  gap: 0px;
-  margin-right: 5px;
-  border-radius: 8px;
-  border: 1px solid #d4d4d8;
-  background-color: #fafafa;
-  opacity: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-} */
+
 
 
 
@@ -192,7 +174,7 @@
   width: auto;
   font-size: 1.05rem;
   cursor: pointer;
-  padding: 4px 8px; /* This provides space around the content */
+   padding: 4px 8px; /*This provides space around the content */
   margin-right: 5px;
   border-radius: 8px;
   display: inline-flex; /* Use inline-flex for dynamic width based on content */
@@ -533,10 +515,10 @@ input[type="checkbox"]:checked + .customCheckbox::after {
     font-size: var(--size-base);
   }
 
-  .progress span {
+  .questionsSolved{
     font-size: var(--size-base);
     height: 30px;
-    width: 35px;
+    /* width: 35px; */
   }
 
   .playButton {
@@ -562,7 +544,7 @@ input[type="checkbox"]:checked + .customCheckbox::after {
     gap: 0.5rem;
   }
 
-  .progress span {
+  .questionsSolved {
     margin-right: 12px;
   }
 
@@ -602,10 +584,11 @@ input[type="checkbox"]:checked + .customCheckbox::after {
     font-size: var(--size-lg);
   }
 
-  .progress span {
+  .questionsSolved{
     font-size: var(--size-lg);
     height: 40px;
-    width: 50px;
+    /* width: 50px; */
+    padding: 4px 8px;
   }
 
   .playButton {
@@ -619,7 +602,7 @@ input[type="checkbox"]:checked + .customCheckbox::after {
 
   .filterButton {
     height: 40px;
-    width: 80px;
+    /* width: 80px; */
   }
   
   .filter2 {
