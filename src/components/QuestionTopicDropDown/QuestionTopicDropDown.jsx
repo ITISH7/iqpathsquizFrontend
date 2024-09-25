@@ -328,7 +328,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   }, []);
 
   const getSolvedCount = () => {
-    return filteredProblems.filter((problem) => solvedProblems[problem.id]).length;
+    return filteredProblems.filter((problem) => solvedProblems[problem._id]).length;
   };
   
   const openModal = (problemName) => {
@@ -361,7 +361,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   };
 
   const handleQuestionClick = (problem) => {
-    const uniqueId = `${problem.id}`;
+    const uniqueId = `${problem._id}`;
     setCurrentQuestion({ ...problem, uniqueId});
     setIsPopupVisible(true);
   };
@@ -369,16 +369,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const closePopup = () => {
     setIsPopupVisible(false);
     setCurrentQuestion(null);
-  };
-  
-  const saveAndClose = (problemId) => {
-    handleCheckboxChange(problemId, 'green');
-    closePopup();
-  };
-
-  const reviewAndClose = (problemId) => {
-    handleCheckboxChange(problemId, 'orange');
-    closePopup();
   };
   
   const renderDifficultyBadge = (diffi) => {
@@ -400,9 +390,13 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     };
             
     useEffect(() => {
-      const savedNotes = JSON.parse(localStorage.getItem('userNotes')) || {};
-      setNotes(savedNotes);
+      const savedNotes = localStorage.getItem('userNotes');
+      
+      if (savedNotes) {
+        setNotes(JSON.parse(savedNotes));
+      }
       // getdata();
+      console.log('Loaded notes from localStorage:', notes);
     }, []);
           
 
@@ -634,11 +628,11 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        openModal(problem);
+                        openModal(problem._id);
                       }}
                       className={styles.noteButton}
                     >
-                      <img src={getNoteIcon(problem.id)} alt="Note Icon" />
+                      <img src={getNoteIcon(problem._id)} alt="Note Icon" />
                     </button>
                   </td>
                   <td className={styles.difficulty}>
