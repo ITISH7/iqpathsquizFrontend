@@ -217,7 +217,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const getFilteredProblems = () => {
     return problems.filter(problem => {
       const difficultyMatch = difficultyFilter === "All" || problem.difficulty === difficultyFilter;
-      const topicMatch = topicFilter === "All" || problem.topic === topicFilter;
+      const topicMatch = topicFilter === "All" || problem.topicName === topicFilter;
       return difficultyMatch && topicMatch;
     });
   };
@@ -444,32 +444,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       setNotes(savedNotes);
       // getdata();
     }, []);
-            
-    // async function getdata(){
-    //   try {
-    //     const response = await axios.get('/user/sampleQuestions');
-    //     setProblem(response.data.data);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
-            
-    // const fetchQuizData = async (topic) => {
-    //   try {
-    //     const response = await axios.post('/user/quiz', { topic })
-  
-    //     if (response.status === 200) {
-    //       const { questions, totalTime, totalScore } = response.data
-    //       selectQuizTopic(topic)
-    //       setQuestions(questions)
-    //       setTimer(totalTime)
-    //       setResult([])  // Reset the result
-    //       console.log('Quiz data fetched:', response.data)
-    //     }
-    //   } catch (error) {
-    //     console.error('Error fetching quiz data:', error)
-    //   }
-    // }
+          
 
     const updatedSolvedProblems = (problemId, isCorrect) => {
       if (isCorrect) {
@@ -477,7 +452,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           ...prevSolved,
           [problemId]: true,
         }));
-        localStorage.setItem('solvedProblems', JSOn.stringify({
+        localStorage.setItem('solvedProblems', JSON.stringify({
           ...solvedProblems,
           [problemId]: true, 
         }));
@@ -621,9 +596,9 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
               </div>
             )}
           </div>
-          <span>
+          <div className={`${styles.questionsSolved}`}>
             {getSolvedCount()}/{filteredProblems.length}
-          </span>
+          </div>
           <button className={`${styles.toggleButton} `}>
             <img src={isOpen ? ArrowUp : ArrowDown} alt="Toggle Arrow" />
           </button>
