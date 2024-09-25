@@ -20,6 +20,11 @@ const Dashboard = () => {
   const service = new Service();
   const {userId } = useContext(AuthContext);
 
+  useEffect(() => {
+    getResults(userId);
+  }, []);
+  
+
   
 
   const getResults = async (id) => {
