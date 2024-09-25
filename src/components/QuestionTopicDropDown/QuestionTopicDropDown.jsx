@@ -309,7 +309,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setImageStates(savedImageStates);
   }, [])
 
-  const handleCheckboxChange = (problemId, color) => {
+  const handleCheckboxChange = (problemId) => {
     setSolvedProblems((prevSolved) => {
       const updatedSolved = {
         ...prevSolved,
@@ -318,10 +318,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       localStorage.setItem('solvedProblems', JSON.stringify(updatedSolved));
       return updatedSolved;
     });
-    setCheckboxColors((prevColors) => ({
-      ...prevColors,
-      [problemId]: color,
-     }));
   };
 
   useEffect(() => {
@@ -603,10 +599,10 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   <td className={`${styles.icons}`}>
                     <input
                       type="checkbox"
-                      checked={solvedProblems[problem.id] || false}
-                      onChange={() => handleCheckboxChange(problem.id)}
+                      checked={solvedProblems[problem._id] || false}
+                      onChange={() => handleCheckboxChange(problem._id)}
                       className={`${styles.customCheckbox} ${
-                        solvedProblems[problem.id] ? styles.checked : ""
+                        solvedProblems[problem._id] ? styles.checked : ""
                       }`}
                     />
                   </td>
