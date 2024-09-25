@@ -16,18 +16,6 @@ import NoteFilledIcon from '../../assets/NoteFilledIcon.svg'
 import { Service } from '../../axios/config';
 import { use } from 'echarts';
 
-
-
-// const problems = [
-//   { id: 'problem-1', name: "Stock Buy and Sell", options: ['Library', 'Framework', 'Language'], question: 'You are given the prices of a stock for N days, find the maximum profit you can make by buying and selling on those days.', topic: "Array", difficulty: "Easy" },
-//   { id: 'problem-2', name: "Merge Overlapping Intervals", options: ['Library', 'Framework', 'Language'], question: 'Given a collection of intervals, merge all overlapping intervals.', topic: "Array", difficulty: "Easy" },
-//   { id: 'problem-3', name: "Find the Duplicate in an Array of N+1 Integers", options: ['Library', 'Framework', 'Language'], question: 'Given an array of n elements that contains elements from 0 to n-1, with any of these numbers appearing any number of times. Find these repeating numbers in O(n) and use only constant memory space.', topic: "Array", difficulty: "Medium" },
-//   { id: 'problem-4', name: "Longest Substring Without Repeating Characters", options: ['Library', 'Framework', 'Language'], question: 'Given a string, find the length of the longest substring without repeating characters.', topic: "String", difficulty: "Medium" },
-//   { id: 'problem-5', name: "Repeat and Missing Number", topic: "Array", options: ['Library', 'Framework', 'Language'], question: 'Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n} is missing and one number occurs twice in the array. Find these two numbers.', difficulty: "Hard" },
-//   { id: 'problem-6', name: "Minimum Window Substring", options: ['Library', 'Framework', 'Language'], question: 'Given two strings s and t, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string.', topic: "String", difficulty: "Hard" },
-// ];
-
-
 const quizData = {
   topic: 'Javascript',
   level: 'Beginner',
@@ -138,6 +126,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [currentSubjectName, setCurrentSubjectName] = useState('Aptitude');
   const [values, setValues] = useState()
   const [topics, setTopics] = useState([]);
+  const [ratings, setRatings] = useState({});
 
   const navigate = useNavigate();
 
@@ -148,12 +137,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
 
 
   const getquizQuestion = async () => {
-      // const response = await service.GenerateTestQuestions({subjectName});
-      // console.log('response jo aya method me:', response.data)
-      // selectQuizTopic(subjectName)
-      // console.log('quiz topic: in dropdown', quizTopic)
-      // console.log('quiz topic hona chaiye tha:', subjectName)
-      
     try {
       const response = await service.GenerateTestQuestions({subjectName});
       console.log('response:', response)  
@@ -177,14 +160,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
         console.error('Error fetching quiz data:', error)
       }
   }
-
-  // useEffect(() => {
-  //   getSampleQuestion(currentSubjectName);
-  // }, [currentSubjectName]);
-
-  // useEffect(() => {
-  //   getTopics();  
-  // }, []);
 
   const getSampleQuestion = async (subjectName) => {
     try {
@@ -237,10 +212,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
 
   const handleQuizStart = () => {
     console.log(`Starting quiz with ${selectedSet}`); 
-    // selectQuizTopic(quizData.topic)
-    // setQuestions(quizData.questions)
-    // setTimer(quizData.totalTime)
-    // setResult([]);
   };
 
   const toggleDropdown = useCallback(() => {
@@ -317,27 +288,28 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setFilterProblems(newFilterProblems);
   };
   
-  const handleRevisionToggle = (index) => {
+  const handleRevisionToggle = (_id) => {
     setImageStates((prev) => {
+      // Toggle the state of the specific problem's id
       const updatedState = {
         ...prev, 
-        [index]: prev[index] === "RevisionShine" ? "Revision" : "RevisionShine"
+        [_id]: prev[_id] === "RevisionShine" ? "Revision" : "RevisionShine"
       };
-
-      setTimeout(() => {
-        localStorage.setItem('imageStates', JSON.stringify(updatedState));
-      }, 0);
-
+  
+      // Save the updated state to localStorage for persistence
+      localStorage.setItem('imageStates', JSON.stringify(updatedState));
+  
+      // Return the updated state for React to manage
       return updatedState;
     });
-  };
+  };  
 
   useEffect(() => {
     const savedImageStates = JSON.parse(localStorage.getItem('imageStates')) || {};
     setImageStates(savedImageStates);
   }, [])
 
-  const handleCheckboxChange = (problemId, color) => {
+  const handleCheckboxChange = (problemId) => {
     setSolvedProblems((prevSolved) => {
       const updatedSolved = {
         ...prevSolved,
@@ -346,10 +318,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       localStorage.setItem('solvedProblems', JSON.stringify(updatedSolved));
       return updatedSolved;
     });
-    setCheckboxColors((prevColors) => ({
-      ...prevColors,
-      [problemId]: color,
-     }));
   };
 
   useEffect(() => {
@@ -360,7 +328,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   }, []);
 
   const getSolvedCount = () => {
-    return filteredProblems.filter((problem) => solvedProblems[problem.id]).length;
+    return filteredProblems.filter((problem) => solvedProblems[problem._id]).length;
   };
   
   const openModal = (problemName) => {
@@ -391,18 +359,9 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setNotes(updatedNotes);
     localStorage.setItem('userNotes', JSON.stringify(updatedNotes));
   };
-  
-  // const problems = [
-  //   { name: "Rotate Matrix", difficulty: "Easy" },
-  //   { name: "Merge Overlapping Subintervals", difficulty: "Easy" },
-  //   { name: "Merge two sorted arrays without extra space", difficulty: "Medium" },
-  //   { name: "Find the duplicate in an array of N+1 integers", difficulty: "Medium" },
-  //   { name: "Repeat and Missing Number", difficulty: "Hard" },
-  //   { name: "Inversion of Array (Pre-req: Merge Sort)", difficulty: "Hard" },
-  // ];
 
   const handleQuestionClick = (problem) => {
-    const uniqueId = `${problem.id}`;
+    const uniqueId = `${problem._id}`;
     setCurrentQuestion({ ...problem, uniqueId});
     setIsPopupVisible(true);
   };
@@ -410,16 +369,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const closePopup = () => {
     setIsPopupVisible(false);
     setCurrentQuestion(null);
-  };
-  
-  const saveAndClose = (problemId) => {
-    handleCheckboxChange(problemId, 'green');
-    closePopup();
-  };
-
-  const reviewAndClose = (problemId) => {
-    handleCheckboxChange(problemId, 'orange');
-    closePopup();
   };
   
   const renderDifficultyBadge = (diffi) => {
@@ -441,9 +390,13 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     };
             
     useEffect(() => {
-      const savedNotes = JSON.parse(localStorage.getItem('userNotes')) || {};
-      setNotes(savedNotes);
+      const savedNotes = localStorage.getItem('userNotes');
+      
+      if (savedNotes) {
+        setNotes(JSON.parse(savedNotes));
+      }
       // getdata();
+      console.log('Loaded notes from localStorage:', notes);
     }, []);
           
 
@@ -640,10 +593,10 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   <td className={`${styles.icons}`}>
                     <input
                       type="checkbox"
-                      checked={solvedProblems[problem.id] || false}
-                      onChange={() => handleCheckboxChange(problem.id)}
+                      checked={solvedProblems[problem._id] || false}
+                      onChange={() => handleCheckboxChange(problem._id)}
                       className={`${styles.customCheckbox} ${
-                        solvedProblems[problem.id] ? styles.checked : ""
+                        solvedProblems[problem._id] ? styles.checked : ""
                       }`}
                     />
                   </td>
@@ -675,11 +628,11 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        openModal(problem);
+                        openModal(problem._id);
                       }}
                       className={styles.noteButton}
                     >
-                      <img src={getNoteIcon(problem.id)} alt="Note Icon" />
+                      <img src={getNoteIcon(problem._id)} alt="Note Icon" />
                     </button>
                   </td>
                   <td className={styles.difficulty}>
@@ -687,13 +640,13 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   </td>
                   <td className={styles.remove}>
                     <img
-                      src={
-                        imageStates[problem.id] === "RevisionShine"
-                          ? RevisionShine
-                          : Revision
-                      }
+                      src={ imageStates[problem._id] === "RevisionShine" ? RevisionShine : Revision }
                       alt="Revision Toggle"
-                      onClick={() => handleRevisionToggle(problem.id)}
+                      onClick={() => 
+                      {
+                        console.log("problem._id:", problem._id);
+                        handleRevisionToggle(problem._id);
+                      }}
                       className={styles.icons}
                     />
                   </td>
