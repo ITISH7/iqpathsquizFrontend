@@ -9,17 +9,7 @@ import { Service } from '../../axios/config';
 import { AuthContext } from '../../context/AuthContext';
 
 
-
-
-const getSingleTestResults = async (id, subjectName) => {
-  try {
-    const response = await service.GetSubjectResult(id, subjectName);
-    console.log('response:', response);
-    return response.data;
-  } catch (error) {
-    console.log('error:', error);
-  }
-};
+// console.log('getSingleTestResults:', getSingleTestResults);
 
 
 const Dashboard = () => {
@@ -31,9 +21,6 @@ const Dashboard = () => {
   const {userId } = useContext(AuthContext);
 
   
-  useEffect(() => {
-    getResults(userId);
-  }, []);
 
   const getResults = async (id) => {
     try {

@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './ResultNextDashboard.module.css';
+import { Service } from '../../axios/config';
+import { AuthContext } from '../../context/AuthContext';
+import { use } from 'echarts';
+
 
 const cardsData = [
   { squareColor: '#FF9800', status: 'DONE', statusClass: 'done', statusColor: '#C2F8CB', date: '8TH SEPT, SUNDAY 2024' }, // Orange Card
@@ -10,6 +14,25 @@ const cardsData = [
 
 const ResultNextDashboard = () => {
   const [selectedCard, setSelectedCard] = useState(null);
+  const [testDetails, setTestDetails] = useState([]);
+    
+  const service = new Service();
+  const { userId } = useContext(AuthContext);
+
+  const getSingleTestResults = async (id, subjectName) => {
+    try {
+      const response = await service.GetSubjectResult(id, subjectName);
+      console.log('response:', response);
+      setTestDetails(response.data.data);
+      return response.data;
+    } catch (error) {
+      console.log('error:', error);
+    }
+  };
+
+  useEffect(() => {
+    getSingleTestResults(userId, 'Aptitude');
+  }, []);
 
   const openModal = (card) => {
     document.body.style.overflow = 'hidden';
@@ -20,6 +43,34 @@ const ResultNextDashboard = () => {
     document.body.style.overflow = 'auto';
     setSelectedCard(null);
   };
+
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    
+    // Array of months and suffixes for the day
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"];
+    const day = date.getDate();
+    const daySuffix = (day) => {
+      if (day > 3 && day < 21) return 'TH';
+      switch (day % 10) {
+        case 1: return 'ST';
+        case 2: return 'ND';
+        case 3: return 'RD';
+        default: return 'TH';
+      }
+    };
+  
+    const dayWithSuffix = `${day}${daySuffix(day)}`;
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    const weekday = date.toLocaleString('en-US', { weekday: 'long' }).toUpperCase();
+  
+    return `${dayWithSuffix} ${month}, ${weekday} ${year}`;
+  }
+
+
+
 
   return (
     <div className={styles.app}>
@@ -41,18 +92,18 @@ const ResultNextDashboard = () => {
       </div>
 
       <div className={styles.content}>
-        {cardsData.map((card, index) => (
+        {testDetails.map((card, index) => (
           <div className={styles.card} key={index}>
             <div className={styles.cardHeader}>
               <div className={styles.cardTitle}>
                 <div className={styles.cardIcon} style={{ backgroundColor: card.squareColor }}>DS</div>
-                <h2>DSA SHEET</h2>
+                <h2 style={{ whiteSpace: 'nowrap' }}>{`${card.subjectName} Sheet`}</h2>
               </div>
               <div className={`${styles.cardStatus} ${styles[card.statusClass]}`} style={{ backgroundColor: card.statusColor }}>
                 <span>{card.status}</span>
               </div>
             </div>
-            <p className={styles.cardDate}>{card.date}</p>
+            <p className={styles.cardDate}>{formatDate(card.createdAt)}</p>
 
             <hr />
             <div className={styles.cardBody}>
@@ -71,6 +122,7 @@ const ResultNextDashboard = () => {
           </div>
         ))}
       </div>
+      
       <div className={styles.man}>
         <img src="src\assets\man.svg" alt="Man in thought" />
       </div>
