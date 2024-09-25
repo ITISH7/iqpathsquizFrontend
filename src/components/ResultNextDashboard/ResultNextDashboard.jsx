@@ -41,7 +41,7 @@ const ResultNextDashboard = () => {
       </div>
 
       <div className={styles.content}>
-        {cardsData.map((card, index) => (
+        {results.map((card, index) => (
           <div className={styles.card} key={index}>
             <div className={styles.cardHeader}>
               <div className={styles.cardTitle}>

@@ -35,14 +35,24 @@ const service = new Service();
 const Dashboard = () => {
   const [date, setDate] = useState(new Date());
   const [streak, setStreak] = useState(5);
+  const [results, setResults] = useState([]);
 
   const {userId } = useContext(AuthContext);
   
   useEffect(() => {
     const id = userId;
     console.log('id:', id);
-    getResults(id);
-  }, []);
+    // getResults(id);
+
+    const fetchResults = async () => {
+      const fetchedResults = await getResults(id);
+      if (fetchedResults) {
+        setResults(fetchResults);
+      }
+    };
+
+    fetchResults();
+  }, [userId]);
 
 
   const streakData = [
@@ -115,7 +125,9 @@ const Dashboard = () => {
               </button>
             </div>
             <div className={styles.sheets}>
-              {cardsData.map((card, index) => (
+            {/* Check if results is not empty before mapping */}
+            {results.length > 0 ? (
+              results.map((card, index) => (
                 <div key={index} className={styles.card} style={{ backgroundColor: card.cardColor }}>
                   <div className={styles.cardContent}>
                     <div className={styles.square} style={{ backgroundColor: card.squareColor }}></div>
@@ -123,17 +135,20 @@ const Dashboard = () => {
                       <div className={styles.title}>{user.courses[index]} SHEET PROGRESS</div>
                       <div className={styles.progressBarContainer}>
                         <div className={styles.progressBar} style={{ width: `${card.progress}%`,
-                            backgroundColor: card.squareColor}} ></div>
+                            backgroundColor: card.squareColor }}></div>
                       </div>
                     </div>
                   </div>
-                    <Link to="/result-next" onClick={()=> {getSingleTestResults(userId, 'Aptitude')}}>
-                      <div className={styles.arrowContainer}>
-                        <div className={styles.arrow} style={{ backgroundColor: card.squareColor }}>&gt;</div>
-                      </div>
-                    </Link>
+                  <Link to="/result-next" onClick={() => { getSingleTestResults(userId, 'Aptitude'); }}>
+                    <div className={styles.arrowContainer}>
+                      <div className={styles.arrow} style={{ backgroundColor: card.squareColor }}>&gt;</div>
+                    </div>
+                  </Link>
                 </div>
-              ))}
+              ))
+            ) : (
+              <p>No results available.</p> // Fallback if no results are fetched
+            )}
               {/* Add New Sheet Button */}
               <div className={styles.addCard}>
                 <div className={styles.addIcon}>+</div>
