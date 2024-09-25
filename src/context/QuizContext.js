@@ -15,8 +15,9 @@ export const initialState = {
   setTimer: () => {},
   endTime: 0,
   setEndTime: () => {},
-  initialTime: Date.now(),
-  finalTime: Date.now(),
+  initialTime: 0,
+  setInitialTime: () => {},
+  finalTime: 0,
   setFinalTime: () => {},
   quizDetails: {
     totalQuestions: 0,

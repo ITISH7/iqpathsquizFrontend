@@ -142,7 +142,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const navigate = useNavigate();
 
 
-  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult, setTotalMarks } = useQuiz();
+  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult, setTotalMarks, setInitialTime } = useQuiz();
 
   const service = new Service();
 
@@ -166,6 +166,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           setQuestions(questions)
           setTotalMarks(totalMarks)
           setTimer(totalTime*60 );
+          setInitialTime(totalTime*60)
           setResult([])  // Reset the result
           
           console.log('Quiz data fetched:', response.data)

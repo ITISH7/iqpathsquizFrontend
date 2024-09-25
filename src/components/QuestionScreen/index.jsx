@@ -14,7 +14,6 @@ import { useContext } from 'react';
 
 
 const service = new Service(); 
-// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmYxMDYzZDI4NTFjYzM2ZmYwZjdmNmEiLCJpYXQiOjE3MjcwNzE5MzgsImV4cCI6MTcyNzE1ODMzOH0.6FS7cQNVLJGBDByWx0kyydYkOluSzWhjIJgB63Q9saY";
 
 
 // const saveTest = async ( userId, quizTopic, result, totalScore, score ) => { 
@@ -68,6 +67,7 @@ const QuestionScreen = () => {
     setCurrentScreen,
     timer,
     setTimer,
+    initialTime,
     setEndTime,
     setFinalTime,
     score,
@@ -97,7 +97,7 @@ const QuestionScreen = () => {
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
     } else {
-      const timeTaken = quizDetails.totalTime - timer;
+      const timeTaken = initialTime - timer;
       setEndTime(timeTaken);
       setShowResultModal(true);
     }
@@ -128,7 +128,7 @@ const QuestionScreen = () => {
     // Use ScreenTypes.ResultScreen for correct navigation
     setCurrentScreen(ScreenTypes.ResultScreen);
     document.body.style.overflow = 'auto';
-    setFinalTime(Date.now());
+    setFinalTime(timer);
     // saveTest(userId, quizTopic, result, totalScore, score);
   };
 
