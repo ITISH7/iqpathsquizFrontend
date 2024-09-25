@@ -26,9 +26,6 @@ export const initialState = {
     selectedQuizTopic: 'React',
   },
   totalMarks: 0,
-
-  
-
   setTotalMarks: () => {},
 };
 

@@ -12,6 +12,7 @@ const QuizProvider = ({ children }) => {
   const [totalMarks, setTotalMarks] = useState(initialState.totalMarks);
   const [initialTime, setInitialTime] = useState(initialState.initialTime);
   const [finalTime, setFinalTime] = useState(initialState.finalTime);
+  const [userResultsSubjects, setUserResultsSubjects] = useState(initialState.userResultsSubjects);
 
 
   const selectQuizTopic = (topic) => {
@@ -54,7 +55,6 @@ const QuizProvider = ({ children }) => {
     initialTime,
     finalTime,
     setFinalTime,
-
 
   };
 

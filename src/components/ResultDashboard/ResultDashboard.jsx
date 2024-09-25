@@ -9,40 +9,43 @@ import { Service } from '../../axios/config';
 import { AuthContext } from '../../context/AuthContext';
 
 
-const service = new Service();
 
-  const getResults = async (id) => {
-    try {
-      const response = await service.GetAllSubjectResult(id);
-      console.log('response:', response);
-      return response.data;
-    } catch (error) {
-      console.log('error:', error);
-    }
-  };
 
-  const getSingleTestResults = async (id, subjectName) => {
-    try {
-      const response = await service.GetSubjectResult(id, subjectName);
-      console.log('response:', response);
-      return response.data;
-    } catch (error) {
-      console.log('error:', error);
-    }
-  };
+const getSingleTestResults = async (id, subjectName) => {
+  try {
+    const response = await service.GetSubjectResult(id, subjectName);
+    console.log('response:', response);
+    return response.data;
+  } catch (error) {
+    console.log('error:', error);
+  }
+};
 
 
 const Dashboard = () => {
   const [date, setDate] = useState(new Date());
   const [streak, setStreak] = useState(5);
-
+  const [results, setResults] = useState([]);
+  
+  const service = new Service();
   const {userId } = useContext(AuthContext);
+
   
   useEffect(() => {
-    const id = userId;
-    console.log('id:', id);
-    getResults(id);
+    getResults(userId);
   }, []);
+
+  const getResults = async (id) => {
+    try {
+      const response = await service.GetAllSubjectResult(id);
+      setResults(response.data.data);
+      console.log('response:', response);
+      return response.data;
+    } catch (error) {
+      console.log('error:', error);
+    }
+  };
+  
 
 
   const streakData = [
