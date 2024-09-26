@@ -23,7 +23,12 @@ const ResultNextDashboard = () => {
     try {
       const response = await service.GetSubjectResult(id, subjectName);
       console.log('response:', response);
-      setTestDetails(response.data.data);
+
+      const sortedData = response.data.data.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+  
+      setTestDetails(sortedData);
       return response.data;
     } catch (error) {
       console.log('error:', error);
@@ -99,8 +104,8 @@ const ResultNextDashboard = () => {
                 <div className={styles.cardIcon} style={{ backgroundColor: card.squareColor }}>DS</div>
                 <h2 style={{ whiteSpace: 'nowrap' }}>{`${card.subjectName} Sheet`}</h2>
               </div>
-              <div className={`${styles.cardStatus} ${styles[card.statusClass]}`} style={{ backgroundColor: card.statusColor }}>
-                <span>{card.status}</span>
+              <div className={`${styles.cardStatus}`} style={{ backgroundColor: card.statusColor }}>
+                <span>Done</span>
               </div>
             </div>
             <p className={styles.cardDate}>{formatDate(card.createdAt)}</p>

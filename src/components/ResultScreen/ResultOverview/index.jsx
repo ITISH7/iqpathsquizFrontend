@@ -41,7 +41,7 @@ const ResultOverview = ({ result }) => {
   useEffect(() => {
     setTimeout(() => {
       saveTest(userId, quizTopic, result, totalScore, score);
-    }, 20000);
+    }, 1000);
   }, []);
 
   const totalQuestionAttempted = result.length;

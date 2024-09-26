@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import NightingaleChart from '../../modals/NightingaleChart/NightingaleChart';
 import { Service } from '../../axios/config';
 import { AuthContext } from '../../context/AuthContext';
+import { purple } from '@mui/material/colors';
 
 
 // console.log('getSingleTestResults:', getSingleTestResults);
@@ -113,7 +114,7 @@ const Dashboard = () => {
             {/* Check if results is not empty before mapping */}
             {results.length > 0 ? (
               results.map((card, index) => (
-                <div key={index} className={styles.card} style={{ backgroundColor: card.cardColor }}>
+                <div key={index} className={styles.card}>
                   <div className={styles.cardContent}>
                     <div className={styles.square} style={{ backgroundColor: card.squareColor }}></div>
                     <div className={styles.progress}>

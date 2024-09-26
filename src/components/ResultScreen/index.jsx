@@ -11,16 +11,11 @@ import styles from './ResultScreen.module.css'; // Importing CSS module
 
 // import { use } from 'echarts/types/src/extension.js';
 
-
-
-  
   
   const ResultScreen = () => {
   const { result, quizTopic, score, initialTime, finalTime, setEndTime } = useQuiz(); // Get necessary data from context
  
   console.log('result jo result page me aya', result);
-
-
 
 
   const TotalTimeTaken = finalTime - initialTime;

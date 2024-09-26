@@ -112,8 +112,9 @@
 
 .content {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 0px;
   padding: 20px;
   height: 1000px;
   overflow-y: scroll;
@@ -150,7 +151,11 @@
   margin-top: -5px;
   margin-right: -10px;
   border-radius: 4px;
+  background: #C2F8CB;
+  color: green;
+  
 }
+
 
 .cardStatusIcon {
   width: 10px;
@@ -176,6 +181,7 @@
   height: 40px;
   margin-left: 0px;
   margin-top: -5px;
+  background: #FF9800;
 }
 
 .cardTitle h2 {

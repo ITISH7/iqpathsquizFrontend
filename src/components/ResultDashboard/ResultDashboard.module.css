@@ -101,6 +101,7 @@
   padding: 15px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(90deg, #DCACFF 0%, rgba(194, 164, 247, 0.56) 100%);
   transition: background-color 0.3s ease;
   width: 100%;
   height: auto;
@@ -112,6 +113,7 @@
   flex-direction: row;
   justify-content: flex-start;
   width: 100%;
+  border: 2px solid red
 }
 
 .square {
@@ -128,6 +130,7 @@
   height: 53px;
   margin-top: 0px;
   gap: 40px;
+  border: 2px solid green
 }
 
 .title {
