@@ -1,0 +1,38 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #8039DF; /* Red background to alert the user */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+    opacity: 0;
+    animation: slideDown 0.5s forwards, fadeOut 0.5s forwards;
+    animation-delay: 0s, 3s; /* Adjust timing as needed */
+  }
+  
+  @keyframes slideDown {
+    0% {
+      transform: translateX(-50%) translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
