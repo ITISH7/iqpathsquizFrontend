@@ -321,7 +321,7 @@ input[type="checkbox"]:checked + .customCheckbox::after {
 /* drop down css */
 
 .progressOpen .filterButton {
-  background-color: #f6eafc;
+  background-color: #CA9DD8;
 }
 
 .progressOpen .playButton {
