@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-background-color: #fff;
+background-color: #f6eafc;
 border-radius: 10px;
 box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 position: relative;
@@ -10,7 +10,7 @@ width: 750px;
 margin: 6% auto 8.1%;
 max-width: 100%;
 min-height: 400px;
-hieght: 100%;
+height: 100%;
 `;
 
 export const SignUpContainer = styled.div`
@@ -54,6 +54,7 @@ text-align: center;
 `;
 
 export const Title = styled.h1`
+font-size: 20px;
 font-weight: bold;
 margin: 0;
 `;
@@ -69,10 +70,10 @@ width: 100%;
 
 export const Button = styled.button`
    border-radius: 20px;
-   border: 1px solid #ff4b2b;
-   background-color: #ff4b2b;
+   border: 1px solid #7c4de1;
+   background-color: #7c4de1;
    color: #ffffff;
-   font-size: 12px;
+   font-size: 14px;
    font-weight: bold;
    padding: 12px 45px;
    letter-spacing: 1px;
@@ -92,7 +93,7 @@ border-color: #ffffff;
 
 export const Anchor = styled.a`
 color: #333;
-font-size: 14px;
+font-size: 16px;
 text-decoration: none;
 margin: 15px 0;
 `;
@@ -111,8 +112,8 @@ ${props =>
 
 export const Overlay = styled.div`
 background: #ff416c;
-background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-background: linear-gradient(to right, #ff4b2b, #ff416c);
+background: -webkit-linear-gradient(to right, #7c4de1, #b19bff);
+background: linear-gradient(to left, #7c4de1, #b19bff);
 background-repeat: no-repeat;
 background-size: cover;
 background-position: 0 0;
@@ -153,8 +154,8 @@ export const RightOverlayPanel = styled(OverlayPanel)`
 `;
 
 export const Paragraph = styled.p`
-font-size: 14px;
-  font-weight: 100;
+font-size: 16px;
+  font-weight: 200;
   line-height: 20px;
   letter-spacing: 0.5px;
   margin: 20px 0 30px
