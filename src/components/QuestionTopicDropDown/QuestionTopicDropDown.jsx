@@ -11,6 +11,7 @@ import NoteModal from './NoteModal';
 import axios from 'axios';
 import { useQuiz } from '../../context/QuizContext';
 import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
+import LoginPopup from '../../modals/LoginPopUp/LoginPopUp';
 import NoteIcon from '../../assets/NoteIcon.svg';
 import NoteFilledIcon from '../../assets/NoteFilledIcon.svg'
 import { Service } from '../../axios/config';
@@ -127,6 +128,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [values, setValues] = useState()
   const [topics, setTopics] = useState([]);
   const [ratings, setRatings] = useState({});
+  const [showPopUp, setShowPopUp] = useState(false);
 
   const navigate = useNavigate();
 
@@ -414,6 +416,10 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     };
 
     const isChecked = JSON.parse(localStorage.getItem(`solvedProblem-${problems.id}`)) || false;
+
+    const handleLoginClick = () => {
+      setShowPopUp(true);
+    }
       
             
   return (
@@ -602,6 +608,10 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   </td>
                   <td onClick={() => handleQuestionClick(problem, index)}>
                     {problem.questionContent}
+                    <button onClick={handleLoginClick}> 
+                      Click me to see Login Popup 
+                    </button>
+                    <LoginPopup message="Please login first" show={showPopUp} duration={5000}/>
                   </td>
                   <td className={styles.remove}>
                     <img
