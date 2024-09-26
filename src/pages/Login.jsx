@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import Log from '../components/Login/Login'
+import Log from '../components/Login/Login.jsx'
 
 
 function Login() {

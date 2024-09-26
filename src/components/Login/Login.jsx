@@ -7,7 +7,7 @@ import { useContext } from "react";
 import * as Components from './login.js';
 
 
-const Login = ({ onSwitchToSignup }) => {
+const Log = ({ onSwitchToSignup }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [signIn, toggle] = React.useState(true);
 
@@ -97,4 +97,4 @@ const Login = ({ onSwitchToSignup }) => {
   );
 };
 
-export default Login;
+export default Log;
