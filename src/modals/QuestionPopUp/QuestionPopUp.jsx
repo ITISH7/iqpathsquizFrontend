@@ -99,7 +99,8 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
           <>
             <hr className={styles.divider} />
             <div className={styles.correctAnswerSection}>
-              <p><strong>Correct Answer(s):</strong> {questionData.correctAnswers || 'No correct answer available'}</p>
+              <p><strong>Correct Answer(s):</strong> {questionData.correctAnswers[0]?.replace('Answer: ', '' ) || 'No correct answer available'}</p>
+              {console.log(questionData.correctAnswers[0])}
               <p><strong>Explanation:</strong> {questionData.explanation || 'No explanation available'}</p>
             </div>
           </>
