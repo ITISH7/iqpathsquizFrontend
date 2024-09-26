@@ -11,11 +11,12 @@
   justify-content: center;
   position: relative;
   width: 95%;
-  height: 220vh;
-  margin-top: 20px;
+  height: auto;
+  margin-top: 10px;
   border-radius: 23px;
   background-color: #f5f5f5;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 2);   
+  padding: 10px;
 }
 
 .rightContainer {
@@ -26,35 +27,36 @@
   position: relative;
   width: 100%;
   padding: 10px; 
-  margin-right: 5px;
-  margin-left: 0px;
+  /* margin-right: 5px; */
+  /* margin-left: 0px; */
+  margin: 0;
   box-sizing: border-box;
 }
 
 .searchContainer {
-  position: relative;
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 15px; 
-  padding: 5px; 
-  margin-top: 20px;
+  /* padding: 5px;  */
+  /* margin-top: 20px; */
   width: 100%; 
   gap: 10px;
 }
 
 .searchInput {
   flex-grow: 1;
-  padding: 10px 10px;
-  width: 80%;
+  padding: 8px;
+  width: 90%;
   border: none;
   border-radius: 15px;
   background-color: white;
   outline: none;
   box-shadow: inset 4px 4px 2px rgb(193, 189, 189); 
   font-size: 16px;
-  margin-right: 10px; 
+  margin-right: 0px; 
   text-align: center;
 }
 
@@ -98,19 +100,21 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 10px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background: linear-gradient(90deg, #DCACFF 0%, rgba(194, 164, 247, 0.56) 100%);
   transition: background-color 0.3s ease;
   width: 100%;
   height: auto;
+  margin-top: 20px;
 }
 
 .cardContent {
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: flex-start;
   width: 100%;
   border: 2px solid red
@@ -118,7 +122,7 @@
 
 .square {
   background-color: #B46FE1;
-  margin-right: 20px;
+  margin-right: 10px;
   width: 80px;
   height: 80px;
   margin-left: 0px;
@@ -126,8 +130,8 @@
 }
 
 .progress {
-  width: 300px;
-  height: 53px;
+  width: 100%;
+  height: 10px;
   margin-top: 0px;
   gap: 40px;
   border: 2px solid green
@@ -229,7 +233,7 @@
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 15px;
   position: relative;
   font-family: 'Arial, sans-serif';
   margin-bottom: 30px;
@@ -249,7 +253,7 @@
   margin-top: -10px;
   margin-left: 15px;
   font-family: Barlow;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 35.62px;
   letter-spacing: -1px;
@@ -272,7 +276,7 @@
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid black;
 }
 
@@ -291,7 +295,7 @@
 
 .accuracyContent {
   background-color: #f5f5f5;
-  height: 400px;
+  height: 300px;
 }
 
 .sheetsSection {
@@ -379,7 +383,7 @@
   .square {
     width: 50px; 
     height: 50px; 
-    margin-right: 5px;
+    /* margin-right: 5px; */
   }
 
   .title {
@@ -397,7 +401,7 @@
   .filterButton {
     width: 80px; 
     font-size: 12px;
-    padding: 8px;
+    padding: 6px;
   }
 
   .card {
@@ -408,14 +412,14 @@
 
   .cardContent {
     flex-direction: row; 
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
   }
 
   .progress {
     width: 100%; 
-    margin-top: 10px; 
+    /* margin-top: 10px;  */
   }
 
   .progressBarContainer {
@@ -435,7 +439,7 @@
   }
 
   .addCard {
-    height: 180px;
+    height: 150px;
   }
 
   .spiral {
@@ -448,13 +452,14 @@
 
   .calendarTitle {
     font-size: 20px;
+    text-align: left;
   }
 
   .accuracySection {
-    padding: 15px; 
-    /* height: 150px;  */
+    padding: 10px; 
+    height: 400px; 
     width: 100%; 
-    margin-bottom: 20px; 
+    /* margin-bottom: 20px;  */
   }
 
   .accuracyTitle {
@@ -482,6 +487,7 @@
     padding: 10px; 
     margin-left: 30px;
     position: relative; 
+    padding: 10px;
   }
 
   .ribbon {
@@ -583,6 +589,7 @@
   .container {
     flex-direction: row;
     width: 85%;
+    height: 1250px;
     margin-top: 50px;
   }
 
@@ -593,7 +600,7 @@
   .leftContainer {
     width: 35%;
     height: 1000px;
-    margin-top: -450px;
+    margin-top: -330px;
     margin-right: 10px;
   }
 
@@ -655,6 +662,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 1100px;
   }
 
   .leftContainer {
@@ -762,7 +770,7 @@
   .leftContainer {
     width: 40%;
     height: 1100px;
-    margin-top: -400px;
+    margin-top: -330px;
   }
 
   .searchContainer {
