@@ -155,6 +155,7 @@ const ResultNextDashboard = () => {
                   <li>Heap Sort</li>
                   <li className={styles.correctAnswer}>Merge Sort</li>
                 </ul>
+                <p><strong>Explanation: </strong> No explanation yet</p>
               </div>
 
               <div className={styles.modalQuestion}>
@@ -169,6 +170,7 @@ const ResultNextDashboard = () => {
                   <li className={styles.wrongAnswer}>Quick Sort</li>
                   <li>Heap Sort</li>
                 </ul>
+                <p><strong>Explanation: </strong> No explanation yet</p>
               </div>
 
               <div className={styles.modalQuestion}>
@@ -183,6 +185,7 @@ const ResultNextDashboard = () => {
                   <li>Quick Sort</li>
                   <li>Heap Sort</li>
                 </ul>
+                <p><strong>Explanation: </strong> No explanation yet</p>
               </div>
             </div>
           </div>
