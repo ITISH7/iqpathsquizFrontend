@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import { TextField, Button, Box, Typography, Link } from "@mui/material";
-import { AuthService } from "../../axios/Auth";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthService } from "../../axios/Auth";
 import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
 import * as Components from './login.js';
-
 
 const Log = ({ onSwitchToSignup }) => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [signIn, toggle] = React.useState(true);
-
+  const [signIn, toggle] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,6 +15,17 @@ const Log = ({ onSwitchToSignup }) => {
   const navigate = useNavigate();
   const authService = new AuthService();
   const { setIsLoggedIn, setUserId } = useContext(AuthContext);
+
+  useEffect(() => {
+    // Hide the footer when this component mounts
+    const footer = document.querySelector("footer");
+    if (footer) footer.style.display = "none";
+
+    // Show the footer when this component unmounts
+    return () => {
+      if (footer) footer.style.display = "block";
+    };
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,11 +40,8 @@ const Log = ({ onSwitchToSignup }) => {
     try {
       const session = await authService.login(formData);
       const ID = session.data.data._id;
-      console.log("ID", ID);
       setUserId(ID);
-      console.log("session", session);
       if (session) {
-        console.log("User logged in successfully");
         setIsLoggedIn(true);
         navigate("/");
       }
@@ -63,10 +67,22 @@ const Log = ({ onSwitchToSignup }) => {
       <Components.SignInContainer signinIn={signIn}>
         <Components.Form>
           <Components.Title>Sign in</Components.Title>
-          <Components.Input type="email" placeholder="Email" />
-          <Components.Input type="password" placeholder="Password" />
+          <Components.Input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            name="email"
+            onChange={handleInputChange}
+          />
+          <Components.Input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            name="password"
+            onChange={handleInputChange}
+          />
           <Components.Anchor href="#">Forgot your password?</Components.Anchor>
-          <Components.Button>Sigin In</Components.Button>
+          <Components.Button onClick={handleLogin}>Sign In</Components.Button>
         </Components.Form>
       </Components.SignInContainer>
 
@@ -88,7 +104,7 @@ const Log = ({ onSwitchToSignup }) => {
               Enter Your personal details and start journey with us
             </Components.Paragraph>
             <Components.GhostButton onClick={() => toggle(false)}>
-              Sigin Up
+              Sign Up
             </Components.GhostButton>
           </Components.RightOverlayPanel>
         </Components.Overlay>
