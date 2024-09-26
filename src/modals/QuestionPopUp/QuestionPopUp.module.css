@@ -55,12 +55,12 @@
   
   .reviewbut {
     position: relative;
-    margin-left: 46rem; /* Align to the left */
+    margin-left: 45rem; 
     margin-top: -20px;
   }
   
   .savebut {
-    margin-right: 0; /* Align to the right */
+    margin-right: 0px; /* Align to the right */
   }  
 
   /* .reviewbut {

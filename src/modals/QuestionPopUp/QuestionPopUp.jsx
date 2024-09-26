@@ -18,7 +18,8 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
   }, [isVisible]);
 
   const handleOptionClick = (option, index) => {
-    const isCorrect = index === 0;
+    // Compare the selected option with the correct answer provided by the backend
+    const isCorrect = option === questionData.correctAnswer;
 
     setSelectedOptions((prev) => ({
       ...prev,
@@ -55,7 +56,7 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
 
   if (!isVisible) return null;
 
-  const optionLetters = ['A', 'B', 'C', 'D'];
+  // const optionLetters = ['A', 'B', 'C', 'D'];
 
   return (
     <div className={styles.popupOverlay}>
@@ -68,12 +69,12 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
             Save & Close
           </button>
         </div>
-        <h2 className={styles.popupHeading}>{questionData.name}</h2>
+        <h2 className={styles.popupHeading}>{questionData.title || questionData.name || 'No Title Available'}</h2>
         <div className={styles.popFilters}>
-          <p><strong>Topic:</strong> {questionData.topic}</p>
-          <p><strong>Difficulty:</strong> {questionData.difficulty}</p>
+          <p><strong>Topic:</strong> {questionData.topicName || 'No Topic Available'}</p>
+          <p><strong>Difficulty:</strong> {questionData.difficulty || 'No Difficulty Provided'}</p>
         </div>
-        <p className={styles.popupQuestion}><strong>Question:</strong> {questionData.question}</p>
+        <p className={styles.popupQuestion}><strong>Question:</strong> {questionData.questionContent || 'No Question Text Available'}</p>
         <div className={styles.popupOptions}>
           {questionData.options.map((option, index) => (
             <div
@@ -87,7 +88,9 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
               }`}
               onClick={() => handleOptionClick(option, index)}
             >
-              <span><strong>{optionLetters[index]}:</strong> {option}</span>
+              <span>
+                {/* <strong>{optionLetters[index]}:</strong>  */}
+                {option}</span>
             </div>
           ))}
         </div>
@@ -96,7 +99,7 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
           <>
             <hr className={styles.divider} />
             <div className={styles.correctAnswerSection}>
-              <p><strong>Correct Answer(s):</strong> A</p>
+              <p><strong>Correct Answer(s):</strong> {questionData.correctAnswers || 'No correct answer available'}</p>
               <p><strong>Explanation:</strong> {questionData.explanation || 'No explanation available'}</p>
             </div>
           </>
