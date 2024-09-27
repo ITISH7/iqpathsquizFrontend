@@ -17,19 +17,38 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose, handleCheck
     };
   }, [isVisible]);
 
-  const handleOptionClick = (option, index) => {
-    // Compare the selected option with the correct answer provided by the backend
-    const isCorrect = option === questionData.correctAnswer;
+  const handleOptionClick = (optionIndex) => {
+    if (!questionData.correctAnswers) {
+      console.error('Correct answer is undefined');
+      return;
+    }
+
+    let correctAnswerIndexes = [];
+
+    if (Array.isArray(questionData.correctAnswers)) {
+      correctAnswerIndexes = questionData.correctAnswers.map(answer => 
+        questionData.options.findIndex(
+          (opt) => opt.trim().toLowerCase() === answer.toString().trim().toLowerCase()
+        )
+      );
+    } else {
+      correctAnswerIndexes.push(
+        questionData.options.findIndex(
+          (opt) => opt.trim().toLowerCase() === questionData.correctAnswers.toString().trim().toLowerCase()
+        )
+      );
+    }
+
+    const isCorrect = correctAnswerIndexes.includes(optionIndex);
 
     setSelectedOptions((prev) => ({
       ...prev,
-      [index]: isCorrect ? 'correct' : 'incorrect',
+      [optionIndex]: isCorrect ? 'correct' : 'incorrect',
     }));
 
     setShowCorrectAnswer(true);
   };
 
-  // Function to save the question in localStorage
   const saveQuestionToLocalStorage = (type) => {
     const storedData = JSON.parse(localStorage.getItem(type)) || [];
     const questionExists = storedData.some(item => item.id === uniqueId);
@@ -57,8 +76,6 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose, handleCheck
   };
 
   if (!isVisible) return null;
-
-  // const optionLetters = ['A', 'B', 'C', 'D'];
 
   return (
     <div className={styles.popupOverlay}>
@@ -88,11 +105,9 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose, handleCheck
                   ? styles.incorrect
                   : ''
               }`}
-              onClick={() => handleOptionClick(option, index)}
+              onClick={() => handleOptionClick(index)}  
             >
-              <span>
-                {/* <strong>{optionLetters[index]}:</strong>  */}
-                {option}</span>
+              <span>{option}</span>
             </div>
           ))}
         </div>
