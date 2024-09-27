@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './QuestionPopUp.module.css';
 
-const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
+const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose, handleCheckboxReview, handleCheckboxSave }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
@@ -46,11 +46,13 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
 
   const handleSaveAndClose = () => {
     saveQuestionToLocalStorage('savedQuestions'); // Save question as "saved"
+    handleCheckboxSave();
     onClose(); // Close the popup
   };
 
   const handleReviewAndClose = () => {
     saveQuestionToLocalStorage('reviewedQuestions'); // Save question as "reviewed"
+    handleCheckboxReview();
     onClose(); // Close the popup
   };
 

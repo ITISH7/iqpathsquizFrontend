@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useCallback } from 'react';
 import styles from './QuestionTopicDropDown.module.css';
-import modalStyles from './NoteModal.module.css';
 import ArrowUp from '../../assets/ArrowUp.svg';
 import ArrowDown from '../../assets/ArrowDown.svg';
 import Revision from '../../assets/Revision.svg';
@@ -8,102 +7,12 @@ import RevisionShine from '../../assets/RevisionShine.svg';
 import utilityStyle from '../../utils/utils.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import NoteModal from './NoteModal';  
-import axios from 'axios';
 import { useQuiz } from '../../context/QuizContext';
 import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
 import LoginPopup from '../../modals/LoginPopUp/LoginPopUp';
 import NoteIcon from '../../assets/NoteIcon.svg';
 import NoteFilledIcon from '../../assets/NoteFilledIcon.svg'
 import { Service } from '../../axios/config';
-import { use } from 'echarts';
-
-const quizData = {
-  topic: 'Javascript',
-  level: 'Beginner',
-  totalQuestions: 14,
-  totalScore: 125,
-  totalTime: 240,
-  questions: [
-    {
-      question:
-        'Which of the following are JavaScript data types? (Select all that apply)',
-      choices: ['String', 'Number', 'Function', 'Array'],
-      type: 'MAQs',
-      correctAnswers: ['String', 'Number', 'Array'],
-      score: 10,
-    },
-    {
-      question: 'The "this" keyword in JavaScript refers to the current function.',
-      choices: ['True', 'False'],
-      type: 'boolean',
-      correctAnswers: ['False'],
-      score: 5,
-    },
-    {
-      question: 'Which operator is used for strict equality comparison in JavaScript?',
-      choices: ['==', '===', '=', '!='],
-      type: 'MCQs',
-      correctAnswers: ['==='],
-      score: 10,
-    },
-    {
-      question:
-        'Which of the following methods is used to add an element to the end of an array in JavaScript?',
-      choices: ['push()', 'pop()', 'shift()', 'unshift()'],
-      type: 'MCQs',
-      correctAnswers: ['push()'],
-      score: 10,
-    },
-    {
-      question: 'What is the value of x after executing the following code snippet?',
-      code: `let x = 5;
-              x += 2;
-              x *= 3;`,
-      choices: ['21', '25', '33', '35'],
-      type: 'MCQs',
-      correctAnswers: ['25'],
-      score: 10,
-    },
-    {
-      question: 'What is the output of the following code snippet?',
-      code: `console.log(typeof null);`,
-      choices: ['Object', 'Null', 'Undefined', 'NullObject'],
-      type: 'MCQs',
-      correctAnswers: ['Object'],
-      score: 10,
-    },
-    {
-      question: 'Which of the following is NOT a valid JavaScript variable name?',
-      choices: ['myVariable', '_variable', '123variable', '$variable'],
-      type: 'MCQs',
-      correctAnswers: ['123variable'],
-      score: 10,
-    },
-    {
-      question:
-        'Which of the following methods is used to remove the last element from an array in JavaScript?',
-      choices: ['push()', 'pop()', 'shift()', 'unshift()'],
-      type: 'MCQs',
-      correctAnswers: ['pop()'],
-      score: 10,
-    },
-    {
-      question: 'JavaScript is a case-sensitive language.',
-      choices: ['True', 'False'],
-      type: 'boolean',
-      correctAnswers: ['True'],
-      score: 5,
-    },
-    {
-      question: 'What is the output of the following code snippet?',
-      code: `console.log(2 + '2');`,
-      choices: ['4', '22', '24', "'22'"],
-      type: 'MCQs',
-      correctAnswers: ['22'],
-      score: 10,
-    }
-  ],
-}
 
 
 function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
@@ -129,6 +38,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [topics, setTopics] = useState([]);
   const [ratings, setRatings] = useState({});
   const [showPopUp, setShowPopUp] = useState(false);
+  const [currentCheckboxImage, setCurrentCheckboxImage] = useState('NotChecked');
 
   const navigate = useNavigate();
 
@@ -420,6 +330,14 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     const handleLoginClick = () => {
       setShowPopUp(true);
     }
+
+    const handleCheckboxSave = () => {
+      setCurrentCheckboxImage('Saved');
+    }
+
+    const handleCheckboxReview = () => {
+      setCurrentCheckboxImage('Review');
+    }
       
             
   return (
@@ -597,21 +515,36 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <td className={`${styles.icons}`}>
-                    <input
+                    {/* <input
                       type="checkbox"
                       checked={solvedProblems[problem._id] || false}
                       onChange={() => handleCheckboxChange(problem._id)}
                       className={`${styles.customCheckbox} ${
                         solvedProblems[problem._id] ? styles.checked : ""
                       }`}
+                    /> */}
+                    <img
+                      src={
+                          currentCheckboxImage === "NotChecked"
+                          ? "src/assets/NoCheckbox.svg"
+                          : currentCheckboxImage === "Saved"
+                          ? "src/assets/savecheck.svg"
+                          : "src/assets/reviewcheck.svg"
+                      }
+                      alt="Display"
+                      style={{ width: "20px", height: "20px" }} // Adjust as needed
                     />
                   </td>
                   <td onClick={() => handleQuestionClick(problem, index)}>
                     {problem.questionContent}
-                    <button onClick={handleLoginClick}> 
-                      Click me to see Login Popup 
+                    <button onClick={handleLoginClick}>
+                      Click me to see Login Popup
                     </button>
-                    <LoginPopup message="Please login first" show={showPopUp} duration={5000}/>
+                    <LoginPopup
+                      message="Please login first"
+                      show={showPopUp}
+                      duration={5000}
+                    />
                   </td>
                   <td className={styles.remove}>
                     <img
@@ -650,10 +583,13 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   </td>
                   <td className={styles.remove}>
                     <img
-                      src={ imageStates[problem._id] === "RevisionShine" ? RevisionShine : Revision }
+                      src={
+                        imageStates[problem._id] === "RevisionShine"
+                          ? RevisionShine
+                          : Revision
+                      }
                       alt="Revision Toggle"
-                      onClick={() => 
-                      {
+                      onClick={() => {
                         console.log("problem._id:", problem._id);
                         handleRevisionToggle(problem._id);
                       }}
@@ -750,6 +686,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           questionData={currentQuestion}
           uniqueId={currentQuestion.uniqueId}
           onClose={closePopup}
+          handleCheckboxReview={handleCheckboxReview}
+          handleCheckboxSave={handleCheckboxSave}
         />
       )}
 
