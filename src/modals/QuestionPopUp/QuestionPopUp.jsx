@@ -17,19 +17,38 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
     };
   }, [isVisible]);
 
-  const handleOptionClick = (option, index) => {
-    // Compare the selected option with the correct answer provided by the backend
-    const isCorrect = option === questionData.correctAnswer;
+  const handleOptionClick = (optionIndex) => {
+    if (!questionData.correctAnswers) {
+      console.error('Correct answer is undefined');
+      return;
+    }
+
+    let correctAnswerIndexes = [];
+
+    if (Array.isArray(questionData.correctAnswers)) {
+      correctAnswerIndexes = questionData.correctAnswers.map(answer => 
+        questionData.options.findIndex(
+          (opt) => opt.trim().toLowerCase() === answer.toString().trim().toLowerCase()
+        )
+      );
+    } else {
+      correctAnswerIndexes.push(
+        questionData.options.findIndex(
+          (opt) => opt.trim().toLowerCase() === questionData.correctAnswers.toString().trim().toLowerCase()
+        )
+      );
+    }
+
+    const isCorrect = correctAnswerIndexes.includes(optionIndex);
 
     setSelectedOptions((prev) => ({
       ...prev,
-      [index]: isCorrect ? 'correct' : 'incorrect',
+      [optionIndex]: isCorrect ? 'correct' : 'incorrect',
     }));
 
     setShowCorrectAnswer(true);
   };
 
-  // Function to save the question in localStorage
   const saveQuestionToLocalStorage = (type) => {
     const storedData = JSON.parse(localStorage.getItem(type)) || [];
     const questionExists = storedData.some(item => item.id === uniqueId);
@@ -45,18 +64,16 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
   };
 
   const handleSaveAndClose = () => {
-    saveQuestionToLocalStorage('savedQuestions'); // Save question as "saved"
-    onClose(); // Close the popup
+    saveQuestionToLocalStorage('savedQuestions');
+    onClose();
   };
 
   const handleReviewAndClose = () => {
-    saveQuestionToLocalStorage('reviewedQuestions'); // Save question as "reviewed"
-    onClose(); // Close the popup
+    saveQuestionToLocalStorage('reviewedQuestions');
+    onClose();
   };
 
   if (!isVisible) return null;
-
-  // const optionLetters = ['A', 'B', 'C', 'D'];
 
   return (
     <div className={styles.popupOverlay}>
@@ -86,11 +103,9 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
                   ? styles.incorrect
                   : ''
               }`}
-              onClick={() => handleOptionClick(option, index)}
+              onClick={() => handleOptionClick(index)}  
             >
-              <span>
-                {/* <strong>{optionLetters[index]}:</strong>  */}
-                {option}</span>
+              <span>{option}</span>
             </div>
           ))}
         </div>
@@ -99,7 +114,7 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose }) => {
           <>
             <hr className={styles.divider} />
             <div className={styles.correctAnswerSection}>
-              <p><strong>Correct Answer(s):</strong> {questionData.correctAnswers || 'No correct answer available'}</p>
+              <p><strong>Correct Answer:</strong> {Array.isArray(questionData.correctAnswers) ? questionData.correctAnswers.join(', ') : questionData.correctAnswers || 'No correct answer available'}</p>
               <p><strong>Explanation:</strong> {questionData.explanation || 'No explanation available'}</p>
             </div>
           </>

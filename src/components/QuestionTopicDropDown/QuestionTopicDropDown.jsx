@@ -609,7 +609,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   <td onClick={() => handleQuestionClick(problem, index)}>
                     {problem.questionContent}
                     <button onClick={handleLoginClick}> 
-                      Click me to see Login Popup 
+                      {/* Click me to see Login Popup  */}
                     </button>
                     <LoginPopup message="Please login first" show={showPopUp} duration={5000}/>
                   </td>
