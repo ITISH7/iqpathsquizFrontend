@@ -525,7 +525,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   key={`${problem.id}-${index}`}
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <td className={`${styles.icons}`}>
+                  <td className={`${styles.icons} ${styles.checkbox}`}>
                     <img
                       src={
                       solvedProblems[problem._id] === "NotChecked" || !solvedProblems[problem._id]

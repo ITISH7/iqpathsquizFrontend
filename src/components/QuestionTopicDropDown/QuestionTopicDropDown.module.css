@@ -398,6 +398,12 @@ input[type="checkbox"]:checked + .customCheckbox::after {
   color: #8C8C8C;
 }
 
+.checkbox {
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
 .hardBadge {
   background-color: #fdb8a5;
   color: #C62800;
