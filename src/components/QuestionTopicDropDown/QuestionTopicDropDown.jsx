@@ -230,7 +230,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setSolvedProblems((prevSolved) => {
       const currentState = prevSolved[problemId];
 
-      // Check if a newState is provided (from buttons), otherwise cycle states
       const updatedState = newState
         ? newState
         : !currentState || currentState === "NotChecked"
@@ -241,7 +240,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
 
       return {
         ...prevSolved,
-        [problemId]: updatedState,  // Update state for specific problem
+        [problemId]: updatedState,  
       };
     });
   };
@@ -527,20 +526,19 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <td className={`${styles.icons}`}>
-              {/* Automatically change image based on checkbox state */}
-              <img
-                src={
-                  solvedProblems[problem._id] === "NotChecked" || !solvedProblems[problem._id]
-                    ? "src/assets/NoCheckbox.svg"
-                    : solvedProblems[problem._id] === "Saved"
-                    ? "src/assets/savecheck.svg"
-                    : "src/assets/reviewcheck.svg"
-                }
-                alt="Checkbox"
-                style={{ width: "20px", height: "20px" }}
-                onClick={() => handleCheckboxChange(problem._id)}  // Trigger automatic cycling on image click
-              />
-            </td>
+                    <img
+                      src={
+                      solvedProblems[problem._id] === "NotChecked" || !solvedProblems[problem._id]
+                      ? "src/assets/NoCheckbox.svg"
+                      : solvedProblems[problem._id] === "Saved"
+                      ? "src/assets/savecheck.svg"
+                      : "src/assets/reviewcheck.svg"
+                      }
+                      alt="Checkbox"
+                      style={{ width: "20px", height: "20px" }}
+                      onClick={() => handleCheckboxChange(problem._id)}  
+                    />
+                  </td>
 
                   <td onClick={() => handleQuestionClick(problem, index)}>
                     {problem.questionContent}
