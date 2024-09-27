@@ -221,23 +221,35 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setImageStates(savedImageStates);
   }, [])
 
-  const handleCheckboxChange = (problemId) => {
+  useState(() => {
+    const savedProblems = localStorage.getItem('solvedProblems');
+    return savedProblems ? JSON.parse(savedProblems) : {};
+  });
+
+  const handleCheckboxChange = (problemId, newState = null) => {
     setSolvedProblems((prevSolved) => {
-      const updatedSolved = {
+      const currentState = prevSolved[problemId];
+
+      // Check if a newState is provided (from buttons), otherwise cycle states
+      const updatedState = newState
+        ? newState
+        : !currentState || currentState === "NotChecked"
+        ? "Saved"
+        : currentState === "Saved"
+        ? "Reviewed"
+        : "NotChecked";
+
+      return {
         ...prevSolved,
-        [problemId] : !prevSolved[problemId],
+        [problemId]: updatedState,  // Update state for specific problem
       };
-      localStorage.setItem('solvedProblems', JSON.stringify(updatedSolved));
-      return updatedSolved;
     });
   };
+  
 
   useEffect(() => {
-    const savedSolvedProblems = JSON.parse(localStorage.getItem('solvedProblems')) || {};
-    const savedCheckboxColors = JSON.parse(localStorage.getItem('checkboxColors')) || {};
-    setSolvedProblems(savedSolvedProblems);
-    // setCheckboxColors(savedCheckboxColors);
-  }, []);
+    localStorage.setItem('solvedProblems', JSON.stringify(solvedProblems));
+  }, [solvedProblems]);
 
   const getSolvedCount = () => {
     return filteredProblems.filter((problem) => solvedProblems[problem._id]).length;
@@ -515,26 +527,21 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <td className={`${styles.icons}`}>
-                    {/* <input
-                      type="checkbox"
-                      checked={solvedProblems[problem._id] || false}
-                      onChange={() => handleCheckboxChange(problem._id)}
-                      className={`${styles.customCheckbox} ${
-                        solvedProblems[problem._id] ? styles.checked : ""
-                      }`}
-                    /> */}
-                    <img
-                      src={
-                          currentCheckboxImage === "NotChecked"
-                          ? "src/assets/NoCheckbox.svg"
-                          : currentCheckboxImage === "Saved"
-                          ? "src/assets/savecheck.svg"
-                          : "src/assets/reviewcheck.svg"
-                      }
-                      alt="Display"
-                      style={{ width: "20px", height: "20px" }} // Adjust as needed
-                    />
-                  </td>
+              {/* Automatically change image based on checkbox state */}
+              <img
+                src={
+                  solvedProblems[problem._id] === "NotChecked" || !solvedProblems[problem._id]
+                    ? "src/assets/NoCheckbox.svg"
+                    : solvedProblems[problem._id] === "Saved"
+                    ? "src/assets/savecheck.svg"
+                    : "src/assets/reviewcheck.svg"
+                }
+                alt="Checkbox"
+                style={{ width: "20px", height: "20px" }}
+                onClick={() => handleCheckboxChange(problem._id)}  // Trigger automatic cycling on image click
+              />
+            </td>
+
                   <td onClick={() => handleQuestionClick(problem, index)}>
                     {problem.questionContent}
                     <button onClick={handleLoginClick}> 
