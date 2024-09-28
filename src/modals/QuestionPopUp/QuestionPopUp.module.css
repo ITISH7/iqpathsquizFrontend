@@ -158,3 +158,26 @@
     margin: 10px 0;
     font-size: 16px;
   }
+
+  .optionList {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 15px;
+  }
+  
+  .optionList li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 6px;
+    border: none; 
+    position: relative; 
+  }
+  
+  .correctAnswer {
+    background-color: #e0ffe0 !important; 
+  }
+  
+  .wrongAnswer {
+    background-color: #ffe0e0 !important;
+  }
