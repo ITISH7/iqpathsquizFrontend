@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import styles from './AddMore.module.css';
 
 const AddMore = ({ position, onClose }) => {
-  // Automatically close the pop-up after 10 seconds
+  // Automatically close the pop-up after 2 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
-      onClose();
-    }, 2000);
+      onClose(); // Call the onClose function after 2 seconds
+    }, 4000);
+    
     return () => clearTimeout(timer);
   }, [onClose]);
 
