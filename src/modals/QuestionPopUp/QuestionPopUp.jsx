@@ -4,7 +4,13 @@ import styles from './QuestionPopUp.module.css';
 const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose, handleCheckboxReview, handleCheckboxSave }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
-  const [correctAnswerIndex, setCorrectAnswerIndex] = useState(null); // Store correct answer index
+  const [correctAnswerIndex, setCorrectAnswerIndex] = useState(null); 
+  const [solvedProblem, setSolvedProblems] = useState
+  ({});
+
+  useEffect(() => {
+    const storedSolvedProblems = JSON.parse(localStorage.getItem('solvedProblems')) || {};
+  }, []);
 
   useEffect(() => {
     if (isVisible) {
@@ -50,6 +56,13 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose, handleCheck
     const storedData = JSON.parse(localStorage.getItem(type)) || [];
     const questionExists = storedData.some(item => item.id === uniqueId);
 
+    // const questionToSave = {
+    //   id: uniqueId,
+    //   questionData,
+    //   checkboxState,
+    //   savedAt: new Date().toISOString(),
+    // };
+
     if (!questionExists) {
       const questionToSave = {
         id: uniqueId,
@@ -61,16 +74,22 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose, handleCheck
   };
 
   const handleSaveAndClose = () => {
-    saveQuestionToLocalStorage('savedQuestions'); // Save question as "saved"
+    saveQuestionToLocalStorage('savedQuestions', 'Saved'); // Save question as "saved"
     handleCheckboxSave(uniqueId); // Pass uniqueId to handleCheckboxSave
     onClose(); // Close the popup
   };
 
   const handleReviewAndClose = () => {
-    saveQuestionToLocalStorage('reviewedQuestions'); // Save question as "reviewed"
+    saveQuestionToLocalStorage('reviewedQuestions', 'Reviewed'); // Save question as "reviewed"
     handleCheckboxReview(uniqueId); // Pass uniqueId to handleCheckboxReview
     onClose(); // Close the popup
   };
+
+  useEffect(() => {
+    if (Object.keys(solvedProblem).length > 0) {
+      localStorage.setItem('solvedProblems', JSON.stringify(solvedProblem));
+    }
+  }, [solvedProblem]);
 
   if (!isVisible) return null;
 

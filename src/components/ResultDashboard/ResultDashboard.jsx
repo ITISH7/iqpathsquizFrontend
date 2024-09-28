@@ -157,7 +157,7 @@ const Dashboard = () => {
                 {isAddMoreOpen && (
                   <AddMore 
                     position={clickedCardPosition}
-                    // onClose={closeAddMore}
+                    onClose={() => setIsAddMoreOpen(false)}
                   />
                 )}
               </div>
