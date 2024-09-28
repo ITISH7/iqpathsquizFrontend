@@ -222,16 +222,16 @@
 
 }
 
-.progHeading{
-    /* border: 2px solid green; */
+/* .progHeading{
+    border: 2px solid green;
     font-weight: 700;
     font-size: 16px;
     padding: 5px;
 
-}
+} */
 
 .barGraph{
-    /* border: 2px solid green; */
+    border: 2px solid green;
     height: 100%;
     width: 100%;
     display: flex;
@@ -512,8 +512,121 @@
     justify-content: center;
     margin: 0px -26px 0px 0px;
 }
+/* new css for stats graph */
+.progressTrackingContainer {
+    text-align: center;
+    margin: 0 auto;
+    /* padding: 2rem; */
+    width: 100%;
+    height: 350px;
+    margin: 20px 0;
+    /* border: 2px solid red; */
+    background-color: white;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+}
 
+.progHeading {
+    font-weight: 700;
+    font-size: 18px;
+    padding: 5px;
+    margin-left: 0;
+    text-align: left; /* Aligns the heading to the left */
+    margin-left: 2rem; /* Adds some margin from the left side */
+    /* border: 2px solid blue; */
+}
 
+.progTabs {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+.progTab {
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.progTabActive {
+    border-bottom: 2px solid #6b46c1;
+    color: #6b46c1;
+}
+
+.progTabInactive {
+    color: #718096;
+}
+
+.progContentContainer {
+    position: relative;
+    margin: 0 auto;
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 2px solid green; */
+    overflow: hidden;
+}
+
+.progTransitionGroup {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.progSlide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* border: 2px solid red; */
+}
+
+.progSubheading {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #718096;
+    margin-bottom: -2rem;
+    /* border: 2px solid red; */
+}
+
+/* Transition styles */
+.progSlideEnterLeft {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.progSlideEnterRight {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.progSlideEnterActive {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.progSlideExit {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.progSlideExitActiveLeft {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.progSlideExitActiveRight {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 300ms, transform 300ms;
+}
 
 
 
@@ -620,6 +733,7 @@
     .progressTracking{
         display: flex;
     }
+    
     .quoteAndProgress{
         width: 50%;
         margin-top: 40px;
