@@ -633,98 +633,102 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
             </tbody>
           </table>
 
-          <div className={styles.pagination}>
+      { filteredProblems.length>0 && ( <div className={styles.pagination}>
+          <button
+            onClick={() => setPage((prev) => prev - 1)}
+            disabled={page === 1}
+          >
+            ⏮Prev
+          </button>
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            disabled={page * 10 >= filteredProblems.length}
+          >
+            Next⏩
+          </button>
+        </div>)}
+
+        {filteredProblems.length>0 && (
+          <div className={styles.wrapper}>
+          <div className={styles.dropdownWrapper}>
             <button
-              onClick={() => setPage((prev) => prev - 1)}
-              disabled={page === 1}
+              className={`${styles.playButton} ${styles.buttonEffect}`}
+              onClick={() => {
+                toggleSetDropdown();
+                // fetchQuizData('Apptitude');
+                getquizQuestion();
+                // setValues()
+                // navigate(`/quiz/${subjectName}`)
+                console.log("quiz topic:", quizTopic);
+              }}
             >
-             ⏮Prev
+              Complete Test
             </button>
-            <button
-              onClick={() => setPage((prev) => prev + 1)}
-              disabled={page * 10 >= filteredProblems.length}
-            >
-              Next⏩
-            </button>
+            {isSetDropdownOpen && (
+              <div className={styles.setDropdownMenu}>
+                <Link to={`/quiz`}>
+                  <div
+                    className={styles.setDropdownItem}
+                    // onClick={handleQuizStart}
+                  >
+                    Set 1
+                  </div>
+                </Link>
+                <Link to="/quiz">
+                  <div
+                    className={styles.setDropdownItem}
+                    onClick={() => handleSetSelection("Set 2")}
+                  >
+                    Set 2
+                  </div>
+                </Link>
+                <Link to="/quiz">
+                  <div
+                    className={styles.setDropdownItem}
+                    onClick={() => handleSetSelection("Set 3")}
+                  >
+                    Set 3
+                  </div>
+                </Link>
+              </div>
+            )}
           </div>
 
-          <div className={styles.wrapper}>
-            <div className={styles.dropdownWrapper}>
-              <button
-                className={`${styles.playButton} ${styles.buttonEffect}`}
-                onClick={() => {
-                  toggleSetDropdown();
-                  // fetchQuizData('Apptitude');
-                  getquizQuestion();
-                  // setValues()
-                  // navigate(`/quiz/${subjectName}`)
-                  console.log("quiz topic:", quizTopic);
-                }}
-              >
-                Complete Test
-              </button>
-              {isSetDropdownOpen && (
-                <div className={styles.setDropdownMenu}>
-                  <Link to={`/quiz`}>
-                    <div
-                      className={styles.setDropdownItem}
-                      // onClick={handleQuizStart}
-                    >
-                      Set 1
-                    </div>
-                  </Link>
-                  <Link to="/quiz">
-                    <div
-                      className={styles.setDropdownItem}
-                      onClick={() => handleSetSelection("Set 2")}
-                    >
-                      Set 2
-                    </div>
-                  </Link>
-                  <Link to="/quiz">
-                    <div
-                      className={styles.setDropdownItem}
-                      onClick={() => handleSetSelection("Set 3")}
-                    >
-                      Set 3
-                    </div>
-                  </Link>
+          <div className={styles.dropdownWrapper}>
+            <button
+              className={`${styles.playButton} ${styles.buttonEffect}`}
+              onClick={toggleTopicDropdown}
+            >
+              Topic-Wise Test
+            </button>
+            {isTopicDropdownOpen && (
+              <div className={styles.setDropdownMenu}>
+                <div
+                  className={styles.setDropdownItem}
+                  onClick={() => handleTopicSelection("All")}
+                >
+                  All Topics
                 </div>
-              )}
-            </div>
-
-            <div className={styles.dropdownWrapper}>
-              <button
-                className={`${styles.playButton} ${styles.buttonEffect}`}
-                onClick={toggleTopicDropdown}
-              >
-                Topic-Wise Test
-              </button>
-              {isTopicDropdownOpen && (
-                <div className={styles.setDropdownMenu}>
-                  <div
-                    className={styles.setDropdownItem}
-                    onClick={() => handleTopicSelection("All")}
-                  >
-                    All Topics
-                  </div>
-                  <div
-                    className={styles.setDropdownItem}
-                    onClick={() => handleTopicSelection("Array")}
-                  >
-                    Array
-                  </div>
-                  <div
-                    className={styles.setDropdownItem}
-                    onClick={() => handleTopicSelection("String")}
-                  >
-                    String
-                  </div>
+                <div
+                  className={styles.setDropdownItem}
+                  onClick={() => handleTopicSelection("Array")}
+                >
+                  Array
                 </div>
-              )}
-            </div>
+                <div
+                  className={styles.setDropdownItem}
+                  onClick={() => handleTopicSelection("String")}
+                >
+                  String
+                </div>
+              </div>
+            )}
           </div>
         </div>
+          )}
+        
+        </div>
+        
       )}
 
       {isPopupVisible && currentQuestion && (
