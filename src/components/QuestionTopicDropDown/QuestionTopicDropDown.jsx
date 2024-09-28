@@ -235,13 +235,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setSolvedProblems((prevSolved) => {
       const currentState = prevSolved[problemId];
 
-      const updatedState = newState
-        ? newState
-        : !currentState || currentState === "NotChecked"
-        ? "Saved"
-        : currentState === "Saved"
-        ? "Reviewed"
-        : "NotChecked";
+      const updatedState = newState || currentState;
 
         const updatedSolvedProblems = {
           ...prevSolved,
@@ -253,20 +247,12 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       return updatedSolvedProblems;
     });
   };
-
-
-  // const handleCheckboxSave = (problemId) => {
-  //   handleCheckboxChange(problemId, "Saved");
-  // };
-
-  // const handleReviewClose = (problemId) => {
-  //   handleCheckboxChange(problemId, "Reviewed");
-  // };
   
 
   useEffect(() => {
-    localStorage.setItem('solvedProblems', JSON.stringify(solvedProblems));
-  }, [solvedProblems]);
+    const savedSolvedProblems = JSON.parse(localStorage.getItem('solvedProblems')) || {};
+    setSolvedProblems(savedSolvedProblems);
+  }, []);
 
   const getSolvedCount = () => {
     return filteredProblems.filter((problem) => solvedProblems[problem._id]).length;
