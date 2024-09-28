@@ -39,6 +39,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [ratings, setRatings] = useState({});
   const [showPopUp, setShowPopUp] = useState(false);
   const [currentCheckboxImage, setCurrentCheckboxImage] = useState('NotChecked');
+  const [page, setPage] = useState(1);
 
   const navigate = useNavigate();
 
@@ -79,7 +80,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       // setQuestions(response.data.data);
       // setProblem(response.data.data);
       const questions = response.data.data;
-      const updatedQuestions = questions.slice(0, 10)
+      const updatedQuestions = questions;
       setProblem(updatedQuestions); 
       console.log('response:', response.data)
     } catch (error) {
@@ -526,7 +527,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
               </tr>
             </thead>
             <tbody>
-              {filteredProblems.map((problem, index) => (
+              {filteredProblems.slice(page * 10 - 10 , page * 10).map((problem, index) => (
                 <tr
                   key={`${problem.id}-${index}`}
                   onClick={(e) => e.stopPropagation()}
@@ -610,6 +611,21 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
               ))}
             </tbody>
           </table>
+
+          <div className={styles.pagination}>
+            <button
+              onClick={() => setPage((prev) => prev - 1)}
+              disabled={page === 1}
+            >
+             ⏮Prev
+            </button>
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={page * 10 >= filteredProblems.length}
+            >
+              Next⏩
+            </button>
+          </div>
 
           <div className={styles.wrapper}>
             <div className={styles.dropdownWrapper}>
