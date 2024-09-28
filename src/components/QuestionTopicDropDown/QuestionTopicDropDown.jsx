@@ -221,9 +221,14 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     setImageStates(savedImageStates);
   }, [])
 
+  // useState(() => {
+  //   const savedProblems = localStorage.getItem('solvedProblems');
+  //   return savedProblems ? JSON.parse(savedProblems) : {};
+  // });
+
   useState(() => {
-    const savedProblems = localStorage.getItem('solvedProblems');
-    return savedProblems ? JSON.parse(savedProblems) : {};
+    const storedData = localStorage.getItem('solvedProblems');
+    return storedData ? JSON.parse(storedData) : {};
   });
 
   const handleCheckboxChange = (problemId, newState = null) => {
@@ -238,12 +243,25 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
         ? "Reviewed"
         : "NotChecked";
 
-      return {
-        ...prevSolved,
-        [problemId]: updatedState,  
-      };
+        const updatedSolvedProblems = {
+          ...prevSolved,
+          [problemId]: updatedState,
+        };
+
+        localStorage.setItem('solvedProblems', JSON.stringify(updatedSolvedProblems));
+
+      return updatedSolvedProblems;
     });
   };
+
+
+  // const handleCheckboxSave = (problemId) => {
+  //   handleCheckboxChange(problemId, "Saved");
+  // };
+
+  // const handleReviewClose = (problemId) => {
+  //   handleCheckboxChange(problemId, "Reviewed");
+  // };
   
 
   useEffect(() => {
@@ -342,13 +360,15 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       setShowPopUp(true);
     }
 
-    const handleCheckboxSave = () => {
-      setCurrentCheckboxImage('Saved');
-    }
+    const handleCheckboxSave = (problemId) => {
+      // setCurrentCheckboxImage('Saved');
+      handleCheckboxChange(problemId, "Saved");
+    };
 
-    const handleCheckboxReview = () => {
-      setCurrentCheckboxImage('Review');
-    }
+    const handleCheckboxReview = (problemId) => {
+      // setCurrentCheckboxImage('Review');
+      handleCheckboxChange(problemId, "Reviewed");
+    };
       
             
   return (
