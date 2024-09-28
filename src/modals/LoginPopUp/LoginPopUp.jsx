@@ -19,7 +19,11 @@ const LoginPopup = ({ message, show, duration }) => {
     <>
       {visible && (
         <div className={styles.popup}>
-          <p>{message}</p>
+          <p>
+            <a href="/login" className={styles.loginLink}> 
+              {message}
+            </a>
+          </p>
         </div>
       )}
     </>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback } from 'react';
+import React, {useEffect, useState, useCallback, useContext } from 'react';
 import styles from './QuestionTopicDropDown.module.css';
 import ArrowUp from '../../assets/ArrowUp.svg';
 import ArrowDown from '../../assets/ArrowDown.svg';
@@ -10,12 +10,14 @@ import NoteModal from './NoteModal';
 import { useQuiz } from '../../context/QuizContext';
 import QuestionPopUp from '../../modals/QuestionPopUp/QuestionPopUp';
 import LoginPopup from '../../modals/LoginPopUp/LoginPopUp';
+import {AuthContext} from '../../context/AuthContext';
 import NoteIcon from '../../assets/NoteIcon.svg';
 import NoteFilledIcon from '../../assets/NoteFilledIcon.svg'
 import { Service } from '../../axios/config';
 
 
 function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
+  const { isLoggedIn } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
@@ -39,6 +41,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [ratings, setRatings] = useState({});
   const [showPopUp, setShowPopUp] = useState(false);
   const [currentCheckboxImage, setCurrentCheckboxImage] = useState('NotChecked');
+  const [showQuestionPopUp, setShowQuestionPopUp] = useState(false);
 
   const navigate = useNavigate();
 
@@ -288,14 +291,22 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   };
 
   const handleQuestionClick = (problem) => {
-    const uniqueId = `${problem._id}`;
-    setCurrentQuestion({ ...problem, uniqueId});
-    setIsPopupVisible(true);
+    if (isLoggedIn) {
+      const uniqueId = `${problem._id}`;
+      setCurrentQuestion({ ...problem, uniqueId});
+      setIsPopupVisible(true);
+      setShowQuestionPopUp(true);
+    }
+    else {
+      setShowPopUp(true);
+    }
   };
 
   const closePopup = () => {
     setIsPopupVisible(false);
     setCurrentQuestion(null);
+    setShowPopUp(false);
+    setShowQuestionPopUp(false);
   };
   
   const renderDifficultyBadge = (diffi) => {
@@ -548,34 +559,44 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                   <td onClick={() => handleQuestionClick(problem, index)}>
                     {problem.questionContent}
                     <button onClick={handleLoginClick}> 
+                      {showQuestionPopUp && (
+                        <QuestionPopUp
+                          question={problem}
+                          onClose={closePopup}
+                        />
+                      )}
                       {/* Click me to see Login Popup  */}
                     </button>
                     <LoginPopup
                       message="Please login first"
                       show={showPopUp}
                       duration={5000}
+                      onClose={closePopup}
                     />
                   </td>
                   <td className={styles.remove}>
-                    <img
+                    {/* <img
                       src="src/assets/Artical.svg"
                       alt="Article"
                       className={styles.icons}
-                    />
+                    /> */}
+                    soon...
                   </td>
                   <td className={styles.remove}>
-                    <img
+                    {/* <img
                       src="src/assets/YouTube.svg"
                       alt="YouTube"
                       className={styles.icons}
-                    />
+                    /> */}
+                    soon...
                   </td>
                   <td className={styles.remove}>
-                    <img
+                    {/* <img
                       src="src/assets/Leetcode.svg"
                       alt="Practice"
                       className={styles.icons}
-                    />
+                    /> */}
+                    soon...
                   </td>
                   <td className={`${styles.icons} ${styles.remove}`}>
                     <button
