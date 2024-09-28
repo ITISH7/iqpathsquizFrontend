@@ -61,6 +61,7 @@ const Log = ({ onSwitchToSignup }) => {
     try {
         const userData = await authService.createAccount(formData);
         console.log(userData);
+        setUserId(ID);
         if(userData){
             console.log("User account created successfully")
             setIsLoggedIn(true);

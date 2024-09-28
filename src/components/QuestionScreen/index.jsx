@@ -57,7 +57,7 @@ const QuestionScreen = () => {
   const quizContext = useQuiz();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const { userId} = useContext(AuthContext)
-  // console.log('userId:', userId);
+  console.log('userId:', userId);
 
   const {
     questions = [],

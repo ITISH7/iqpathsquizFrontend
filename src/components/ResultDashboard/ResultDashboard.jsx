@@ -44,6 +44,7 @@ const Dashboard = () => {
   // };
 
   const getResults = async (id) => {
+    console.log('id:', id);
     try {
       const response = await service.GetAllSubjectResult(id);
       setResults(response.data.data);

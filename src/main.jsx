@@ -53,11 +53,11 @@ const router = createBrowserRouter([
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode >
+  // <StrictMode >
       <AuthProvider>
         <QuizProvider>
           <RouterProvider router={router} />
         </QuizProvider>
       </AuthProvider>
-  </StrictMode>,
+  // </StrictMode>,
 )

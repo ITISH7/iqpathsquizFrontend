@@ -62,6 +62,7 @@ const ResultNextDashboard = () => {
 
   useEffect(() => {
     getSingleTestResults(userId, "Aptitude");
+    console.log("userId:", userId);
   }, []);
 
   const openModal = (card) => {
