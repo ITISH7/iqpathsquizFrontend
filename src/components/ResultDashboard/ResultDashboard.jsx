@@ -5,6 +5,7 @@ import styles from './ResultDashboard.module.css';
 import StreakHeatMap from '../../modals/StreakHeatMap/StreakHeatMap';
 import { Link } from 'react-router-dom';
 import NightingaleChart from '../../modals/NightingaleChart/NightingaleChart';
+import AddMore from '../../modals/AddMore/AddMore';
 import { Service } from '../../axios/config';
 import { AuthContext } from '../../context/AuthContext';
 import { purple } from '@mui/material/colors';
@@ -17,16 +18,30 @@ const Dashboard = () => {
   const [date, setDate] = useState(new Date());
   const [streak, setStreak] = useState(5);
   const [results, setResults] = useState([]);
+  const [isAddMoreOpen, setIsAddMoreOpen] = useState(false);
+  const [clickedCardPosition, setClickedCardPosition] = useState(null);
   
   const service = new Service();
   const {userId } = useContext(AuthContext);
 
   useEffect(() => {
     getResults(userId);
-  }, []);
+  }, [userId]);
   
 
-  
+  const handleCardClick = (event) => {
+    const rect = event.target.getBoundingClientRect();
+    setClickedCardPosition({ top: rect.top, left: rect.left + rect.width/2 });
+    setIsAddMoreOpen(true);
+
+    setTimeout(() => {
+      setIsAddMoreOpen(false);
+    }, 10000);
+  };
+
+  // const closeAddMore = () => {
+  //   setIsAddMoreOpen(false);
+  // };
 
   const getResults = async (id) => {
     try {
@@ -137,7 +152,13 @@ const Dashboard = () => {
             )}
               {/* Add New Sheet Button */}
               <div className={styles.addCard}>
-                <div className={styles.addIcon}>+</div>
+                <div className={styles.addIcon} onClick={handleCardClick}>+</div>
+                {isAddMoreOpen && (
+                  <AddMore 
+                    position={clickedCardPosition}
+                    // onClose={closeAddMore}
+                  />
+                )}
               </div>
             </div>
           </div>
