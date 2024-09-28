@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useQuiz } from '../../../context/QuizContext';
 import { convertSeconds } from '../../../utils/helpers';
 import styles from './ResultOverview.module.css'; // Import the CSS module
@@ -13,14 +13,13 @@ const saveTest = async (userId, quizTopic, result, totalScore, score) => {
   console.log('result:', result);
   console.log('totalScore:', totalScore);
   console.log('score:', score);
-  
-  // Prepare the payload according to the API structure
+
   const payload = {
-    id: userId, // Assuming this is the ID to send
-    subjectName: quizTopic, // Assuming quizTopic corresponds to subjectName
-    questions: result, // Assuming result is the list of questions
-    totalMarks: totalScore, // Assuming totalScore represents totalMarks
-    totalScore: score // score represents the final score
+    id: userId,
+    subjectName: quizTopic,
+    questions: result,
+    totalMarks: totalScore,
+    totalScore: score
   };
 
   try {
@@ -32,17 +31,10 @@ const saveTest = async (userId, quizTopic, result, totalScore, score) => {
   }
 };
 
-
 const ResultOverview = ({ result }) => {
-  const { quizDetails,quizTopic, score, endTime, setScore } = useQuiz();
+  const { quizDetails, quizTopic, score, endTime, setScore } = useQuiz();
   const { totalScore } = quizDetails;
   const { userId } = useContext(AuthContext);
-
-  useEffect(() => {
-    setTimeout(() => {
-      saveTest(userId, quizTopic, result, totalScore, score);
-    }, 1000);
-  }, []);
 
   const totalQuestionAttempted = result.length;
 
@@ -50,7 +42,19 @@ const ResultOverview = ({ result }) => {
     .filter((item) => item.isMatch && typeof item.score === 'number')
     .reduce((accumulator, currentValue) => accumulator + (currentValue.score || 0), 0);
 
-  setScore(obtainedScore);
+  useEffect(() => {
+    // Set the obtained score once it's calculated
+    setScore(obtainedScore);
+  }, [obtainedScore, setScore]);
+
+  useEffect(() => {
+    // Save the test after the score has been updated
+    if (score !== 0) { // Make sure the score is updated before calling saveTest
+      setTimeout(() => {
+        saveTest(userId, quizTopic, result, totalScore, score);
+      }, 1000);
+    }
+  }, [score, userId, quizTopic, result, totalScore]);
 
   // Passed if 60 or more than 60% marks
   const calculateStatus =
