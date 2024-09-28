@@ -482,6 +482,14 @@ input[type="checkbox"]:checked + .customCheckbox::after {
   text-align: center;
 }
 
+
+
+.checkbox img {
+  height: 20px;
+  width: 20px;
+  margin: auto;
+}
+
 .problemName {
   text-align: left;
   column-span: "4";
