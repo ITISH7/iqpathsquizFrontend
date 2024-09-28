@@ -213,60 +213,7 @@ const ResultNextDashboard = () => {
       </div>
 
       {selectedCard && (
-        // <div className={styles.modalOverlay} onClick={closeModal}>
-        //   <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        //     <div className={styles.modalHeader}>
-        //       <div className={styles.modalIcon} style={{ backgroundColor: selectedCard.squareColor }}>DS</div>
-        //       <div className={styles.modalPara}>
-        //         <h2>DSA SHEET</h2>
-        //         <p className={styles.modalDate}>{selectedCard.date}</p>
-        //       </div>
-        //     </div>
-        //     <div className={styles.modalBody}>
-        //       <div className={styles.modalQuestion}>
-        //         <div className={styles.questionTop}>
-        //           <span className={styles.questionNumber}>Question 1.</span>
-        //           <span className={styles.difficulty}>Medium</span>
-        //         </div>
-        //         <p>Which of the following sorting algorithms can be used to sort a random linked list with minimum time complexity?</p>
-        //         <ul className={styles.optionList}>
-        //           <li>Insertion Sort</li>
-        //           <li className={styles.wrongAnswer}>Quick Sort</li>
-        //           <li>Heap Sort</li>
-        //           <li className={styles.correctAnswer}>Merge Sort</li>
-        //         </ul>
-        //       </div>
-
-        //       <div className={styles.modalQuestion}>
-        //         <div className={styles.questionTop}>
-        //           <span className={styles.questionNumber}>Question 2.</span>
-        //           <span className={styles.difficulty}>Easy</span>
-        //         </div>
-        //         <p>Which of the following sorting algorithms can be used to sort a random linked list with minimum time complexity?</p>
-        //         <ul className={styles.optionList}>
-        //           <li className={styles.correctAnswer}>Merge Sort</li>
-        //           <li>Insertion Sort</li>
-        //           <li className={styles.wrongAnswer}>Quick Sort</li>
-        //           <li>Heap Sort</li>
-        //         </ul>
-        //       </div>
-
-        //       <div className={styles.modalQuestion}>
-        //         <div className={styles.questionTop}>
-        //           <span className={styles.questionNumber}>Question 3.</span>
-        //           <span className={styles.difficulty}>Easy</span>
-        //         </div>
-        //         <p>Which of the following sorting algorithms can be used to sort a random linked list with minimum time complexity?</p>
-        //         <ul className={styles.optionList}>
-        //           <li className={styles.correctAnswer}>Merge Sort</li>
-        //           <li>Insertion Sort</li>
-        //           <li>Quick Sort</li>
-        //           <li>Heap Sort</li>
-        //         </ul>
-        //       </div>
-        //     </div>
-        //   </div>
-        // </div>
+        
         <div className={styles.modalOverlay} onClick={closeModal}>
           <div
             className={styles.modalContent}

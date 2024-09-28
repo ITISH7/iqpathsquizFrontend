@@ -555,7 +555,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                       : "src/assets/reviewcheck.svg"
                       }
                       alt="Checkbox"
-                      style={{ width: "20px", height: "20px" }}
                       onClick={() => handleCheckboxChange(problem._id)}  
                     />
                   </td>
