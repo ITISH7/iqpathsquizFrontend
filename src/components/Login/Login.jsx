@@ -62,6 +62,7 @@ const Log = ({ onSwitchToSignup }) => {
         const userData = await authService.createAccount(formData);
         console.log(userData);
         const ID = userData.data.data._id;
+        console.log(ID);
         setUserId(ID);
         if(userData){
             console.log("User account created successfully")

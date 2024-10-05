@@ -8,6 +8,7 @@ import ResultOverview from './ResultOverview/index';
 import { refreshPage } from '../../utils/helpers';
 // import { ScreenTypes } from '../../types/types';
 import styles from './ResultScreen.module.css'; // Importing CSS module
+import { Link } from 'react-router-dom';
 
 // import { use } from 'echarts/types/src/extension.js';
 
@@ -157,15 +158,14 @@ import styles from './ResultScreen.module.css'; // Importing CSS module
             iconPosition="left"
             bold
           /> */}
-          <Button
-            text="DONE"
-            onClick={() => {
-             
-              redirectHome();
-            }}
-            iconPosition="left"
-            bold
-          />
+          
+          <Link to= '/'>
+            <Button
+              text="DONE"
+              iconPosition="left"
+              bold
+            />
+          </Link>
         </div>
       </div>
     </div>
