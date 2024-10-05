@@ -270,9 +270,14 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   };
   
   const openModal = (problemId) => {
-    setSelectedProblem(problemId);
-    setIsModalOpen(true);
-    document.body.style.overflow = "hidden";
+    if (!isLoggedIn) {
+      setShowPopUp(true);
+    }
+    else {
+      setSelectedProblem(problemId);
+      setIsModalOpen(true);
+      document.body.style.overflow = "hidden";
+    }
   };
   
   const closeModal = () => {
@@ -308,13 +313,14 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   // };
 
   const handleQuestionClick = (problem) => {
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
+      handleLoginClick();
+    }
+    else {
       const uniqueId = `${problem._id}`;
       setCurrentQuestion({ ...problem, uniqueId});
       setIsPopupVisible(true);
       setShowQuestionPopUp(true);
-    }
-    else {
       setShowPopUp(true);
     }
   };
@@ -576,14 +582,13 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
 
                   <td onClick={() => handleQuestionClick(problem, index)}>
                     {problem.questionContent}
-                    <button onClick={handleLoginClick}> 
+                    <button> 
                       {showQuestionPopUp && (
                         <QuestionPopUp
                           question={problem}
                           onClose={closePopup}
                         />
                       )}
-                      {/* Click me to see Login Popup  */}
                     </button>
                     <LoginPopup
                       message="Please login first"
@@ -620,7 +625,12 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        openModal(problem._id);
+                        if (!isLoggedIn) {
+                          handleLoginClick();
+                        }
+                        else {
+                          openModal(problem._id);
+                        }
                       }}
                       className={styles.noteButton}
                     >
@@ -671,12 +681,14 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
             <button
               className={`${styles.playButton} ${styles.buttonEffect}`}
               onClick={() => {
-                toggleSetDropdown();
-                // fetchQuizData('Apptitude');
-                getquizQuestion();
-                // setValues()
-                // navigate(`/quiz/${subjectName}`)
-                // console.log("quiz topic:", quizTopic);
+                if (!isLoggedIn) {
+                  setShowPopUp(true);
+                }
+                else {
+                  toggleSetDropdown();
+                  getquizQuestion();
+                  console.log("quiz topic:", quizTopic);
+                }
               }}
             >
               Complete Test
@@ -714,7 +726,14 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           <div className={styles.dropdownWrapper}>
             <button
               className={`${styles.playButton} ${styles.buttonEffect}`}
-              onClick={toggleTopicDropdown}
+              onClick={() => {
+                if (!isLoggedIn) {
+                  setShowPopUp(true);
+                }
+                else {
+                  toggleTopicDropdown();
+                }
+              }}
             >
               Topic-Wise Test
             </button>

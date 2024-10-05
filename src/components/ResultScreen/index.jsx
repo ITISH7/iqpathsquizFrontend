@@ -8,13 +8,31 @@ import ResultOverview from './ResultOverview/index';
 import { refreshPage } from '../../utils/helpers';
 // import { ScreenTypes } from '../../types/types';
 import styles from './ResultScreen.module.css'; // Importing CSS module
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // import { use } from 'echarts/types/src/extension.js';
 
   
   const ResultScreen = () => {
   const { result, quizTopic, score, initialTime, finalTime, setEndTime } = useQuiz(); // Get necessary data from context
+
+  const exitFullScreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+    else if (document.webkitExitFullScreen) {
+      document
+      .webkitExitFullScreen();
+    }
+    else if (document.msExitFullScreen) {
+      document.msExitFullScreen();
+    }
+  };
+
+  const handleDoneClick = () => {
+    exitFullScreen();
+    navigate('/');
+  };
  
   // console.log('result jo result page me aya', result);
 
@@ -162,6 +180,7 @@ import { Link } from 'react-router-dom';
           <Link to= '/'>
             <Button
               text="DONE"
+              onClick={handleDoneClick}
               iconPosition="left"
               bold
             />
