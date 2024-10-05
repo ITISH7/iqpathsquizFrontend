@@ -57,7 +57,7 @@ const QuestionScreen = () => {
   const quizContext = useQuiz();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const { userId} = useContext(AuthContext)
-  console.log('userId:', userId);
+  // console.log('userId:', userId);
 
   const {
     questions = [],
@@ -98,6 +98,8 @@ const QuestionScreen = () => {
       setActiveQuestion((prev) => prev + 1);
     } else {
       const timeTaken = initialTime - timer;
+      console.log('initialTime:', initialTime);
+      console.log('timer:', timer);
       setEndTime(timeTaken);
       setShowResultModal(true);
     }

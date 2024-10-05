@@ -47,7 +47,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const navigate = useNavigate();
 
 
-  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult, setTotalMarks, setInitialTime } = useQuiz();
+  const { selectQuizTopic, setQuestions,questions, quizTopic, setTimer, setResult, setTotalMarks, setInitialTime,initialTime } = useQuiz();
 
   const service = new Service();
 
@@ -65,7 +65,10 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           setQuestions(questions)
           setTotalMarks(totalMarks)
           setTimer(totalTime*60 );
-          setInitialTime(totalTime*60)
+          // setInitialTime(totalTime*60)
+          // console.log('initial time:', totalTime*60)
+          // console.log('initial time:', initialTime)
+
           setResult([])  // Reset the result
           
           console.log('Quiz data fetched:', response.data)
@@ -534,11 +537,12 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                 <th className={styles.remove}>Practice</th>
                 <th className={styles.remove}>Note</th>
                 <th>Difficulty</th>
-                <th className={styles.remove}>Revision</th>
+                <th className={styles.remove}>Important</th>
               </tr>
             </thead>
             <tbody>
               {filteredProblems.slice(page * 10 - 10 , page * 10).map((problem, index) => (
+                console.log('problem:', problem),
                 <tr
                   key={`${problem.id}-${index}`}
                   onClick={(e) => e.stopPropagation()}

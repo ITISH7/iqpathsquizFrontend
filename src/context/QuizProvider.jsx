@@ -53,6 +53,7 @@ const QuizProvider = ({ children }) => {
     totalMarks,
     setTotalMarks,
     initialTime,
+    setInitialTime,
     finalTime,
     setFinalTime,
 

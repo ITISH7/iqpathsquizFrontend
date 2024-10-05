@@ -58,36 +58,36 @@ const Dashboard = () => {
 
 
   const streakData = [
-    { "date": "2024-09-01", "streak": 3 },
-    { "date": "2024-09-02", "streak": 8 },
-    { "date": "2024-09-03", "streak": 2 },
-    { "date": "2024-09-04", "streak": 9 },
-    { "date": "2024-09-05", "streak": 0 },
-    { "date": "2024-09-06", "streak": 4 },
-    { "date": "2024-09-07", "streak": 5 },
-    { "date": "2024-09-08", "streak": 0 },
-    { "date": "2024-09-09", "streak": 1 },
-    { "date": "2024-09-10", "streak": 7 },
-    { "date": "2024-09-11", "streak": 2 },
-    { "date": "2024-09-12", "streak": 0 },
-    { "date": "2024-09-13", "streak": 2 },
-    { "date": "2024-09-14", "streak": 3 },
-    { "date": "2024-09-15", "streak": 6 },
-    { "date": "2024-09-16", "streak": 4 },
-    { "date": "2024-09-17", "streak": 5 },
-    { "date": "2024-09-18", "streak": 1 },
-    { "date": "2024-09-19", "streak": 8 },
-    { "date": "2024-09-20", "streak": 2 },
-    { "date": "2024-09-21", "streak": 7 },
-    { "date": "2024-09-22", "streak": 0 },
-    { "date": "2024-09-23", "streak": 0 },
-    { "date": "2024-09-24", "streak": 0 },
-    { "date": "2024-09-25", "streak": 6 },
-    { "date": "2024-09-26", "streak": 2 },
-    { "date": "2024-09-27", "streak": 0 },
-    { "date": "2024-09-28", "streak": 3 },
-    { "date": "2024-09-29", "streak": 7 },
-    { "date": "2024-09-30", "streak": 2 },
+    { "date": "2024-10-01", "streak": 3 },
+    { "date": "2024-10-02", "streak": 8 },
+    { "date": "2024-10-03", "streak": 2 },
+    { "date": "2024-10-04", "streak": 9 },
+    { "date": "2024-10-05", "streak": 0 },
+    { "date": "2024-10-06", "streak": 4 },
+    { "date": "2024-10-07", "streak": 5 },
+    { "date": "2024-10-08", "streak": 0 },
+    { "date": "2024-10-10", "streak": 1 },
+    { "date": "2024-10-10", "streak": 7 },
+    { "date": "2024-10-11", "streak": 2 },
+    { "date": "2024-10-12", "streak": 0 },
+    { "date": "2024-10-13", "streak": 2 },
+    { "date": "2024-10-14", "streak": 3 },
+    { "date": "2024-10-15", "streak": 6 },
+    { "date": "2024-10-16", "streak": 4 },
+    { "date": "2024-10-17", "streak": 5 },
+    { "date": "2024-10-18", "streak": 1 },
+    { "date": "2024-10-19", "streak": 8 },
+    { "date": "2024-10-20", "streak": 2 },
+    { "date": "2024-10-21", "streak": 7 },
+    { "date": "2024-10-22", "streak": 0 },
+    { "date": "2024-10-23", "streak": 0 },
+    { "date": "2024-10-24", "streak": 0 },
+    { "date": "2024-10-25", "streak": 6 },
+    { "date": "2024-10-26", "streak": 2 },
+    { "date": "2024-10-27", "streak": 0 },
+    { "date": "2024-10-28", "streak": 3 },
+    { "date": "2024-10-29", "streak": 7 },
+    { "date": "2024-10-30", "streak": 2 },
     { "date": "2024-10-01", "streak": 6 }
   ]
   
@@ -134,7 +134,7 @@ const Dashboard = () => {
                   <div className={styles.cardContent}>
                     <div className={styles.square} style={{ backgroundColor: card.squareColor }}></div>
                     <div className={styles.progress}>
-                      <div className={styles.title}>{user.courses[index]} SHEET PROGRESS</div>
+                      <div className={styles.title}>{card} SHEET PROGRESS</div>
                       <div className={styles.progressBarContainer}>
                         <div className={styles.progressBar} style={{ width: `${card.progress}%`,
                             backgroundColor: card.squareColor }}></div>

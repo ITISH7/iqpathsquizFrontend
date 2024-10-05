@@ -10,7 +10,7 @@ import {Service} from '../../axios/config';
 const QuizDetailsScreen = ({subjectName}) => {
   // console.log('subjectName:', subjectName)
 
-  const { selectQuizTopic, setQuestions, questions, quizTopic, setTimer, setResult, setCurrentScreen, quizDetails } = useQuiz();
+  const { selectQuizTopic, setQuestions, questions, quizTopic, setTimer, setResult, setCurrentScreen, quizDetails,setInitialTime, initialTime } = useQuiz();
 
   const { selectedQuizTopic, totalQuestions, totalScore, totalTime } = quizDetails;
   // console.log("selectedQuizTopic kya set hua quiz page me vo ye hai ", quizTopic);
@@ -36,6 +36,9 @@ const QuizDetailsScreen = ({subjectName}) => {
 
   useEffect(() => {
     const handleFullScreenChange = () => {
+
+      setInitialTime(totalTime);
+      console.log('InitialTime:', initialTime);
       if (!document.fullscreenElement) {
         enterFullScreen(); // Re-enter fullscreen if exiting
       }

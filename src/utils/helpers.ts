@@ -16,13 +16,13 @@ export function formatTime(time: number) {
 export const convertSeconds = (seconds: number): string => {
   const hours = Math.floor(seconds / 3600)
   const minutes = Math.floor((seconds % 3600) / 60)
-  const remainingSeconds = seconds % 60
+  const remainingSeconds = (seconds % 60).toFixed(2);
 
   const hourString = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : ''
   const minuteString = minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : ''
   const secondString =
-    remainingSeconds > 0
-      ? `${remainingSeconds} second${remainingSeconds > 1 ? 's' : ''}`
+    parseFloat(remainingSeconds) > 0
+      ? `${remainingSeconds} second${remainingSeconds !== '1.00'? 's' : ''}`
       : ''
 
   if (hours > 0) {
