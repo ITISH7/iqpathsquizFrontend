@@ -47,6 +47,7 @@
   background-color: green;
   border-radius: 50%;
   display: none;
+  border: 2px solid red;
 }
 
 /* Bell animation keyframes for rotating both sides */
@@ -214,7 +215,6 @@
 
 .active {
   color: #ffffff; /* Text color for the active tab */
-  background-color: #007bff; /* Background color for the active tab */
   font-weight: bold; /* Optionally make the text bold */
   border-bottom: 2px solid #ffffff; /* Add a border at the bottom of the active tab */
 }
@@ -279,7 +279,7 @@
     align-items: center;
     justify-content: space-between;
     margin: 0 150px;
-    gap: 2px;
+    gap: 1px;
     font-size: 18px;
   }
   
@@ -288,7 +288,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
+    padding: 0.3rem;
     /* border: 1px solid gray; */
   }
   
