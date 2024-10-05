@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
 import styles from "./NoteModal.module.css";
 
-const NoteModal = ({ isOpen, closeModal, onSave, initialNote }) => {
+const NoteModal = ({ isOpen, closeModal, onSave, initialNote, problemId }) => {
   const [note, setNote] = useState(initialNote || "");
 
   useEffect(() => {
     setNote(initialNote || "");
-  }, [initialNote]);
+  }, [initialNote, problemId]);
 
   const handleNoteChange = (event) => {
     setNote(event.target.value);
@@ -14,10 +14,10 @@ const NoteModal = ({ isOpen, closeModal, onSave, initialNote }) => {
 
   const handleSave = () => {
     if (note.trim() !== "") {
-      onSave(note);
+      onSave(problemId ,note);
     }
     else {
-      onSave("");
+      onSave(problemId, "");
     }
     closeModal();
   };
