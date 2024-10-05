@@ -223,6 +223,9 @@ const ResultNextDashboard = () => {
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
+            <button className={styles.closeButton} onClick={closeModal}>
+              &times;
+            </button>
             <div className={styles.modalHeader}>
               <div
                 className={styles.modalIcon}
@@ -265,6 +268,10 @@ const ResultNextDashboard = () => {
                       </li>
                     ))}
                   </ul>
+
+                  <div className={styles.explanation}>
+                    <strong>Explanation: </strong> {question.explanation || "No explanation provided."}
+                  </div>
                 </div>
               ))}
             </div>

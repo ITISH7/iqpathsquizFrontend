@@ -414,3 +414,44 @@ h2 {
   transform: translateY(-50%);
   font-size: 20px;
 }
+
+.explanation {
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #eeedef; /* Light blue background for clarity */
+  padding: 12px;
+  /* border-left: 4px solid #2196f3;  */
+  border-radius: 6px;
+  color: #3a2c50; /* A darker shade for text */
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.explanation:hover {
+  background-color: #ede2fa; /* Slightly lighter on hover */
+}
+
+.closeButton {
+  position: absolute; /* Make the button positioned relative to the modal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 30px; /* Position it near the top of the modal */
+  right: 40px; /* Align it close to the right of the modal */
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  background-color: #a760fd;
+  border-radius: 50%;
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 10; /* Ensure it appears above other content in the modal */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: #8836d9;
+  transform: scale(1.1);
+}
