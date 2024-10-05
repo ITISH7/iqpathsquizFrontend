@@ -31,7 +31,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
   const handleDoneClick = () => {
     exitFullScreen();
-    navigate('/');
   };
  
   // console.log('result jo result page me aya', result);
