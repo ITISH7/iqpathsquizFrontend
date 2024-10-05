@@ -2,7 +2,6 @@
 
 .header {
   background-color: white;
-  /* border: 2px solid red; */
   height: 70px;
   width: 100%;
   display: flex;
@@ -13,7 +12,6 @@
 .nav {
   display: flex;
   align-items: center;
-  /* border: 2px solid red; */
   width: 100%;
   height: 100%;
   margin: 0 0;
@@ -21,7 +19,6 @@
 
 .logo {
   min-width: 120px;
-  /* border: 2px solid red; */
 }
 
 .navList {
@@ -34,10 +31,8 @@
   justify-content: center;
   align-items: center;
   margin-left: auto;
-  /* border: 2px solid red; */
 }
 
-/* Add this to handle the green dot */
 .notificationDot {
   position: absolute;
   top: 8px;
@@ -47,10 +42,41 @@
   background-color: green;
   border-radius: 50%;
   display: none;
-  border: 2px solid red;
 }
 
-/* Bell animation keyframes for rotating both sides */
+ul.navList li.navItem.active {
+  color: #5a2d82; /* Purple color for active link */
+  font-weight: bold;
+  position: relative;
+}
+
+ul.navList li.navItem.active::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: red; /* Temporarily use red */
+  display: block;
+}
+
+.dot {
+  position: absolute;
+  top: 16px;
+  left: -12px;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #5a2d82;
+  /* box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);  */
+}
+
+
+
 @keyframes ringOnce {
   0% { transform: rotate(0deg); }
   25% { transform: rotate(15deg); }
@@ -59,7 +85,6 @@
   100% { transform: rotate(0deg); }
 }
 
-/* Applying the ring animation twice */
 .ring {
   animation: ringOnce 1s ease-in-out 1;
 }
@@ -70,7 +95,6 @@
 
 .joiningBut {
   display: flex;
-  /* border: 2px solid red; */
 }
 
 .loginButton, .joinButton {
@@ -112,7 +136,6 @@
   gap: 10px;
   margin-right: 10px;
   position: relative;
-  /* border: 2px solid yellow; */
 }
 
 .iconContainer img{
@@ -136,7 +159,6 @@
 }
 
 
-/* mobile nav css */
 
 .mobileNav {
   position: absolute;
@@ -207,32 +229,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: 2px solid red; */
   margin: 0 auto;
 }
 
-/* on tab style */
 
 .active {
-  color: #ffffff; /* Text color for the active tab */
-  font-weight: bold; /* Optionally make the text bold */
-  border-bottom: 2px solid #ffffff; /* Add a border at the bottom of the active tab */
+  color: #ffffff; 
+  font-weight: bold; 
+  border-bottom: 2px solid #ffffff; 
 }
 
 .navLink {
-  color: #000000; /* Default color for non-active links */
+  color: #000000; 
   text-decoration: none;
   padding: 10px;
   transition: color 0.3s ease;
 }
 
 .navLink:hover {
-  color: #007bff; /* Hover color for links */
+  color: #007bff; 
 }
 
 
 
-/* xs */
 @media (min-width: 475px) {
   .header{
     height: 80px
@@ -251,10 +270,6 @@
   }
 }
 
-/* sm */
-/* @media (min-width: 640px) {} */
-
-/* md */
 @media (min-width: 768px) {
 
   .nav{
@@ -272,7 +287,6 @@
  
 }
 
-/* lg */
 @media (min-width: 1024px) {
   .navList {
     display: flex;
@@ -289,7 +303,6 @@
     justify-content: center;
     align-items: center;
     padding: 0.3rem;
-    /* border: 1px solid gray; */
   }
   
   .navItem .navLink {
@@ -316,15 +329,7 @@
     font-weight: bold;
   }
   
-  .navItem.active::before {
-    content: '•'; 
-    position: absolute;
-    top: 3px; 
-    left: 88%;
-    transform: translateX(-50%);
-    color: #5a2d82; 
-    font-size: 18px; 
-  }
+  
 
   .headerBars{
     display: none;
@@ -335,8 +340,3 @@
   }
 }
 
-/* xl */
-/* @media (min-width: 1280px) {} */
-
-/* 2xl */
-/* @media (min-width: 1536px) {} */

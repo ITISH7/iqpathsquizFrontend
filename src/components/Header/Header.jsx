@@ -44,19 +44,20 @@ function Header() {
         </div>
         <ul className={styles.navList}>
           {navItems.map((item, index) => (
-            <li key={index} className={`${styles.navItem} `}>
-            <NavLink
-              to={item.path}
-              className={({ isActive }) =>
-                `${styles.navLink} ${isActive ? styles.active : ''}`
-              }
-            >
-              {item.name}
-            </NavLink>
-          </li>
-          
+            <li key={index} className={styles.navItem} style={{ position: 'relative' }}>
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `${styles.navLink} ${isActive ? styles.active : ''}`
+                }
+                >
+                {item.name}
+              </NavLink>
+                {item.path === '/test' && <span className={styles.dot} />}
+            </li>
           ))}
         </ul>
+
         <div className={styles.authButtons}>
           {isLoggedIn ? (
             <div className={styles.iconContainer}>
