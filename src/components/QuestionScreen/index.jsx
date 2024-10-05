@@ -100,6 +100,7 @@ const QuestionScreen = () => {
       const timeTaken = initialTime - timer;
       console.log('initialTime:', initialTime);
       console.log('timer:', timer);
+      console.log('timeTaken:', timeTaken);
       setEndTime(timeTaken);
       setShowResultModal(true);
     }

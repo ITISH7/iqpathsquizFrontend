@@ -35,6 +35,7 @@ const ResultOverview = ({ result }) => {
   const { quizDetails, quizTopic, score, endTime, setScore } = useQuiz();
   const { totalScore } = quizDetails;
   const { userId } = useContext(AuthContext);
+  console.log('end time:', endTime);
 
   const totalQuestionAttempted = result.length;
 
