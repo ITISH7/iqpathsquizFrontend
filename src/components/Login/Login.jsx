@@ -118,7 +118,7 @@ const Log = ({ onSwitchToSignup }) => {
           required
         />
   
-        <Components.Button type="submit">Sign Up now</Components.Button>
+        <Components.Button type="submit">Sign Up</Components.Button>
       </Components.Form>
     </Components.SignUpContainer>
   
@@ -147,7 +147,7 @@ const Log = ({ onSwitchToSignup }) => {
           required
         />
         <Components.Anchor href="#">Forgot your password?</Components.Anchor>
-        <Components.Button type="submit">Sign In now</Components.Button>
+        <Components.Button type="submit">Sign In</Components.Button>
       </Components.Form>
     </Components.SignInContainer>
   
