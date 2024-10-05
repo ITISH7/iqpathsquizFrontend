@@ -26,7 +26,6 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [imageStates, setImageStates] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProblem, setSelectedProblem] = useState(null);
-  const [notes, setNotes] = useState({});
   const [solvedProblems, setSolvedProblems] = useState({});
   const [difficultyFilter, setDifficultyFilter] = useState('All');
   const [topicFilter, setTopicFilter] = useState("All");
@@ -43,6 +42,11 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const [currentCheckboxImage, setCurrentCheckboxImage] = useState('NotChecked');
   const [page, setPage] = useState(1);
   const [showQuestionPopUp, setShowQuestionPopUp] = useState(false);
+
+  const [notes, setNotes] = useState(() => {
+    const savedNotes = localStorage.getItem('userNotes');
+    return savedNotes ? JSON.parse(savedNotes) : {};
+  });
 
   const navigate = useNavigate();
 
@@ -265,8 +269,8 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     return filteredProblems.filter((problem) => solvedProblems[problem._id]).length;
   };
   
-  const openModal = (problemName) => {
-    setSelectedProblem(problemName);
+  const openModal = (problemId) => {
+    setSelectedProblem(problemId);
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
   };
@@ -279,20 +283,29 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const getNoteIcon = (problemId) => {
     return notes[problemId] ? NoteFilledIcon : NoteIcon;
   }
-  
+
   const saveNote = (problemId, noteContent) => {
-    const updatedNotes = { ...notes };
-    
-    if (noteContent.trim() === '') {
-      delete updatedNotes[problemId];
-    }
-    else {
-      updatedNotes[problemId] = noteContent;
-    }
-    
+    const updatedNotes = { ...notes, [problemId] : noteContent.trim() };
     setNotes(updatedNotes);
     localStorage.setItem('userNotes', JSON.stringify(updatedNotes));
   };
+  
+  // const saveNote = (problemId, noteContent) => {
+  //   setNotes((prevNotes) => {
+  //     const updatedNotes = notes ? { ...notes } : {};
+
+  //     const trimmedContent = (noteContent || '').trim();
+    
+  //     if (trimmedContent === '') {
+  //       delete updatedNotes[problemId];
+  //     }
+  //     else {
+  //       updatedNotes[problemId] = trimmedContent;
+  //     }
+    
+  //     localStorage.setItem('userNotes', JSON.stringify(updatedNotes));
+  //     });
+  // };
 
   const handleQuestionClick = (problem) => {
     if (isLoggedIn) {
@@ -603,7 +616,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                     /> */}
                     soon...
                   </td>
-                  <td className={`${styles.icons} ${styles.remove}`}>
+                  <td className={`${styles.icons} ${styles.remove}`} key={problem._id}>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -750,8 +763,10 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
         <NoteModal
           isOpen={isModalOpen}
           closeModal={closeModal}
-          onSave={(note) => saveNote(selectedProblem.id, note)}
-          initialNote={notes[selectedProblem.id] || ""}
+          // onSave={(note) => saveNote(selectedProblem.id, note)}
+          onSave={saveNote}
+          initialNote={notes[selectedProblem] || ""}
+          problemId={selectedProblem}
         />
       )}
     </div>
