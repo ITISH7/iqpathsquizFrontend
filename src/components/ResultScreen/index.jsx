@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
   const ResultScreen = () => {
   const { result, quizTopic, score, initialTime, finalTime, setEndTime } = useQuiz(); // Get necessary data from context
  
-  console.log('result jo result page me aya', result);
+  // console.log('result jo result page me aya', result);
 
 
   // const TotalTimeTaken = finalTime - initialTime;

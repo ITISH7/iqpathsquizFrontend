@@ -11,7 +11,6 @@ import { AuthContext } from '../../context/AuthContext';
 import { purple } from '@mui/material/colors';
 
 
-// console.log('getSingleTestResults:', getSingleTestResults);
 
 
 const Dashboard = () => {
@@ -44,7 +43,7 @@ const Dashboard = () => {
   // };
 
   const getResults = async (id) => {
-    console.log('id:', id);
+    console.log('result page ki id:', id);
     try {
       const response = await service.GetAllSubjectResult(id);
       setResults(response.data.data);
@@ -141,7 +140,12 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <Link to="/result-next" onClick={() => { getSingleTestResults(userId, 'Aptitude'); }}>
+                  <Link 
+                  to={{
+                    pathname: "/result-next", 
+                    state: { card },
+                  }}
+                   >
                     <div className={styles.arrowContainer}>
                       <div className={styles.arrow} style={{ backgroundColor: card.squareColor }}>&gt;</div>
                     </div>

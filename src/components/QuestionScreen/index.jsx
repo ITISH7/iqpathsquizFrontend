@@ -98,9 +98,9 @@ const QuestionScreen = () => {
       setActiveQuestion((prev) => prev + 1);
     } else {
       const timeTaken = initialTime - timer;
-      console.log('initialTime:', initialTime);
-      console.log('timer:', timer);
-      console.log('timeTaken:', timeTaken);
+      // console.log('initialTime:', initialTime);
+      // console.log('timer:', timer);
+      // console.log('timeTaken:', timeTaken);
       setEndTime(timeTaken);
       setShowResultModal(true);
     }

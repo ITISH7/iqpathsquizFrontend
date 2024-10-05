@@ -35,7 +35,7 @@ const ResultOverview = ({ result }) => {
   const { quizDetails, quizTopic, score, endTime, setScore } = useQuiz();
   const { totalScore } = quizDetails;
   const { userId } = useContext(AuthContext);
-  console.log('end time:', endTime);
+  // console.log('end time:', endTime);
 
   const totalQuestionAttempted = result.length;
 
@@ -50,11 +50,11 @@ const ResultOverview = ({ result }) => {
 
   useEffect(() => {
     // Save the test after the score has been updated
-    if (score !== 0) { // Make sure the score is updated before calling saveTest
+    // if (score !== 0) { 
       setTimeout(() => {
         saveTest(userId, quizTopic, result, totalScore, score);
       }, 1000);
-    }
+    // }
   }, [score, userId, quizTopic, result, totalScore]);
 
   // Passed if 60 or more than 60% marks

@@ -38,7 +38,7 @@ const QuizDetailsScreen = ({subjectName}) => {
     const handleFullScreenChange = () => {
 
       setInitialTime(totalTime);
-      console.log('InitialTime:', initialTime);
+      // console.log('InitialTime:', initialTime);
       if (!document.fullscreenElement) {
         enterFullScreen(); // Re-enter fullscreen if exiting
       }

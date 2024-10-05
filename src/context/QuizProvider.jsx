@@ -22,8 +22,8 @@ const QuizProvider = ({ children }) => {
   useEffect(() => {
 
 
-    console.log('quizTopic: provider me ye hia bhai', quizTopic);
-    console.log('questions: provider me ye aye', questions);
+    // console.log('quizTopic: provider me ye hia bhai', quizTopic);
+    // console.log('questions: provider me ye aye', questions);
   }, [quizTopic]);
 
   const quizDetails = {

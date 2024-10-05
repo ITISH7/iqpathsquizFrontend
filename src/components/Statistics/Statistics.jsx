@@ -28,13 +28,13 @@ const Statistics = () => {
   //fetch the thought of the day
   useEffect(() => {
     fetchThought();
-    console.log("thought", thought);
+    // console.log("thought", thought);
   }, []);
 
   const fetchThought = async () => {
     try {
       const response = await service.GenerateThought();
-      console.log("response thougth", response);
+      // console.log("response thougth", response);
       setThought(response.data.data[0].thought);
     } catch (error) {
       console.error("Error while fetching thought of the day:", error);
@@ -200,7 +200,6 @@ const Statistics = () => {
                   <div className={styles.thoughtStatement}>
                     {/* Raju is kaju, Shyam is pyaaz but you are my favourite laajawab student. Keep it up!  */}
                     {thought}
-                    {console.log("thought", thought)}
                   </div>
                 </div>
               </div>

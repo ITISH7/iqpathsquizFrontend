@@ -15,7 +15,7 @@ function QuestionContainer() {  // Capitalized component name
     const response = await service.GetSubjects();
     const gotSubjects = response.data.data;
     setSubjects(gotSubjects);
-    console.log('response:', response.data.data);
+    // console.log('response:', response.data.data);
     return response;
   };
 

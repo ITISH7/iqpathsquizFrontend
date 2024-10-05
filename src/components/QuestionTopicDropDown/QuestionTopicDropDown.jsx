@@ -59,25 +59,25 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
   const getquizQuestion = async () => {
     try {
       const response = await service.GenerateTestQuestions({subjectName});
-      console.log('response:', response)  
+      // console.log('response:', response)  
         
         if (response.status === 200) {
           const { questions, totalMarks, totalTime} = response.data.data
-          console.log('question jo method me hai', questions)
+          // console.log('question jo method me hai', questions)
           
           selectQuizTopic(subjectName)
           setQuestions(questions)
           setTotalMarks(totalMarks)
           setTimer(totalTime*60 );
           setInitialTime(totalTime*60)
-          console.log('initial time:', totalTime*60)
-          console.log('initial time:', initialTime)
+          // console.log('initial time:', totalTime*60)
+          // console.log('initial time:', initialTime)
 
           setResult([])  // Reset the result
           
-          console.log('Quiz data fetched:', response.data)
-          console.log('Questions are:', questions  )
-          console.log('quiz topic:', quizTopic)
+          // console.log('Quiz data fetched:', response.data)
+          // console.log('Questions are:', questions  )
+          // console.log('quiz topic:', quizTopic)
         }
       } catch (error) {
         console.error('Error fetching quiz data:', error)
@@ -92,7 +92,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
       const questions = response.data.data;
       const updatedQuestions = questions;
       setProblem(updatedQuestions); 
-      console.log('response:', response.data)
+      // console.log('response:', response.data)
     } catch (error) {
       console.error(error);
     }
@@ -103,7 +103,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
     try {
       const response = await service.GetTopics(subjectName);  // Assuming `GetTopics` is your API call
       const fetchedTopics = response.data.data;    // Adjust this to match your API structure
-      console.log('fetched topics:', fetchedTopics);
+      // console.log('fetched topics:', fetchedTopics);
       const updatedTopics = [{ topicName: 'All' }, ...fetchedTopics];;  // Add 'All' as the first topic
       setTopics(updatedTopics);  // Set the topics in state
     } catch (error) {
@@ -351,7 +351,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
         setNotes(JSON.parse(savedNotes));
       }
       // getdata();
-      console.log('Loaded notes from localStorage:', notes);
+      // console.log('Loaded notes from localStorage:', notes);
     }, []);
           
 
@@ -555,7 +555,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
             </thead>
             <tbody>
               {filteredProblems.slice(page * 10 - 10 , page * 10).map((problem, index) => (
-                console.log('problem:', problem),
+                // console.log('problem:', problem),
                 <tr
                   key={`${problem.id}-${index}`}
                   onClick={(e) => e.stopPropagation()}
@@ -676,7 +676,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                 getquizQuestion();
                 // setValues()
                 // navigate(`/quiz/${subjectName}`)
-                console.log("quiz topic:", quizTopic);
+                // console.log("quiz topic:", quizTopic);
               }}
             >
               Complete Test

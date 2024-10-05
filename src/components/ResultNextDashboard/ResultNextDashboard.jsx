@@ -3,6 +3,7 @@ import styles from "./ResultNextDashboard.module.css";
 import { Service } from "../../axios/config";
 import { AuthContext } from "../../context/AuthContext";
 import { use } from "echarts";
+import { useLocation } from 'react-router-dom';
 
 const cardsData = [
   {
@@ -39,6 +40,8 @@ const ResultNextDashboard = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [testDetails, setTestDetails] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const location = useLocation();
+  const subject = location.state?.subject;
 
   const service = new Service();
   const { userId } = useContext(AuthContext);
