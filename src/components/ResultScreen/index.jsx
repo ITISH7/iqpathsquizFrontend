@@ -18,10 +18,10 @@ import styles from './ResultScreen.module.css'; // Importing CSS module
   console.log('result jo result page me aya', result);
 
 
-  const TotalTimeTaken = finalTime - initialTime;
+  // const TotalTimeTaken = finalTime - initialTime;
   
-  setEndTime(TotalTimeTaken/60);
-  console.log('TotalTimeTaken:', TotalTimeTaken);
+  // setEndTime(TotalTimeTaken/60);
+  // console.log('TotalTimeTaken:', TotalTimeTaken);
   // Function to handle retry action
   // const onClickRetry = () => {
   //   refreshPage();

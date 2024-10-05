@@ -61,6 +61,7 @@ const Log = ({ onSwitchToSignup }) => {
     try {
         const userData = await authService.createAccount(formData);
         console.log(userData);
+        const ID = userData.data.data._id;
         setUserId(ID);
         if(userData){
             console.log("User account created successfully")
@@ -80,10 +81,10 @@ const Log = ({ onSwitchToSignup }) => {
       <Components.Form onSubmit={handleSignup}>
         <Components.Title>Create Account</Components.Title>
   
-        {errorMessage && (
+        {/* {errorMessage && (
           <Components.ErrorMessage>{errorMessage}</Components.ErrorMessage>
         )}
-  
+   */}
         <Components.Input
           type="text"
           placeholder="Name"

@@ -65,9 +65,9 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
           setQuestions(questions)
           setTotalMarks(totalMarks)
           setTimer(totalTime*60 );
-          // setInitialTime(totalTime*60)
-          // console.log('initial time:', totalTime*60)
-          // console.log('initial time:', initialTime)
+          setInitialTime(totalTime*60)
+          console.log('initial time:', totalTime*60)
+          console.log('initial time:', initialTime)
 
           setResult([])  // Reset the result
           

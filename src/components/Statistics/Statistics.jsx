@@ -160,16 +160,22 @@ const Statistics = () => {
             <div className={styles.thoughtBackground}>
               <p className={styles.thoughtPara}>{formatDate(today)}</p>
               <div className={styles.thoughtContainer}>
-                <img
-                  src="src/assets/ThoughtPi.svg"
-                  alt="Thought Picture"
-                  className={styles.thoughtPicture}
-                />
-                <img
-                  src="src/assets/ThoughtSc.png"
-                  alt="Thought Statement"
-                  className={styles.thoughtStatement}
-                />
+                <div  className={styles.thoughtPicture}>
+                  <img
+                    src="src/assets/ThoughtPi.svg"
+                    alt="Thought Picture"
+                   
+                  />
+                </div>
+                <div className={styles.thoughtBorder}>
+                  <img
+                    src="src/assets/thoughtBorder.png"
+                    alt="Thought border"
+                  />
+                  <div className={styles.thoughtStatement}>
+                    Raju is kaju, Shyam is pyaaz but you are my favourite laajawab student. Keep it up! 
+                  </div>
+                </div>
               </div>
             </div>
           </div>
