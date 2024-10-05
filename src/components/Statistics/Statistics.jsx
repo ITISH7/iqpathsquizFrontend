@@ -15,11 +15,33 @@ import { formatDate } from "../../utils/date.js";
 import BarGraph from "../../modals/barGraph/BarGraph";
 import { data, categories } from "../../modals/barGraph/dataBar.js";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Service } from "../../axios/config";
 
 const Statistics = () => {
   const [animate, setAnimate] = useState(false);
   const [activeTab, setActiveTab] = useState("weekly");
   const [direction, setDirection] = useState("right");
+  const [thought, setThought] = useState("");
+
+  const service = new Service();
+
+  //fetch the thought of the day
+  useEffect(() => {
+    fetchThought();
+    console.log("thought", thought);
+  }, []);
+
+  const fetchThought = async () => {
+    try {
+      const response = await service.GenerateThought();
+      console.log("response thougth", response);
+      setThought(response.data.data[0].thought);
+    } catch (error) {
+      console.error("Error while fetching thought of the day:", error);
+    }
+  };
+
+
   const { isLoggedIn } = useContext(AuthContext);
   const itemsContainerRef = useRef(null);
   const [scrollbarHeight, setScrollbarHeight] = useState(0);
@@ -39,6 +61,7 @@ const Statistics = () => {
         const itemsHeight = itemsContainerRef.current.scrollHeight;
         setScrollbarHeight(itemsHeight);
       }
+    
     };
 
     // Update on load
@@ -133,6 +156,8 @@ const Statistics = () => {
     }
   };
 
+  
+
   return isLoggedIn ? (
     <div className={styles.statisticsContainer}>
       <div className={styles.statsHeader}>
@@ -173,7 +198,9 @@ const Statistics = () => {
                     alt="Thought border"
                   />
                   <div className={styles.thoughtStatement}>
-                    Raju is kaju, Shyam is pyaaz but you are my favourite laajawab student. Keep it up! 
+                    {/* Raju is kaju, Shyam is pyaaz but you are my favourite laajawab student. Keep it up!  */}
+                    {thought}
+                    {console.log("thought", thought)}
                   </div>
                 </div>
               </div>
