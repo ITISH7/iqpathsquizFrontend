@@ -46,7 +46,6 @@ function Quiz() {
     <ThemeProvider theme={theme}>
       {/* Global styles should update based on the selected theme */}
       <GlobalStyles />
-      {/* <QuizProvider> */}
         {/* Toggle theme component to switch between light and dark */}
         <ToggleTheme
           onChange={toggleTheme}
@@ -56,7 +55,6 @@ function Quiz() {
           value="theme"
         />
         <Main subjectName={null}/>
-      {/* </QuizProvider> */}
     </ThemeProvider>
   );
 }

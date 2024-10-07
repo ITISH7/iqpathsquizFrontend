@@ -135,7 +135,7 @@ const Dashboard = () => {
                     <div className={styles.progress}>
                       <div className={styles.title}>{card} SHEET PROGRESS</div>
                       <div className={styles.progressBarContainer}>
-                        <div className={styles.progressBar} style={{ width: `${card.progress}%`,
+                        <div className={styles.progressBar} style={{ width: (150),
                             backgroundColor: card.squareColor }}></div>
                       </div>
                     </div>
