@@ -594,25 +594,25 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
                       />
                     </td>
 
-                    <td onClick={() => handleQuestionClick(problem, index)}>
-                      {problem.questionContent}
-                      <button>
-                        {showQuestionPopUp && (
-                          <QuestionPopUp
-                            question={problem}
-                            onClose={closePopup}
-                          />
-                        )}
-                      </button>
-                      <LoginPopup
-                        message="Please login first"
-                        show={showPopUp}
-                        duration={5000}
-                        onClose={closePopup}
-                      />
-                    </td>
-                    <td className={styles.remove}>
-                      {/* <img
+                  <td onClick={() => handleQuestionClick(problem, index)}>
+                    {problem.questionContent}
+                    <button> 
+                      {showQuestionPopUp && (
+                        <QuestionPopUp
+                          question={problem}
+                          onClose={closePopup}
+                        />
+                      )}
+                    </button>
+                    <LoginPopup
+                      message="Please login first"
+                      show={showPopUp}
+                      duration={5000}
+                      onClose={closePopup}
+                    />
+                  </td>
+                  <td className={styles.soon}>
+                    {/* <img
                       src="src/assets/Artical.svg"
                       alt="Article"
                       className={styles.icons}
