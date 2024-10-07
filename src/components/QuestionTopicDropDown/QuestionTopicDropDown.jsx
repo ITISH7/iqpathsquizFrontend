@@ -83,7 +83,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
 
         setResult([]); // Reset the result
 
-        // console.log('Quiz data fetched:', response.data)
+        console.log('Quiz data fetched:', response.data)
         // console.log('Questions are:', questions  )
         // console.log('quiz topic:', quizTopic)
       }

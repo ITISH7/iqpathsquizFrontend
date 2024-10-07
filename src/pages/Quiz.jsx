@@ -44,17 +44,15 @@ function Quiz() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* Global styles should update based on the selected theme */}
       <GlobalStyles />
-        {/* Toggle theme component to switch between light and dark */}
         <ToggleTheme
           onChange={toggleTheme}
           currentTheme={currentTheme}
-          checked={currentTheme === 'dark'} // Toggle checked based on the current theme
+          checked={currentTheme === 'dark'} 
           id="toggleTheme"
           value="theme"
         />
-        <Main subjectName={null}/>
+        <Main />
     </ThemeProvider>
   );
 }

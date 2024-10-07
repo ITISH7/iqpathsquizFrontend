@@ -104,4 +104,33 @@ export class Service {
       throw error;
     }
   }
+
+  async SaveNotes({ userId, questionId, notes }) {
+    try {
+      return await axios.post("/user/enterNotes", {
+        userId,
+        questionId,
+        notes
+      });
+    } catch (error) {
+      console.log("Service :: SaveNotes :: error", error);
+      throw error;
+    }
+  }
+
+  async GetNotes({ userId, questionId }) {
+    try {
+      return await axios.post("/user/fetchNotes", {
+        userId,
+        questionId
+      });
+    } catch (error) {
+      console.log("Service :: GetNotes :: error", error);
+      throw error;
+    }
+  }
+
+   
+
+
 }

@@ -1,43 +1,36 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useQuiz } from '../../context/QuizContext';
-import Button from '../ui/Button';
-import CodeSnippet from '../ui/CodeSnippet';
-import QuizImage from '../ui/QuizImage';
-import ResultOverview from './ResultOverview/index';
-// import { Refresh } from '../../config/icons';
-import { refreshPage } from '../../utils/helpers';
-// import { ScreenTypes } from '../../types/types';
-import styles from './ResultScreen.module.css'; // Importing CSS module
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { useQuiz } from "../../context/QuizContext";
+import Button from "../ui/Button";
+import CodeSnippet from "../ui/CodeSnippet";
+import QuizImage from "../ui/QuizImage";
+import ResultOverview from "./ResultOverview/index";
+import styles from "./ResultScreen.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import { ScreenTypes } from "../../types/types";
 
-// import { use } from 'echarts/types/src/extension.js';
 
-  
-  const ResultScreen = () => {
-  const { result, quizTopic, score, initialTime, finalTime, setEndTime } = useQuiz(); // Get necessary data from context
+const ResultScreen = () => {
+  const { result, quizTopic, score, initialTime, finalTime, setEndTime, setCurrentScreen } = useQuiz(); 
 
   const exitFullScreen = () => {
     if (document.exitFullscreen) {
       document.exitFullscreen();
-    }
-    else if (document.webkitExitFullScreen) {
-      document
-      .webkitExitFullScreen();
-    }
-    else if (document.msExitFullScreen) {
+    } else if (document.webkitExitFullScreen) {
+      document.webkitExitFullScreen();
+    } else if (document.msExitFullScreen) {
       document.msExitFullScreen();
     }
   };
 
   const handleDoneClick = () => {
+    setCurrentScreen(ScreenTypes.QuizDetailsScreen);
     exitFullScreen();
   };
- 
+
   // console.log('result jo result page me aya', result);
 
-
   // const TotalTimeTaken = finalTime - initialTime;
-  
+
   // setEndTime(TotalTimeTaken/60);
   // console.log('TotalTimeTaken:', TotalTimeTaken);
   // Function to handle retry action
@@ -46,7 +39,7 @@ import { Link, useNavigate } from 'react-router-dom';
   // };
 
   const redirectHome = () => {
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   const renderAnswers = (choices, selectedAnswer, correctAnswers) => {
@@ -61,13 +54,13 @@ import { Link, useNavigate } from 'react-router-dom';
       return (
         <li
           key={ans}
-          className={`${styles.answer} ${isCorrect ? styles.correctWithTick : ''} ${wrong ? styles.clickedWrong : ''}`}
+          className={`${styles.answer} ${
+            isCorrect ? styles.correctWithTick : ""
+          } ${wrong ? styles.clickedWrong : ""}`}
         >
           <span>{label}.</span> {ans}
-
           {/* Display tick if the answer is correct */}
           {isCorrect && <div className={styles.tick}>✔</div>}
-
           {/* Display cross if the selected answer was wrong */}
           {wrong && <div className={styles.cross}>✗</div>}
         </li>
@@ -107,11 +100,9 @@ import { Link, useNavigate } from 'react-router-dom';
     const element = document.documentElement;
     if (element.requestFullscreen) {
       element.requestFullscreen();
-    }
-    else if (element.webkitRequestFullScreen) {
+    } else if (element.webkitRequestFullScreen) {
       element.webkitRequestFullScreen();
-    }
-    else if (element.msRequestFullScreen) {
+    } else if (element.msRequestFullScreen) {
       element.msRequestFullScreen();
     }
   };
@@ -123,19 +114,19 @@ import { Link, useNavigate } from 'react-router-dom';
       }
     };
 
-    document.addEventListener('fullscreenchange', handleFullScreenChange);
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
 
     enterFullScreen();
 
-    const header = document.querySelector('header');
-    const footer = document.querySelector('footer');
-    if (header) header.style.display = 'none';
-    if (footer) footer.style.display = 'none';
+    const header = document.querySelector("header");
+    const footer = document.querySelector("footer");
+    if (header) header.style.display = "none";
+    if (footer) footer.style.display = "none";
 
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullScreenChange);
-      if (header) header.style.display = '';
-      if (footer) footer.style.display = '';
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+      if (header) header.style.display = "";
+      if (footer) footer.style.display = "";
     };
   }, []);
 
@@ -145,22 +136,47 @@ import { Link, useNavigate } from 'react-router-dom';
         <div className={styles.innerContainer}>
           <ResultOverview result={result} />
           {uniqueResults.map(
-            ({ questionContent, options, code, image, correctAnswers, selectedAnswer, score, isMatch }, index) => (
-              <div className={styles.questionContainer} key={`${index}-${questionContent}`}>
+            (
+              {
+                questionContent,
+                options,
+                code,
+                image,
+                correctAnswers,
+                selectedAnswer,
+                score,
+                isMatch,
+              },
+              index
+            ) => (
+              <div
+                className={styles.questionContainer}
+                key={`${index}-${questionContent}`}
+              >
                 <div className={styles.resizableBox}>
                   <div className={styles.flex}>
-                    <h6 className={styles.questionNumber}>{`${index + 1}. `}</h6>
-                    <span className={styles.questionStyle}>{questionContent}</span>
+                    <h6 className={styles.questionNumber}>{`${
+                      index + 1
+                    }. `}</h6>
+                    <span className={styles.questionStyle}>
+                      {questionContent}
+                    </span>
                   </div>
                   <div>
                     {code && <CodeSnippet code={code} language="javascript" />}
                     {image && <QuizImage image={image} />}
-                    <ul>{renderAnswers(options, selectedAnswer, correctAnswers)}</ul>
+                    <ul>
+                      {renderAnswers(options, selectedAnswer, correctAnswers)}
+                    </ul>
                     {/* Always show correct answers after user answers */}
                     {renderCorrectAnswers(correctAnswers, options)}
                   </div>
                 </div>
-                <span className={`${styles.score} ${isMatch ? styles.right : styles.wrong}`}>
+                <span
+                  className={`${styles.score} ${
+                    isMatch ? styles.right : styles.wrong
+                  }`}
+                >
                   {`Score ${isMatch ? score : 0}`}
                 </span>
               </div>
@@ -168,15 +184,8 @@ import { Link, useNavigate } from 'react-router-dom';
           )}
         </div>
         <div className={styles.ButtonContainer}>
-          {/* <Button
-            text="RETRY"
-            onClick={onClickRetry}
-            icon={<img src="/assets/icons/refresh.svg" alt="Refresh Icon" style={{ width: '24px', height: '24px' }} />}
-            iconPosition="left"
-            bold
-          /> */}
-          
-          <Link to= '/'>
+       
+          <Link to="/">
             <Button
               text="DONE"
               onClick={handleDoneClick}

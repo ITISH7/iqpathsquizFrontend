@@ -49,14 +49,16 @@ const ResultNextDashboard = () => {
   const getSingleTestResults = async (id, subjectName) => {
     try {
       const response = await service.GetSubjectResult(id, subjectName);
-      console.log("response:", response);
+      console.log("response: in resutl preview ", response);
 
       const sortedData = response.data.data.sort((a, b) => {
         return new Date(b.createdAt) - new Date(a.createdAt);
       });
 
+      console.log("sortedData:", sortedData);
       setTestDetails(sortedData);
       setQuestions(sortedData[0].questions);
+      console.log("questions:", questions);
       return response.data;
     } catch (error) {
       console.log("error:", error);
@@ -71,11 +73,13 @@ const ResultNextDashboard = () => {
   const openModal = (card) => {
     document.body.style.overflow = "hidden";
     setSelectedCard(card);
+    setQuestions(card.questions || []);
   };
 
   const closeModal = () => {
     document.body.style.overflow = "auto";
     setSelectedCard(null);
+    setQuestions([]);
   };
 
   const formatDate = (dateString) => {

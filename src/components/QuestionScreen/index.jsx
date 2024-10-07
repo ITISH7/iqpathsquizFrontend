@@ -16,16 +16,7 @@ import { useContext } from 'react';
 const service = new Service(); 
 
 
-// const saveTest = async ( userId, quizTopic, result, totalScore, score ) => { 
-//     console.log('userId:', userId);
-//     console.log('quizTopic:', quizTopic);
-//     console.log('result:', result);
-//     console.log('totalScore:', totalScore);
-//     console.log('score:', score);
-//     const response = await service.SubmitTest("66f1063d2851cc36ff0f7f6a", quizTopic , result, totalScore, score);
-//     console.log('response:', response);
-//     return response;
-//   };
+
 
 const saveTest = async (userId, quizTopic, result, totalScore, score) => {
   console.log('userId:', userId);
@@ -103,6 +94,13 @@ const QuestionScreen = () => {
       // console.log('timeTaken:', timeTaken);
       setEndTime(timeTaken);
       setShowResultModal(true);
+    }
+    setSelectedAnswer([]);
+  };
+
+  const onClicPrev = () => {
+    if (activeQuestion !== 0) {
+      setActiveQuestion((prev) => prev - 1);
     }
     setSelectedAnswer([]);
   };
@@ -194,11 +192,18 @@ const QuestionScreen = () => {
         />
         <div className={styles.buttonWrapper}>
           <Button
+            text={'Prev'}
+            onClick={onClicPrev}
+            icon={<img src="src/assets/icons/next.svg" alt="Next Icon" style={{ width: '24px', height: '24px' }} />}
+            iconPosition="right"
+            // disabled={selectedAnswer.length === 0}
+          />
+          <Button
             text={activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
             onClick={onClickNext}
             icon={<img src="src/assets/icons/next.svg" alt="Next Icon" style={{ width: '24px', height: '24px' }} />}
             iconPosition="right"
-            disabled={selectedAnswer.length === 0}
+            // disabled={selectedAnswer.length === 0}
           />
         </div>
       </div>
