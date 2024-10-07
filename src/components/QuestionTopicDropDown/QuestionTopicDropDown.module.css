@@ -364,9 +364,19 @@ input[type="checkbox"]:checked + .customCheckbox::after {
   table-layout: fixed;
   font-size: var(--size-base);
 }
+
 /* .remove{
   display: none;
 } */
+
+.soon {
+  border: 2px solid red;
+  margin-left: auto;
+  padding-left: 500px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
 
 .colStatus,
 .colArticle,

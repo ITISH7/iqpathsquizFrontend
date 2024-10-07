@@ -597,7 +597,7 @@ function QuestionTopicDropDown({ subjectName, title = 'Python' }) {
                       onClose={closePopup}
                     />
                   </td>
-                  <td className={styles.remove}>
+                  <td className={styles.soon}>
                     {/* <img
                       src="src/assets/Artical.svg"
                       alt="Article"

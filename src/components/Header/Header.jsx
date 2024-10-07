@@ -51,9 +51,16 @@ function Header() {
                   `${styles.navLink} ${isActive ? styles.active : ''}`
                 }
                 >
-                {item.name}
+                {({ isActive }) => (
+                  <>
+                    {isActive && <span className={styles.activeDot} />} {/* Dot at the top */}
+                    {item.name}
+                  </>
+                )}
+
+                {/* {item.name}
+                {item.path === window.location.pathname && <span className={styles.activeDot} />}  */}
               </NavLink>
-                {item.path === '/test' && <span className={styles.dot} />}
             </li>
           ))}
         </ul>
