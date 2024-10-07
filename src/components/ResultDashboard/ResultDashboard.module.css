@@ -103,7 +103,7 @@
   padding: 10px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(90deg, #DCACFF 0%, rgba(194, 164, 247, 0.56) 100%);
+  background: #91D5FF;
   transition: background-color 0.3s ease;
   width: 100%;
   height: auto;
@@ -117,11 +117,11 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  border: 2px solid red
+  /* border: 2px solid red */
 }
 
 .square {
-  background-color: #B46FE1;
+  background-color: #61B1F8;
   margin-right: 10px;
   width: 80px;
   height: 80px;
@@ -134,7 +134,7 @@
   height: 10px;
   margin-top: 0px;
   gap: 40px;
-  border: 2px solid green
+  /* border: 2px solid green */
 }
 
 .title {
@@ -431,7 +431,7 @@
 
   .progressBar {
     height: 100%;
-    background-color: #b46fe1; 
+    background-color: #61B1F8; 
     border-radius: 8px;
   }
 

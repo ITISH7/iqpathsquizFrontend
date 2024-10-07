@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext,useState } from 'react';
 import { useQuiz } from '../../../context/QuizContext';
 import { convertSeconds } from '../../../utils/helpers';
 import styles from './ResultOverview.module.css'; // Import the CSS module
@@ -19,7 +19,7 @@ const saveTest = async (userId, quizTopic, result, totalScore, score) => {
     subjectName: quizTopic,
     questions: result,
     totalMarks: totalScore,
-    totalScore: score
+    totalScore: score,
   };
 
   try {
@@ -32,10 +32,10 @@ const saveTest = async (userId, quizTopic, result, totalScore, score) => {
 };
 
 const ResultOverview = ({ result }) => {
-  const { quizDetails, quizTopic, score, endTime, setScore } = useQuiz();
+  const { quizDetails, quizTopic, score, setScore, endTime } = useQuiz();
   const { totalScore } = quizDetails;
   const { userId } = useContext(AuthContext);
-  // console.log('end time:', endTime);
+  const [hasSubmitted, setHasSubmitted] = useState(false); 
 
   const totalQuestionAttempted = result.length;
 
@@ -44,18 +44,19 @@ const ResultOverview = ({ result }) => {
     .reduce((accumulator, currentValue) => accumulator + (currentValue.score || 0), 0);
 
   useEffect(() => {
-    // Set the obtained score once it's calculated
+    // Set the obtained score and save the test even if the score is 0
     setScore(obtainedScore);
   }, [obtainedScore, setScore]);
 
   useEffect(() => {
-    // Save the test after the score has been updated
-    // if (score !== 0) { 
+    if (!hasSubmitted && userId && quizTopic && totalScore >= 0) {
+      // Save test only if it hasn't been submitted yet
+      setHasSubmitted(true); // Mark as submitted
       setTimeout(() => {
-        saveTest(userId, quizTopic, result, totalScore, score);
+        saveTest(userId, quizTopic, result, totalScore, obtainedScore);
       }, 1000);
-    // }
-  }, [score, userId, quizTopic, result, totalScore]);
+    }
+  });
 
   // Passed if 60 or more than 60% marks
   const calculateStatus =

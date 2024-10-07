@@ -63,6 +63,7 @@ export class Service {
   }
 
   async SubmitTest({ id, subjectName, questions, totalMarks, totalScore }) {
+    console.log("test submit chala hai")
     try {
       const result = await axios.post("/user/acceptResult", {
         id,
