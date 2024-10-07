@@ -40,6 +40,10 @@ const ResultNextDashboard = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [testDetails, setTestDetails] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [sortByDate, setSortByDate] = useState("");
+  const [sortByType, setSortByType] = useState("");
+  const [sortByDifficulty, setSortByDifficulty] = useState("");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const location = useLocation();
   const subject = location.state?.subject;
 
@@ -121,6 +125,34 @@ const ResultNextDashboard = () => {
     return `${dayWithSuffix} ${month}, ${weekday} ${year}`;
   };
 
+  useEffect(() => {
+    const sortedData = [...testDetails];
+
+    if (sortByDate === "asc") {
+      sortedData.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+    else if (sortByDate === "desc") {
+      sortedData.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    if (sortByType) {
+      sortedData.sort((a,b) => (a.type > b.type ? 1 : -1));
+    }
+
+    if (sortByDifficulty) {
+      sortedData.sort((a, b) => {
+        const difficultyOrder = { easy: 1, medium: 2, hard: 3};
+        return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
+      });
+    }
+
+    setTestDetails(sortedData);
+  }, [sortByDate, sortByType, sortByDifficulty, testDetails]);
+
+  const toggleFilter = () => {
+    setIsFilterOpen((prev) => !prev);
+  };
+
   return (
     <div className={styles.app}>
       <div className={styles.header}>
@@ -142,11 +174,45 @@ const ResultNextDashboard = () => {
               className={styles.searchInput}
               placeholder="Search"
             />
-            <button className={styles.filterButton}>
-              <img src="src/assets/FilterIcon.svg" alt="Filter Button" />
-              Filters
+            <button className={styles.filterButton} onClick={toggleFilter}>
+              {/* <img src="src/assets/FilterIcon.svg" alt="Filter Button" />
+              Filters */}
+              Filters <span className={styles.arrowIcon}>{isFilterOpen ? ">" : ">"}</span> 
             </button>
           </div>
+          {isFilterOpen && (
+          <div className={styles.filterContainer}>
+            <select 
+              value={sortByDate}
+              onChange={(e) => setSortByDate(e.target.value)}
+              className={styles.filterSelect}>
+                <option className={styles.value} value="">Sort by Date</option>
+                <option className={styles.value} value="asc">Ascending</option>
+                <option className={styles.value} value="desc">Descending</option>
+              </select>
+
+              <select 
+                value={sortByType}
+                onChange={(e) => setSortByType(e.target.value)}
+                className={styles.filterSelect}>
+                  <option className={styles.value} value="">Sort by Type</option>
+                  <option className={styles.value} value="type1">Complete Test</option>
+                  <option className={styles.value} value="type2">Topic-wise Test</option>
+                </select>
+
+                <select 
+                  value={sortByDifficulty}
+                  onChange={(e) => setSortByDifficulty(e.target.value)}
+                  className={styles.filterSelect}>
+                    <option className={styles.value} value="">Sort by Difficulty</option>
+                    <option className={styles.value} value="easy">Easy</option>
+                    <option className={styles.value} value="medium">
+                      Medium
+                    </option>
+                    <option className={styles.value} value="hard">Hard</option>
+                  </select>
+          </div>
+          )}
         </div>
       </div>
 
