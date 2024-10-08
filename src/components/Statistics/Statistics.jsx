@@ -380,7 +380,9 @@ const Statistics = () => {
             </div>
             <button className={styles.shareButtonText}>Share Progress</button>
           </div>
-          <button className={styles.updateButton}>Update Socials</button>
+          <Link to="/result">
+          <button className={`${styles.updateButton} ${styles.resultButton}`}>Show Result</button>
+          </Link>
         </div>
       </div>
 
