@@ -22,6 +22,8 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
   const [isSetDropdownOpen, setIsSetDropdownOpen] = useState(false);
+  const [isTopicDropOpen, setIsTopicDropOpen] = useState(false);
+  const [isDiffDropOpen, setIsDiffDropOpen] = useState(false);
   const [selectedSet, setSelectedSet] = useState("Set 1");
   const [imageStates, setImageStates] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -142,7 +144,18 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
 
   const toggleSetDropdown = (event) => {
     // event.stopPropagation();
-    setIsSetDropdownOpen(!isSetDropdownOpen);
+    // setIsSetDropdownOpen(!isSetDropdownOpen);
+    setIsSetDropdownOpen((prevState) => !prevState);
+  };
+
+  const toggleTopicDrop = () => {
+    // event.stopPropagation();
+    // setIsSetDropdownOpen(!isSetDropdownOpen);
+    setIsTopicDropOpen((prevState) => !prevState);
+  };
+
+  const toggleDiffDropOpen = () => {
+    setIsDiffDropOpen((prevState) => !prevState);
   };
 
   const handleSetSelection = (setName) => {
@@ -475,8 +488,8 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
             >
               {topicFilter === "All" ? (
                 <>
-                  <img src="src/assets/FilterIcon.svg" alt="Filter" />
                   Topic
+                  <img className={styles.downArrow} src={isFilterOpen1 ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
                 </>
               ) : (
                 <>{topicFilter}</>
@@ -515,8 +528,8 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
             >
               {difficultyFilter === "All" ? (
                 <>
-                  <img src="src\assets\FilterIcon.svg" alt="Filter" />
                   Difficulty
+                  <img className={styles.downArrow} src={isFilterOpen2 ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
                 </>
               ) : (
                 <>{difficultyFilter}</>
@@ -700,16 +713,36 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
           {filteredProblems.length > 0 && (
             <div className={styles.pagination}>
               <button
+                onClick={() => setPage(1)}
+                disabled={page === 1}
+                className={styles.double}
+                >
+                  <img className={styles.rightArrow} src="src\assets\double-left.svg" alt="right arrow" />
+                  First 
+              </button>
+              <button
                 onClick={() => setPage((prev) => prev - 1)}
                 disabled={page === 1}
               >
-                ⏮Prev
+                <img className={styles.rightArrow} src="src\assets\angle-left.svg" alt="right arrow" />
+                Prev
               </button>
+              <p>
+                Page {page} of {Math.ceil(filteredProblems.length / 10)}
+              </p>
               <button
                 onClick={() => setPage((prev) => prev + 1)}
                 disabled={page * 10 >= filteredProblems.length}
               >
-                Next⏩
+                Next
+                <img className={styles.rightArrow} src="src\assets\angle-right.svg" alt="right arrow" />
+              </button>
+              <button 
+                onClick={() => setPage(Math.ceil(filteredProblems.length / 10))}
+                disabled={page === Math.ceil(filteredProblems.length / 10)}
+              >
+                Last
+                <img className={styles.rightArrow} src="src\assets\double-right.svg" alt="right arrow" />
               </button>
             </div>
           )}
@@ -718,7 +751,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
             <div className={styles.wrapper}>
               <div className={styles.dropdownWrapper}>
                 <button
-                  className={`${styles.playButton} ${styles.buttonEffect}`}
+                  className={`${styles.playButton} ${styles.buttonEffect} ${styles.lower1}`}
                   onClick={() => {
                     if (!isLoggedIn) {
                       setShowPopUp(true);
@@ -728,14 +761,15 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
                       console.log("quiz topic:", quizTopic);
                     }
                   }}
-                >
-                  Complete Test
+                  >
+                  Complete Test 
+                  <img className={styles.downArrow} src={isSetDropdownOpen ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
                 </button>
                 {isSetDropdownOpen && (
                   <div className={styles.setDropdownMenu}>
                     <Link to={`/quiz`}>
                       <div
-                        className={styles.setDropdownItem}
+                        className={`${styles.setDropdownItem} ${styles.testSets}`}
                         // onClick={handleQuizStart}
                       >
                         Set 1
@@ -743,7 +777,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
                     </Link>
                     <Link to="/quiz">
                       <div
-                        className={styles.setDropdownItem}
+                        className={`${styles.setDropdownItem} ${styles.testSets}`}
                         onClick={() => handleSetSelection("Set 2")}
                       >
                         Set 2
@@ -751,7 +785,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
                     </Link>
                     <Link to="/quiz">
                       <div
-                        className={styles.setDropdownItem}
+                        className={`${styles.setDropdownItem} ${styles.testSets}`}
                         onClick={() => handleSetSelection("Set 3")}
                       >
                         Set 3
@@ -763,16 +797,17 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
 
               <div className={styles.dropdownWrapper}>
                 <button
-                  className={`${styles.playButton} ${styles.buttonEffect}`}
+                  className={`${styles.playButton} ${styles.buttonEffect} ${styles.lower2}`}
                   onClick={() => {
                     if (!isLoggedIn) {
                       setShowPopUp(true);
                     } else {
-                      toggleTopicDropdown();
+                      toggleTopicDrop();
                     }
                   }}
                 >
                   Topic-Wise Test
+                  <img className={styles.downArrow} src={isTopicDropOpen ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
                 </button>
                 {isTopicDropdownOpen && (
                   <div className={styles.setDropdownMenu}>
@@ -793,6 +828,44 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
                       onClick={() => handleTopicSelection("String")}
                     >
                       String
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className={styles.dropdownWrapper}>
+                <button
+                  className={`${styles.playButton} ${styles.buttonEffect} ${styles.lower3}`}
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      setShowPopUp(true);
+                    } else {
+                      toggleDiffDropOpen();
+                    }
+                  }}
+                >
+                  Difficulty-Wise Test
+                  <img className={styles.downArrow} src={isDiffDropOpen ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
+                </button>
+                {isTopicDropdownOpen && (
+                  <div className={styles.setDropdownMenu}>
+                    <div
+                      className={styles.setDropdownItem}
+                      onClick={() => handleTopicSelection("Easy")}
+                    >
+                      Easy
+                    </div>
+                    <div
+                      className={styles.setDropdownItem}
+                      onClick={() => handleTopicSelection("Medium")}
+                    >
+                      Medium
+                    </div>
+                    <div
+                      className={styles.setDropdownItem}
+                      onClick={() => handleTopicSelection("Hard")}
+                    >
+                      Hard
                     </div>
                   </div>
                 )}
