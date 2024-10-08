@@ -13,6 +13,8 @@ import QuizProvider from './context/QuizProvider';
 // import  QuizProvider  from './context/QuizProvider';
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
+import PrivacyPolicy from './pages/privacyPolicy.jsx'
+import TermsAndConditions from './pages/termsAndCondition.jsx'
 
 const router = createBrowserRouter([
   {
@@ -46,7 +48,16 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <Signup />
+      },
+      {
+        path: '/PrivacyPolicy',
+        element: <PrivacyPolicy />
+      },
+      {
+        path: 'termsandcondition',
+        element: <TermsAndConditions />
       }
+
     ],
   }
 ])
