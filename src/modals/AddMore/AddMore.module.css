@@ -1,5 +1,5 @@
 .popUp {
-    position: absolute;
+    position: fixed;
     background-color: #f3e6ff; /* Changed to a softer background color */
     border: 1px solid #ccc; /* Subtle border */
     padding: 20px; /* Sufficient padding for better spacing */

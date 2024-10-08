@@ -6,7 +6,7 @@ const AddMore = ({ position, onClose }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose(); // Call the onClose function after 2 seconds
-    }, 4000);
+    }, 1000);
     
     return () => clearTimeout(timer);
   }, [onClose]);
@@ -19,6 +19,7 @@ const AddMore = ({ position, onClose }) => {
     <div
       className={styles.popUp}
       style={{
+        // position: 'fixed',
         top: `${position.top - 100}px`, // Adjusted the top distance
         left: `${position.left - 110}px`, // Center it horizontally
       }}
