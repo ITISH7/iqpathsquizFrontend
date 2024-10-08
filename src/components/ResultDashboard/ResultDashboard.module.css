@@ -207,6 +207,7 @@
   width: 100%;
   height: 219px;
   border: 1px solid #C9CDD9;
+  position: relative;
 }
   
 .addCard:hover {

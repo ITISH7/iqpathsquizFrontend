@@ -282,9 +282,9 @@ const ResultNextDashboard = () => {
         ))}
       </div>
 
-      <div className={styles.man}>
+      {/* <div className={styles.man}>
         <img src="src\assets\man.svg" alt="Man in thought" />
-      </div>
+      </div> */}
 
       {selectedCard && (
         
