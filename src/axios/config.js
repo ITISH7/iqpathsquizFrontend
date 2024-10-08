@@ -105,6 +105,15 @@ export class Service {
     }
   }
 
+  async GetDiffucltyWisePieCharts(id) {
+    try {
+      return await axios.post("/user/pieChart", { id });
+    } catch (error) {
+      console.log("Service :: GetDiffucltyWisePieCharts :: error", error);
+      throw error;
+    }
+  }
+
   async SaveNotes({ userId, questionId, notes }) {
     try {
       return await axios.post("/user/enterNotes", {
@@ -126,6 +135,32 @@ export class Service {
       });
     } catch (error) {
       console.log("Service :: GetNotes :: error", error);
+      throw error;
+    }
+  }
+
+  async SampleQuestionSaveAndReview({ userId, questionId, subjectName, difficulty,  status }) {
+    try {
+      return await axios.post("/user/sampleQuestionSaveAndReview", {
+        userId,
+        questionId,
+        subjectName,
+        difficulty,
+        status
+      });
+    } catch (error) {
+      console.log("Service :: SampleQuestionSaveAndReview :: error", error);
+      throw error;
+    }
+  }
+
+  async CourseProgressGraph({ userId }) {
+    try {
+      return await axios.post("/user/barGraph", {
+        userId
+      });
+    } catch (error) {
+      console.log("Service :: CourseProgressGraph :: error", error);
       throw error;
     }
   }

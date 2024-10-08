@@ -75,13 +75,14 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose, handleCheck
 
   const handleSaveAndClose = () => {
     saveQuestionToLocalStorage('savedQuestions', 'Saved'); // Save question as "saved"
-    handleCheckboxSave(uniqueId); // Pass uniqueId to handleCheckboxSave
+    console.log("questionData", questionData);
+    handleCheckboxSave(uniqueId, questionData.difficulty, questionData.subjectName); // Pass uniqueId to handleCheckboxSave
     onClose(); // Close the popup
   };
 
   const handleReviewAndClose = () => {
     saveQuestionToLocalStorage('reviewedQuestions', 'Reviewed'); // Save question as "reviewed"
-    handleCheckboxReview(uniqueId); // Pass uniqueId to handleCheckboxReview
+    handleCheckboxReview(uniqueId, questionData.difficulty, questionData.subjectName); // Pass uniqueId to handleCheckboxReview
     onClose(); // Close the popup
   };
 

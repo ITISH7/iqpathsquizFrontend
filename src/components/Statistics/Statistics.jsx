@@ -23,11 +23,23 @@ const Statistics = () => {
   const [direction, setDirection] = useState("right");
   const [thought, setThought] = useState("");
 
+  const {userId} = useContext(AuthContext);
+
   const service = new Service();
+
+  const getAllCourseProgressGraphData = async (userId) => {
+    try {
+      const response = await service.CourseProgressGraph(userId);
+      console.log("response", response);
+    } catch (error) {
+      console.error("Error while fetching course progress graph data:", error);
+    }
+  };
 
   //fetch the thought of the day
   useEffect(() => {
     fetchThought();
+    getAllCourseProgressGraphData(userId);
     // console.log("thought", thought);
   }, []);
 
@@ -205,15 +217,7 @@ const Statistics = () => {
               </div>
             </div>
           </div>
-          {/* <div className={styles.progressTracking}>
-            <div className={styles.progBar}>
-              <h1 className={styles.progHeading}>Progress Tracking</h1>
-              <div className={styles.barGraph}>
-                <p>Weekly Progress</p>
-                {<BarGraph data={data} categories={categories} />}
-              </div>
-            </div>
-          </div> */}
+          
           <div className={styles.progressTrackingContainer}>
             <h1 className={styles.progHeading}>Progress Tracking</h1>
             <div className={styles.progTabs}>
