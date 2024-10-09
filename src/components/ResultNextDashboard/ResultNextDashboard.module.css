@@ -86,38 +86,229 @@
   text-align: center;
 }
 
-.filterButton {
+/* .filterButton {
   display: flex;
   align-items: center;
-  padding: 8px 15px;
-  background-color: #f1f1f1; 
-  border: 1px solid #ccc;
-  border-radius: 12px; 
-  font-weight: 500;
-  width: 100px;
-  gap: 5px;
+  padding: 12px 18px;
+  background-color: #5e35b1; 
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  width: 140px;
+  gap: 8px;
   cursor: pointer;
   position: relative;
   font-size: 16px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
-  transition: all 0.3s ease; 
-}
-
-.arrowIcon {
-  display: inline-block;
-  font-size: 20px; /* Adjust the size of the arrow */
-  color: black; /* Light purple color */
-  margin-left: 4px; /* Space between text and arrow */
-  transition: transform 0.3s ease; /* Smooth transition for hover effects */
-}
-
-.filterButton img {
- height: 20px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .filterButton:hover {
-  background-color: #d4d4d4; 
+  background-color: #7e57c2; 
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+
+.arrowIcon {
+  font-size: 18px;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.filterButton:hover .arrowIcon {
+  transform: rotate(180deg); 
+}
+
+.filterDropdown {
+  position: absolute;
+  top: 50px; 
+  right: 0;
+  background-color: #fff; 
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+  padding: 12px; 
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); 
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+}
+
+.sortOption {
+  background-color: #f9f9f9; 
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer; 
+  transition: background-color 0.2s ease; 
+}
+
+.sortOption:hover {
+  background-color: #e0e0e0; 
+}
+
+.sortOptionTitle {
+  font-weight: bold;
+  color: #333; 
+  margin-bottom: 4px; 
+}
+
+.filterSelect {
+  display: block;
+  padding: 8px;
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+  background-color: #f1f1f1; 
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filterSelect:hover {
+  background-color: #e0e0e0; 
+} */
+
+.filterDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  background-color: #fcfbfb;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  min-width: 180px;
+}
+
+.filterOption {
+  cursor: pointer;
+  padding: 10px 10px;
+  margin-bottom: 8px;
+  font-size: 17.5px;
+  font-weight: 500;
+  color: #333;
+  background-color: #d9c8f9;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.filterOption img {
+  width: 20px;
+  height: 25px;
+  margin-left: 5px;
+  /* border: 2px solid red; */
+}
+
+.filterOption:hover {
+  background-color: #d1bcf9;
+  transform: scale(1.03);
+}
+
+.rightArrow {
+  font-size: 14px;
+  color: #333;
+}
+
+.activeFilters {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 20;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  min-width: 200px;
+}
+
+.filterOptionsRight {
+  position: absolute;
+  top: 0;
+  left: 200px;
+  background-color: #fcfbfb;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filterOptionsRight div {
+  cursor: pointer;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #d9c8f9;
+  color: #495057;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.filterOptionsRight div:hover {
+  background-color: #d9c8f9;
+  transform: scale(1.03);
+}
+
+/* .positionRight {
+  top: 600px;
+  left: 90%;
+} */
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #916edf;
+  color: white;
+  padding: 10px 14px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.filterButton:hover {
+  background-color: #916edf;
+  transform: scale(1.02);
+}
+
+.arrowIcon {
+  margin: -5px;
+  margin-right: -10px;
+  font-size: 12px;
+  transition: transform 0.2s ease;
+  width: 40px;
+  height: 40px;
+}
+
+.activeFilterTag {
+  display: inline-block;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-right: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.activeFilterTag:hover {
+  background-color: #f5c6cb;
+  transform: scale(1.05);
+}
+
+
 
 .content {
   display: flex;
