@@ -154,6 +154,18 @@ export class Service {
     }
   }
 
+  async getSampleQuestionSaveAndReview({ userId, status }) {
+    try {
+      return await axios.post("/user/findingReviewAndSaveQuestions", {
+        userId,
+        status
+      });
+    } catch (error) {
+      console.log("Service :: getSampleQuestionSaveAndReview :: error", error);
+      throw error;
+    }
+  }
+
   async CourseProgressGraph({ userId }) {
     try {
       return await axios.post("/user/barGraph", {

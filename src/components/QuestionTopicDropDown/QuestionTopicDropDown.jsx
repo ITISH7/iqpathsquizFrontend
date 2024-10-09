@@ -17,7 +17,7 @@ import { Service } from "../../axios/config";
 
 
 function QuestionTopicDropDown({ subjectName, title = "Python" }) {
-  const { isLoggedIn, userId } = useContext(AuthContext);
+  
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
@@ -45,10 +45,6 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
   const [notesBackend, setNotesBackend] = useState({});
   const [dropdownOpenNotesTrigger, setDropdownOpenNotesTrigger] = useState(false);
 
-  const [notes, setNotes] = useState(() => {
-    const savedNotes = localStorage.getItem("userNotes");
-    return savedNotes ? JSON.parse(savedNotes) : {};
-  });
 
   const toggleDropdonwOpenNotesTrigger = () => {
       setTimeout(() => {
@@ -139,16 +135,6 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
   };
 
   const filteredProblems = getFilteredProblems();
-
-
-  const setSampleQuestionStatus = async ( userId, questionId, subjectName, difficulty,  status ) => {
-    try {
-      const response = await service.SampleQuestionSaveAndReview({ userId, questionId, subjectName, difficulty, status });
-      console.log("Status saved successfully:", response.data);
-    } catch (error) {
-      console.error("Error saving status:", error);
-    }
-  };
 
   const toggleSetDropdown = (event) => {
     // event.stopPropagation();
@@ -267,41 +253,6 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
     setImageStates(savedImageStates);
   }, []);
 
-  // useState(() => {
-  //   const savedProblems = localStorage.getItem('solvedProblems');
-  //   return savedProblems ? JSON.parse(savedProblems) : {};
-  // });
-
-  useState(() => {
-    const storedData = localStorage.getItem("solvedProblems");
-    return storedData ? JSON.parse(storedData) : {};
-  });
-
-  const handleCheckboxChange = (problemId, newState = null) => {
-    setSolvedProblems((prevSolved) => {
-      const currentState = prevSolved[problemId];
-
-      const updatedState = newState || currentState;
-
-      const updatedSolvedProblems = {
-        ...prevSolved,
-        [problemId]: updatedState,
-      };
-
-      localStorage.setItem(
-        "solvedProblems",
-        JSON.stringify(updatedSolvedProblems)
-      );
-
-      return updatedSolvedProblems;
-    });
-  };
-
-  useEffect(() => {
-    const savedSolvedProblems =
-      JSON.parse(localStorage.getItem("solvedProblems")) || {};
-    setSolvedProblems(savedSolvedProblems);
-  }, []);
 
   const getSolvedCount = () => {
     return filteredProblems.filter((problem) => solvedProblems[problem._id])
@@ -340,16 +291,15 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
   const getSavedNoteFromBackend = async (userId, problemId ) => {
     try {
       const response = await service.GetNotes({ userId, questionId: problemId });
-      console.log("Notes fetched successfully:", response.data);
+      // console.log("Notes fetched successfully:", response.data);
       const fetchedNote = response.data.data[0]?.notes || "";
 
       setNotesBackend((prevNotes) => ({
         ...prevNotes,
         [problemId ]: fetchedNote,
       }));
-      console.log("notesBackend:", notesBackend);
 
-      console.log(`Note fetched for this problem ${problemId }:`, fetchedNote);
+      // console.log(`Note fetched for this problem ${problemId }:`, fetchedNote);
     } catch (error) {
       console.error(`Error fetching note for problem ${problemId }:`, error);
     }
@@ -357,34 +307,28 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
 
   
   useEffect(() => {
-   
     const problemsOnPage = filteredProblems.slice(page * 10 - 10, page * 10);
   
     const problemsToFetch = problemsOnPage.filter(
       (problem) => !(problem._id in notesBackend)
     );
 
-    
     problemsToFetch.forEach((problem) => {
+
       getSavedNoteFromBackend(userId, problem._id);
+      
     });
   }, [page, dropdownOpenNotesTrigger]);
 
   const saveNote = (problemId, noteContent) => {
-
     const trimmedNote = noteContent.trim();
 
-    // const updatedNotes = { ...notes, [problemId]: trimmedNote };
     setNotesBackend((prevNotes) => ({
       ...prevNotes,
       [problemId]: trimmedNote,
     }));
-    // console.log("updatedNotes:", updatedNotes);
-    
-    // setNotes(updatedNotes);
-    saveNotesToBackend(userId, problemId, trimmedNote);
-    // localStorage.setItem("userNotes", JSON.stringify(updatedNotes));
 
+    saveNotesToBackend(userId, problemId, trimmedNote);
   };
 
   const handleQuestionClick = (problem) => {
@@ -424,29 +368,63 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
     return <div className={badgeClass}>{diffi}</div>;
   };
 
-  useEffect(() => {
-    const savedNotes = localStorage.getItem("userNotes");
-    console.log("savedNotes:", savedNotes);
-    if (savedNotes) {
-      setNotes(JSON.parse(savedNotes));
-    }
-    // getdata();
-    // console.log('Loaded notes from localStorage:', notes);
-  }, []);
-
 
   const handleLoginClick = () => {
     setShowPopUp(true);
   };
 
-  
-  
+  //sample question status of save and review
 
+  const setSampleQuestionStatus = async ( userId, questionId, subjectName, difficulty,  status ) => {
+    try {
+      const response = await service.SampleQuestionSaveAndReview({ userId, questionId, subjectName, difficulty, status });
+      console.log("Status saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving status:", error);
+    }
+  };
+
+
+  const getSampleQuestionStatus = async (userId, status) => {
+    try {
+      const response = await service.getSampleQuestionSaveAndReview({ userId, status });
+      console.log("Status fetched successfully:", response.data);
+    } catch (error) {
+      console.error("Error fetching status:", error);
+    }
+  };
+  
+  useEffect(() => {
+    const savedSolvedProblems =
+      JSON.parse(localStorage.getItem("solvedProblems")) || {};
+    setSolvedProblems(savedSolvedProblems);
+  }, []);
+  
+  const handleCheckboxChange = (problemId, newState = null) => {
+    setSolvedProblems((prevSolved) => {
+      const currentState = prevSolved[problemId];
+
+      const updatedState = newState || currentState;
+
+      const updatedSolvedProblems = {
+        ...prevSolved,
+        [problemId]: updatedState,
+      };
+
+      localStorage.setItem(
+        "solvedProblems",
+        JSON.stringify(updatedSolvedProblems)
+      );
+
+      return updatedSolvedProblems;
+    });
+  };
+
+  
   const handleCheckboxSave = (problemId, difficulty, subjectName) => {
     // setCurrentCheckboxImage('Saved');
     handleCheckboxChange(problemId, "Saved");
     setSampleQuestionStatus(userId , problemId, subjectName, difficulty, "Save");
-    
     
   };
   
@@ -624,7 +602,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
                             : "src/assets/reviewcheck.svg"
                         }
                         alt="Checkbox"
-                        onClick={() => handleCheckboxChange(problem._id)}
+                        
                       />
                     </td>
 

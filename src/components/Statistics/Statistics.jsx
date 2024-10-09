@@ -23,7 +23,9 @@ const Statistics = () => {
   const [direction, setDirection] = useState("right");
   const [thought, setThought] = useState("");
 
-  const {userId} = useContext(AuthContext);
+  
+  const { isLoggedIn, userId } = useContext(AuthContext);
+  console.log("userId", userId);  
 
   const service = new Service();
 
@@ -40,8 +42,7 @@ const Statistics = () => {
   useEffect(() => {
     fetchThought();
     getAllCourseProgressGraphData(userId);
-    // console.log("thought", thought);
-  }, []);
+  }, [isLoggedIn]);
 
   const fetchThought = async () => {
     try {
@@ -54,7 +55,7 @@ const Statistics = () => {
   };
 
 
-  const { isLoggedIn } = useContext(AuthContext);
+ 
   const itemsContainerRef = useRef(null);
   const [scrollbarHeight, setScrollbarHeight] = useState(0);
 
