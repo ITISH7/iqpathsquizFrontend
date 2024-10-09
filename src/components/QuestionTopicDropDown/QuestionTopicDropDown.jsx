@@ -39,15 +39,23 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
   const [topics, setTopics] = useState([]);
   const [ratings, setRatings] = useState({});
   const [showPopUp, setShowPopUp] = useState(false);
-  const [currentCheckboxImage, setCurrentCheckboxImage] =
-    useState("NotChecked");
+  const [currentCheckboxImage, setCurrentCheckboxImage] = useState("NotChecked");
   const [page, setPage] = useState(1);
   const [showQuestionPopUp, setShowQuestionPopUp] = useState(false);
+  const [notesBackend, setNotesBackend] = useState({});
+  const [dropdownOpenNotesTrigger, setDropdownOpenNotesTrigger] = useState(false);
 
   const [notes, setNotes] = useState(() => {
     const savedNotes = localStorage.getItem("userNotes");
     return savedNotes ? JSON.parse(savedNotes) : {};
   });
+
+  const toggleDropdonwOpenNotesTrigger = () => {
+      setTimeout(() => {
+        setDropdownOpenNotesTrigger((prevState) => !prevState);
+      }, 500);
+  };
+
 
   const navigate = useNavigate();
 
@@ -163,9 +171,6 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
     setIsSetDropdownOpen(false);
   };
 
-  const handleQuizStart = () => {
-    console.log(`Starting quiz with ${selectedSet}`);
-  };
 
   const toggleDropdown = useCallback(() => {
     setIsOpen((prevState) => {
@@ -318,8 +323,9 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
     document.body.style.overflow = "auto";
   };
 
+  //get notes from backend
   const getNoteIcon = (problemId) => {
-    return notes[problemId] ? NoteFilledIcon : NoteIcon;
+    return notesBackend[problemId] ? NoteFilledIcon : NoteIcon;
   };
 
   const saveNotesToBackend = async (userId, questionId, notes) => {
@@ -331,23 +337,53 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
     }
   };
 
-  const getSavedNodesFromBackend = async (userId, questionId) => {
+  const getSavedNoteFromBackend = async (userId, problemId ) => {
     try {
-      const response = await service.GetNotes({ userId, questionId });
+      const response = await service.GetNotes({ userId, questionId: problemId });
       console.log("Notes fetched successfully:", response.data);
-      // setNotes(response.data.data.notes);
-      // return response.data;
+      const fetchedNote = response.data.data[0]?.notes || "";
+
+      setNotesBackend((prevNotes) => ({
+        ...prevNotes,
+        [problemId ]: fetchedNote,
+      }));
+      console.log("notesBackend:", notesBackend);
+
+      console.log(`Note fetched for this problem ${problemId }:`, fetchedNote);
     } catch (error) {
-      console.error("Error fetching notes:", error);
+      console.error(`Error fetching note for problem ${problemId }:`, error);
     }
   };
 
-  const saveNote = (problemId, noteContent) => {
-    const updatedNotes = { ...notes, [problemId]: noteContent.trim() };
+  
+  useEffect(() => {
+   
+    const problemsOnPage = filteredProblems.slice(page * 10 - 10, page * 10);
+  
+    const problemsToFetch = problemsOnPage.filter(
+      (problem) => !(problem._id in notesBackend)
+    );
+
     
-    setNotes(updatedNotes);
-    saveNotesToBackend(userId, problemId, noteContent.trim());
-    localStorage.setItem("userNotes", JSON.stringify(updatedNotes));
+    problemsToFetch.forEach((problem) => {
+      getSavedNoteFromBackend(userId, problem._id);
+    });
+  }, [page, dropdownOpenNotesTrigger]);
+
+  const saveNote = (problemId, noteContent) => {
+
+    const trimmedNote = noteContent.trim();
+
+    // const updatedNotes = { ...notes, [problemId]: trimmedNote };
+    setNotesBackend((prevNotes) => ({
+      ...prevNotes,
+      [problemId]: trimmedNote,
+    }));
+    // console.log("updatedNotes:", updatedNotes);
+    
+    // setNotes(updatedNotes);
+    saveNotesToBackend(userId, problemId, trimmedNote);
+    // localStorage.setItem("userNotes", JSON.stringify(updatedNotes));
 
   };
 
@@ -390,7 +426,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
 
   useEffect(() => {
     const savedNotes = localStorage.getItem("userNotes");
-
+    console.log("savedNotes:", savedNotes);
     if (savedNotes) {
       setNotes(JSON.parse(savedNotes));
     }
@@ -398,28 +434,13 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
     // console.log('Loaded notes from localStorage:', notes);
   }, []);
 
-  const updatedSolvedProblems = (problemId, isCorrect) => {
-    if (isCorrect) {
-      setSolvedProblems((prevSolved) => ({
-        ...prevSolved,
-        [problemId]: true,
-      }));
-      localStorage.setItem(
-        "solvedProblems",
-        JSON.stringify({
-          ...solvedProblems,
-          [problemId]: true,
-        })
-      );
-    }
-  };
-
-  const isChecked =
-    JSON.parse(localStorage.getItem(`solvedProblem-${problems.id}`)) || false;
 
   const handleLoginClick = () => {
     setShowPopUp(true);
   };
+
+  
+  
 
   const handleCheckboxSave = (problemId, difficulty, subjectName) => {
     // setCurrentCheckboxImage('Saved');
@@ -447,6 +468,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
         }`}
         onClick={() => {
           toggleDropdown();
+          toggleDropdonwOpenNotesTrigger();
           getSampleQuestion(subjectName);
           getTopics(subjectName);
         }}
@@ -455,28 +477,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
         <div
           className={`${styles.progress} ${isOpen ? styles.progressOpen : ""}`}
         >
-          {/* <div className={styles.filterButtonWrapper} onClick={(e) => e.stopPropagation()}>
-            <button className={`${styles.filterButton} ${styles.buttonEffect}`} onClick={toggleFilterDropdown1}>
-            
-              {topicFilter === "All" ? (
-                <>
-                  <img src="src\assets\FilterIcon.svg" alt="Filter" />
-                  Topic
-                </>
-              ) : (
-                // If a specific topic is selected, just show the topic name 
-                <>{topicFilter}</>
-              )}
-            </button>
-            {isFilterOpen1 && (
-              <div className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('All')}>All</div>
-                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('Array')}>Array</div>
-                <div className={styles.dropdownItem} onClick={() => handleTopicFilter('String')}>String</div>
-              </div>
-            )}
-                  
-          </div> */}
+          
 
           <div
             className={styles.filterButtonWrapper}
@@ -679,7 +680,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
                             handleLoginClick();
                           } else {
                             openModal(problem._id);
-                            getSavedNodesFromBackend(userId, problem._id);
+                            
                           }
                         }}
                         className={styles.noteButton}
@@ -745,6 +746,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
                 <img className={styles.rightArrow} src="src\assets\double-right.svg" alt="right arrow" />
               </button>
             </div>
+            
           )}
 
           {filteredProblems.length > 0 && (
@@ -876,7 +878,6 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
       )}
 
       {isPopupVisible && currentQuestion && (
-        // console.log("currentQuestion:", currentQuestion),
         <QuestionPopUp
           isVisible={isPopupVisible}
           questionData={currentQuestion}
@@ -893,7 +894,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
           closeModal={closeModal}
           // onSave={(note) => saveNote(selectedProblem.id, note)}
           onSave={saveNote}
-          initialNote={notes[selectedProblem] || ""}
+          initialNote={notesBackend[selectedProblem] || ""}
           problemId={selectedProblem}
         />
       )}
