@@ -15,6 +15,7 @@ import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import PrivacyPolicy from './pages/privacyPolicy.jsx'
 import TermsAndConditions from './pages/termsAndCondition.jsx'
+import CancellationAndRefund from './pages/cancellationAndRefund.jsx'
 
 const router = createBrowserRouter([
   {
@@ -54,10 +55,13 @@ const router = createBrowserRouter([
         element: <PrivacyPolicy />
       },
       {
-        path: 'termsandcondition',
+        path: '/termsandcondition',
         element: <TermsAndConditions />
+      },
+      {
+        path: '/cancellationAndRefund',
+        element: <CancellationAndRefund />
       }
-
     ],
   }
 ])

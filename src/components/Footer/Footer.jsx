@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Footer.module.css';
-
+import PrivacyPolicy from '../../pages/privacyPolicy';
 const Footer = () => {
   return (
     <footer className={styles.footer}>
@@ -15,8 +15,9 @@ const Footer = () => {
             <h4>iQPath</h4>
             <ul>
               <li><a href="/about">About</a></li>
-              <li><a href="/privacy-policy">Privacy Policy</a></li>
-              <li><a href="/terms-of-service">Terms of Service</a></li>
+              <li><a href="/PrivacyPolicy">Privacy Policy</a></li>
+              <li><a href="/TermsAndCondition">Terms of Service</a></li>
+              <li><a href="/CancellationAndRefund">Cancellation and Refund</a></li>
             </ul>
           </div>
           <div>
