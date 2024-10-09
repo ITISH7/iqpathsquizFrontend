@@ -19,7 +19,7 @@ import Pagination from '@mui/material/Pagination';
 
 
 function QuestionTopicDropDown({ subjectName, title = "Python" }) {
-  
+  const { isLoggedIn, userId } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
