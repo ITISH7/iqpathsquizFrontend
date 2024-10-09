@@ -433,16 +433,19 @@
       background-color: white; /* Light theme background */
       color: #000; /* Text color */
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      transform: scale(1);
     }
     50% {
       background-color: #ccb3fc; /* Purple/lavender theme color */
       color: #000; /* Keep the text color */
       box-shadow: 0 0 15px rgba(224, 209, 255, 0.6); /* Pulsating glow */
+      transform: scale(1.1);
     }
     100% {
       background-color: white; /* Reset background color */
       color: #000;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      transform: scale(1);
     }
   }
   
@@ -457,6 +460,7 @@
     cursor: pointer;
     animation: blink 1.5s infinite; /* Blinking animation */
     transition: all 0.3s ease;
+    margin-left: 5px;
   }
   
   .resultButton:hover {
