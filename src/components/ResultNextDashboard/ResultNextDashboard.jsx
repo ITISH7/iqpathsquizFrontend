@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import styles from "./ResultNextDashboard.module.css";
 import { Service } from "../../axios/config";
 import { AuthContext } from "../../context/AuthContext";
@@ -44,6 +44,12 @@ const ResultNextDashboard = () => {
   const [sortByType, setSortByType] = useState("");
   const [sortByDifficulty, setSortByDifficulty] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const [filterDirection, setFilterDirection] = useState("");
+  const [filterPosition, setFilterPosition] = useState({}); // To store position dynamically
+  const filterRef = useRef(null);
+  const filterOptionRef = useRef(null);
   const location = useLocation();
   const subject = location.state?.subject;
 
@@ -151,11 +157,52 @@ const ResultNextDashboard = () => {
     }
 
     setTestDetails(sortedData);
-  }, [sortByDate, sortByType, sortByDifficulty, testDetails]);
+  }, [sortByDate, sortByType, sortByDifficulty]);
 
   const toggleFilter = () => {
     setIsFilterOpen((prev) => !prev);
+    setActiveFilter("");
   };
+
+  const handleFilterClick = (filter, event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const position = {
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX + rect.width 
+    };
+    setFilterPosition(position);
+
+    if (activeFilter === filter) {
+      setActiveFilter("");
+    }
+    else {
+      setActiveFilter(filter);
+    }
+  };
+
+  const handleOptionSelect = (filterName, direction) => {
+    setSelectedFilter(filterName); // Update selected filter name
+    setFilterDirection(direction); // Set sorting direction
+    setActiveFilter(""); // Close filter options
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if ( 
+        filterRef.current && !filterRef.current.contains(event.target) && filterOptionRef.current && !filterOptionRef.current.contains(event.target)
+      ) {
+        setActiveFilter("");
+      }
+    };
+
+    if (isFilterOpen || activeFilter) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isFilterOpen, activeFilter]);
 
   return (
     <div className={styles.app}>
@@ -179,43 +226,82 @@ const ResultNextDashboard = () => {
               placeholder="Search"
             />
             <button className={styles.filterButton} onClick={toggleFilter}>
-              {/* <img src="src/assets/FilterIcon.svg" alt="Filter Button" />
-              Filters */}
-              Filters <span className={styles.arrowIcon}>{isFilterOpen ? ">" : ">"}</span> 
+            {selectedFilter && filterDirection ? `${selectedFilter} ${filterDirection}` : "Filters"} 
+              <span className={`${styles.arrowIcon} ${isFilterOpen ? styles.rotate : ""}`}>
+                <img
+                  src={isFilterOpen ? "src/assets/angle-up-white.svg" : "src/assets/angle-down-white.svg"}
+                  alt="Arrow Icon"
+                />
+              </span>
             </button>
-          </div>
           {isFilterOpen && (
-          <div className={styles.filterContainer}>
-            <select 
-              value={sortByDate}
-              onChange={(e) => setSortByDate(e.target.value)}
-              className={styles.filterSelect}>
-                <option className={styles.value} value="">Sort by Date</option>
-                <option className={styles.value} value="asc">Ascending</option>
-                <option className={styles.value} value="desc">Descending</option>
-              </select>
+            <div className={styles.filterDropdown} ref={filterRef}>
+              <div
+                className={styles.filterOption}
+                onClick={(event) => handleFilterClick("date", event)}
+                >
+                  Sort by Date
+                  <img src="src\assets\angle-right.svg" alt="right arrow" />
+                </div>
 
-              <select 
-                value={sortByType}
-                onChange={(e) => setSortByType(e.target.value)}
-                className={styles.filterSelect}>
-                  <option className={styles.value} value="">Sort by Type</option>
-                  <option className={styles.value} value="type1">Complete Test</option>
-                  <option className={styles.value} value="type2">Topic-wise Test</option>
-                </select>
+                <div
+                  className={styles.filterOption}
+                  onClick={(event) => handleFilterClick("type", event)}
+                >
+                  Sort by Type 
+                  <img src="src\assets\angle-right.svg" alt="right arrow" />
+                </div>
 
-                <select 
-                  value={sortByDifficulty}
-                  onChange={(e) => setSortByDifficulty(e.target.value)}
-                  className={styles.filterSelect}>
-                    <option className={styles.value} value="">Sort by Difficulty</option>
-                    <option className={styles.value} value="easy">Easy</option>
-                    <option className={styles.value} value="medium">
-                      Medium
-                    </option>
-                    <option className={styles.value} value="hard">Hard</option>
-                  </select>
+                <div
+                  className={styles.filterOption}
+                  onClick={(event) => handleFilterClick("difficulty", event)}
+                >
+                  Sort by Difficulty 
+                  <img src="src\assets\angle-right.svg" alt="right arrow" />
+                </div>
+            </div>
+          )}
           </div>
+          {activeFilter === "date" && (
+            <div className={`${styles.filterOptionsRight} ${styles.positionRight}`}
+            style={{ top: `${filterPosition.top}px`, left: `${filterPosition.left}px` }}
+            ref={filterOptionRef}>
+              <div onClick={() => setSortByDate("asc")}>
+                Ascending 
+              </div>
+              <div onClick={() => setSortByDate("desc")}>
+                Descending 
+              </div>
+            </div>
+          )}
+
+          {activeFilter === "type" && (
+            <div className={`${styles.filterOptionsRight} ${styles.positionRight}`}
+            style={{ top: `${filterPosition.top}px`, left: `${filterPosition.left}px` }}
+            ref={filterOptionRef}>
+              <div onClick={() => setSortByDate("type1")}>
+                Complete Test  
+              </div>
+              <div onClick={() => setSortByDate("type 2")}>
+                Topic-wise Test  
+              </div>
+            </div>
+          )}
+
+          {activeFilter === "difficulty" && (
+            <div className={`${styles.filterOptionsRight} ${styles.positionRight}`}
+            style={{ top: `${filterPosition.top}px`, left: `${filterPosition.left}px` }}
+            ref={filterOptionRef}>
+              <div onClick={() => setSortByDate("easy")}>
+                Easy  
+              </div>
+              <div onClick={() => setSortByDate("medium")}>
+                Medium  
+              </div>
+              <div onClick={() => setSortByDifficulty("hard")}>
+                Hard 
+              </div>
+            </div>
           )}
         </div>
       </div>

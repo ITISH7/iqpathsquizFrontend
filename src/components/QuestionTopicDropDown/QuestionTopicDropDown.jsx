@@ -14,6 +14,8 @@ import { AuthContext } from "../../context/AuthContext";
 import NoteIcon from "../../assets/NoteIcon.svg";
 import NoteFilledIcon from "../../assets/NoteFilledIcon.svg";
 import { Service } from "../../axios/config";
+import Pagination from '@mui/material/Pagination';
+
 
 
 function QuestionTopicDropDown({ subjectName, title = "Python" }) {
@@ -715,7 +717,7 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
               <button
                 onClick={() => setPage(1)}
                 disabled={page === 1}
-                className={styles.double}
+                className={styles.doubleArrow}
                 >
                   <img className={styles.rightArrow} src="src\assets\double-left.svg" alt="right arrow" />
                   First 
@@ -740,11 +742,22 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
               <button 
                 onClick={() => setPage(Math.ceil(filteredProblems.length / 10))}
                 disabled={page === Math.ceil(filteredProblems.length / 10)}
+                className={styles.doubleArrow}
               >
                 Last
                 <img className={styles.rightArrow} src="src\assets\double-right.svg" alt="right arrow" />
               </button>
             </div>
+            // <Pagination count={10} variant="outlined" shape="rounded" />
+            // <Pagination
+            //   count={Math.ceil(filteredProblems.length / 10)} // Total number of pages
+            //   page={page} // Current page
+            //   onChange={(event, value) => setPage(value)} // Update page on change
+            //   variant="outlined"
+            //   shape="rounded"
+            //   showFirstButton
+            //   showLastButton
+            // />
           )}
 
           {filteredProblems.length > 0 && (

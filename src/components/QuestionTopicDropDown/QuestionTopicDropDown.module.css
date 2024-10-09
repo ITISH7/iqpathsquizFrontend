@@ -41,7 +41,7 @@
   background-color: #e7dcfa;
   margin: 0 auto 10px auto;
   right: 0;
-  
+  /* border: 2px solid red; */
 }
 
 .headerOpen:hover {
@@ -525,7 +525,7 @@ input[type="checkbox"]:checked + .customCheckbox::after {
   padding: 0.5rem;
   font-size: 18px;
   font-weight: 600;
-  background-color: #f3e3fc;
+  background-color: #e7dcfa;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -594,8 +594,8 @@ input[type="checkbox"]:checked + .customCheckbox::after {
   width: 28px;
   height: 18px;
   margin-top: 1px;
-  margin-left: -10px;
-  margin-right: -10px;
+  margin-left: -5px;
+  margin-right: -5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -604,13 +604,15 @@ input[type="checkbox"]:checked + .customCheckbox::after {
   /* border: 2px solid red; */
 }
 
-.double {
+.doubleArrow {
   padding: 4px 8px;
 }
 
-.double img {
+.doubleArrow img {
+  /* border: 2px solid red; */
   width: 22px;
   height: 18px;
+  margin: 0px 0px;
 }
 
 /* xs */
