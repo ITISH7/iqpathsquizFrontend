@@ -22,13 +22,13 @@ const Statistics = () => {
   const [activeTab, setActiveTab] = useState("weekly");
   const [direction, setDirection] = useState("right");
   const [thought, setThought] = useState("");
+  const [todayPieChartData, setTodayPieChartData] = useState([]);
 
   
   const { isLoggedIn, userId } = useContext(AuthContext);
-  console.log("userId", userId);  
-
+  
   const service = new Service();
-
+  
   const getAllCourseProgressGraphData = async (userId) => {
     try {
       const response = await service.CourseProgressGraph(userId);
@@ -38,11 +38,49 @@ const Statistics = () => {
     }
   };
 
+  const getTodayPieChartData = async (userId) => {
+    const response = await service.GetTodaysPieChart("6706803105c908bd697d49f6");
+    console.log("response", response);
+
+    if (response?.data) {
+      const { totalQuestions, easyQuestions, mediumQuestions, hardQuestions } = response.data.data;
+
+      // Calculate the percentages for each category
+      const easyPercentage = (easyQuestions / totalQuestions) * 100;
+      const mediumPercentage = (mediumQuestions / totalQuestions) * 100;
+      const hardPercentage = (hardQuestions / totalQuestions) * 100;
+      const remainingPercentage = 100 - easyPercentage - mediumPercentage - hardPercentage;
+      console.log("easyPercentage", easyPercentage);
+      console.log("mediumPercentage", mediumPercentage);
+      console.log("hardPercentage", hardPercentage);
+      console.log("remainingPercentage", remainingPercentage);
+
+      // Set the data in the required format
+      const pieChartData = [
+        { value: easyPercentage, name: "Easy", color: "#b3b7f9", borderRadius: [50, 50, 50, 0], },
+        { value: mediumPercentage, name: "Medium", color: "#c29ed7", borderRadius: [50, 50, 50, 0], },
+        { value: hardPercentage, name: "Hard", color: "#2f2a44", borderRadius: [50, 50, 50, 50], },
+        { value: remainingPercentage, name: "", color: "#eeeeee", borderRadius: [0, 0, 0, 0], },
+      ];
+
+      // Update the state
+      setTodayPieChartData(pieChartData);
+    }
+  };
+  
   //fetch the thought of the day
   useEffect(() => {
     fetchThought();
     getAllCourseProgressGraphData(userId);
+    getTodayPieChartData(userId);
+    console.log("pie chart data", todayPieChartData);
   }, [isLoggedIn]);
+
+  const fetchTestFucntion = () => {
+    fetchThought();
+    getAllCourseProgressGraphData(userId);
+    getTodayPieChartData(userId);
+  }
 
   const fetchThought = async () => {
     try {
@@ -168,6 +206,8 @@ const Statistics = () => {
       setActiveTab(tab);
     }
   };
+
+  
 
   
 
@@ -328,7 +368,7 @@ const Statistics = () => {
                 className={`${styles.pieChart} ${styles.item} `}
                 data-label="Today"
               >
-                <DoughnutChart data={dummyData} centerLabel="17/20" />
+                <DoughnutChart data={todayPieChartData} centerLabel="17/20" />
               </div>
               <div
                 className={`${styles.pieChart} ${styles.item} `}
@@ -383,7 +423,7 @@ const Statistics = () => {
                 className={styles.shareIconImg}
               />
             </div>
-            <button className={styles.shareButtonText}>Share Progress</button>
+            <button className={styles.shareButtonText} onClick={()=> fetchTestFucntion()}>Share Progress</button>
           </div>
           <Link to="/result">
           <button className={`${styles.updateButton} ${styles.resultButton}`}>Show Result</button>

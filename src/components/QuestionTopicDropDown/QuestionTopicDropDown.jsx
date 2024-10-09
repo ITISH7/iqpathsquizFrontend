@@ -18,7 +18,7 @@ import Pagination from '@mui/material/Pagination';
 
 
 
-function QuestionTopicDropDown({ subjectName, title = "Python" }) {
+function QuestionTopicDropDown({ subjectName }) {
   const { isLoggedIn, userId } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
@@ -391,6 +391,27 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
     try {
       const response = await service.getSampleQuestionSaveAndReview({ userId, status });
       console.log("Status fetched successfully:", response.data);
+      if(status == "Save"){
+        const savedProblems = response.data.data;
+        const updatedSolvedProblems = {};
+        savedProblems.forEach((problem) => {
+          updatedSolvedProblems[problem.questionId] = "Saved";
+        });
+        setSolvedProblems((prevSolved) => ({
+          ...prevSolved,
+          ...updatedSolvedProblems,
+        }));
+      } else if(status == "Review"){
+        const reviewProblems = response.data.data;
+        const updatedSolvedProblems = {};
+        reviewProblems.forEach((problem) => {
+          updatedSolvedProblems[problem.questionId] = "Reviewed";
+        });
+        setSolvedProblems((prevSolved) => ({
+          ...prevSolved,
+          ...updatedSolvedProblems,
+        }));
+      }
     } catch (error) {
       console.error("Error fetching status:", error);
     }
@@ -399,7 +420,15 @@ function QuestionTopicDropDown({ subjectName, title = "Python" }) {
   useEffect(() => {
     const savedSolvedProblems =
       JSON.parse(localStorage.getItem("solvedProblems")) || {};
+
     setSolvedProblems(savedSolvedProblems);
+  }, []);
+
+  useEffect(() => {
+    
+      // getSampleQuestionStatus(userId, "Save");
+      // getSampleQuestionStatus(userId, "Review");
+    
   }, []);
   
   const handleCheckboxChange = (problemId, newState = null) => {

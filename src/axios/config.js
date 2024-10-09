@@ -177,6 +177,28 @@ export class Service {
     }
   }
 
+  async GetTodaysPieChart({ userId }) {
+    try {
+      return await axios.post("/user/progressForTodayPieChart", {
+        userId
+      });
+    } catch (error) {
+      console.log("Service :: GetTodaysPieChart :: error", error);
+      throw error;
+    }
+  }
+
+  async GetCoursePieCharts({ userId }) {
+    try {
+      return await axios.post("/user/pieChart", {
+        userId
+      });
+    } catch (error) {
+      console.log("Service :: GetTodaysBarChart :: error", error);
+      throw error;
+    }
+  }
+
    
 
 
