@@ -756,16 +756,6 @@ function QuestionTopicDropDown({ subjectName }) {
                 <img className={styles.rightArrow} src="src\assets\double-right.svg" alt="right arrow" />
               </button>
             </div>
-            // <Pagination count={10} variant="outlined" shape="rounded" />
-            // <Pagination
-            //   count={Math.ceil(filteredProblems.length / 10)} // Total number of pages
-            //   page={page} // Current page
-            //   onChange={(event, value) => setPage(value)} // Update page on change
-            //   variant="outlined"
-            //   shape="rounded"
-            //   showFirstButton
-            //   showLastButton
-            // />
             
           )}
 

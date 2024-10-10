@@ -48,6 +48,7 @@ const ResultNextDashboard = () => {
   const [selectedFilter, setSelectedFilter] = useState("");
   const [filterDirection, setFilterDirection] = useState("");
   const [filterPosition, setFilterPosition] = useState({}); // To store position dynamically
+  const [page, setPage] = useState(1);
   const filterRef = useRef(null);
   const filterOptionRef = useRef(null);
   const location = useLocation();
@@ -307,7 +308,9 @@ const ResultNextDashboard = () => {
       </div>
 
       <div className={styles.content}>
-        {testDetails.map((card, index) => (
+        {testDetails
+        .slice(page * 12 - 12, page * 12)
+        .map((card, index) => (
           <div className={styles.card} key={index}>
             <div className={styles.cardHeader}>
               <div className={styles.cardTitle}>
@@ -367,6 +370,45 @@ const ResultNextDashboard = () => {
           </div>
         ))}
       </div>
+
+      {testDetails.length > 6 && (
+            <div className={styles.pagination}>
+              <button
+                onClick={() => setPage(1)}
+                disabled={page === 1}
+                className={styles.doubleArrow}
+                >
+                  <img className={styles.rightArrow} src="src\assets\double-left.svg" alt="right arrow" />
+                  First 
+              </button>
+              <button
+                onClick={() => setPage((prev) => prev - 1)}
+                disabled={page === 1}
+              >
+                <img className={styles.rightArrow} src="src\assets\angle-left.svg" alt="right arrow" />
+                Prev
+              </button>
+              <p>
+                Page {page} of {Math.ceil(testDetails.length / 12)}
+              </p>
+              <button
+                onClick={() => setPage((prev) => prev + 1)}
+                disabled={page * 12 >= testDetails.length}
+              >
+                Next
+                <img className={styles.rightArrow} src="src\assets\angle-right.svg" alt="right arrow" />
+              </button>
+              <button 
+                onClick={() => setPage(Math.ceil(testDetails.length / 12))}
+                disabled={page === Math.ceil(testDetails.length / 12)}
+                className={styles.doubleArrow}
+              >
+                Last
+                <img className={styles.rightArrow} src="src\assets\double-right.svg" alt="right arrow" />
+              </button>
+            </div>
+            
+          )}
 
       {/* <div className={styles.man}>
         <img src="src\assets\man.svg" alt="Man in thought" />

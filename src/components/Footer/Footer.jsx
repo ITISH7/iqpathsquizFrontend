@@ -40,7 +40,7 @@ const Footer = () => {
                 <img src="src/assets/YoutubeIcon.svg" alt="YouTube" />
               </a>
               <a href="https://www.linkedin.com/company/iqpaths">
-                <img src="src/assets/TwitterIcon.svg" alt="Twitter" />
+                <img src="src/assets/Linkedin.svg" alt="Twitter" />
               </a>
             </div>
             <h4>Contact Us: +91 8120390205 </h4>
