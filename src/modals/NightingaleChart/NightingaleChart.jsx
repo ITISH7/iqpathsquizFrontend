@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as echarts from 'echarts';
 import styles from './NightingaleChart.module.css';
 
-const NightingaleChart = () => {
+const NightingaleChart = ({ data }) => {
   useEffect(() => {
     const chartDom = document.getElementById('nightingale-chart');
     const myChart = echarts.init(chartDom);
@@ -57,16 +57,7 @@ const NightingaleChart = () => {
               overflow: 'break', // Prevent ellipsis even on hover
             },
           },
-          data: [
-            { value: 40, name: 'DSA' },
-            { value: 38, name: 'Aptitude' },
-            { value: 32, name: 'C++' },
-            { value: 30, name: 'Python' },
-            { value: 28, name: 'Machine Learning' },
-            { value: 26, name: 'Quant' },
-            { value: 22, name: 'Javascript' },
-            { value: 18, name: 'React' },
-          ],
+          data: data,
         },
       ],
     };

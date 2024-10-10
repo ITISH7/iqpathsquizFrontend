@@ -177,6 +177,17 @@ export class Service {
     }
   }
 
+  async WeeklyProgressGraph({ userId }) {
+    try {
+      return await axios.post("/user/progressForWeekBarGraph", {
+        userId
+      });
+    } catch (error) {
+      console.log("Service :: WeeklyProgressGraph :: error", error);
+      throw error;
+    }
+  }
+
   async GetTodaysPieChart({ userId }) {
     try {
       return await axios.post("/user/progressForTodayPieChart", {
@@ -194,7 +205,40 @@ export class Service {
         userId
       });
     } catch (error) {
-      console.log("Service :: GetTodaysBarChart :: error", error);
+      console.log("Service :: GetTodaysPieChart :: error", error);
+      throw error;
+    }
+  }
+
+  // async GetCoursePieCharts({ userId }) {
+  //   try {
+  //     return await axios.post("/user/pieChart", {
+  //       userId
+  //     });
+  //   } catch (error) {
+  //     console.log("Service :: GetTodaysBarChart :: error", error);
+  //     throw error;
+  //   }
+  // }
+
+  async StreakCalendar({ userId }) {
+    try {
+      return await axios.post("/user/streakCalendar", {
+        userId
+      });
+    } catch (error) {
+      console.log("Service :: StreakCalendar :: error", error);
+      throw error;
+    }
+  }
+
+  async AccuracyPieChart({ userId }) {
+    try {
+      return await axios.post("/user/accuracyGraph", {
+        userId
+      });
+    } catch (error) {
+      console.log("Service :: AccuracyPieChart :: error", error);
       throw error;
     }
   }

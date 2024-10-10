@@ -14,6 +14,9 @@ import dummyData from "../../modals/doughnutGraph/dummyData.js";
 import { formatDate } from "../../utils/date.js";
 import BarGraph from "../../modals/barGraph/BarGraph";
 import { data, categories } from "../../modals/barGraph/dataBar.js";
+import CourseProgressGraph from "../../modals/CoruseProgress/CourseProgress.jsx";
+import { data as dummyDataBar, categories as dummyCategories } from "../../modals/CoruseProgress/courseProgress.js";
+// import { data as dummyDataBar, categories as dummyCategories } from "../../modals/barGraph/dataBar.js";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Service } from "../../axios/config";
 
@@ -23,24 +26,48 @@ const Statistics = () => {
   const [direction, setDirection] = useState("right");
   const [thought, setThought] = useState("");
   const [todayPieChartData, setTodayPieChartData] = useState([]);
+  const [coursePieChartData, setCoursePieChartData] = useState([]);
+  const [weeklyProgressData, setWeeklyProgressData] = useState([]);
+  const [courseProgressData, setCourseProgressData] = useState([]);
 
   
   const { isLoggedIn, userId } = useContext(AuthContext);
   
   const service = new Service();
+
+  // Get the course progress graph data
   
+  const colors = ['#4A90E2', '#FF6F61', '#7ED321', '#F8E71C', '#F5A623', '#9013FE']; 
+
   const getAllCourseProgressGraphData = async (userId) => {
     try {
       const response = await service.CourseProgressGraph(userId);
-      console.log("response", response);
+      if (response.statusCode === 200) {
+        const formattedData = response.data
+          .filter((subject) => subject.totalQuestions > 0)
+          .map((subject, index) => ({
+            subject: subject.subjectName, // assuming your API returns subjectName
+            totalQuestions: subject.totalQuestions,
+            easyQuestions: subject.easyQuestions, 
+            mediumQuestions: subject.mediumQuestions,
+            hardQuestions: subject.hardQuestions,
+            color: colors[index % colors.length], // Assign color from the predefined list
+          }));
+  
+        setCourseProgressData(formattedData); 
+      }
     } catch (error) {
       console.error("Error while fetching course progress graph data:", error);
     }
   };
+  
+
+
+  // Get the pie chart data for today
 
   const getTodayPieChartData = async (userId) => {
     const response = await service.GetTodaysPieChart("6706803105c908bd697d49f6");
-    console.log("response", response);
+    // console.log("response", response);
 
     if (response?.data) {
       const { totalQuestions, easyQuestions, mediumQuestions, hardQuestions } = response.data.data;
@@ -50,10 +77,10 @@ const Statistics = () => {
       const mediumPercentage = (mediumQuestions / totalQuestions) * 100;
       const hardPercentage = (hardQuestions / totalQuestions) * 100;
       const remainingPercentage = 100 - easyPercentage - mediumPercentage - hardPercentage;
-      console.log("easyPercentage", easyPercentage);
-      console.log("mediumPercentage", mediumPercentage);
-      console.log("hardPercentage", hardPercentage);
-      console.log("remainingPercentage", remainingPercentage);
+      // console.log("easyPercentage", easyPercentage);
+      // console.log("mediumPercentage", mediumPercentage);
+      // console.log("hardPercentage", hardPercentage);
+      // console.log("remainingPercentage", remainingPercentage);
 
       // Set the data in the required format
       const pieChartData = [
@@ -67,19 +94,96 @@ const Statistics = () => {
       setTodayPieChartData(pieChartData);
     }
   };
+
+
+  //get the pie chart data for courses
+
+  const getCoursePieChartData = async (userId) => {
+    try {
+      const response = await service.GetCoursePieCharts(userId);
+      console.log("response", response);
+  
+      if (response.statusCode === 200 && response.success) {
+        const courses = response.data.map(course => {
+          const totalQuestions = course.totalQuestions;
+          const solvedQuestions = course.solvedQuestions;
+  
+          const easyQuestions = course.easyQuestions || 0;
+          const mediumQuestions = course.mediumQuestions || 0;
+          const hardQuestions = totalQuestions - (easyQuestions + mediumQuestions + solvedQuestions);
+  
+          return {
+            label: course.subjectName,
+            data: [
+              { value: easyQuestions, name: 'Easy', color: '#b3b7f9', borderRadius: [50, 50, 50, 0] },
+              { value: mediumQuestions, name: 'Medium', color: '#c29ed7', borderRadius: [50, 50, 50, 0] },
+              { value: hardQuestions, name: 'Hard', color: '#2f2a44', borderRadius: [50, 50, 50, 50] },
+              { value: totalQuestions - (easyQuestions + mediumQuestions + solvedQuestions), name: '', color: '#eeeeee', borderRadius: [0, 0, 0, 0] }
+            ],
+            centerLabel: `${solvedQuestions}/${totalQuestions}`,
+          };
+        });
+  
+        return courses; // Return the formatted courses array
+      } else {
+        console.error("Error: ", response.message);
+        return [];
+      }
+    } catch (error) {
+      console.error("Error while fetching course pie chart data:", error);
+      return [];
+    }
+  };
+
+  // const getCoursePieChartData = async (userId) => {
+  //   try {
+  //     const response = await service.GetCoursePieCharts(userId);
+  //     console.log("response in pie chart", response);
+  //   } catch (error) {
+  //     console.error("Error while fetching course pie chart data:", error);
+  //   }
+  // };
+
+  const tempPieChartData = async (userId) => {
+    try {
+      const response = await service.GetCoursePieCharts(userId);
+      console.log("response in pie chart", response);
+    } catch (error) {
+      console.error("Error while fetching course pie chart data from temp:", error);
+    }
+  };
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedCourses = await getCoursePieChartData(userId);
+      console.log("fetchedCourses", fetchedCourses);
+      setCoursePieChartData(fetchedCourses);
+    };
+    tempPieChartData(userId);
+
+    fetchData();
+  }, [userId]);
+  
+
+ 
+
   
   //fetch the thought of the day
   useEffect(() => {
     fetchThought();
     getAllCourseProgressGraphData(userId);
+    // console.log("course progress data", courseProgressData);
     getTodayPieChartData(userId);
-    console.log("pie chart data", todayPieChartData);
+    // console.log("pie chart data", todayPieChartData);
   }, [isLoggedIn]);
 
   const fetchTestFucntion = () => {
     fetchThought();
     getAllCourseProgressGraphData(userId);
     getTodayPieChartData(userId);
+    // getCoursePieChartData(userId);
   }
 
   const fetchThought = async () => {
@@ -89,6 +193,17 @@ const Statistics = () => {
       setThought(response.data.data[0].thought);
     } catch (error) {
       console.error("Error while fetching thought of the day:", error);
+    }
+  };
+
+  // weekly progress data
+
+  const getWeeklyProgressData = async (userId) => {
+    try {
+      const response = await service.GetWeeklyProgress(userId);
+      console.log("response", response);
+    } catch (error) {
+      console.error("Error while fetching weekly progress data:", error);
     }
   };
 
@@ -238,12 +353,8 @@ const Statistics = () => {
             <div className={styles.thoughtBackground}>
               <p className={styles.thoughtPara}>{formatDate(today)}</p>
               <div className={styles.thoughtContainer}>
-                <div  className={styles.thoughtPicture}>
-                  <img
-                    src="src/assets/ThoughtPi.svg"
-                    alt="Thought Picture"
-                   
-                  />
+                <div className={styles.thoughtPicture}>
+                  <img src="src/assets/ThoughtPi.svg" alt="Thought Picture" />
                 </div>
                 <div className={styles.thoughtBorder}>
                   <img
@@ -258,7 +369,7 @@ const Statistics = () => {
               </div>
             </div>
           </div>
-          
+
           <div className={styles.progressTrackingContainer}>
             <h1 className={styles.progHeading}>Progress Tracking</h1>
             <div className={styles.progTabs}>
@@ -304,10 +415,6 @@ const Statistics = () => {
                   >
                     <div className={styles.progSlide}>
                       <h2 className={styles.progSubheading}>Weekly Progress</h2>
-                      {/* <img
-                        src="https://placehold.co/300x200"
-                        alt="Weekly progress chart"
-                      /> */}
                       {<BarGraph data={data} categories={categories} />}
                     </div>
                   </CSSTransition>
@@ -335,7 +442,12 @@ const Statistics = () => {
                         src="https://placehold.co/300x200"
                         alt="Course progress chart"
                       /> */}
-                      {<BarGraph data={data} categories={categories} />}
+                      {
+                        <CourseProgressGraph
+                          data={dummyDataBar}
+                          categories={dummyCategories}
+                        />
+                      }
                     </div>
                   </CSSTransition>
                 )}
@@ -370,7 +482,7 @@ const Statistics = () => {
               >
                 <DoughnutChart data={todayPieChartData} centerLabel="17/20" />
               </div>
-              <div
+              {/* <div
                 className={`${styles.pieChart} ${styles.item} `}
                 data-label="Course 1"
               >
@@ -399,7 +511,20 @@ const Statistics = () => {
                 data-label="Course 2"
               >
                 <DoughnutChart data={dummyData} centerLabel="17/20" />
-              </div>
+              </div> */}
+
+              {coursePieChartData.map((course, index) => (
+                <div
+                  key={index}
+                  className={`${styles.pieChart} ${styles.item}`}
+                  data-label={course.label}
+                >
+                  <DoughnutChart
+                    data={course.data}
+                    centerLabel={course.centerLabel}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -423,10 +548,17 @@ const Statistics = () => {
                 className={styles.shareIconImg}
               />
             </div>
-            <button className={styles.shareButtonText} onClick={()=> fetchTestFucntion()}>Share Progress</button>
+            <button
+              className={styles.shareButtonText}
+              onClick={() => fetchTestFucntion()}
+            >
+              Share Progress
+            </button>
           </div>
           <Link to="/result">
-          <button className={`${styles.updateButton} ${styles.resultButton}`}>Show Result</button>
+            <button className={`${styles.updateButton} ${styles.resultButton}`}>
+              Show Result
+            </button>
           </Link>
         </div>
       </div>

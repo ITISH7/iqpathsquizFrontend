@@ -9,6 +9,7 @@ import AddMore from '../../modals/AddMore/AddMore';
 import { Service } from '../../axios/config';
 import { AuthContext } from '../../context/AuthContext';
 import { purple } from '@mui/material/colors';
+import data from '../../modals/NightingaleChart/data';
 
 
 
@@ -19,6 +20,7 @@ const Dashboard = () => {
   const [results, setResults] = useState([]);
   const [isAddMoreOpen, setIsAddMoreOpen] = useState(false);
   const [clickedCardPosition, setClickedCardPosition] = useState(null);
+  const [AccuracyData, setAccuracyData] = useState([]);
   
   const service = new Service();
   const {userId } = useContext(AuthContext);
@@ -27,6 +29,35 @@ const Dashboard = () => {
     getResults(userId);
   }, [userId]);
   
+  //get data for the accuracy pie chart
+  const getAccuracyData = async () => {
+    try {
+      const response = await service.AccuracyPieChart({ userId });
+      
+      // Process the response to match the required format
+      const processedData = response.data.data
+      .filter(item => item.totalMarksEarned > 0)
+      .map((item) => {
+        return {
+          value: (item.totalMarksEarned / item.totalMarksAlloted) * 100,  // or any custom calculation like percentage
+          name: item.subjectName
+        };
+      });
+  
+      setAccuracyData(processedData);
+      // console.log('Processed Data:', processedData);
+      
+      return processedData;
+    } catch (error) {
+      console.log('error:', error);
+    }
+  };
+  
+
+  useEffect(() => {
+    getAccuracyData();
+    console.log('Accuracy Data:', AccuracyData);
+  }, [userId]);
 
   const handleCardClick = (event) => {
     const rect = event.target.getBoundingClientRect();
@@ -194,7 +225,13 @@ const Dashboard = () => {
                 Accuracy
               </div>
               <div className={styles.accuracyContent}>
-                <NightingaleChart />
+                {
+                  AccuracyData.length === 0 ? (
+                    <div>Loading...</div>
+                  ) : (
+                    <NightingaleChart data={AccuracyData} />
+                  )
+                }
               </div>
             </div>
             <div className={styles.sheetsSection}>
