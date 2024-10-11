@@ -1,77 +1,134 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import styles from "./QuestionTopicDropDown.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import utilityStyle from "../../utils/utils.module.css";
+import NoteModal from "./NoteModal";
+import QuestionPopUp from "../../modals/QuestionPopUp/QuestionPopUp";
+import LoginPopup from "../../modals/LoginPopUp/LoginPopUp";
+import { AuthContext } from "../../context/AuthContext";
+import { useQuiz } from "../../context/QuizContext";
+import { Service } from "../../axios/config";
+
+//import icons
 import ArrowUp from "../../assets/ArrowUp.svg";
 import ArrowDown from "../../assets/ArrowDown.svg";
 import Revision from "../../assets/Revision.svg";
 import RevisionShine from "../../assets/RevisionShine.svg";
-import utilityStyle from "../../utils/utils.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import NoteModal from "./NoteModal";
-import { useQuiz } from "../../context/QuizContext";
-import QuestionPopUp from "../../modals/QuestionPopUp/QuestionPopUp";
-import LoginPopup from "../../modals/LoginPopUp/LoginPopUp";
-import { AuthContext } from "../../context/AuthContext";
 import NoteIcon from "../../assets/NoteIcon.svg";
 import NoteFilledIcon from "../../assets/NoteFilledIcon.svg";
-import { Service } from "../../axios/config";
-import Pagination from '@mui/material/Pagination';
-
-
 
 function QuestionTopicDropDown({ subjectName }) {
-  const { isLoggedIn, userId, setGraphUpdateTrigger } = useContext(AuthContext);
+  //--------------------------------------------------sates used in the component-----------------------------------------------------
+  // dropdown states
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
   const [isSetDropdownOpen, setIsSetDropdownOpen] = useState(false);
   const [isTopicDropOpen, setIsTopicDropOpen] = useState(false);
   const [isDiffDropOpen, setIsDiffDropOpen] = useState(false);
-  const [selectedSet, setSelectedSet] = useState("Set 1");
-  const [imageStates, setImageStates] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTopicDropdownOpen, setIsTopicDropdownOpen] = useState(false);
+
+  // filter states
   const [selectedProblem, setSelectedProblem] = useState(null);
-  const [solvedProblems, setSolvedProblems] = useState({});
   const [difficultyFilter, setDifficultyFilter] = useState("All");
   const [topicFilter, setTopicFilter] = useState("All");
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(null);
-  const [isTopicDropdownOpen, setIsTopicDropdownOpen] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState("All");
+
+  // states to manage problems/questions
+  const [solvedProblems, setSolvedProblems] = useState({});
   const [problems, setProblem] = useState([]);
   const [topics, setTopics] = useState([]);
-  const [ratings, setRatings] = useState({});
-  const [showPopUp, setShowPopUp] = useState(false);
-  const [currentCheckboxImage, setCurrentCheckboxImage] = useState("NotChecked");
-  const [page, setPage] = useState(1);
-  const [showQuestionPopUp, setShowQuestionPopUp] = useState(false);
+  const [selectedSet, setSelectedSet] = useState("Set 1");
+  const [filteredProblems, setFilterProblems] = useState([]);
+
+  // modal and popup states
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [notesBackend, setNotesBackend] = useState({});
-  const [dropdownOpenNotesTrigger, setDropdownOpenNotesTrigger] = useState(false);
+  const [dropdownOpenNotesTrigger, setDropdownOpenNotesTrigger] =
+    useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [showQuestionPopUp, setShowQuestionPopUp] = useState(false);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
+  // other states
+  const [imageStates, setImageStates] = useState({});
+  const [page, setPage] = useState(1);
+  const [ratings, setRatings] = useState({});
+  const [currentCheckboxImage, setCurrentCheckboxImage] =
+    useState("NotChecked");
 
-  const toggleDropdonwOpenNotesTrigger = () => {
-      setTimeout(() => {
-        setDropdownOpenNotesTrigger((prevState) => !prevState);
-      }, 500);
-  };
-
-
-  const navigate = useNavigate();
-
+  //----------------------------------------------------data from context--------------------------------------------------------
+  const { isLoggedIn, userId, setGraphUpdateTrigger } = useContext(AuthContext);
   const {
     selectQuizTopic,
     setQuestions,
-    questions,
     quizTopic,
     setTimer,
     setResult,
     setTotalMarks,
     setInitialTime,
-    initialTime,
   } = useQuiz();
 
+  //---------------------------------------------useEffects of entire component-----------------------------------------------------
 
+  useEffect(() => {
+    const handleDocumentClick = (event) => {
+      if (
+        !event.target.closest(`.${styles.dropdownWrapper}`) &&
+        !event.target.closest(`.${styles.header}`)
+      ) {
+        setIsSetDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, [styles.dropdownWrapper, styles.header]);
+
+  useEffect(() => {
+    const savedImageStates =
+      JSON.parse(localStorage.getItem("imageStates")) || {};
+    setImageStates(savedImageStates);
+  }, []);
+
+  useEffect(() => {
+    const problemsOnPage = filteredProblems.slice(page * 10 - 10, page * 10);
+
+    const problemsToFetch = problemsOnPage.filter(
+      (problem) => !(problem._id in notesBackend)
+    );
+
+    problemsToFetch.forEach((problem) => {
+      getSavedNoteFromBackend(userId, problem._id);
+    });
+  }, [page, dropdownOpenNotesTrigger]);
+
+  useEffect(() => {
+    const savedSolvedProblems =
+      JSON.parse(localStorage.getItem("solvedProblems")) || {};
+
+    setSolvedProblems(savedSolvedProblems);
+  }, []);
+
+  useEffect(() => {
+    // getSampleQuestionStatus(userId, "Save");
+    // getSampleQuestionStatus(userId, "Review");
+  }, []);
+
+  useEffect(() => {
+    setFilterProblems(getFilteredProblems());
+  }, [difficultyFilter, topicFilter, problems]);
+
+  //---------------------------------------------------api calls for fetching data-------------------------------------------------------------
+
+  // service instance for api calls
   const service = new Service();
 
+  // fetch quiz data
   const getquizQuestion = async () => {
     try {
       const response = await service.GenerateTestQuestions({ subjectName });
@@ -91,7 +148,7 @@ function QuestionTopicDropDown({ subjectName }) {
 
         setResult([]); // Reset the result
 
-        console.log('Quiz data fetched:', response.data)
+        console.log("Quiz data fetched:", response.data);
         // console.log('Questions are:', questions  )
         // console.log('quiz topic:', quizTopic)
       }
@@ -100,6 +157,41 @@ function QuestionTopicDropDown({ subjectName }) {
     }
   };
 
+  // fetch topics
+  const getTopics = async (subjectName) => {
+    try {
+      const response = await service.GetTopics(subjectName); // Assuming `GetTopics` is your API call
+      const fetchedTopics = response.data.data; // Adjust this to match your API structure
+      // console.log('fetched topics:', fetchedTopics);
+      const updatedTopics = [{ topicName: "All" }, ...fetchedTopics]; // Add 'All' as the first topic
+      setTopics(updatedTopics); // Set the topics in state
+    } catch (error) {
+      console.error("Error fetching topics:", error);
+    }
+  };
+
+  // fetch notes from backend
+  const getSavedNoteFromBackend = async (userId, problemId) => {
+    try {
+      const response = await service.GetNotes({
+        userId,
+        questionId: problemId,
+      });
+      // console.log("Notes fetched successfully:", response.data);
+      const fetchedNote = response.data.data[0]?.notes || "";
+
+      setNotesBackend((prevNotes) => ({
+        ...prevNotes,
+        [problemId]: fetchedNote,
+      }));
+
+      // console.log(`Note fetched for this problem ${problemId }:`, fetchedNote);
+    } catch (error) {
+      console.error(`Error fetching note for problem ${problemId}:`, error);
+    }
+  };
+
+  // fetch sample questions
   const getSampleQuestion = async (subjectName) => {
     try {
       const response = await service.GenerateSampleQuestions(subjectName);
@@ -114,153 +206,77 @@ function QuestionTopicDropDown({ subjectName }) {
     }
   };
 
-  const getTopics = async (subjectName) => {
+  // fetch sample question status of save and review
+  const getSampleQuestionStatus = async (userId, status) => {
     try {
-      const response = await service.GetTopics(subjectName); // Assuming `GetTopics` is your API call
-      const fetchedTopics = response.data.data; // Adjust this to match your API structure
-      // console.log('fetched topics:', fetchedTopics);
-      const updatedTopics = [{ topicName: "All" }, ...fetchedTopics]; // Add 'All' as the first topic
-      setTopics(updatedTopics); // Set the topics in state
+      const response = await service.getSampleQuestionSaveAndReview({
+        userId,
+        status,
+      });
+      console.log("Status fetched successfully:", response.data);
+      if (status == "Save") {
+        const savedProblems = response.data.data;
+        const updatedSolvedProblems = {};
+        savedProblems.forEach((problem) => {
+          updatedSolvedProblems[problem.questionId] = "Saved";
+        });
+        setSolvedProblems((prevSolved) => ({
+          ...prevSolved,
+          ...updatedSolvedProblems,
+        }));
+      } else if (status == "Review") {
+        const reviewProblems = response.data.data;
+        const updatedSolvedProblems = {};
+        reviewProblems.forEach((problem) => {
+          updatedSolvedProblems[problem.questionId] = "Reviewed";
+        });
+        setSolvedProblems((prevSolved) => ({
+          ...prevSolved,
+          ...updatedSolvedProblems,
+        }));
+      }
     } catch (error) {
-      console.error("Error fetching topics:", error);
+      console.error("Error fetching status:", error);
     }
   };
 
-  const getFilteredProblems = () => {
-    return problems.filter((problem) => {
-      const difficultyMatch =
-        difficultyFilter === "All" || problem.difficulty === difficultyFilter;
-      const topicMatch =
-        topicFilter === "All" || problem.topicName === topicFilter;
-      return difficultyMatch && topicMatch;
-    });
-  };
+  //----------------------------------------------------api calls for saving data-----------------------------------------------------
 
-  const filteredProblems = getFilteredProblems();
-
-  const toggleSetDropdown = (event) => {
-    // event.stopPropagation();
-    // setIsSetDropdownOpen(!isSetDropdownOpen);
-    setIsSetDropdownOpen((prevState) => !prevState);
-  };
-
-  const toggleTopicDrop = () => {
-    // event.stopPropagation();
-    // setIsSetDropdownOpen(!isSetDropdownOpen);
-    setIsTopicDropOpen((prevState) => !prevState);
-  };
-
-  const toggleDiffDropOpen = () => {
-    setIsDiffDropOpen((prevState) => !prevState);
-  };
-
-  const handleSetSelection = (setName) => {
-    setSelectedSet(setName);
-    setIsSetDropdownOpen(false);
-  };
-
-
-  const toggleDropdown = useCallback(() => {
-    setIsOpen((prevState) => {
-      const newState = !prevState;
-
-      if (!newState) {
-        setIsFilterOpen1(false);
-        setIsFilterOpen2(false);
-        setIsSetDropdownOpen(false);
-      }
-
-      return newState;
-    });
-  }, []);
-
-  useEffect(() => {
-    const handleDocumentClick = (event) => {
-      if (
-        !event.target.closest(`.${styles.dropdownWrapper}`) &&
-        !event.target.closest(`.${styles.header}`)
-      ) {
-        setIsSetDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("click", handleDocumentClick);
-
-    return () => {
-      document.removeEventListener("click", handleDocumentClick);
-    };
-  }, [styles.dropdownWrapper, styles.header]);
-
-  const toggleFilterDropdown1 = (event) => {
-    event.stopPropagation();
-    if (isOpen) {
-      setIsFilterOpen1(!isFilterOpen1);
-      setIsFilterOpen2(false);
+  // save notes to backend
+  const saveNotesToBackend = async (userId, questionId, notes) => {
+    try {
+      const response = await service.SaveNotes({ userId, questionId, notes });
+      console.log("Notes saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving notes:", error);
     }
   };
 
-  const toggleFilterDropdown2 = (event) => {
-    event.stopPropagation();
-    if (isOpen) {
-      setIsFilterOpen2(!isFilterOpen2);
-      setIsFilterOpen1(false);
+  // sample question status of save and review
+  const setSampleQuestionStatus = async (
+    userId,
+    questionId,
+    subjectName,
+    difficulty,
+    status
+  ) => {
+    try {
+      const response = await service.SampleQuestionSaveAndReview({
+        userId,
+        questionId,
+        subjectName,
+        difficulty,
+        status,
+      });
+      console.log("Status saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving status:", error);
     }
   };
 
-  const handleDifficultyFilter = (difficulty) => {
-    setDifficultyFilter(difficulty);
-    setIsFilterOpen2(false);
-  };
+  //----------------------------------------------------functions for popups/ modals-----------------------------------------------------
 
-  const handleTopicFilter = (topic) => {
-    setTopicFilter(topic);
-    setIsFilterOpen1(false);
-    console.log("topic:", topicFilter);
-  };
-
-  const toggleTopicDropdown = (event) => {
-    event.stopPropagation();
-    setIsTopicDropdownOpen(!isTopicDropdownOpen);
-  };
-
-  const handleTopicSelection = (topic) => {
-    setSelectedTopic(topic);
-    setIsTopicDropdownOpen(false);
-    // setTopicFilter(topic);
-    const newFilterProblems = problems.filter(
-      (problem) => topic === "All" || problem.topic === topic
-    );
-    setFilterProblems(newFilterProblems);
-  };
-
-  const handleRevisionToggle = (_id) => {
-    setImageStates((prev) => {
-      // Toggle the state of the specific problem's id
-      const updatedState = {
-        ...prev,
-        [_id]: prev[_id] === "RevisionShine" ? "Revision" : "RevisionShine",
-      };
-
-      // Save the updated state to localStorage for persistence
-      localStorage.setItem("imageStates", JSON.stringify(updatedState));
-
-      // Return the updated state for React to manage
-      return updatedState;
-    });
-  };
-
-  useEffect(() => {
-    const savedImageStates =
-      JSON.parse(localStorage.getItem("imageStates")) || {};
-    setImageStates(savedImageStates);
-  }, []);
-
-
-  const getSolvedCount = () => {
-    return filteredProblems.filter((problem) => solvedProblems[problem._id])
-      .length;
-  };
-
+  // open question popup
   const openModal = (problemId) => {
     if (!isLoggedIn) {
       setShowPopUp(true);
@@ -271,68 +287,21 @@ function QuestionTopicDropDown({ subjectName }) {
     }
   };
 
+  // close queston popup
+  const closePopup = () => {
+    setIsPopupVisible(false);
+    setCurrentQuestion(null);
+    setShowPopUp(false);
+    setShowQuestionPopUp(false);
+  };
+
+  // close modal
   const closeModal = () => {
     setIsModalOpen(false);
     document.body.style.overflow = "auto";
   };
 
-  //get notes from backend
-  const getNoteIcon = (problemId) => {
-    return notesBackend[problemId] ? NoteFilledIcon : NoteIcon;
-  };
-
-  const saveNotesToBackend = async (userId, questionId, notes) => {
-    try {
-      const response = await service.SaveNotes({ userId, questionId, notes });
-      console.log("Notes saved successfully:", response.data);
-    } catch (error) {
-      console.error("Error saving notes:", error);
-    }
-  };
-
-  const getSavedNoteFromBackend = async (userId, problemId ) => {
-    try {
-      const response = await service.GetNotes({ userId, questionId: problemId });
-      // console.log("Notes fetched successfully:", response.data);
-      const fetchedNote = response.data.data[0]?.notes || "";
-
-      setNotesBackend((prevNotes) => ({
-        ...prevNotes,
-        [problemId ]: fetchedNote,
-      }));
-
-      // console.log(`Note fetched for this problem ${problemId }:`, fetchedNote);
-    } catch (error) {
-      console.error(`Error fetching note for problem ${problemId }:`, error);
-    }
-  };
-
-  
-  useEffect(() => {
-    const problemsOnPage = filteredProblems.slice(page * 10 - 10, page * 10);
-  
-    const problemsToFetch = problemsOnPage.filter(
-      (problem) => !(problem._id in notesBackend)
-    );
-
-    problemsToFetch.forEach((problem) => {
-
-      getSavedNoteFromBackend(userId, problem._id);
-      
-    });
-  }, [page, dropdownOpenNotesTrigger]);
-
-  const saveNote = (problemId, noteContent) => {
-    const trimmedNote = noteContent.trim();
-
-    setNotesBackend((prevNotes) => ({
-      ...prevNotes,
-      [problemId]: trimmedNote,
-    }));
-
-    saveNotesToBackend(userId, problemId, trimmedNote);
-  };
-
+  // handle question click to open popup
   const handleQuestionClick = (problem) => {
     if (!isLoggedIn) {
       handleLoginClick();
@@ -345,13 +314,14 @@ function QuestionTopicDropDown({ subjectName }) {
     }
   };
 
-  const closePopup = () => {
-    setIsPopupVisible(false);
-    setCurrentQuestion(null);
-    setShowPopUp(false);
-    setShowQuestionPopUp(false);
+  //----------------------------------------------------miscellaneous fucntion for dynamic logo and data -----------------------------------------------------
+
+  // note icon change if note present
+  const getNoteIcon = (problemId) => {
+    return notesBackend[problemId] ? NoteFilledIcon : NoteIcon;
   };
 
+  // render difficulty badges
   const renderDifficultyBadge = (diffi) => {
     let badgeClass = "";
     switch (diffi) {
@@ -370,67 +340,111 @@ function QuestionTopicDropDown({ subjectName }) {
     return <div className={badgeClass}>{diffi}</div>;
   };
 
+  // toggle revision
+  const handleRevisionToggle = (_id) => {
+    setImageStates((prev) => {
+      // Toggle the state of the specific problem's id
+      const updatedState = {
+        ...prev,
+        [_id]: prev[_id] === "RevisionShine" ? "Revision" : "RevisionShine",
+      };
 
-  const handleLoginClick = () => {
-    setShowPopUp(true);
+      // Save the updated state to localStorage for persistence
+      localStorage.setItem("imageStates", JSON.stringify(updatedState));
+
+      // Return the updated state for React to manage
+      return updatedState;
+    });
   };
 
-  //sample question status of save and review
+  //----------------------------------------------------functions for and dropdowns-----------------------------------------------------
 
-  const setSampleQuestionStatus = async ( userId, questionId, subjectName, difficulty,  status ) => {
-    try {
-      const response = await service.SampleQuestionSaveAndReview({ userId, questionId, subjectName, difficulty, status });
-      console.log("Status saved successfully:", response.data);
-    } catch (error) {
-      console.error("Error saving status:", error);
-    }
+  //toggle set dropdown
+  const toggleSetDropdown = (event) => {
+    // event.stopPropagation();
+    // setIsSetDropdownOpen(!isSetDropdownOpen);
+    setIsSetDropdownOpen((prevState) => !prevState);
   };
 
+  //toggle topic dropdown
+  const toggleTopicDropDown = () => {
+    // event.stopPropagation();
+    // setIsSetDropdownOpen(!isSetDropdownOpen);
+    setIsTopicDropOpen((prevState) => !prevState);
+  };
 
-  const getSampleQuestionStatus = async (userId, status) => {
-    try {
-      const response = await service.getSampleQuestionSaveAndReview({ userId, status });
-      console.log("Status fetched successfully:", response.data);
-      if(status == "Save"){
-        const savedProblems = response.data.data;
-        const updatedSolvedProblems = {};
-        savedProblems.forEach((problem) => {
-          updatedSolvedProblems[problem.questionId] = "Saved";
-        });
-        setSolvedProblems((prevSolved) => ({
-          ...prevSolved,
-          ...updatedSolvedProblems,
-        }));
-      } else if(status == "Review"){
-        const reviewProblems = response.data.data;
-        const updatedSolvedProblems = {};
-        reviewProblems.forEach((problem) => {
-          updatedSolvedProblems[problem.questionId] = "Reviewed";
-        });
-        setSolvedProblems((prevSolved) => ({
-          ...prevSolved,
-          ...updatedSolvedProblems,
-        }));
+  //toggle dropdown
+  const toggleDropdown = useCallback(() => {
+    setIsOpen((prevState) => {
+      const newState = !prevState;
+
+      if (!newState) {
+        setIsFilterOpen1(false);
+        setIsFilterOpen2(false);
+        setIsSetDropdownOpen(false);
       }
-    } catch (error) {
-      console.error("Error fetching status:", error);
+
+      return newState;
+    });
+  }, []);
+
+  //toggle difficulty dropdown
+  const toggleDiffDropOpen = () => {
+    setIsDiffDropOpen((prevState) => !prevState);
+  };
+
+  //toggle topic dropdown
+  const toggleFilterDropdown1 = (event) => {
+    event.stopPropagation();
+    if (isOpen) {
+      setIsFilterOpen1(!isFilterOpen1);
+      setIsFilterOpen2(false);
     }
   };
-  
-  useEffect(() => {
-    const savedSolvedProblems =
-      JSON.parse(localStorage.getItem("solvedProblems")) || {};
 
-    setSolvedProblems(savedSolvedProblems);
-  }, []);
+  //toggle difficulty dropdown
+  const toggleFilterDropdown2 = (event) => {
+    event.stopPropagation();
+    if (isOpen) {
+      setIsFilterOpen2(!isFilterOpen2);
+      setIsFilterOpen1(false);
+    }
+  };
 
-  useEffect(() => {
-    
-      // getSampleQuestionStatus(userId, "Save");
-      // getSampleQuestionStatus(userId, "Review");
-    
-  }, []);
-  
+  //handle topic selection
+  const handleTopicSelection = (topic) => {
+    setSelectedTopic(topic);
+    setIsTopicDropdownOpen(false);
+    // setTopicFilter(topic);
+    const newFilterProblems = problems.filter(
+      (problem) => topic === "All" || problem.topic === topic
+    );
+    setFilterProblems(newFilterProblems);
+  };
+
+  // difficulty filter
+  const handleDifficultyFilter = (difficulty) => {
+    setDifficultyFilter(difficulty);
+    setIsFilterOpen2(false);
+  };
+
+  // topic filter
+  const handleTopicFilter = (topic) => {
+    setTopicFilter(topic);
+    setIsFilterOpen1(false);
+    console.log("topic:", topicFilter);
+  };
+
+  // trigger to set dropdown open
+  const toggleDropdonwOpenNotesTrigger = () => {
+    setTimeout(() => {
+      setDropdownOpenNotesTrigger((prevState) => !prevState);
+    }, 500);
+  };
+
+  //----------------------------------------------------functions for checkbox-----------------------------------------------------
+
+  //handle checkbox change
   const handleCheckboxChange = (problemId, newState = null) => {
     setSolvedProblems((prevSolved) => {
       const currentState = prevSolved[problemId];
@@ -451,18 +465,67 @@ function QuestionTopicDropDown({ subjectName }) {
     });
   };
 
-  
+  //handle checkbox save
   const handleCheckboxSave = (problemId, difficulty, subjectName) => {
     // setCurrentCheckboxImage('Saved');
     handleCheckboxChange(problemId, "Saved");
-    setSampleQuestionStatus(userId , problemId, subjectName, difficulty, "Save");
+    setSampleQuestionStatus(userId, problemId, subjectName, difficulty, "Save");
     setGraphUpdateTrigger((prev) => !prev);
   };
-  
+
+  //handle checkbox review
   const handleCheckboxReview = (problemId, difficulty, subjectName) => {
     // setCurrentCheckboxImage('Review');
     handleCheckboxChange(problemId, "Reviewed");
-    setSampleQuestionStatus(userId , problemId, subjectName, difficulty, "Review");
+    setSampleQuestionStatus(
+      userId,
+      problemId,
+      subjectName,
+      difficulty,
+      "Review"
+    );
+  };
+
+  //----------------------------------------------------miscellaneous functions used in the component-----------------------------------------------------
+
+  // filter problems based on difficulty and topic
+  const getFilteredProblems = () => {
+    return problems.filter((problem) => {
+      const difficultyMatch =
+        difficultyFilter === "All" || problem.difficulty === difficultyFilter;
+      const topicMatch =
+        topicFilter === "All" || problem.topicName === topicFilter;
+      return difficultyMatch && topicMatch;
+    });
+  };
+
+  // set selection
+  const handleSetSelection = (setName) => {
+    setSelectedSet(setName);
+    setIsSetDropdownOpen(false);
+  };
+
+  // get solved count
+  const getSolvedCount = () => {
+    return filteredProblems.filter((problem) => solvedProblems[problem._id])
+      .length;
+  };
+
+  // save note
+  const saveNote = (problemId, noteContent) => {
+    const trimmedNote = noteContent.trim();
+
+    setNotesBackend((prevNotes) => ({
+      ...prevNotes,
+      [problemId]: trimmedNote,
+    }));
+
+    saveNotesToBackend(userId, problemId, trimmedNote);
+  };
+
+  // handle login function to login temporarily
+  const handleLoginClick = () => {
+    setShowPopUp(true);
   };
 
   return (
@@ -486,8 +549,6 @@ function QuestionTopicDropDown({ subjectName }) {
         <div
           className={`${styles.progress} ${isOpen ? styles.progressOpen : ""}`}
         >
-          
-
           <div
             className={styles.filterButtonWrapper}
             onClick={(e) => e.stopPropagation()}
@@ -499,7 +560,15 @@ function QuestionTopicDropDown({ subjectName }) {
               {topicFilter === "All" ? (
                 <>
                   Topic
-                  <img className={styles.downArrow} src={isFilterOpen1 ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
+                  <img
+                    className={styles.downArrow}
+                    src={
+                      isFilterOpen1
+                        ? "src/assets/angle-up.svg"
+                        : "src/assets/angle-down.svg"
+                    }
+                    alt="Filter"
+                  />
                 </>
               ) : (
                 <>{topicFilter}</>
@@ -539,7 +608,15 @@ function QuestionTopicDropDown({ subjectName }) {
               {difficultyFilter === "All" ? (
                 <>
                   Difficulty
-                  <img className={styles.downArrow} src={isFilterOpen2 ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
+                  <img
+                    className={styles.downArrow}
+                    src={
+                      isFilterOpen2
+                        ? "src/assets/angle-up.svg"
+                        : "src/assets/angle-down.svg"
+                    }
+                    alt="Filter"
+                  />
                 </>
               ) : (
                 <>{difficultyFilter}</>
@@ -633,29 +710,28 @@ function QuestionTopicDropDown({ subjectName }) {
                             : "src/assets/reviewcheck.svg"
                         }
                         alt="Checkbox"
-                        
                       />
                     </td>
 
-                  <td onClick={() => handleQuestionClick(problem, index)}>
-                    {problem.questionContent}
-                    <button> 
-                      {showQuestionPopUp && (
-                        <QuestionPopUp
-                          question={problem}
-                          onClose={closePopup}
-                        />
-                      )}
-                    </button>
-                    <LoginPopup
-                      message="Please login first"
-                      show={showPopUp}
-                      duration={5000}
-                      onClose={closePopup}
-                    />
-                  </td>
-                  <td className={styles.soon}>
-                    {/* <img
+                    <td onClick={() => handleQuestionClick(problem, index)}>
+                      {problem.questionContent}
+                      <button>
+                        {showQuestionPopUp && (
+                          <QuestionPopUp
+                            question={problem}
+                            onClose={closePopup}
+                          />
+                        )}
+                      </button>
+                      <LoginPopup
+                        message="Please login first"
+                        show={showPopUp}
+                        duration={5000}
+                        onClose={closePopup}
+                      />
+                    </td>
+                    <td className={styles.soon}>
+                      {/* <img
                       src="src/assets/Artical.svg"
                       alt="Article"
                       className={styles.icons}
@@ -689,7 +765,6 @@ function QuestionTopicDropDown({ subjectName }) {
                             handleLoginClick();
                           } else {
                             openModal(problem._id);
-                            
                           }
                         }}
                         className={styles.noteButton}
@@ -726,15 +801,23 @@ function QuestionTopicDropDown({ subjectName }) {
                 onClick={() => setPage(1)}
                 disabled={page === 1}
                 className={styles.doubleArrow}
-                >
-                  <img className={styles.rightArrow} src="src\assets\double-left.svg" alt="right arrow" />
-                  First 
+              >
+                <img
+                  className={styles.rightArrow}
+                  src="src\assets\double-left.svg"
+                  alt="right arrow"
+                />
+                First
               </button>
               <button
                 onClick={() => setPage((prev) => prev - 1)}
                 disabled={page === 1}
               >
-                <img className={styles.rightArrow} src="src\assets\angle-left.svg" alt="right arrow" />
+                <img
+                  className={styles.rightArrow}
+                  src="src\assets\angle-left.svg"
+                  alt="right arrow"
+                />
                 Prev
               </button>
               <p>
@@ -745,18 +828,25 @@ function QuestionTopicDropDown({ subjectName }) {
                 disabled={page * 10 >= filteredProblems.length}
               >
                 Next
-                <img className={styles.rightArrow} src="src\assets\angle-right.svg" alt="right arrow" />
+                <img
+                  className={styles.rightArrow}
+                  src="src\assets\angle-right.svg"
+                  alt="right arrow"
+                />
               </button>
-              <button 
+              <button
                 onClick={() => setPage(Math.ceil(filteredProblems.length / 10))}
                 disabled={page === Math.ceil(filteredProblems.length / 10)}
                 className={styles.doubleArrow}
               >
                 Last
-                <img className={styles.rightArrow} src="src\assets\double-right.svg" alt="right arrow" />
+                <img
+                  className={styles.rightArrow}
+                  src="src\assets\double-right.svg"
+                  alt="right arrow"
+                />
               </button>
             </div>
-            
           )}
 
           {filteredProblems.length > 0 && (
@@ -773,9 +863,17 @@ function QuestionTopicDropDown({ subjectName }) {
                       console.log("quiz topic:", quizTopic);
                     }
                   }}
-                  >
-                  Complete Test 
-                  <img className={styles.downArrow} src={isSetDropdownOpen ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
+                >
+                  Complete Test
+                  <img
+                    className={styles.downArrow}
+                    src={
+                      isSetDropdownOpen
+                        ? "src/assets/angle-up.svg"
+                        : "src/assets/angle-down.svg"
+                    }
+                    alt="Filter"
+                  />
                 </button>
                 {isSetDropdownOpen && (
                   <div className={styles.setDropdownMenu}>
@@ -814,12 +912,20 @@ function QuestionTopicDropDown({ subjectName }) {
                     if (!isLoggedIn) {
                       setShowPopUp(true);
                     } else {
-                      toggleTopicDrop();
+                      toggleTopicDropDown();
                     }
                   }}
                 >
                   Topic-Wise Test
-                  <img className={styles.downArrow} src={isTopicDropOpen ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
+                  <img
+                    className={styles.downArrow}
+                    src={
+                      isTopicDropOpen
+                        ? "src/assets/angle-up.svg"
+                        : "src/assets/angle-down.svg"
+                    }
+                    alt="Filter"
+                  />
                 </button>
                 {isTopicDropdownOpen && (
                   <div className={styles.setDropdownMenu}>
@@ -857,7 +963,15 @@ function QuestionTopicDropDown({ subjectName }) {
                   }}
                 >
                   Difficulty-Wise Test
-                  <img className={styles.downArrow} src={isDiffDropOpen ?"src/assets/angle-up.svg" : "src/assets/angle-down.svg"} alt="Filter" />
+                  <img
+                    className={styles.downArrow}
+                    src={
+                      isDiffDropOpen
+                        ? "src/assets/angle-up.svg"
+                        : "src/assets/angle-down.svg"
+                    }
+                    alt="Filter"
+                  />
                 </button>
                 {isTopicDropdownOpen && (
                   <div className={styles.setDropdownMenu}>
