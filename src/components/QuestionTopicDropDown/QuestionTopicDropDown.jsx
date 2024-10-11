@@ -19,7 +19,7 @@ import Pagination from '@mui/material/Pagination';
 
 
 function QuestionTopicDropDown({ subjectName }) {
-  const { isLoggedIn, userId } = useContext(AuthContext);
+  const { isLoggedIn, userId, setGraphUpdateTrigger } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterOpen1, setIsFilterOpen1] = useState(false);
   const [isFilterOpen2, setIsFilterOpen2] = useState(false);
@@ -456,7 +456,7 @@ function QuestionTopicDropDown({ subjectName }) {
     // setCurrentCheckboxImage('Saved');
     handleCheckboxChange(problemId, "Saved");
     setSampleQuestionStatus(userId , problemId, subjectName, difficulty, "Save");
-    
+    setGraphUpdateTrigger((prev) => !prev);
   };
   
   const handleCheckboxReview = (problemId, difficulty, subjectName) => {

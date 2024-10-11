@@ -187,8 +187,8 @@ const Dashboard = () => {
               <p>No results available.</p> // Fallback if no results are fetched
             )}
               {/* Add New Sheet Button */}
-              <div className={styles.addCard}>
-                <div className={styles.addIcon} onClick={handleCardClick}>+</div>
+              <div className={styles.addCard} onClick={handleCardClick}>
+                <div className={styles.addIcon} >+</div>
                 {isAddMoreOpen && (
                   <AddMore 
                     position={clickedCardPosition}

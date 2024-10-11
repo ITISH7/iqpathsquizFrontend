@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import ReactEcharts from 'echarts-for-react';
 import styles from './doughnut.module.css';
 
-const DoughnutChart = ({data}) => {
+const DoughnutChart = ({data, centerLabel}) => {
 
     const chartRef = useRef(null);
 
@@ -16,7 +16,7 @@ const DoughnutChart = ({data}) => {
             orient: 'vertical',
             right: 10,
             top: 'center',
-            data: data.filter(item => item.name).map(item => ({
+            data: data?.filter(item => item.name).map(item => ({
                 name: item.name,
                 icon: 'none',
             })),
@@ -56,11 +56,11 @@ const DoughnutChart = ({data}) => {
                 label: {
                     show: true,
                     position: 'center',
-                    formatter: '17/20',
+                    formatter: centerLabel,
                     fontSize: 16,
                     color: '#000',
                 },
-                data: data.map(item => ({
+                data: data?.map(item => ({
                     value: item.value,
                     name: item.name,
                     itemStyle: {
@@ -73,8 +73,8 @@ const DoughnutChart = ({data}) => {
     };
 
     option.legend.formatter = (name) => {
-        const item = data.find((item) => item.name === name);
-        const percentage = ((item.value / data.reduce((acc, cur) => acc + cur.value, 0)) * 100);
+        const item = data?.find((item) => item.name === name);
+        const percentage = ((item?.value / data?.reduce((acc, cur) => acc + cur.value, 0)) * 100).toPrecision(2);
 
         return `{rect|${percentage}%} {name| ${name} }`;
     };

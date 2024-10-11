@@ -29,9 +29,10 @@ const Statistics = () => {
   const [coursePieChartData, setCoursePieChartData] = useState([]);
   const [weeklyProgressData, setWeeklyProgressData] = useState([]);
   const [courseProgressData, setCourseProgressData] = useState([]);
+  const [courseCategories, setCourseCategories] = useState([]);
 
   
-  const { isLoggedIn, userId } = useContext(AuthContext);
+  const { isLoggedIn, userId, GraphUpdateTrigger, setGraphUpdateTrigger } = useContext(AuthContext);
   
   const service = new Service();
 
@@ -41,20 +42,36 @@ const Statistics = () => {
 
   const getAllCourseProgressGraphData = async (userId) => {
     try {
-      const response = await service.CourseProgressGraph(userId);
-      if (response.statusCode === 200) {
-        const formattedData = response.data
-          .filter((subject) => subject.totalQuestions > 0)
-          .map((subject, index) => ({
-            subject: subject.subjectName, // assuming your API returns subjectName
-            totalQuestions: subject.totalQuestions,
-            easyQuestions: subject.easyQuestions, 
-            mediumQuestions: subject.mediumQuestions,
-            hardQuestions: subject.hardQuestions,
-            color: colors[index % colors.length], // Assign color from the predefined list
-          }));
+      const response = await service.CourseProgressGraph({ userId });
+      console.log("response in course progress graph", response);
   
-        setCourseProgressData(formattedData); 
+      // Extracting the actual data from response.data
+      const { data, success, statusCode, message } = response.data;
+  
+      if (statusCode === 200 && success) {
+        const formattedData = data
+          // .filter(subject => subject.totalQuestions > 0) 
+          .map((subject, index) => {
+            const totalQuestions = subject.totalQuestions || 0;
+            const easyQuestions = subject.easyQuestions || 0;
+            const mediumQuestions = subject.mediumQuestions || 0;
+            const hardQuestions = subject.hardQuestions || 0;
+  
+            return {
+              subject: subject.subjectName,
+              totalQuestions: totalQuestions,
+              easyQuestions: easyQuestions,
+              mediumQuestions: mediumQuestions,
+              hardQuestions: hardQuestions,
+              color: colors[index % colors.length], // Assign color from predefined list
+            };
+          });
+  
+          const categories = formattedData.map(subject => subject.subject);
+
+          return { formattedData, categories };
+      } else {
+        console.error("Error: ", message); // Log error message from the response
       }
     } catch (error) {
       console.error("Error while fetching course progress graph data:", error);
@@ -65,33 +82,45 @@ const Statistics = () => {
 
   // Get the pie chart data for today
 
+
   const getTodayPieChartData = async (userId) => {
-    const response = await service.GetTodaysPieChart("6706803105c908bd697d49f6");
-    // console.log("response", response);
+    try {
+      const response = await service.GetTodaysPieChart({ userId });
+      console.log("response in today pie chart", response);
+  
+      // Extracting the actual data from response.data
+      const { data, success, statusCode, message } = response.data;
+  
+      if (statusCode === 200 && success) {
+        const totalQuestions = data.totalQuestions || 0;
+        const easyQuestions = data.easyQuestions || 0;
+        const mediumQuestions = data.mediumQuestions || 0;
+        const hardQuestions = data.hardQuestions || 0;
 
-    if (response?.data) {
-      const { totalQuestions, easyQuestions, mediumQuestions, hardQuestions } = response.data.data;
+        console.log("easyQuestions", easyQuestions);
+        console.log("mediumQuestions", mediumQuestions);
+        console.log("hardQuestions", hardQuestions);
 
-      // Calculate the percentages for each category
-      const easyPercentage = (easyQuestions / totalQuestions) * 100;
-      const mediumPercentage = (mediumQuestions / totalQuestions) * 100;
-      const hardPercentage = (hardQuestions / totalQuestions) * 100;
-      const remainingPercentage = 100 - easyPercentage - mediumPercentage - hardPercentage;
-      // console.log("easyPercentage", easyPercentage);
-      // console.log("mediumPercentage", mediumPercentage);
-      // console.log("hardPercentage", hardPercentage);
-      // console.log("remainingPercentage", remainingPercentage);
-
-      // Set the data in the required format
-      const pieChartData = [
-        { value: easyPercentage, name: "Easy", color: "#b3b7f9", borderRadius: [50, 50, 50, 0], },
-        { value: mediumPercentage, name: "Medium", color: "#c29ed7", borderRadius: [50, 50, 50, 0], },
-        { value: hardPercentage, name: "Hard", color: "#2f2a44", borderRadius: [50, 50, 50, 50], },
-        { value: remainingPercentage, name: "", color: "#eeeeee", borderRadius: [0, 0, 0, 0], },
-      ];
-
-      // Update the state
-      setTodayPieChartData(pieChartData);
+  
+        // Return the formatted data
+        const todayPieChartData = [{
+          label: "Today's Quiz",
+          data: [
+            { value: easyQuestions, name: 'Easy', color: '#b3b7f9', borderRadius: [50, 50, 50, 0] },
+            { value: mediumQuestions, name: 'Medium', color: '#c29ed7', borderRadius: [50, 50, 50, 0] },
+            { value: hardQuestions, name: 'Hard', color: '#2f2a44', borderRadius: [50, 50, 50, 50] },
+          ],
+          centerLabel: `${totalQuestions} Ques.. `,
+        }];
+  
+        return todayPieChartData; // Return the formatted pie chart data
+      } else {
+        console.error("Error: ", message); // Log error message from the response
+        return [];
+      }
+    } catch (error) {
+      console.error("Error while fetching today's pie chart data:", error);
+      return [];
     }
   };
 
@@ -100,17 +129,21 @@ const Statistics = () => {
 
   const getCoursePieChartData = async (userId) => {
     try {
-      const response = await service.GetCoursePieCharts(userId);
-      console.log("response", response);
+      const response = await service.GetCoursePieCharts({ userId });
+      console.log("response in all pie chats", response);
   
-      if (response.statusCode === 200 && response.success) {
-        const courses = response.data.map(course => {
+      // Extracting the actual data from response.data
+      const { data, success, statusCode, message } = response.data;
+  
+      if (statusCode === 200 && success) {
+        const courses = data.map(course => {
           const totalQuestions = course.totalQuestions;
           const solvedQuestions = course.solvedQuestions;
-  
-          const easyQuestions = course.easyQuestions || 0;
-          const mediumQuestions = course.mediumQuestions || 0;
-          const hardQuestions = totalQuestions - (easyQuestions + mediumQuestions + solvedQuestions);
+
+          const easyQuestions = (course.easyQuestions) || 0;
+          const mediumQuestions = (course.mediumQuestions)|| 0;
+          const hardQuestions = (course.hardArray) || 0;
+
   
           return {
             label: course.subjectName,
@@ -118,7 +151,7 @@ const Statistics = () => {
               { value: easyQuestions, name: 'Easy', color: '#b3b7f9', borderRadius: [50, 50, 50, 0] },
               { value: mediumQuestions, name: 'Medium', color: '#c29ed7', borderRadius: [50, 50, 50, 0] },
               { value: hardQuestions, name: 'Hard', color: '#2f2a44', borderRadius: [50, 50, 50, 50] },
-              { value: totalQuestions - (easyQuestions + mediumQuestions + solvedQuestions), name: '', color: '#eeeeee', borderRadius: [0, 0, 0, 0] }
+              // { value: totalQuestions - (easyQuestions + mediumQuestions + solvedQuestions), name: '', color: '#eeeeee', borderRadius: [0, 0, 0, 0] }
             ],
             centerLabel: `${solvedQuestions}/${totalQuestions}`,
           };
@@ -126,7 +159,7 @@ const Statistics = () => {
   
         return courses; // Return the formatted courses array
       } else {
-        console.error("Error: ", response.message);
+        console.error("Error: ", message); // Log error message from the response
         return [];
       }
     } catch (error) {
@@ -135,39 +168,29 @@ const Statistics = () => {
     }
   };
 
-  // const getCoursePieChartData = async (userId) => {
-  //   try {
-  //     const response = await service.GetCoursePieCharts(userId);
-  //     console.log("response in pie chart", response);
-  //   } catch (error) {
-  //     console.error("Error while fetching course pie chart data:", error);
-  //   }
-  // };
 
-  const tempPieChartData = async (userId) => {
-    try {
-      const response = await service.GetCoursePieCharts(userId);
-      console.log("response in pie chart", response);
-    } catch (error) {
-      console.error("Error while fetching course pie chart data from temp:", error);
-    }
-  };
-
-
+  //fetch graphs data and put it in the state
 
   useEffect(() => {
     const fetchData = async () => {
       const fetchedCourses = await getCoursePieChartData(userId);
       console.log("fetchedCourses", fetchedCourses);
       setCoursePieChartData(fetchedCourses);
-    };
-    tempPieChartData(userId);
 
+      const fetchedTodayPieChart = await getTodayPieChartData(userId);
+      console.log("fetchedTodayPieChart", fetchedTodayPieChart);
+      setTodayPieChartData(fetchedTodayPieChart);
+
+      const { formattedData, categories } = await getAllCourseProgressGraphData(userId);
+      console.log("fetchedCourseProgressData", formattedData);
+      console.log("categories", categories);
+      setCourseProgressData(formattedData);
+      setCourseCategories(categories);
+    };
     fetchData();
-  }, [userId]);
+  }, [userId, GraphUpdateTrigger]);
   
 
- 
 
   
   //fetch the thought of the day
@@ -183,7 +206,8 @@ const Statistics = () => {
     fetchThought();
     getAllCourseProgressGraphData(userId);
     getTodayPieChartData(userId);
-    // getCoursePieChartData(userId);
+    getCoursePieChartData(userId);
+    setGraphUpdateTrigger(!GraphUpdateTrigger);
   }
 
   const fetchThought = async () => {
@@ -444,8 +468,8 @@ const Statistics = () => {
                       /> */}
                       {
                         <CourseProgressGraph
-                          data={dummyDataBar}
-                          categories={dummyCategories}
+                          data={courseProgressData}
+                          categories={courseCategories}
                         />
                       }
                     </div>
@@ -463,7 +487,7 @@ const Statistics = () => {
           </div>
 
           <div
-            className={`${styles.graphBox} ${styles.scrollContainer} ${styles.custom}`}
+            className={` ${styles.scrollContainer}`}
           >
             <div
               className={styles.customScrollbar}
@@ -480,38 +504,9 @@ const Statistics = () => {
                 className={`${styles.pieChart} ${styles.item} `}
                 data-label="Today"
               >
-                <DoughnutChart data={todayPieChartData} centerLabel="17/20" />
+                <DoughnutChart data={todayPieChartData[0]?.data} centerLabel = {todayPieChartData[0]?.centerLabel} />
               </div>
-              {/* <div
-                className={`${styles.pieChart} ${styles.item} `}
-                data-label="Course 1"
-              >
-                <DoughnutChart data={dummyData} centerLabel="17/20" />
-              </div>
-              <div
-                className={`${styles.pieChart} ${styles.item} `}
-                data-label="Course 2"
-              >
-                <DoughnutChart data={dummyData} centerLabel="17/20" />
-              </div>
-              <div
-                className={`${styles.pieChart} ${styles.item} `}
-                data-label="Today"
-              >
-                <DoughnutChart data={dummyData} centerLabel="17/20" />
-              </div>
-              <div
-                className={`${styles.pieChart} ${styles.item} `}
-                data-label="Course 1"
-              >
-                <DoughnutChart data={dummyData} centerLabel="17/20" />
-              </div>
-              <div
-                className={`${styles.pieChart} ${styles.item} `}
-                data-label="Course 2"
-              >
-                <DoughnutChart data={dummyData} centerLabel="17/20" />
-              </div> */}
+          
 
               {coursePieChartData.map((course, index) => (
                 <div
