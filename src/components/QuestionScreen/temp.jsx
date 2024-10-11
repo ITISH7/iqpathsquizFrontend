@@ -38,23 +38,16 @@ const QuestionScreen = () => {
   const currentQuestion = questions[activeQuestion];
   const { questionContent, type, options, code, image, correctAnswers } = currentQuestion || {};
 
+  // Check if the selected answer is correct
   const isMatch = selectedAnswer.length === correctAnswers?.length && selectedAnswer.every((answer) => correctAnswers.includes(answer));
 
   const saveAnswerForQuestion = (index) => {
-    const currentQuestion = questions[index];
-
-    // Calculate if the selected answers match the correct ones
-    const isMatch =
-      selectedAnswer.length === currentQuestion.correctAnswers?.length &&
-      selectedAnswer.every((answer) => currentQuestion.correctAnswers.includes(answer));
-  
-    // Save the answer for the question
     setResult((prevResult) => {
       const newResult = [...prevResult];
       newResult[index] = {
-        ...currentQuestion,
-        selectedAnswer, // Store the selected answer
-        isMatch, // Store whether the answer is correct
+        ...questions[index],
+        selectedAnswer,
+        isMatch,
       };
       return newResult;
     });
@@ -143,34 +136,7 @@ const QuestionScreen = () => {
 
   useTimer(timer, quizDetails, setEndTime, setTimer, setShowTimerModal, showResultModal);
 
-
-  const handleQuestionJump = (questionIndex) => {
-    // Save the current question's answer before jumping
-    saveAnswerForQuestion(activeQuestion);
-  
-    // Update the active question to the one jumped to
-    setActiveQuestion(questionIndex);
-  
-    // Retrieve and set the selected answer for the new question if it was answered before
-    const previousResult = result[questionIndex];
-    setSelectedAnswer(previousResult ? previousResult.selectedAnswer : []);
-  };
-  
-  
   return (
-    <div className={styles.quizWrapper}>
-    {/* Sidebar Pagination */}
-    <div className={styles.sidebar}>
-      {questions.map((_, index) => (
-        <button
-          key={index}
-          className={`${styles.paginationButton} ${index === activeQuestion ? styles.active : ''}`}
-          onClick={() => handleQuestionJump(index)}
-        >
-          {index + 1}
-        </button>
-      ))}
-    </div>
     <PageCenter>
       <div className={`${styles.quizContainer} ${selectedAnswer.length > 0 ? styles.selected : ''}`}>
         <QuizHeader activeQuestion={activeQuestion} totalQuestions={quizDetails.totalQuestions} timer={timer} />
@@ -204,7 +170,6 @@ const QuestionScreen = () => {
         />
       )}
     </PageCenter>
-    </div>
   );
 };
 

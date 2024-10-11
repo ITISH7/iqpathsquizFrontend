@@ -357,7 +357,7 @@ function QuestionTopicDropDown({ subjectName }) {
     });
   };
 
-  //----------------------------------------------------functions for and dropdowns-----------------------------------------------------
+  //-------------------------------------------------------functions for and dropdowns-----------------------------------------------------
 
   //toggle set dropdown
   const toggleSetDropdown = (event) => {
@@ -442,7 +442,7 @@ function QuestionTopicDropDown({ subjectName }) {
     }, 500);
   };
 
-  //----------------------------------------------------functions for checkbox-----------------------------------------------------
+  //--------------------------------------------------------functions for checkbox-----------------------------------------------------
 
   //handle checkbox change
   const handleCheckboxChange = (problemId, newState = null) => {

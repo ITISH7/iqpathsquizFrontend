@@ -3,21 +3,21 @@
 .questionContainer {
   margin-top: 30px;
   margin-bottom: 40px;
-  max-width: 88%;
+  width: 88%;
 }
 
 .answersContainer {
-  max-width: 78%;
+  width: 78%;
 }
 
 /* Responsive design for smaller screens */
 @media screen and (max-width: 640px) {
   .questionContainer {
-    max-width: 100%;
+    width: 800px;
   }
   
   .answersContainer {
-    max-width: 100%;
+    width: 100%;
   }
 }
 
