@@ -45,13 +45,13 @@ function Quiz() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-        <ToggleTheme
+        {/* <ToggleTheme
           onChange={toggleTheme}
           currentTheme={currentTheme}
           checked={currentTheme === 'dark'} 
           id="toggleTheme"
           value="theme"
-        />
+        /> */}
         <Main />
     </ThemeProvider>
   );

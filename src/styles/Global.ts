@@ -129,14 +129,21 @@ interface PageCenterTypes {
 }
 
 export const PageCenter = styled.div<PageCenterTypes>`
-  background: ${({ light, theme }) =>
-    light ? `${theme.colors.background}` : `${theme.colors.themeGradient}`};
+  // background: ${({ light, theme }) =>light ? `${theme.colors.background}` : `${theme.colors.themeGradient}`};
+
+  // background: linear-gradient(145deg, #B0E0E6, #4682B4);
+  background: linear-gradient(145deg, #A2C4D4, #4A90E2);
+  // background: linear-gradient(145deg, #A5C8D4, #5A8DBF);
+
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   padding-top: 50px;
+  overflow-y: auto;
+  scrollbar-width: none;
   // due to flex direction column
   ${({ justifyCenter }) =>
     justifyCenter &&

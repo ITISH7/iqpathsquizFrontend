@@ -18,7 +18,7 @@ const QuizHeader = ({activeQuestion, totalQuestions, timer}) => {
       </div>
       <Flex>
         {/* Ensure formatTime returns a string */}
-        <Counter time={formatTime(timer)} />
+        {/* <Counter time={formatTime(timer)} /> */}
       </Flex>
     </Flex>
   );

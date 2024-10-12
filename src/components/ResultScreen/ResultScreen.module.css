@@ -5,7 +5,9 @@ html, body {
 
 .container {
   /* background-color: #d3d1d1;  */
-  background: var(--main-background-color);
+  /* background: var(--main-background-color); */
+  background: linear-gradient(145deg, #87ceeb, #4682b4);
+  /* background: linear-gradient(145deg, #f0f8ff, #d4e8f7); */
   margin: 0;
   padding: 0;
   border: 0.2px solid transparent;
@@ -173,6 +175,10 @@ html, body {
   justify-content: flex-end;
   align-items: center;
   margin-top: 30px;
+}
+
+.ButtonContainer button {
+  width: 150px;
 }
 
 .buttonWrapper {

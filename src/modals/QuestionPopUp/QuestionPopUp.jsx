@@ -27,7 +27,7 @@ const QuestionPopUp = ({ isVisible, questionData, uniqueId, onClose, handleCheck
   useEffect(() => {
     if (questionData && questionData.correctAnswers) {
       const correctIndex = questionData.options.findIndex(opt =>
-        opt.split(') ')[1].trim().toLowerCase() === questionData.correctAnswers[0]?.replace("Answer: ", "").trim().toLowerCase()
+        opt.split(') ')[1]?.trim()?.toLowerCase() === questionData.correctAnswers[0]?.replace("Answer: ", "")?.trim().toLowerCase()
       );
       setCorrectAnswerIndex(correctIndex);
     }

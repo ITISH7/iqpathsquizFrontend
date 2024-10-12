@@ -141,7 +141,7 @@ function QuestionTopicDropDown({ subjectName }) {
         selectQuizTopic(subjectName);
         setQuestions(questions);
         setTotalMarks(totalMarks);
-        setTimer(totalTime * 60);
+        setTimer(60 * 60);
         setInitialTime(totalTime * 60);
         // console.log('initial time:', totalTime*60)
         // console.log('initial time:', initialTime)

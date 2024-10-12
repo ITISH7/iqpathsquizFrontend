@@ -27,20 +27,6 @@ const ResultScreen = () => {
     exitFullScreen();
   };
 
-  // console.log('result jo result page me aya', result);
-
-  // const TotalTimeTaken = finalTime - initialTime;
-
-  // setEndTime(TotalTimeTaken/60);
-  // console.log('TotalTimeTaken:', TotalTimeTaken);
-  // Function to handle retry action
-  // const onClickRetry = () => {
-  //   refreshPage();
-  // };
-
-  const redirectHome = () => {
-    window.location.href = "/";
-  };
 
   const renderAnswers = (choices, selectedAnswer, correctAnswers) => {
     return choices.map((ans, i) => {
