@@ -13,7 +13,7 @@ function Quiz() {
 
   // const {selectQuizTopic, setQuizTopic} = useQuiz()
   useEffect(() => {
-    window.scrollTo(0, 80)
+    window.scrollTo(0, 20)
     // setQuizTopic(values); 
 
   }, [])

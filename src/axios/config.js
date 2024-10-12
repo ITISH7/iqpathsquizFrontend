@@ -9,6 +9,17 @@ export class Service {
       throw error;
     }
   }
+
+  async GetProgress(id) {
+    try {
+      return await axios.post("/user/one5", { id });
+    }
+    catch (error) {
+      console.log("Service :: GetProgress :: error", error);
+      throw error;
+    }
+  }
+
   async GetSubjects() {
     try {
       return await axios.get("/user/giveSubjects");

@@ -294,7 +294,7 @@ const QuestionScreen = () => {
         </div>
        
       </div>
-      <PageCenter>
+      <PageCenter className={styles.PageCenter}>
         <div
           className={`${styles.quizContainer} ${
             selectedAnswer.length > 0 ? styles.selected : ""

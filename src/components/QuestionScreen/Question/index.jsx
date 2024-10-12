@@ -10,6 +10,7 @@ const QuestionContainer = styled.div`
   margin-top: 30px;
   margin-bottom: 40px;
   max-width: 88%;
+  transition: all 0.3s ease;
   @media ${device.sm} {
     max-width: 100%;
   }
@@ -17,6 +18,8 @@ const QuestionContainer = styled.div`
 
 const AnswersContainer = styled.div`
   max-width: 78%;
+    transition: all 0.3s ease;
+
   @media ${device.sm} {
     max-width: 100%;
   }
@@ -26,6 +29,8 @@ const QuestionStyle = styled.h2`
   font-size: clamp(18px, 4vw, 28px);
   font-weight: 500;
   margin-bottom: 25px;
+    transition: all 0.3s ease;
+
   color: ${({ theme }) => theme.colors.primaryText};
   line-height: 1.3;
 `

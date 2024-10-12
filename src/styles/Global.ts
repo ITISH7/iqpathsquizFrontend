@@ -129,28 +129,36 @@ interface PageCenterTypes {
 }
 
 export const PageCenter = styled.div<PageCenterTypes>`
-  // background: ${({ light, theme }) =>light ? `${theme.colors.background}` : `${theme.colors.themeGradient}`};
-
+  /* Use the desired background gradient */
+  background: linear-gradient(145deg, #a2c4d4, #4a90e2);
+  /* Alternative background gradients (commented out) */
   // background: linear-gradient(145deg, #B0E0E6, #4682B4);
-  background: linear-gradient(145deg, #A2C4D4, #4A90E2);
   // background: linear-gradient(145deg, #A5C8D4, #5A8DBF);
 
-
+  /* Ensure the component takes full height of the viewport */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   padding-top: 50px;
-  overflow-y: auto;
-  scrollbar-width: none;
-  // due to flex direction column
+
+  /* Enable vertical scrolling without showing the scrollbar */
+  overflow-y: auto; /* Allow vertical scrolling */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+
+  /* Hide scrollbar for Chrome, Safari, and Edge */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Optional: Center content if justifyCenter prop is true */
   ${({ justifyCenter }) =>
     justifyCenter &&
     css`
       justify-content: center;
     `}
-`
+`;
 
 interface FlexProps {
   center?: boolean
