@@ -8,11 +8,6 @@ import { Service } from '../../../axios/config';
 const service = new Service();
 
 const saveTest = async (userId, quizTopic, result, totalScore, score) => {
-  // console.log('userId:', userId);
-  // console.log('quizTopic:', quizTopic);
-  // console.log('result:', result);
-  // console.log('totalScore:', totalScore);
-  // console.log('score:', score);
 
   const payload = {
     id: userId,

@@ -143,14 +143,14 @@ function QuestionTopicDropDown({ subjectName }) {
         selectQuizTopic(subjectName);
         setQuestions(questions);
         setTotalMarks(totalMarks);
-        setTimer(60 * 60);
+        setTimer(totalTime * 60);
         setInitialTime(totalTime * 60);
         // console.log('initial time:', totalTime*60)
         // console.log('initial time:', initialTime)
 
         setResult([]); // Reset the result
 
-        console.log("Quiz data fetched:", response.data);
+        // console.log("Quiz data fetched:", response.data);
         // console.log('Questions are:', questions  )
         // console.log('quiz topic:', quizTopic)
       }
@@ -974,7 +974,7 @@ function QuestionTopicDropDown({ subjectName }) {
                     } else {
                       toggleSetDropdown();
                       getquizQuestion();
-                      console.log("quiz topic:", quizTopic);
+                      // console.log("quiz topic:", quizTopic);
                     }
                   }}
                 >

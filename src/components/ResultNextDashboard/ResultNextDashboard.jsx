@@ -60,16 +60,16 @@ const ResultNextDashboard = () => {
   const getSingleTestResults = async (id, subjectName) => {
     try {
       const response = await service.GetSubjectResult(id, subjectName);
-      console.log("response: in resutl preview ", response);
+      // console.log("response: in resutl preview ", response);
 
       const sortedData = response.data.data.sort((a, b) => {
         return new Date(b.createdAt) - new Date(a.createdAt);
       });
 
-      console.log("sortedData:", sortedData);
+      // console.log("sortedData:", sortedData);
       setTestDetails(sortedData);
       setQuestions(sortedData[0].questions);
-      console.log("questions:", questions);
+      // console.log("questions:", questions);
       return response.data;
     } catch (error) {
       console.log("error:", error);
@@ -78,7 +78,7 @@ const ResultNextDashboard = () => {
 
   useEffect(() => {
     getSingleTestResults(userId, "Aptitude");
-    console.log("userId:", userId);
+    // console.log("userId:", userId);
   }, []);
 
   const openModal = (card) => {

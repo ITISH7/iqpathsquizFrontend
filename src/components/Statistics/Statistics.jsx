@@ -45,7 +45,7 @@ const Statistics = () => {
   const getAllCourseProgressGraphData = async (userId) => {
     try {
       const response = await service.CourseProgressGraph({ userId });
-      console.log("response in course progress graph", response);
+      // console.log("response in course progress graph", response);
   
       // Extracting the actual data from response.data
       const { data, success, statusCode, message } = response.data;
@@ -88,7 +88,7 @@ const Statistics = () => {
   const getTodayPieChartData = async (userId) => {
     try {
       const response = await service.GetTodaysPieChart({ userId });
-      console.log("response in today pie chart", response);
+      // console.log("response in today pie chart", response);
   
       // Extracting the actual data from response.data
       const { data, success, statusCode, message } = response.data;
@@ -99,9 +99,9 @@ const Statistics = () => {
         const mediumQuestions = data.mediumQuestions || 0;
         const hardQuestions = data.hardQuestions || 0;
 
-        console.log("easyQuestions", easyQuestions);
-        console.log("mediumQuestions", mediumQuestions);
-        console.log("hardQuestions", hardQuestions);
+        // console.log("easyQuestions", easyQuestions);
+        // console.log("mediumQuestions", mediumQuestions);
+        // console.log("hardQuestions", hardQuestions);
 
   
         // Return the formatted data
@@ -132,7 +132,7 @@ const Statistics = () => {
   const getCoursePieChartData = async (userId) => {
     try {
       const response = await service.GetCoursePieCharts({ userId });
-      console.log("response in all pie chats", response);
+      // console.log("response in all pie chats", response);
   
       // Extracting the actual data from response.data
       const { data, success, statusCode, message } = response.data;
@@ -176,16 +176,16 @@ const Statistics = () => {
   useEffect(() => {
     const fetchData = async () => {
       const fetchedCourses = await getCoursePieChartData(userId);
-      console.log("fetchedCourses", fetchedCourses);
+      // console.log("fetchedCourses", fetchedCourses);
       setCoursePieChartData(fetchedCourses);
 
       const fetchedTodayPieChart = await getTodayPieChartData(userId);
-      console.log("fetchedTodayPieChart", fetchedTodayPieChart);
+      // console.log("fetchedTodayPieChart", fetchedTodayPieChart);
       setTodayPieChartData(fetchedTodayPieChart);
 
       const { formattedData, categories } = await getAllCourseProgressGraphData(userId);
-      console.log("fetchedCourseProgressData", formattedData);
-      console.log("categories", categories);
+      // console.log("fetchedCourseProgressData", formattedData);
+      // console.log("categories", categories);
       setCourseProgressData(formattedData);
       setCourseCategories(categories);
     };
@@ -230,7 +230,7 @@ const Statistics = () => {
   const getWeeklyProgressData = async (userId) => {
     try {
       const response = await service.GetWeeklyProgress(userId);
-      console.log("response", response);
+      // console.log("response", response);
     } catch (error) {
       console.error("Error while fetching weekly progress data:", error);
     }

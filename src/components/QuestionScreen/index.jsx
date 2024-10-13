@@ -79,7 +79,7 @@ const QuestionScreen = () => {
       setAttemptedQuestions((prev) => {
         const newAttempted = [...prev];
         newAttempted[activeQuestion] = true;
-        console.log("newAttempted", newAttempted);
+        // console.log("newAttempted", newAttempted);
         return newAttempted;
       });
 
@@ -89,7 +89,7 @@ const QuestionScreen = () => {
     setVisitedQuestions((prev) => {
       const newVisited = [...prev];
       newVisited[activeQuestion] = true;
-      console.log("newVisited", newVisited);
+      // console.log("newVisited", newVisited);
       return newVisited;
     });
 
@@ -146,7 +146,7 @@ const QuestionScreen = () => {
         setAttemptedQuestions((prev) => {
           const newAttempted = [...prev];
           newAttempted[activeQuestion] = true;
-          console.log("newAttempted", newAttempted);
+          // console.log("newAttempted", newAttempted);
           return newAttempted;
         });
       }
@@ -155,7 +155,7 @@ const QuestionScreen = () => {
       setVisitedQuestions((prev) => {
         const newVisited = [...prev];
         newVisited[activeQuestion] = true;
-        console.log("newVisited", newVisited);
+        // console.log("newVisited", newVisited);
         return newVisited;
       });
     }
