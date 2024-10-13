@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import utilityStyle from "../../utils/utils.module.css";
 import NoteModal from "./NoteModal";
 import QuestionPopUp from "../../modals/QuestionPopUp/QuestionPopUp";
-import LoginPopup from "../../modals/LoginPopUp/LoginPopUp";
 import { AuthContext } from "../../context/AuthContext";
 import { useQuiz } from "../../context/QuizContext";
 import { Service } from "../../axios/config";
@@ -16,6 +15,9 @@ import Revision from "../../assets/Revision.svg";
 import RevisionShine from "../../assets/RevisionShine.svg";
 import NoteIcon from "../../assets/NoteIcon.svg";
 import NoteFilledIcon from "../../assets/NoteFilledIcon.svg";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function QuestionTopicDropDown({ subjectName }) {
   //--------------------------------------------------sates used in the component-----------------------------------------------------
@@ -246,8 +248,10 @@ function QuestionTopicDropDown({ subjectName }) {
   const saveNotesToBackend = async (userId, questionId, notes) => {
     try {
       const response = await service.SaveNotes({ userId, questionId, notes });
+      noteSvedPopup();
       console.log("Notes saved successfully:", response.data);
     } catch (error) {
+      noteNotSavedPopup();
       console.error("Error saving notes:", error);
     }
   };
@@ -268,8 +272,19 @@ function QuestionTopicDropDown({ subjectName }) {
         difficulty,
         status,
       });
+      if (status == "Review") {
+        sampleQuestionReviewPopup();
+        console.log("Status reviewed successfully:", response.data);
+      } else if (status == "Save") {
+      sampleQuestionSavedPopup();
+      }
       console.log("Status saved successfully:", response.data);
     } catch (error) {
+      if (status == "Review") {
+        sampleQuestionNotReviewPopup();
+      } else if (status == "Save") {
+      sampleQuestionNotSavedPopup();
+      }
       console.error("Error saving status:", error);
     }
   };
@@ -313,6 +328,107 @@ function QuestionTopicDropDown({ subjectName }) {
       setShowPopUp(true);
     }
   };
+
+  // login notification popup if user not logged in
+  const PleaseLoginPopup = () => {
+    if (!isLoggedIn) {
+      toast.error('Please login first', {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+        className: 'customToast',
+      });
+    }
+  };
+
+  //Sample Question Saved Popup
+  const sampleQuestionSavedPopup = () => {
+    toast.success('Question Saved Successfully', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
+  };
+
+  //sample question not saved error popup
+  const sampleQuestionNotSavedPopup = () => {
+    toast.error('Question Not Saved', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
+  };
+
+  //Sample Question Review Popup
+  const sampleQuestionReviewPopup = () => {
+    toast.success('Question Reviewed Successfully', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
+  };
+
+  //Sample Question Not Reviewed Popup
+  const sampleQuestionNotReviewPopup = () => {
+    toast.error('Question Not Reviewed', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
+  };
+
+  //Note Saved Popup
+  const noteSvedPopup = () => {
+    toast.success('Note Saved Successfully', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
+  };
+
+  //Note Not Saved Popup
+  const noteNotSavedPopup = () => {
+    toast.error('Note Not Saved', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
+  };
+
 
   //----------------------------------------------------miscellaneous fucntion for dynamic logo and data -----------------------------------------------------
 
@@ -435,7 +551,7 @@ function QuestionTopicDropDown({ subjectName }) {
     console.log("topic:", topicFilter);
   };
 
-  // trigger to set dropdown open
+  // trigger to set dropdown open and set trigger to fetch notes
   const toggleDropdonwOpenNotesTrigger = () => {
     setTimeout(() => {
       setDropdownOpenNotesTrigger((prevState) => !prevState);
@@ -527,6 +643,8 @@ function QuestionTopicDropDown({ subjectName }) {
   const handleLoginClick = () => {
     setShowPopUp(true);
   };
+
+  
 
   return (
     <div
@@ -697,7 +815,7 @@ function QuestionTopicDropDown({ subjectName }) {
                   // console.log('problem:', problem),
                   <tr
                     key={`${problem.id}-${index}`}
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={PleaseLoginPopup}
                   >
                     <td className={`${styles.icons} ${styles.checkbox}`}>
                       <img
@@ -723,12 +841,7 @@ function QuestionTopicDropDown({ subjectName }) {
                           />
                         )}
                       </button>
-                      <LoginPopup
-                        message="Please login first"
-                        show={showPopUp}
-                        duration={5000}
-                        onClose={closePopup}
-                      />
+                      
                     </td>
                     <td className={styles.soon}>
                       {/* <img
@@ -857,6 +970,7 @@ function QuestionTopicDropDown({ subjectName }) {
                   onClick={() => {
                     if (!isLoggedIn) {
                       setShowPopUp(true);
+                      
                     } else {
                       toggleSetDropdown();
                       getquizQuestion();
@@ -911,6 +1025,7 @@ function QuestionTopicDropDown({ subjectName }) {
                   onClick={() => {
                     if (!isLoggedIn) {
                       setShowPopUp(true);
+                      
                     } else {
                       toggleTopicDropDown();
                     }

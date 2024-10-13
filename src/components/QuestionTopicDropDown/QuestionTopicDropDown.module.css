@@ -615,6 +615,11 @@ input[type="checkbox"]:checked + .customCheckbox::after {
   margin: 0px 0px;
 }
 
+.customToast{
+  width: 600px; 
+  height: 100px; 
+}
+
 /* xs */
 @media (min-width: 425px) {
   .header h2 {

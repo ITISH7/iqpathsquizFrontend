@@ -19,6 +19,8 @@ import { data as dummyDataBar, categories as dummyCategories } from "../../modal
 // import { data as dummyDataBar, categories as dummyCategories } from "../../modals/barGraph/dataBar.js";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Service } from "../../axios/config";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Statistics = () => {
   const [animate, setAnimate] = useState(false);
@@ -202,12 +204,15 @@ const Statistics = () => {
     // console.log("pie chart data", todayPieChartData);
   }, [isLoggedIn]);
 
+
+  const notify = () => toast("Please login first");
   const fetchTestFucntion = () => {
     fetchThought();
     getAllCourseProgressGraphData(userId);
     getTodayPieChartData(userId);
     getCoursePieChartData(userId);
     setGraphUpdateTrigger(!GraphUpdateTrigger);
+    notify()
   }
 
   const fetchThought = async () => {

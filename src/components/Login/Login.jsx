@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthService } from "../../axios/Auth";
 import { AuthContext } from "../../context/AuthContext";
 import * as Components from './login.js';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Log = ({ onSwitchToSignup }) => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -47,10 +49,12 @@ const Log = ({ onSwitchToSignup }) => {
       console.log("current user id is ", ID);
       if (session) {
         setIsLoggedIn(true);
+        loginPopup()
         navigate("/");
       }
     } catch (error) {
       setIsLoggedIn(false);
+      loginFailedPopup()
       setErrorMessage("Failed to login. Please try again.");
       throw error;
     }
@@ -66,15 +70,75 @@ const Log = ({ onSwitchToSignup }) => {
         console.log("current user id is ", ID);
         setUserId(ID);
         if(userData){
-            console.log("User account created successfully")
-            setIsLoggedIn(true);
-            navigate('/')
+          console.log("User account created successfully")
+          setIsLoggedIn(true);
+          signupPopup()
+          navigate('/')
         }
     } catch (error) {
         setIsLoggedIn(false);
+        signupFailedPopup()
         setErrorMessage('Failed to create account. Please try again.');
         throw error;
     }
+  };
+
+  //--------------------------------------------------------------popup for login and signup--------------------------------------------------------------
+
+  //logged in successful popup
+  const loginPopup = () => {
+    toast.success('Login Successful', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
+  };
+
+  //login failed popup
+  const loginFailedPopup = () => {
+    toast.error('Login Failed', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
+  };
+
+  //signup successful popup
+  const signupPopup = () => {
+    toast.success('Signup Successful', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
+  };
+
+  //signup failed popup
+  const signupFailedPopup = () => {
+    toast.error('Signup Failed', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      className: 'customToast',
+    });
   };
 
   return (

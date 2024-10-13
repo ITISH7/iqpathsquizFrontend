@@ -7,6 +7,7 @@ html, body {
   /* background-color: #d3d1d1;  */
   /* background: var(--main-background-color); */
   background: linear-gradient(145deg, #87ceeb, #4682b4);
+  background: linear-gradient(145deg, #41a9d3, #1d80d1);
   /* background: linear-gradient(145deg, #f0f8ff, #d4e8f7); */
   margin: 0;
   padding: 0;
@@ -19,6 +20,7 @@ html, body {
   padding: 40px 30px;
   background: var(--background-color);
   border-radius: 12px;
+  /* background: linear-gradient(145deg, #f0f8ff, #d4e8f7); */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
   /* border: 2px solid red; */
 }
@@ -34,6 +36,7 @@ html, body {
 
 .innerContainer {
   background: var(--background-color); 
+  /* background: linear-gradient(145deg, #f0f8ff, #d4e8f7); */
   border-radius: 12px;
   margin-bottom: 40px;
   padding: 40px 60px;

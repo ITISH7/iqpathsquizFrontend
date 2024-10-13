@@ -14,7 +14,7 @@ function Header() {
     { name: 'Result', path: '/result' },
   ];
 
-  const { isLoggedIn, setIsLoggedIn,ToggleLogin } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn, ToggleLogin } = useContext(AuthContext);
 
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isBellRung, setIsBellRung] = useState(false);

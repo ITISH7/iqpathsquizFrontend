@@ -8,11 +8,11 @@ import { Service } from '../../../axios/config';
 const service = new Service();
 
 const saveTest = async (userId, quizTopic, result, totalScore, score) => {
-  console.log('userId:', userId);
-  console.log('quizTopic:', quizTopic);
-  console.log('result:', result);
-  console.log('totalScore:', totalScore);
-  console.log('score:', score);
+  // console.log('userId:', userId);
+  // console.log('quizTopic:', quizTopic);
+  // console.log('result:', result);
+  // console.log('totalScore:', totalScore);
+  // console.log('score:', score);
 
   const payload = {
     id: userId,
@@ -24,12 +24,40 @@ const saveTest = async (userId, quizTopic, result, totalScore, score) => {
 
   try {
     const response = await service.SubmitTest(payload);
+    testSavedPopup();
     console.log('response:', response);
     return response;
   } catch (error) {
+    testFailedPopup();
     console.error('Error while submitting test:', error);
   }
 };
+
+//------------------------------------------------------------Test Popups------------------------------------------------------------
+//test saved successfully popup
+const testSavedPopup = () => {
+  toast.success('Test Saved Successfully', {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+};
+
+//test failed to save popup
+const testFailedPopup = () => {
+  toast.error('Failed to Save Test', {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+};
+
 
 const ResultOverview = ({ result }) => {
   const { quizDetails, quizTopic, score, setScore, endTime } = useQuiz();

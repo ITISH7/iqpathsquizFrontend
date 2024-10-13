@@ -17,6 +17,8 @@ import PrivacyPolicy from './pages/privacyPolicy.jsx'
 import TermsAndConditions from './pages/termsAndCondition.jsx'
 import CancellationAndRefund from './pages/cancellationAndRefund.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
@@ -64,7 +66,7 @@ const router = createBrowserRouter([
         element: <CancellationAndRefund />
       },
       {
-        path: '/error',
+        path: '*',
         element: <NotFoundPage />
       }
     ],
@@ -72,12 +74,20 @@ const router = createBrowserRouter([
 ])
 
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   // <StrictMode >
-      <AuthProvider>
-        <QuizProvider>
-          <RouterProvider router={router} />
-        </QuizProvider>
-      </AuthProvider>
+  <>
+    <AuthProvider>
+      <QuizProvider>
+        <RouterProvider router={router} />
+      </QuizProvider>
+    </AuthProvider>
+
+    <ToastContainer 
+      className="customToastContainer"
+      toastClassName="customToast"
+    />
+  </>
+
   // </StrictMode>,
-)
+);
