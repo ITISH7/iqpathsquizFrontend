@@ -74,10 +74,14 @@ const DoughnutChart = ({data, centerLabel}) => {
 
     option.legend.formatter = (name) => {
         const item = data?.find((item) => item.name === name);
-        const percentage = ((item?.value / data?.reduce((acc, cur) => acc + cur.value, 0)) * 100).toPrecision(2);
-
+        const totalValue = data?.reduce((acc, cur) => acc + (cur.value || 0), 0); 
+        const percentage = totalValue && item?.value 
+            ? ((item.value / totalValue) * 100).toPrecision(2) 
+            : 0;
+    
         return `{rect|${percentage}%} {name| ${name} }`;
     };
+    
 
     useEffect(() => {
         const resizeChart = () => {
