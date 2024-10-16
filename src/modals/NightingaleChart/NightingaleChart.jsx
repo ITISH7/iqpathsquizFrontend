@@ -7,6 +7,12 @@ const NightingaleChart = ({ data }) => {
     const chartDom = document.getElementById('nightingale-chart');
     const myChart = echarts.init(chartDom);
 
+    // Process the data: replace NaN values with a minimum value like 0.1
+    const processedData = data.map((item) => ({
+      ...item,
+      value: isNaN(item.value) ? 0.2  : item.value,  // Set minimum value for NaN
+    }));
+
     const option = {
       toolbox: {
         show: true,
@@ -23,7 +29,7 @@ const NightingaleChart = ({ data }) => {
           type: 'pie',
           radius: [30, 120],
           center: ['50%', '50%'],
-          roseType: 'area',
+          // Removed 'roseType' to size based on value
           itemStyle: {
             borderRadius: 8,
           },
@@ -33,9 +39,6 @@ const NightingaleChart = ({ data }) => {
             position: 'outside',   // Place labels outside the chart
             fontSize: 14,
             color: 'rgb(174, 55, 211)',
-            // overflow: 'break',    // Break the text to avoid ellipsis
-            alignTo: 'labelLine',  // Align the label with the line
-            distanceToLabelLine: 5, // Control the distance to the label line
           },
           labelLine: {
             show: true,
@@ -48,16 +51,14 @@ const NightingaleChart = ({ data }) => {
               shadowBlur: 10,
               shadowOffsetX: 0,
               shadowColor: 'rgba(0, 0, 0, 0.5)',
-              
             },
             label: {
               fontSize: 18,  // Increase the font size on hover
               fontWeight: 'bold',
               color: 'rgb(174, 55, 211)', // Highlight label color on hover
-              overflow: 'break', // Prevent ellipsis even on hover
             },
           },
-          data: data,
+          data: processedData,  // Use processed data with NaN handled
         },
       ],
     };
@@ -68,7 +69,7 @@ const NightingaleChart = ({ data }) => {
     return () => {
       myChart.dispose();
     };
-  }, []);
+  }, [data]);
 
   return <div id="nightingale-chart" className={styles.container} style={{ width: '100%', height: '100%' }} />;
 };

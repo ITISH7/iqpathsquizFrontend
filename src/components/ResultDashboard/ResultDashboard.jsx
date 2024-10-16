@@ -33,7 +33,7 @@ const Dashboard = () => {
 
       // Process the response to match the required format
       const processedData = response.data.data
-        .filter((item) => item.totalMarksEarned > 0)
+        // .filter((item) => item.totalMarksEarned > 0)
         .map((item) => {
           return {
             value: (item.totalMarksEarned / item.totalMarksAlloted) * 100, // or any custom calculation like percentage

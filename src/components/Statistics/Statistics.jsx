@@ -198,21 +198,19 @@ const Statistics = () => {
   //fetch the thought of the day
   useEffect(() => {
     fetchThought();
-    getAllCourseProgressGraphData(userId);
+    // getAllCourseProgressGraphData(userId);
     // console.log("course progress data", courseProgressData);
     getTodayPieChartData(userId);
     // console.log("pie chart data", todayPieChartData);
   }, [isLoggedIn]);
 
 
-  const notify = () => toast("Please login first");
   const fetchTestFucntion = () => {
     fetchThought();
     getAllCourseProgressGraphData(userId);
     getTodayPieChartData(userId);
     getCoursePieChartData(userId);
     setGraphUpdateTrigger(!GraphUpdateTrigger);
-    notify()
   }
 
   const fetchThought = async () => {
@@ -247,7 +245,7 @@ const Statistics = () => {
     } else {
       setAnimate(false);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, courseProgressData]);
 
   useEffect(() => {
     // Function to update the scrollbar height based on items' height
