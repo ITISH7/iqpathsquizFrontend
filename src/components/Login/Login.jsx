@@ -57,7 +57,7 @@ const Log = ({ onSwitchToSignup }) => {
       setIsLoggedIn(false);
       loginFailedPopup()
       setErrorMessage("Failed to login. Please try again.");
-      throw error;
+      console.log(error);
     }
   };
 

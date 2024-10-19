@@ -12,7 +12,7 @@ export class Service {
 
   async GetProgress(id) {
     try {
-      return await axios.post("/user/one5", { id });
+      return await axios.post("/user/sampleProgress", { id });
     }
     catch (error) {
       console.log("Service :: GetProgress :: error", error);
