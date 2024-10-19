@@ -61,7 +61,7 @@ function QuestionTopicDropDown({ subjectName }) {
     useState("NotChecked");
 
   //----------------------------------------------------data from context--------------------------------------------------------
-  const { isLoggedIn, userId, setGraphUpdateTrigger } = useContext(AuthContext);
+  const { isLoggedIn, userId, setGraphUpdateTrigger, setProgressBarTrigger } = useContext(AuthContext);
   const {
     selectQuizTopic,
     setQuestions,
@@ -587,6 +587,8 @@ function QuestionTopicDropDown({ subjectName }) {
     handleCheckboxChange(problemId, "Saved");
     setSampleQuestionStatus(userId, problemId, subjectName, difficulty, "Save");
     setGraphUpdateTrigger((prev) => !prev);
+    setProgressBarTrigger((prev) => !prev);
+
   };
 
   //handle checkbox review

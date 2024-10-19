@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {
   const [progress, setProgress] = useState(80);
   const [userId, setUserId] = useState('6706803105c908bd697d49f6');
   const [GraphUpdateTrigger, setGraphUpdateTrigger] = useState(false);
-;
+  const [progressBarTrigger, setProgressBarTrigger] = useState(false);
 
   const ToggleLogin = (isLoggedIn) => {
     setIsLoggedIn(!isLoggedIn);
@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn,setIsLoggedIn, ToggleLogin, progress, userId, setUserId, GraphUpdateTrigger, setGraphUpdateTrigger }}>
+    <AuthContext.Provider value={{ isLoggedIn,setIsLoggedIn, ToggleLogin, progress, userId, setUserId, GraphUpdateTrigger, setGraphUpdateTrigger ,progressBarTrigger, setProgressBarTrigger}}>
       {children}
     </AuthContext.Provider>
   );

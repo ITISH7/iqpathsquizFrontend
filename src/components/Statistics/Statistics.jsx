@@ -34,7 +34,7 @@ const Statistics = () => {
   const [courseCategories, setCourseCategories] = useState([]);
 
   
-  const { isLoggedIn, userId, GraphUpdateTrigger, setGraphUpdateTrigger } = useContext(AuthContext);
+  const { isLoggedIn, userId, GraphUpdateTrigger, setGraphUpdateTrigger, setProgressBarTrigger } = useContext(AuthContext);
   
   const service = new Service();
 

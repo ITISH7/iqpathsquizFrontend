@@ -9,7 +9,7 @@ import { Service } from "../../axios/config";
 function ProgressBar() {
   // const { progress } = useContext(AuthContext);
   const service = new Service();
-  const { userId } = useContext(AuthContext);
+  const { userId, progressBarTrigger } = useContext(AuthContext);
   const [progress, setProgress] = useState(0);
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [totalAtempt, setTotalAtempt] = useState(0);
@@ -38,7 +38,7 @@ function ProgressBar() {
   useEffect(() => {
     getProgress(userId);
   }
-  , [progress]);
+  , [progress, progressBarTrigger]);
 
   return (
     <div className={`${styles.container}`}>
