@@ -242,7 +242,7 @@ const Dashboard = () => {
                 )}
               </div>
             </div>
-            <div className={styles.sheetsSection}>
+            {/* <div className={styles.sheetsSection}>
               <div
                 className={styles.batchCard}
                 style={{ backgroundColor: "#E7D9FF" }}
@@ -285,8 +285,8 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              {/* Add more cards here */}
-            </div>
+              Add more cards here
+            </div> */}
           </div>
         </div>
       </div>

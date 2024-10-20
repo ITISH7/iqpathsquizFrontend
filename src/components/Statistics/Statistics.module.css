@@ -168,16 +168,30 @@
     /* border: 2px solid green; */
 }
 
+/* .thoughtPara {
+    position: relative;
+    top: 10px;
+    left: 1.3rem;
+    font-weight: 600;
+    font-size: 15px;
+    color: #525252;
+} */
+
 .thoughtPara {
     position: relative;
-    top: 0px;
-    left: 5rem;
+    top: 10px;
+    left: 1.3rem;
     font-weight: 600;
-    font-size: var(--size-sm);
+    font-size: 15px;
     color: #525252;
-    /* border: 2px solid green; */
-    
+    padding: 6px 8px; 
+    transition: transform 0.2s ease; 
 }
+
+.thoughtPara:hover {
+    transform: scale(1.02); 
+}
+
 
 .thoughtContainer{
     display: flex;

@@ -109,7 +109,10 @@
 .dropdownItem {
   padding: 10px;
   cursor: pointer;
-  border-bottom: 2px solid #eee; 
+  border-bottom: 2px solid #eee;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  /* text-overflow: ellipsis;  */
 }
 
 .dropdownItem:hover {
@@ -118,6 +121,18 @@
 
 .dropdownItem:last-child {
   border-bottom: none; 
+}
+
+.noScrollDropdown {
+  max-height: 200px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overfolw-style: none;
+  /* overflow-x: hidden; */
+}
+
+.noScrollDropdown::-webkit-scrollbar {
+  display: none;
 }
 
 .questionsSolved{
