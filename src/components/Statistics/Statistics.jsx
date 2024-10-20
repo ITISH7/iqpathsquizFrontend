@@ -108,9 +108,9 @@ const Statistics = () => {
         const todayPieChartData = [{
           label: "Today's Quiz",
           data: [
-            { value: easyQuestions, name: 'Easy', color: '#b3b7f9', borderRadius: [50, 50, 50, 0] },
-            { value: mediumQuestions, name: 'Medium', color: '#c29ed7', borderRadius: [50, 50, 50, 0] },
-            { value: hardQuestions, name: 'Hard', color: '#2f2a44', borderRadius: [50, 50, 50, 50] },
+            { value: easyQuestions, name: 'Easy', color: '#b3b7f9', textColor: '#000000', borderRadius: [50, 50, 50, 0] },
+            { value: mediumQuestions, name: 'Medium', color: '#c29ed7', textColor: '#000000', borderRadius: [50, 50, 50, 0] },
+            { value: hardQuestions, name: 'Hard', color: '#4a2a78', textColor: '#ffffff', borderRadius: [50, 50, 50, 50] },
           ],
           centerLabel: `${totalQuestions} Ques.. `,
         }];
@@ -150,9 +150,9 @@ const Statistics = () => {
           return {
             label: course.subjectName,
             data: [
-              { value: easyQuestions, name: 'Easy', color: '#b3b7f9', borderRadius: [50, 50, 50, 0] },
-              { value: mediumQuestions, name: 'Medium', color: '#c29ed7', borderRadius: [50, 50, 50, 0] },
-              { value: hardQuestions, name: 'Hard', color: '#2f2a44', borderRadius: [50, 50, 50, 50] },
+              { value: easyQuestions, name: 'Easy', color: '#b3b7f9', textColor: '#000000', borderRadius: [50, 50, 50, 0] },
+              { value: mediumQuestions, name: 'Medium', color: '#c29ed7', textColor: '#000000', borderRadius: [50, 50, 50, 0] },
+              { value: hardQuestions, name: 'Hard', color: '#4a2a78', textColor: '#ffffff', borderRadius: [50, 50, 50, 50] },
               // { value: totalQuestions - (easyQuestions + mediumQuestions + solvedQuestions), name: '', color: '#eeeeee', borderRadius: [0, 0, 0, 0] }
             ],
             centerLabel: `${solvedQuestions}/${totalQuestions}`,
