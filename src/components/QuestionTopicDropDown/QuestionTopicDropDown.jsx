@@ -977,7 +977,7 @@ function QuestionTopicDropDown({ subjectName }) {
           )}
 
           {filteredProblems.length > 0 && (
-            <div className={styles.wrapper}>
+            <div className={styles.wrapper} onClick={PleaseLoginPopup}>
               <div className={styles.dropdownWrapper}>
                 <button
                   className={`${styles.playButton} ${styles.buttonEffect} ${styles.lower1}`}
