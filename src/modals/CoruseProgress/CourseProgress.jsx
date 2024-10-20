@@ -14,23 +14,26 @@ const BarGraph = ({ data, categories }) => {
       itemStyle: {
         color: day.color,
       },
-      subjects: day.subjects,
+      subject: day.subject,
+      easyQuestions: day.easyQuestions,
+      mediumQuestions: day.mediumQuestions,
+      hardQuestions: day.hardQuestions,
     }));
+
+    console.log(data);
 
     const option = {
       tooltip: {
         trigger: 'item',
         formatter: function (params) {
-          const { subjects } = params.data;
-          let content = `<b>Total Questions: ${params.data.value}</b><br/>`;
-
-          subjects.forEach((subject) => {
-            content += `<b>${subject.subject}</b>:<br/>`;
-            subject.topics.forEach((topic) => {
-              content += `${topic.name}: ${topic.questions} questions<br/>`;
-            });
-          });
-          return content;
+          const { subject, value, easyQuestions, mediumQuestions, hardQuestions } = params.data;
+          return `
+            <b>${subject}</b><br/>
+            Total Questions: ${value}<br/>
+            Easy: ${easyQuestions}<br/>
+            Medium: ${mediumQuestions}<br/>
+            Hard: ${hardQuestions}
+          `;
         },
         backgroundColor: 'rgba(255,255,255,0.9)',
         borderColor: '#ccc',
