@@ -58,7 +58,7 @@ const Log = ({ onSwitchToSignup }) => {
     } catch (error) {
       setIsLoggedIn(false);
       loginFailedPopup()
-      setErrorMessage("Failed to login. Please try again.");
+      setErrorMessage("Invalid email or password. Please try again.");
       console.log(error);
     }
   };
@@ -82,7 +82,7 @@ const Log = ({ onSwitchToSignup }) => {
     } catch (error) {
         setIsLoggedIn(false);
         signupFailedPopup()
-        setErrorMessage('Failed to create account. Please try again.');
+        setErrorMessage("Invalid email or password. Please try again.");
         throw error;
     }
   };
@@ -151,10 +151,7 @@ const Log = ({ onSwitchToSignup }) => {
         <Components.Form onSubmit={handleSignup}>
           <Components.Title>Create Account</Components.Title>
 
-          {/* {errorMessage && (
-          <Components.ErrorMessage>{errorMessage}</Components.ErrorMessage>
-        )}
-   */}
+          {errorMessage && <Components.ErrorMessage>{errorMessage}</Components.ErrorMessage>}
           <Components.Input
             type="text"
             placeholder="Name"

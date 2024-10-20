@@ -160,3 +160,10 @@ font-size: 16px;
   letter-spacing: 0.5px;
   margin: 20px 0 30px
 `;
+
+export const ErrorMessage = styled.p`
+color: red;
+font-size: 12px;
+margin-top: 5px;
+margin-bottom: 5px;
+`;
