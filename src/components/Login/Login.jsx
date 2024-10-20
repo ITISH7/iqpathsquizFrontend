@@ -16,7 +16,7 @@ const Log = ({ onSwitchToSignup }) => {
     password: '',
     mobileNo: ''
   });
-  
+  const [isLoading, setIsLoading] = useState(false); 
 
   const navigate = useNavigate();
   const authService = new AuthService();
@@ -43,6 +43,7 @@ const Log = ({ onSwitchToSignup }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const session = await authService.login(formData);
       setUser(session.data.data);
@@ -60,12 +61,15 @@ const Log = ({ onSwitchToSignup }) => {
       loginFailedPopup()
       setErrorMessage("Invalid email or password. Please try again.");
       console.log(error);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
   
   const handleSignup = async(e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
         const userData = await authService.createAccount(formData);
         setUser(userData.data.data);
@@ -84,6 +88,8 @@ const Log = ({ onSwitchToSignup }) => {
         signupFailedPopup()
         setErrorMessage("Invalid email or password. Please try again.");
         throw error;
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -151,7 +157,9 @@ const Log = ({ onSwitchToSignup }) => {
         <Components.Form onSubmit={handleSignup}>
           <Components.Title>Create Account</Components.Title>
 
-          {errorMessage && <Components.ErrorMessage>{errorMessage}</Components.ErrorMessage>}
+          {errorMessage && (
+            <Components.ErrorMessage>{errorMessage}</Components.ErrorMessage>
+          )}
           <Components.Input
             type="text"
             placeholder="Name"
@@ -185,7 +193,13 @@ const Log = ({ onSwitchToSignup }) => {
             required
           />
 
-          <Components.Button type="submit">Sign Up</Components.Button>
+          <Components.Button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <img src="src/assets/LoadingAnimation.gif" alt="loading..." style={{ width: '50px', height: '50px', margin: "-15px 5px"}} />
+            ) : (
+              "Sign Up"
+            )}
+          </Components.Button>
         </Components.Form>
       </Components.SignUpContainer>
 
@@ -214,7 +228,9 @@ const Log = ({ onSwitchToSignup }) => {
             required
           />
           <Components.Anchor href="#">Forgot your password?</Components.Anchor>
-          <Components.Button type="submit">Sign In </Components.Button>
+          <Components.Button type="submit" disabled={isLoading} style={{padding: ""}}>
+            {isLoading ? <img src="src/assets/LoadingAnimation.gif" alt="loading..." style={{ width: '50px', height: '50px', margin: "-15px 5px"}} /> : 'Sign In'}
+          </Components.Button>
           <button className={styles.googleButton}>
             <img
               src="src/assets/googleLogo.png"
@@ -237,13 +253,13 @@ const Log = ({ onSwitchToSignup }) => {
               Sign In
             </Components.GhostButton>
             <button className={styles.googleButton}>
-            <img
-              src="src/assets/googleLogo.png"
-              alt="Google Logo"
-              className={styles.googleLogo}
-            />
-            Sign up with Google
-          </button>
+              <img
+                src="src/assets/googleLogo.png"
+                alt="Google Logo"
+                className={styles.googleLogo}
+              />
+              Sign up with Google
+            </button>
           </Components.LeftOverlayPanel>
 
           <Components.RightOverlayPanel signinIn={signIn}>
@@ -254,7 +270,6 @@ const Log = ({ onSwitchToSignup }) => {
             <Components.GhostButton onClick={() => toggle(false)}>
               Sign Up
             </Components.GhostButton>
-            
           </Components.RightOverlayPanel>
         </Components.Overlay>
       </Components.OverlayContainer>
