@@ -672,7 +672,7 @@ function QuestionTopicDropDown({ subjectName }) {
           <div
             className={styles.filterButtonWrapper}
             onClick={(e) => e.stopPropagation()}
-          >
+           >
             <button
               className={`${styles.filterButton} ${styles.buttonEffect}`}
               onClick={toggleFilterDropdown1}
@@ -697,7 +697,7 @@ function QuestionTopicDropDown({ subjectName }) {
 
             {isFilterOpen1 && (
               <div
-                className={styles.dropdownMenu}
+                className={`${styles.dropdownMenu} ${styles.noScrollDropdown}`}
                 onClick={(e) => e.stopPropagation()}
               >
                 {topics.length > 0 ? (
@@ -845,28 +845,40 @@ function QuestionTopicDropDown({ subjectName }) {
                       </button>
                       
                     </td>
-                    <td className={styles.soon}>
-                      {/* <img
-                      src="src/assets/Artical.svg"
-                      alt="Article"
-                      className={styles.icons}
-                    /> */}
+                    <td className={styles.remove}>
+                      {/* {isActiveLink ? (
+                        <img 
+                        src="src/assets/Artical.svg"
+                        alt="Article"
+                        className="styles.icons"
+                        />
+                      ) : (
+                        "soon..."
+                      )} */}
                       soon...
                     </td>
                     <td className={styles.remove}>
-                      {/* <img
-                      src="src/assets/YouTube.svg"
-                      alt="YouTube"
-                      className={styles.icons}
-                    /> */}
+                      {/* {isActiveLink ? (
+                        <img 
+                        src="src/assets/Youtube.svg"
+                        alt="Youtube"
+                        classname="styles.icons"
+                        />
+                      ) : (
+                        "soon..."
+                      )} */}
                       soon...
                     </td>
                     <td className={styles.remove}>
-                      {/* <img
-                      src="src/assets/Leetcode.svg"
-                      alt="Practice"
-                      className={styles.icons}
-                    /> */}
+                      {/* {isActiveLink ? (
+                        <img 
+                        src="src/assets/Youtube.svg"
+                        alt="Youtube"
+                        classname="styles.icons"
+                        />
+                      ) : (
+                        "soon..."
+                      )} */}
                       soon...
                     </td>
                     <td
