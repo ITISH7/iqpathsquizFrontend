@@ -34,7 +34,7 @@ const Statistics = () => {
   const [courseCategories, setCourseCategories] = useState([]);
 
   
-  const { isLoggedIn, userId, GraphUpdateTrigger, setGraphUpdateTrigger, setProgressBarTrigger } = useContext(AuthContext);
+  const { isLoggedIn, userId, GraphUpdateTrigger, setGraphUpdateTrigger, setProgressBarTrigger, user } = useContext(AuthContext);
   
   const service = new Service();
 
@@ -265,7 +265,7 @@ const Statistics = () => {
 
     // Clean up the event listener on component unmount
     return () => window.removeEventListener("resize", updateScrollbarHeight);
-  }, [isLoggedIn]);
+  }, [isLoggedIn, GraphUpdateTrigger]);
 
   useEffect(() => {
     // Wait for the items to render before proceeding
@@ -338,7 +338,8 @@ const Statistics = () => {
     styles.label,
     styles.thumb,
     isLoggedIn,
-  ]); // Add dependencies
+    GraphUpdateTrigger
+  ]); 
 
   let today = new Date();
 
@@ -356,7 +357,7 @@ const Statistics = () => {
   return isLoggedIn ? (
     <div className={styles.statisticsContainer}>
       <div className={styles.statsHeader}>
-        <h1 className={styles.heading}>Hello, Shriyansh</h1>
+        <h1 className={styles.heading}>Hello, {user.name}</h1>
         <img src="src/assets/StatsHeader.svg" alt="Stats Header" />
       </div>
       <div className={styles.courses}>

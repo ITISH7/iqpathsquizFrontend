@@ -165,11 +165,11 @@ export class Service {
     }
   }
 
-  async getSampleQuestionSaveAndReview({ userId, status }) {
+  async getSampleQuestionSaveAndReview({ userId, subjectName }) {
     try {
       return await axios.post("/user/findingReviewAndSaveQuestions", {
         userId,
-        status
+        subjectName
       });
     } catch (error) {
       console.log("Service :: getSampleQuestionSaveAndReview :: error", error);

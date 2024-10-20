@@ -27,7 +27,7 @@
   }
   
   .headerContent h1 {
-    width: 390px;
+    /* width: 390px; */
     height: auto;
     font-family: Barlow;
     font-size: 33px;

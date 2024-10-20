@@ -20,7 +20,7 @@ const Log = ({ onSwitchToSignup }) => {
 
   const navigate = useNavigate();
   const authService = new AuthService();
-  const { setIsLoggedIn, setUserId } = useContext(AuthContext);
+  const { setIsLoggedIn, setUserId, setUser } = useContext(AuthContext);
 
   useEffect(() => {
     // Hide the footer when this component mounts
@@ -45,6 +45,8 @@ const Log = ({ onSwitchToSignup }) => {
     e.preventDefault();
     try {
       const session = await authService.login(formData);
+      setUser(session.data.data);
+      localStorage.setItem("user", JSON.stringify(session.data.data));
       const ID = session.data.data._id;
       setUserId(ID);
       console.log("current user id is ", ID);
@@ -66,7 +68,8 @@ const Log = ({ onSwitchToSignup }) => {
     e.preventDefault();
     try {
         const userData = await authService.createAccount(formData);
-        console.log(userData);
+        setUser(userData.data.data);
+        localStorage.setItem('user', JSON.stringify(userData.data.data));
         const ID = userData.data.data._id;
         console.log("current user id is ", ID);
         setUserId(ID);

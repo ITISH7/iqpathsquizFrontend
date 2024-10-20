@@ -22,6 +22,7 @@ export class AuthService{
     async login({email, password}){
         try {
             return await axios.post("/user/login", {email, password});
+            localStorage.removeItem('user');
         } catch (error) {
             console.log("AuthService :: login :: error", error);
             throw error;
